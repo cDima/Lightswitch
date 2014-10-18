@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "Lightswitch for Philips Hue",
+  "description": "Lightswitch allows you to turn on a lightbulb through the browser. It uses Philips Hue light LEDs and meethue.com api.",
+  "version": "1.0",
+
+  "permissions": [
+    "https://www.meethue.com/"
+  ],
+  "browser_action": {
+    "default_icon": "img/light.appbar.lightbulb.hue.png",
+    "default_popup": "ls.htm"
+  },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+}

@@ -264,7 +264,7 @@ var hue = function ($, colors) {
                         trackButton(e);
                     });
                     if (chrome !== null && chrome.browserAction != null) {
-                        chrome.browserAction.setIcon({path:"img/light.appbar.lightbulb.hue.png"});
+                        chrome.browserAction.setIcon({path:"img/lightswitch.logo.128.png"});
                     }
                     //addControlButtons();
                     //addColorPicker();
@@ -584,7 +584,9 @@ if(typeof(define) !== 'undefined' && typeof(define.amd) !== 'undefined') {
     window.hue.findBridge();
 }
 
-
+if (chrome !== null && chrome.browserAction != null) {
+    chrome.browserAction.setIcon({path:"img/lightswitch.logo.128.png"});
+}
 
 //Google Analytics
 var _gaq = _gaq || [];

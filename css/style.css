@@ -84,6 +84,15 @@
         left: -40px;
         position: absolute;
         top: -13px;
+        
+        height: 47px;
+        width: 41px;
+        float: left;
+        left: -40px;
+        position: absolute;
+        top: -5px;
+        background-image: url('../img/lightswitch.logo.48.png');
+        }
     }
     #lamp-path {
         color: #DADADA;

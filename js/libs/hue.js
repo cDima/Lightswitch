@@ -47,7 +47,9 @@ var hue = function ($, colors) {
          */
         apiSuccess = function(data, successText, jqXHR) {
             lastResult = data;
+            //debugger;
             log(lastResult);
+            getBridgeState();
         },
         
         /**
@@ -236,17 +238,20 @@ var hue = function ($, colors) {
                     log("Authorized");
 
                     var allOn = true;
+                    var lightsReachable = [];
                     $.each(data.lights, function(key, value){
                         //$('#connectStatus').append('<input class="light_select" type="checkbox" id=' + key + ' value="false">') 
                         //$('#connectStatus').append(key + ": " + value.name + "<br>");
 
-                        allOn = allOn && value.state.on;
+                        if (value.state.reachable) lightsReachable.push(value);
+                        allOn = allOn && value.state.reachable && value.state.on;
                     });
 
-
-                    numberOfLamps = Object.keys(data.lights).length
+                    numberOfLamps = Object.keys(lightsReachable).length
                     var message = "No  lights found";
-                    if (numberOfLamps == 1) {
+                    if (numberOfLamps == 0) {
+                        message = "No lights found.";
+                    } else if (numberOfLamps == 1) {
                         message = "One light found.";
                     } else {
                         message = "" + numberOfLamps + " lights found.";

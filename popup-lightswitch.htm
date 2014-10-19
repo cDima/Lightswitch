@@ -13,7 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-lightswitch.css" rel="stylesheet">
     <!--fonts -->
     <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -23,13 +23,6 @@
 
 <body id="page-top" class="background" data-spy="scroll" data-target=".navbar-fixed-top">
     <div id="wrapper"> 
-        <div class="bg-white"></div>
-        <div class="bg-morning"></div>
-        <div class="bg-afternoon"></div>
-        <div class="bg-evening"></div>
-        <div class="bg-night"></div>
-        <div class="bg-morning-2"></div>
-    
         <!-- Intro Header -->
         <header class="intro">
             <div class="intro-body">
@@ -59,11 +52,12 @@
 
                                 </svg> -->
                             </div>
+                            <div class="switch" id="toggle-lights">
+                              <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
+                              <label for="cmn-toggle-1"></label>
+                            </div>
                             <h1 class="brand-heading logo">
-                                <div class="switch" id="toggle-lights">
-                                  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
-                                  <label for="cmn-toggle-1"></label>
-                                </div>
+                                Lightswitch
                             </h1>
                             <p id="connectStatus"></p>
                             <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
@@ -92,8 +86,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-8">
-
-                        <p class="intro-text"><a href="#" id="animate">animate</a></p>
                         <p class="intro-text"><nobr>&copy; 2014 <a href="http://sadakov.com">Dmitry Sadakov</a></nobr></p>
                     </div>
                 </div>

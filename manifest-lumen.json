@@ -25,7 +25,7 @@
   },
   "browser_action": {
     "default_icon": "img/lightswitch.logo.48.png",
-    "default_popup": "popup-lightswitch.htm"
+    "default_popup": "ls.htm"
   },
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

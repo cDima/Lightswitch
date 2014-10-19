@@ -64,6 +64,10 @@ if (chrome !== null && chrome.extension != null) {
         trackButton(e);
     });
 
+    $('#animate').click(function(){
+        
+    });
+
 //Google Analytics
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-55863666-1']);

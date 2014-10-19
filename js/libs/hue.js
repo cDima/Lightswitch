@@ -13,7 +13,7 @@ var hue = function ($, colors) {
     
     var bridgeIP = '', // Hue bridge's IP address 
         apiKey = 'lightswitch-v3', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
-        state = 'init',
+        status = { status: 'init', text: "Initializing..." },
 
         // defaults
         baseUrl = 'http://' + bridgeIP + '/api',
@@ -29,6 +29,7 @@ var hue = function ($, colors) {
         shortFlashState = { alert: shortFlashType },
         longFlashState = { alert: longFlashType },
         transitionTime = null,
+
         
         /**
          * Reconstruct the baseUrl and baseApiUrl members when configuration is updated.
@@ -213,7 +214,7 @@ var hue = function ($, colors) {
             var stateObj = { bri: brightness };
             return stateObj;
         },
-        getAuthenticationStatus = function(){
+        getBridgeState = function(){
             log("Checking Authorization");
             $.ajax({
               dataType: "json",
@@ -233,13 +234,7 @@ var hue = function ($, colors) {
                 else if (data.hasOwnProperty('lights'))
                 {
                     log("Authorized");
-                    $('#cmn-toggle-1').prop('disabled', false);
-                    numberOfLamps = Object.keys(data.lights).length
-                    if (numberOfLamps == 1) {
-                        showStatus("One light found.");
-                    } else {
-                        showStatus("" + numberOfLamps + " lights found.");
-                    }
+
                     var allOn = true;
                     $.each(data.lights, function(key, value){
                         //$('#connectStatus').append('<input class="light_select" type="checkbox" id=' + key + ' value="false">') 
@@ -248,32 +243,25 @@ var hue = function ($, colors) {
                         allOn = allOn && value.state.on;
                     });
 
-                    $('#cmn-toggle-1').prop('checked', allOn);
 
-                    $('.light_select').click(function(e){
-                        //getActiveLights();
-                    });
+                    numberOfLamps = Object.keys(data.lights).length
+                    var message = "No  lights found";
+                    if (numberOfLamps == 1) {
+                        message = "One light found.";
+                    } else {
+                        message = "" + numberOfLamps + " lights found.";
+                    }
+                    updateStatus("OK", message, allOn);
 
-                    $('#cmn-toggle-1').click(function(e){
-                        var turnOn = $('#cmn-toggle-1').is(':checked');
-                        if (turnOn) {
-                            putGroupAction(0, onState);
-                        } else {
-                            putGroupAction(0, offState);
-                        }
-                        trackButton(e);
-                    });
                     if (chrome !== null && chrome.browserAction != null) {
                         chrome.browserAction.setIcon({path:"img/lightswitch.logo.128.png"});
                     }
-                    //addControlButtons();
-                    //addColorPicker();
                 }
             },
             error: function(err){
                     // error
                     log(err);
-                    showStatus("Philip Hue lights not found.");
+                    updateStatus("BridgeNotFount", "Philip Hue bridge not found.");
             },
             timeout: 1000
             });
@@ -292,25 +280,17 @@ var hue = function ($, colors) {
                      if (response[0].hasOwnProperty('error'))
                      {
                         if (response[0].error.description == "link button not pressed") {
-                            showStatus("Bridge found. Press link button.");
+                            updateStatus("Authenticating", "Bridge found. Press link button.");
                             setTimeout(addUser, 2000);
                         } else  {
                             log("Error: " + response[0].error.description);
                         }
-                        /*if ($('#linkButton').length === 0) {
-                            $('#connectStatus') // Replace this selector with one suitable for you
-                                .append('<input type="button" id="linkButton" value="Push link button">') // Create the element
-                                .click(function(){ 
-                                    addUser();
-                            }); // Add a click handler
-                        }*/
-                        
                      }
                      else if (response[0].hasOwnProperty('success'))
                      {
                         //$('#linkButton').remove();
                         log("Authorization successful");
-                        getAuthenticationStatus();
+                        getBridgeState();
                      }
                 }
             });
@@ -320,13 +300,29 @@ var hue = function ($, colors) {
         /**
          * Log to console
          */
-        showStatus = function(text) {
-            $('#connectStatus').html("<div class='intro-text'>" + text + "</div>");
+        updateStatus = function(newStatus, text, data) {
+            var newStatus = { status: newStatus, text: text, data: data };
+            if (JSON.stringify(status) !== JSON.stringify(newStatus) ) {
+                console.log("hue: sending status change, " + newStatus.status + ", text: " + newStatus.text + ", data: " + newStatus.data);
+                status = newStatus;
+                statusChange();
+            }
+            //$('#connectStatus').html("<div class='intro-text'>" + text + "</div>");
         }, 
         log = function(text) {
             console.log("hue: " + text);
             $('.log-text').append(text + "<br>");
-        };
+        },
+
+        // events:
+        statusChangeHandler = null,
+        statusChange = function() { 
+            if (statusChangeHandler != null) {
+                console.log("hue: sending status change, " + status.status + ", text: " + status.text + ", data: " + status.data);
+                statusChangeHandler(status);
+            }
+        }
+        ;
         
     return {
         /** 
@@ -410,6 +406,7 @@ var hue = function ($, colors) {
          * @return {Object} JSON object containing lamp state.
          */
         turnOffAll: function() {
+            if (status.status == "OK") { status.data = false; }
             return putGroupAction(0, offState);
         },
         /** 
@@ -418,6 +415,7 @@ var hue = function ($, colors) {
          * @return {Object} JSON object containing lamp state.
          */
         turnOnAll: function() {
+            if (status.status == "OK") { status.data = true; }
             return putGroupAction(0, onState);
         },
         /**
@@ -550,7 +548,7 @@ var hue = function ($, colors) {
                         log("Found bridge at " + bridgeIP);
                         updateURLs();
 
-                        getAuthenticationStatus();
+                        getBridgeState();
                     }
                     else{
                         log("Bridge not found");
@@ -559,7 +557,7 @@ var hue = function ($, colors) {
                 error: function(err){
                     // error
                     log(err);
-                    showStatus("Philip Hue lights not found.");
+                    updateStatus("BridgeNotFound", "Philip Hue lights not found.");
                 }
             });
         },
@@ -572,10 +570,21 @@ var hue = function ($, colors) {
             if(typeof(numLamps) === 'number') {
                 numberOfLamps = numLamps;
             }
+        },
+        //status: status,
+        // events
+        onStatusChange: function  (func) {
+            console.log("new subscriber to status change registered; internal status" + status);
+            statusChangeHandler = func;
+            statusChangeHandler(status);
+        }, 
+        heartbeat: function(){
+            return getBridgeState();
         }
     };
 };
 
+/* handled in background.js 
 if(typeof(define) !== 'undefined' && typeof(define.amd) !== 'undefined') {
     define(["../jquery", "./colors"], hue);
 } else {
@@ -583,22 +592,9 @@ if(typeof(define) !== 'undefined' && typeof(define.amd) !== 'undefined') {
     window.hue = hue(window.jQuery, window.colors);
     window.hue.findBridge();
 }
+*/
 
+/* handled in popup.js 
 if (chrome !== null && chrome.browserAction != null) {
     chrome.browserAction.setIcon({path:"img/lightswitch.logo.128.png"});
-}
-
-//Google Analytics
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-55863666-1']);
-_gaq.push(['_trackPageview']);
-
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-
-function trackButton(e) {
-    _gaq.push(['_trackEvent', e.target.id, 'clicked']);
-  };
+}*/

@@ -7,6 +7,7 @@
         padding: 0;
         font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
         color: #555;
+        color: #B5B5B5;
         min-width: 320px
         min-height: 150px;
         height: 135px;
@@ -15,6 +16,7 @@
     }
     .offset {
       margin-left: 35px;
+      width: 226px;
     }
     .background{
       background-repeat: no-repeat;
@@ -28,6 +30,8 @@
       -moz-transition: background .5s ease-out;  
       -o-transition: background .5s ease-out;  
       transition: background .5s ease-out; 
+
+      background: white;
     }
     #wrapper  {
       position: relative;
@@ -50,6 +54,144 @@
         -webkit-animation: fadein 3s; /* Safari and Chrome */
         -o-animation: fadein 3s; /* Opera */
     }
+    
+    #lamp {
+        /*background-image: url('img/appbar.lightbulb.hue.svg');
+        background-repeat: no-repeat;
+        background-color: red;
+        background-blend-mode: luminosity;
+        */
+        /*screen, overlay, darken, lighten, color-dodge, color-burn, hard-light, soft-light, difference, exclusion, hue, saturation, color,  luminosity, reset*/
+        height: 47px;
+        width: 25px;
+        float: left;
+        left: -40px;
+        position: absolute;
+        top: -13px;
+        
+        height: 47px;
+        width: 41px;
+        float: left;
+        left: -33px;
+        position: absolute;
+        top: -5px;
+        background-image: url('../img/lightswitch.logo.48.png');
+        background-size: 80%;
+        background-repeat: no-repeat;
+        background-position-x: 10px;
+        background-position-y: 6px;
+
+        display: none;
+    }
+    #lamp-path {
+        color: #DADADA;
+        fill: currentColor;   
+    }
+    #lamp-color {
+        color: #fff;
+        fill: currentColor;      
+    }
+    .logo {
+      height: 50px;
+      margin: 0;
+      font-size: 35px;
+      background-image: url('../img/lightswitch.grey.png');
+      background-repeat: no-repeat;
+      background-size: 200px;
+      text-indent: -3000px;
+      
+    }
+    .switch {
+      padding-top: 12px;
+      padding-left: 218px;
+      position: absolute;
+
+      padding-top: 50px;
+      padding-left: 81px;
+      padding-left: 76px;
+      position: absolute;
+    }
+    .switch {
+        animation: fadeout 2s;
+    }
+    #connectStatus {
+      font-size: 0.7em;
+      text-align: center;
+    }
+    p {margin: 0 0 5px;}
+    footer {
+      position: absolute;
+      bottom: 0px;
+      right: 0;
+      width: 250px;
+      font-size: 0.8em;
+      font-size: 0.7em;
+    }
+
+    .cmn-toggle {
+      position: absolute;
+      margin-left: -9999px;
+      visibility: hidden;
+    }
+    .cmn-toggle + label {
+      display: block;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      user-select: none;
+    }
+    input.cmn-toggle-round + label {
+      padding: 1px;
+      width: 40px;
+      height: 20px;
+      background-color: #fff;
+      background-color: #EFEFEF;
+      border-radius: 20px;
+
+      background-color: #EDEDED;
+      border-radius: 20px;
+      /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);*/
+    }
+    input.cmn-toggle-round + label:before,
+    input.cmn-toggle-round + label:after {
+      display: block;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      bottom: 1px;
+      content: "";
+    }
+    input.cmn-toggle-round + label:before {
+      right: 2px;
+      background-color: #f1f1f1;
+      border-radius: 20px;
+      transition: background 0.4s;
+    }
+    input.cmn-toggle-round + label:after {
+      width: 20px;
+      background-color: #fff;
+      border-radius: 100%;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      transition: margin 0.4s;
+    }
+    input.cmn-toggle-round:checked + label:before {
+      background-color: #EFEFEF;
+      background-color: #8ce196;
+      background-color: #FFFD6F;
+      background-color: #FFFEA5;
+      box-shadow: 0 1px 2px rgba(253, 244, 72, 0.2)
+    }
+    input.cmn-toggle-round:checked + label:after {
+      margin-left: 20px;
+    }
+    input.cmn-toggle-round:disabled + label:before,  
+    input.cmn-toggle-round:disabled + label:after   {
+      background-color: #ddd;
+    }
+    input.cmn-toggle-round:disabled + label   {
+      background-color: #ccc;
+    }
+
     @keyframes fadein {
         from {
             opacity:0;
@@ -82,114 +224,36 @@
             opacity: 1;
         }
     }
-    #lamp {
-        /*background-image: url('img/appbar.lightbulb.hue.svg');
-        background-repeat: no-repeat;
-        background-color: red;
-        background-blend-mode: luminosity;
-        */
-        /*screen, overlay, darken, lighten, color-dodge, color-burn, hard-light, soft-light, difference, exclusion, hue, saturation, color,  luminosity, reset*/
-        height: 47px;
-        width: 25px;
-        float: left;
-        left: -40px;
-        position: absolute;
-        top: -13px;
-        
-        height: 47px;
-        width: 41px;
-        float: left;
-        left: -33px;
-        position: absolute;
-        top: -5px;
-        background-image: url('../img/lightswitch.logo.48.png');
+
+    @keyframes fadeout {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
         }
     }
-    #lamp-path {
-        color: #DADADA;
-        fill: currentColor;   
+    @-moz-keyframes fadeout { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
     }
-    #lamp-color {
-        color: #fff;
-        fill: currentColor;      
+    @-webkit-keyframes fadeout { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
     }
-    .logo {
-      height: 50px;
-      margin: 0;
-      font-size: 35px;
-      background-image: url('../img/lightswitch.white.bold.png');
-      background-repeat: no-repeat;
-      background-size: 200px;
-      text-indent: -3000px;
-      
-    }
-    .switch {
-      padding-top: 12px;
-      padding-left: 218px;
-      position: absolute;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 0px;
-      right: 0;
-      width: 250px;
-      font-size: 0.8em;
-    }
-
-    .cmn-toggle {
-      position: absolute;
-      margin-left: -9999px;
-      visibility: hidden;
-    }
-    .cmn-toggle + label {
-      display: block;
-      position: relative;
-      cursor: pointer;
-      outline: none;
-      user-select: none;
-    }
-    input.cmn-toggle-round + label {
-      padding: 1px;
-      width: 40px;
-      height: 20px;
-      background-color: #fff;
-      background-color: #EFEFEF;
-      border-radius: 20px;
-    }
-    input.cmn-toggle-round + label:before,
-    input.cmn-toggle-round + label:after {
-      display: block;
-      position: absolute;
-      top: 1px;
-      left: 1px;
-      bottom: 1px;
-      content: "";
-    }
-    input.cmn-toggle-round + label:before {
-      right: 2px;
-      background-color: #f1f1f1;
-      border-radius: 20px;
-      transition: background 0.4s;
-    }
-    input.cmn-toggle-round + label:after {
-      width: 20px;
-      background-color: #fff;
-      border-radius: 100%;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-      transition: margin 0.4s;
-    }
-    input.cmn-toggle-round:checked + label:before {
-      background-color: #EFEFEF;
-      background-color: #8ce196;
-    }
-    input.cmn-toggle-round:checked + label:after {
-      margin-left: 20px;
-    }
-    input.cmn-toggle-round:disabled + label:before,  
-    input.cmn-toggle-round:disabled + label:after   {
-      background-color: #ddd;
-    }
-    input.cmn-toggle-round:disabled + label   {
-      background-color: #ccc;
+    @-o-keyframes fadeout { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
     }

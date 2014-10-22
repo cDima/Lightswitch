@@ -19,6 +19,9 @@ if (chrome !== null && chrome.extension != null) {
     //chrome.runtime.onMessage.addListener(function (message, sender, callback){
         // received message from hue backend
     //});
+
+    $(".switch").hide();
+
     console.log("client: binding to status change.");
 
     var statusText = "";
@@ -29,14 +32,21 @@ if (chrome !== null && chrome.extension != null) {
 
         if (status.status == "OK") {
             $('#cmn-toggle-1').prop('disabled', false);
-            if (statusText !== status.text) {
-                statusText = status.text;
-                $('#connectStatus').html("<div class='intro-text'>" + status.text + "</div>");
-            }
+            //if (statusText !== status.text) {
+            //    statusText = status.text;
+            //    $('#connectStatus').html("<div class='intro-text'>" + status.text + "</div>");
+            //}
+            $("#connectStatus").fadeOut(600, function() {
+                $(".switch").fadeIn(600);
+            });
             $('#cmn-toggle-1').prop('checked', status.data);
         } else {
             $('#cmn-toggle-1').prop('disabled', true);
             $('#cmn-toggle-1').prop('checked', false);
+
+            $(".switch").fadeOut(600, function() {
+                $("#connectStatus").fadeIn(600);
+            });
         }
 
         //updateStatus("BridgeNotFount", "Philip Hue lights not found.");

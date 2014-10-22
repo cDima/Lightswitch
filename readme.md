@@ -25,4 +25,4 @@ For updates, bugs and ideas, please contact sadakov.com, sadakov@gmail.com or @c
 
 [Available on the Chrome Web Store](https://chrome.google.com/webstore/detail/lightswitch-for-philips-h/ejkhknemoeccfghmfnbpekpkndaffjjm?hl=en&gl=US)
 
-Made in ♥ New York City by [Dmitry Sadakov](http://sadakov.com)
+Made with ♥ in New York City by [Dmitry Sadakov](http://sadakov.com)

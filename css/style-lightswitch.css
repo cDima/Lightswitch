@@ -13,7 +13,11 @@
         height: 135px;
         margin: 0 auto;
         background-color: #000;
+
     }
+
+    a:focus {outline:0;}
+
     .offset {
       margin-left: 35px;
       width: 226px;

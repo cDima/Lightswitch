@@ -259,7 +259,11 @@ var hue = function ($, colors) {
                     updateStatus("OK", message, allOn);
 
                     if (chrome !== null && chrome.browserAction != null) {
-                        chrome.browserAction.setIcon({path:"img/lightswitch.logo.128.png"});
+                        if (allOn)  {
+                            chrome.browserAction.setIcon({path:"img/lightswitch.logo.on.128.png"});
+                        } else {
+                            chrome.browserAction.setIcon({path:"img/lightswitch.logo.128.png"});
+                        }
                     }
                 }
             },

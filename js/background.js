@@ -7,6 +7,7 @@
 //var back = chrome.extention.getBackgroundPage()
 window.hue = hue(window.jQuery, window.colors);
 window.hue.findBridge();
+window.sceneCmd = sceneCommander(window.jQuery, window.hue);
 
 //var heartbeat = setInterval(window.hue.heartbeat, 500);
 //chrome.browserAction.setPopup('')

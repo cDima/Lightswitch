@@ -13,7 +13,8 @@
             "128": "img/lightswitch.logo.on.128.png" },
 
   "permissions": [
-    "https://www.meethue.com/"
+    "https://www.meethue.com/",
+    "http://www.colourlovers.com/"
   ],
   "background": {
     "scripts": [
@@ -32,5 +33,5 @@
     "default_icon": "img/lightswitch.logo.48.png",
     "default_popup": "popup.htm"
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+  "content_security_policy": "script-src 'self' https://*.list-manage.com https://ssl.google-analytics.com; object-src 'self';"
 }

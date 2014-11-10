@@ -245,6 +245,22 @@ footer {
         opacity:1;
     }
 }
+@-webkit-keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadeout {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
 
 .tab-content h2,
 .scene-name,

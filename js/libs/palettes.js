@@ -56,5 +56,12 @@ var Palettes = {
         // '#ffcccc',
         // '#ffe5e5',
         // '#ffffff'
+    ],
+    'Sunrise': [
+        '#FF8E74',
+        '#FFB376',
+        '#FFDF80',
+        '#FFFA90',
+        '#CBF2FF'
     ]
 };

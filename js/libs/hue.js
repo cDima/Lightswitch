@@ -12,7 +12,7 @@ var hue = function ($, colors) {
     'use strict';
     
     var bridgeIP = '', // Hue bridge's IP address 
-        apiKey = 'lightswitch-v3', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
+        apiKey = 'lightswitch-v4', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
         status = { status: 'init', text: "Initializing..." }, // system status
         state = null, // bridge state
 
@@ -49,7 +49,6 @@ var hue = function ($, colors) {
         apiSuccess = function(data, successText, jqXHR) {
             lastResult = data;
             log(JSON.stringify(lastResult));
-            //getBridgeState();
         },
         
         /**
@@ -231,26 +230,26 @@ var hue = function ($, colors) {
             $.ajax({
               dataType: "json",
               url: baseApiUrl,
-              success: function(dataArray) {
-
-                var data = dataArray;
-                if ($.isArray(data)) {
-                    data = dataArray[0]; // take first
-                }
-
-                if (data.hasOwnProperty('error') && data.error.description == "unauthorized user")
-                {
-                    log("Not authorized with bridge, registering...");
-                    addUser();
-                }
-                else if (data.hasOwnProperty('lights'))
-                {
-                    onAuthorized(data);
-                }
-            },
+              success: onGotBridgeState,
             error: onAuthError,
-            timeout: 3000
+            timeout: 2000
             });
+        },
+        onGotBridgeState = function(dataArray) {
+            var data = dataArray;
+            if ($.isArray(data)) {
+                data = dataArray[0]; // take first
+            }
+
+            if (data.hasOwnProperty('error') && data.error.description == "unauthorized user")
+            {
+                log("Not authorized with bridge, registering...");
+                addUser();
+            }
+            else if (data.hasOwnProperty('lights'))
+            {
+                onAuthorized(data);
+            }
         },
         onAuthorized = function(data){
             log("Authorized");
@@ -292,7 +291,7 @@ var hue = function ($, colors) {
                 getBridgeState(); // retry
             } else {
                 log("error on auth: " + err);
-                updateStatus("BridgeNotFount", "Philip Hue bridge not found.");
+                updateStatus("BridgeNotFound", "Philip Hue bridge not found.");
             }
         },
         addUser = function(){
@@ -304,7 +303,6 @@ var hue = function ($, colors) {
                 type: 'POST',
                 data: dataString,
                 success: function(response) {
-                     debugger;
                      log(response);
                      if (response[0].hasOwnProperty('error'))
                      {
@@ -572,15 +570,14 @@ var hue = function ($, colors) {
          * @param {String} IP Address as a String (e.g. 192.168.1.1)
          * @param {String} API key that was registered with the Hue bridge.
          */
-        setIpAndApiKey: function(ip, key) {
-            apiKey = key;
+        setIp: function(ip) {
             bridgeIP = ip;
             updateURLs();
         },
         /**
          * Find bridges  findBridge() a upnp, then scan, then predefined typical ips. 
          */
-        findBridge: function() {
+        findBridge: function(onerror) {
             log('Requesting meethue.com/api/nupnp.');
             $.ajax({
                 url: 'https://www.meethue.com/api/nupnp',
@@ -608,6 +605,7 @@ var hue = function ($, colors) {
                     // error
                     log(err);
                     updateStatus("BridgeNotFound", "Philip Hue lights not found.");
+                    if (onerror != null) onerror(err);
                 }
             });
         },

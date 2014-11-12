@@ -76,7 +76,7 @@ var sceneCommander = function ($, hue) {
 
 var scenes = {
 	"Romantic Red": {
-		interval: 1000,
+		interval: 2000,
 		Palette: Palettes['RomanticRed'],
 		update: function(numberOfLampsIn) {
 			return scenes.randomPallete(numberOfLampsIn, this.Palette);
@@ -84,10 +84,14 @@ var scenes = {
 	},
 	"Sunrise": {
 		interval: 5000,
-		Palette: Palettes['Fluorescents'],
+		Palette: Palettes['Sunrise'],
 		update: function(numberOfLampsIn) {
-			return scenes.randomPallete(numberOfLampsIn, this.Palette);
-		}
+            scenes["Sunrise"].index++;
+            if (scenes["Sunrise"].index >= this.Palette.length)
+                scenes["Sunrise"].index = 0;
+			return scenes.cycle(numberOfLampsIn, this.Palette, scenes["Sunrise"].index);
+		},
+        index: 0
 	},
 	"Disco": {
 		interval: 100,
@@ -96,10 +100,25 @@ var scenes = {
 			return scenes.randomPallete(numberOfLampsIn, this.Palette);
 		}
 	},
-	randomPallete: function(numberoflamps, palette){
-		var lightStates = [];
+    makeArray: function(numberoflamps){
         if (!$.isArray(numberoflamps)) numberoflamps = [numberoflamps];
+        return numberoflamps;
+    },
+    cycle:  function(numberoflamps, palette, cycleIndex){
+        numberoflamps = scenes.makeArray(numberoflamps);
+        var lightStates = [];
 
+        $.each(numberoflamps, function(index, val){
+            var color = palette[cycleIndex]; 
+            lightStates.push({lamp: val, color: color});
+        });
+        
+        return lightStates;
+    },
+	randomPallete: function(numberoflamps, palette){
+        numberoflamps = scenes.makeArray(numberoflamps);
+
+        var lightStates = [];
         $.each(numberoflamps, function(index, val){
             var color = palette[Math.round(Math.random() * (palette.length - 1))]; // random
             lightStates.push({lamp: val, color: color});

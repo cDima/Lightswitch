@@ -44,6 +44,11 @@
                             <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
                                 <i class="fa fa-angle-double-down animated"></i>
                             </a> -->
+                            <p id="manualbridgeip" class="fade3 delay2">
+                              <input class="bridgeip input" hint="Enter the bridge IP..." />
+                              <button class="submit" name="Find" type="submit"  id="findbridge" value="Find">Find</button>
+                            </p>
+                            </p>
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -59,8 +64,8 @@
                       <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Rooms</a></li>
                       <li role="presentation"><a href="#moods" role="tab" data-toggle="tab">Moods</a></li>
                       <!--<li role="presentation"><a href="#search" role="tab" data-toggle="tab">Search</a></li>-->
-                      <li role="presentation"><a href="#scenes" role="tab" data-toggle="tab">
-                      Scenes</a></li>
+                      <li role="presentation"><a href="#colors" role="tab" data-toggle="tab">
+                      Colors</a></li>
                       <li role="presentation"><a href="#feedback" role="tab" data-toggle="tab"><i class="fa fa-paper-plane-o"></i></a></li>
                       <!--
                       <li role="presentation"><a href="#settings" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>
@@ -85,6 +90,8 @@
                             <div id="groups"></div>
                             <h5>Lamps</h5>
                             <div id="lamps"></div>
+                            <h5>More lights</h5>
+                            <div class="pane-body"><a href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue Lights, Strips, Irises on Amazon »</a> </div>
                         </div>
                       </div>
                       <div role="tabpanel" class="tab-pane fade in" id="moods">
@@ -100,44 +107,52 @@
                           <h5 class="colors-name">Daytime</h5>
                           <h5 class="colors-name">Afternoon</h5>-->
                           <br />
+                          <h5>Portal Scenes</h5>
+                          <div id="scenes"></div>
+                      </div>
+                      </div>
+
+                      <div role="tabpanel" class="tab-pane fade in" id="colors">
+                        <div class="panel-body">
                           <h5>Solid colors</h5> 
                           <div id="solid-palette">
                             <div class="palette" data-palette="Kelvin degrees"></div>
                             <div class="palette" data-palette="Fluorescents"></div>
                             <div class="palette" data-palette="Rainbow"></div>
                           </div>
-                      </div>
-                      </div>
-
-                      <div role="tabpanel" class="tab-pane fade in" id="scenes">
-                        <div class="panel-body">
-
-                            <h5>Scenes</h5>
-                            <div id="scenes"></div>
-                      </div>
+                          <!-- colorpicker element -->
+                          <div class="colorpicker">
+                              <canvas id="picker" var="1" width="100" height="100"></canvas>
+                              <canvas id="picker2" var="1" width="100" height="100"></canvas>
+                              <div id="rgbVal"></div>
+                          </div>
+                        </div>
                       </div>
 
                       <div role="tabpanel" class="tab-pane fade in" id="feedback">
                         <div class="panel-body">
-                            <h5>Feedback</h5>
-                            <div class="pane-body">
-                            Send ideas &amp; feedback to the author of Lightswitch — 
-                            <b>apistarter@gmail.com</b>
-                            </div>
                             <h5>Subscribe to our newsletter</h5>
                             <div class="pane-body">
                             Enter your email to be the first to know about new features for hue when they are out:
                             </div>
-
-                          <div id="newsletter_form">
-                              <form action="" method="post" class="subscribe-form" name="mc-embedded-subscribe-form"  id="mc-embedded-subscribe-form" novalidate>
-                                  <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input" placeholder="Enter your e-mail address..." required="">
-                                  <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="subscribe-submit submit">Notify Me</button>
-                                  <input type="text" style="display:none;" name="b_83c6f205a4379f5136e187d52_cad0da3b8a" tabindex="-1" value="">
-                              </form>
-                              <div class="successsubscribe">Thanks for subscribing, we will be in touch</div>
-                          </div>
-
+                            <div id="newsletter_form">
+                                <form action="" method="post" class="subscribe-form" name="mc-embedded-subscribe-form"  id="mc-embedded-subscribe-form" novalidate>
+                                    <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input" placeholder="Enter your e-mail address..." required="">
+                                    <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="subscribe-submit submit">Notify Me</button>
+                                    <input type="text" style="display:none;" name="b_83c6f205a4379f5136e187d52_cad0da3b8a" tabindex="-1" value="">
+                                </form>
+                                <div class="successsubscribe">Thanks for subscribing, we will be in touch</div>
+                            </div>
+                            <br />
+                            <h5>Feedback</h5>
+                            <div class="pane-body">
+                            Send ideas &amp; feedback, and bugs to Dmitry at 
+                            <b><a href="mailto:apistarter@gmail.com" target="_blank">apistarter@gmail.com</a></b>. 
+                            </div>
+                            <div class="pane-body">
+                            <br />
+                            Made with ♥ in New York City.
+                            </div>
                         </div>
                       </div>
                       <div role="tabpanel" class="tab-pane fade in" id="search">

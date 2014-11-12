@@ -14,7 +14,7 @@ window.sceneCmd = sceneCommander(window.jQuery, window.hue);
 
 //Google Analytics
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-55863666-1']);
+_gaq.push(['_setAccount', 'UA-55863666-2']);
 _gaq.push(['_trackPageview']);
 
 (function() {

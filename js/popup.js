@@ -141,11 +141,66 @@ function log(text) {
 }
 
             
+$('#manualbridgeip').hide();
+/* bridge ip */
+
+$('#manualbridgeip .input').keyup(function(e){
+    if(e.keyCode == 13) tryBridge();
+});
+
+$("#manualbridgeip button").click(tryBridge);
+
+function tryBridge(){
+  var ip = $('#manualbridgeip input').val();
+  tryIP(ip,function() {
+    $('#manualbridgeip')
+      .addClass('shake')
+      .bind('oanimationend animationend webkitAnimationEnd', function() { 
+       $('#manualbridgeip').removeClass("shake");
+    });
+  });
+}
+
+function bruteForseIPs(){
+  // try default ips for win and mac
+  var ips = [];
+  for(var i = 0; i < 21; i++) {
+    ips.push("10.0.1." + i); // mac: 10.0.1.1-20
+    ips.push("192.168.0." + i); // win: 192.168.0.1-20
+    ips.push("192.168.1." + i); // win: 192.168.1.1-20
+    ips.push("192.168.0." + (100+i)); // win: 192.168.1.100-120
+  }
+  for (var index = 0; index < ips.length; index++) {
+    tryIP(ips[index], function() { /* nothing */ });
+  }
+}
+
+function tryIP(ip, error){
+  $.ajax({
+        dataType: "json",
+        url: 'http://' + ip + '/api/123-bogus',
+        success: function(){
+          hue.setIp(ip);
+          hue.heartbeat();
+        },
+        error: error,
+      timeout: 2000
+    });
+}
+
 function onStatus(status) {
     console.log("client: status changed - " + status.status);
-    $('#connectStatus').html("<div class='intro-text'>" + status.text + "</div>");
     
+    if (status.status == "BridgeNotFound") {
+      $('#manualbridgeip').show();
+      $('#connectStatus').html("<div class='intro-text'><a href='http://bit.ly/lightswitchhue' target='_blank'>Philip Hue bridge</a> not found.</div>");
+      $('html').animate({height: "160"}, 0);
+      bruteForseIPs();
+    } 
+
     if (status.status == "OK") {
+        $('#connectStatus').html("<div class='intro-text'>" + status.text + "</div>");
+        $('#manualbridgeip').hide();
         $('#cmn-toggle-1').prop('disabled', false);
         //if (statusText !== status.text) {
         //    statusText = status.text;
@@ -159,6 +214,7 @@ function onStatus(status) {
         });
         $('#cmn-toggle-1').prop('checked', status.data);
     } else {
+        $('#connectStatus').html("<div class='intro-text'>" + status.text + "</div>");
         $('#cmn-toggle-1').prop('disabled', true);
         $('#cmn-toggle-1').prop('checked', false);
 
@@ -203,11 +259,18 @@ function fillSettings() {
         });
         $.each(state.scenes, function(key, value) {
             log("Scenes: " + key  + ", name: " + value.name + ", # lights: " + value.lights.length);
-            var btn = $('<button type="button" class="savedscene"></button>').text(value.name).attr('id', key);
-            btn.click(function(){
-              hueCommander.command('scene:' + key);
-            });
-            $("#scenes").append(btn);
+
+            if (value.name.endsWith(" on 0"))
+            {
+              normalName = value.name.substring(0,value.name.length - " on 0".length);
+              if ($("#scenes button:contains('" + normalName + "')").length == 0) {
+                var btn = $('<button type="button" class="savedscene"></button>').text(normalName).attr('id', key);
+                btn.click(function(){
+                  hueCommander.command('scene:' + key);
+                });
+                $("#scenes").append(btn);
+              }
+            } 
         });
         log("Config: " + state.config.name 
             + ", version: " + state.config.swversion
@@ -218,6 +281,12 @@ function fillSettings() {
         hueCommander.setActor('group:1');
         $("#groups button[id=1]").addClass("active");
     }
+}
+
+if (typeof String.prototype.endsWith !== 'function') {
+    String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
 }
 
 function showControls(){
@@ -315,7 +384,7 @@ $('.command').click(executeCommand); // buttons
 
 //Google Analytics
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-55863666-1']);
+_gaq.push(['_setAccount', 'UA-55863666-2']);
 _gaq.push(['_trackPageview']);
 
 (function() {
@@ -328,3 +397,58 @@ function trackButton(e) {
     _gaq.push(['_trackEvent', e.target.id, 'clicked']);
   };
 
+// color wheel:
+
+
+// create canvas and context objects
+function placeImage(picker, imgsrc){
+  var canvas = document.getElementById(picker);
+  var ctx = canvas.getContext('2d');
+
+  // drawing active image
+  var image = new Image();
+  // select desired colorwheel
+  image.src=imgsrc;
+  image.onload = function () {
+      ctx.drawImage(image, 0, 0, image.width, image.height); // draw the image on the canvas
+  }
+}
+
+placeImage("picker", "img/colorbox-100.png");
+placeImage("picker2", "img/colorwheel-100.png");
+//placeImage("#picker", "img/colorwhell2.png");
+
+//$('#picker').click(function(e) { // click event handler
+$('#picker, #picker2, #picker3').mousemove(getColor);
+$('#picker, #picker2, #picker3').click(function(e, ev){
+  var hex = getColor(e);
+  window.hueCommander.command(hex); 
+});
+
+function getColor(e){
+    // get coordinates of current position
+    var canvasOffset = $(e.target).offset();
+    var canvasX = Math.floor(e.pageX - canvasOffset.left);
+    var canvasY = Math.floor(e.pageY - canvasOffset.top);
+
+    // get current pixel
+    var ctx = document.getElementById(e.target.id).getContext('2d');
+    var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
+    var pixel = imageData.data;
+
+    // update preview color
+    var pixelColor = "rgb("+pixel[0]+", "+pixel[1]+", "+pixel[2]+")";
+    $('.preview').css('backgroundColor', pixelColor);
+
+    // update controls
+    //$('#rVal').val(pixel[0]);
+    //$('#gVal').val(pixel[1]);
+    //$('#bVal').val(pixel[2]);
+    //$('#rgbVal').text(pixel[0]+','+pixel[1]+','+pixel[2]);
+
+    var dColor = pixel[2] + 256 * pixel[1] + 65536 * pixel[0];
+    var hex = '#' + ('0000' + dColor.toString(16)).substr(-6);
+    //$('#hexVal').val();
+    $('#rgbVal').css({backgroundColor: hex});
+    return hex;
+}

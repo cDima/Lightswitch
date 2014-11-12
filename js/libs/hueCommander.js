@@ -27,7 +27,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 });
             }
 
-            if (command.lastIndexOf('scene:', 0) === 0) {                
+            if (command.lastIndexOf('scene:', 0) === 0) {
                 var sceneName = command.substring(6);
                 sceneCmd.start(sceneName, actors);
             }

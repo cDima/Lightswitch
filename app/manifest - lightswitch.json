@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "Lightswitch for Philips Hue",
+  "short_name": "Lightswitch",
+  "description": "Lightswitch allows control over digitally connected lightbulbs, such as Philips Hue.",
+  "version": "1.1",
+
+  "author": "Dmitry Sadakov (sadakov.com)",
+  "icons": { "16": "img/lightswitch.logo.16.png",
+             "32": "img/lightswitch.logo.32.png",
+             "48": "img/lightswitch.logo.48.png",
+            "128": "img/lightswitch.logo.128.png" },
+
+  "permissions": [
+    "https://www.meethue.com/"
+  ],
+  "background": {
+    "scripts": [
+      "js/libs/jquery-1.11.0.js",
+      "js/libs/colors.js",
+      "js/libs/hue.js",
+      "js/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "img/lightswitch.logo.48.png",
+    "default_popup": "popup.htm"
+  },
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+}

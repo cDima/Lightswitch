@@ -103,7 +103,7 @@ $('#colorsearch').keyup(function(e){
 $('button#search').click(initSearch);
 
 function initSearch(){
-    $.getJSON('https://colourlovers.herokupapp.com/api/palettes/top?jsonCallback=?', {
+    $.getJSON('https://colorlovers.herokuapp.com/api/palettes/top?jsonCallback=?', {
           keywords: $('#colorsearch').val(),
           numResults: 7
     }, function(allPalettes) {
@@ -131,6 +131,12 @@ function showPalettes(palettes){
     });
 
     $('.palette-name', result).text(v.title);
+
+    $(result).click(function(){
+      scenes.RelaxedRandom.Palette = v.colors;
+      hueCommander.command('scene:RelaxedRandom');
+      activatedScene('RelaxedRandom');
+    });
 
     results.append(result);
   });  

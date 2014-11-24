@@ -11,6 +11,13 @@
 'use strict';
 
 var scenes = {
+    'RelaxedRandom': {
+        interval: 2000,
+        Palette: Palettes.RomanticRed,
+        update: function(numberOfLampsIn) {
+            return scenes.randomPallete(numberOfLampsIn, this.Palette);
+        }
+    },
 	'Romantic Red': {
 		interval: 2000,
 		Palette: Palettes.RomanticRed,

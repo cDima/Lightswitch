@@ -276,9 +276,11 @@ footer {
   width: 114px;
   overflow: hidden;
   height: 22px;
+  cursor: pointer;
 }
 .palette-name {
-  padding-left: 0px;
+  padding-left: 8px;
+  width: 150px;
 }
 .tab-content h2 {
   font-size: 11px;
@@ -333,6 +335,10 @@ footer {
   width: 55%;
   margin-right: 10px;
 }
+.palette .colors {
+  width: 115px;
+}
+
 .scene {
   cursor: pointer;
 }
@@ -442,10 +448,13 @@ footer {
     background: #000;
 }
 
-.newsletter_form, 
-.search{
+.newsletter_form{
   overflow: hidden;
   width: 280px;
+  display: table;
+}
+
+.search{
   display: table;
 }
 

@@ -14,7 +14,7 @@
 
   "permissions": [
     "https://www.meethue.com/",
-    "https://colourlovers.herokuapp.com/"
+    "https://colorlovers.herokuapp.com"
   ],
   "background": {
     "scripts": [
@@ -35,5 +35,5 @@
     "default_icon": "img/lightswitch.logo.128.png",
     "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://*.list-manage.com http://colourlovers.herokuapp.com https://ssl.google-analytics.com; object-src 'self';"
+  "content_security_policy": "script-src 'self' https://*.list-manage.com https://colorlovers.herokuapp.com https://ssl.google-analytics.com; object-src 'self';"
 }

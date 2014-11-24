@@ -160,6 +160,7 @@ gulp.task('serve', ['styles'], function() {
     //       will present a certificate warning in the browser.
     // https: true,
     server: ['.tmp', 'app']
+    //index: 'popup.html'
   });
 
   gulp.watch(['app/**/*.html'], reload);

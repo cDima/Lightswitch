@@ -342,6 +342,12 @@ footer {
   background: #F2F2F2;
   border-radius: 20px;
 }
+
+.scene.active
+{
+  background-color: #FFFE99;
+}
+
 .scene:hover .colors {
     position: relative;
     transform: scale(1.05);

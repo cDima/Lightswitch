@@ -66,5 +66,27 @@ var Palettes = {
         '#FFDF80',
         '#FFFA90',
         '#CBF2FF'
-    ]
+    ],
+    'Thanksgiving': [
+        '#FFC300',
+        '#FF6200',
+        '#FF0000',
+        '#CD0500',
+        '#690F00',
+    ],
+    'TurkeyFeast': [
+        '#DE7600',
+        '#BF7117',
+        '#965811',
+        '#9E4A0E',
+        '#663715',
+    ],
+    'TurkeyDinner': [
+        { name: 'Salad', color: '#456905'},
+        { name: 'Tabasco', color: '#B2A509'},
+        { name: 'Turkey Girll', color: '#E0E610'},
+        { name: 'Salmon', color: '#FE6823'},
+        { name: 'Grow Light Fluorescent', color: '#FFEFF7'},
+        { name: 'Catch a turkey', color: '#AA5B00'}
+    ],
 };

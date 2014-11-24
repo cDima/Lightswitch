@@ -25,6 +25,7 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
+var zip = require('gulp-zip');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
 
@@ -50,6 +51,13 @@ gulp.task('jshint', function() {
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+});
+
+
+gulp.task('zip', function () {
+    return gulp.src('dist/**')
+        .pipe(zip('lightswitch.zip'))
+        .pipe(gulp.dest(''));
 });
 
 // Optimize Images
@@ -141,7 +149,7 @@ gulp.task('html', function() {
 });
 
 // Clean Output Directory
-gulp.task('clean', del.bind(null, ['.tmp', 'dist/**/*', '!dist/.git']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist/**/*', 'lightswitch.zip', '!dist/.git']));
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['styles'], function() {
@@ -174,7 +182,7 @@ gulp.task('serve:dist', ['default'], function() {
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
-  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy'], cb);
+  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy' ], 'zip', cb);
 });
 
 // Run PageSpeed Insights

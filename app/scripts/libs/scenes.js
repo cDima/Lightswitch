@@ -6,80 +6,9 @@
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved. */
 
 /*globals $:false, Palettes:false */
-/*exported sceneCommander, scenes */
+/*exported scenes */
 
 'use strict';
-
-var sceneCommander = function ($, hue) { 
-    var logger = null,
-        scene = null,
-        sceneTimer = null,
-        sceneStart = function(sceneName, actors) 
-        {
-        	sceneStop(); 
-            log('Starting scene ' + sceneName);
-            scene = scenes[sceneName];
-            if (scene === undefined) {
-                // might be programmed into the bridge already:
-                var state = hue.getState();
-                if (state.scenes[sceneName] !== undefined) {
-                    hue.startScene(sceneName);
-                }
-            } else {
-                if (scene.interval === 0) {
-                	// one time hit
-                	setTimeout(sceneUpdate, 10);
-                }
-                else {
-                	// counter
-    	            sceneTimer = setInterval(function intervaledSceneUpdate() {
-                        sceneUpdate(actors);
-                    }, scene.interval); 
-    	        }
-            }
-        },
-        sceneStop = function(){
-            log('Stop scenes');
-            clearInterval(sceneTimer);
-            scene = null;
-        },
-        sceneUpdate = function(actors){
-            log('Updating scenes');
-            if(scene === null) {
-                clearInterval(sceneTimer);
-            } else {
-                var lightStates = scene.update(hue.numberOfLamps(actors));
-                $(lightStates).each(function setSceneState(index, state) {
-                	var co = state.color.color !== undefined ? state.color.color : state.color;
-                    hue.setColor(state.lamp, co.substring(1));
-                });
-            }
-        },
-        log = function (text){
-            if (logger !== null) {
-                logger(text);
-            }
-        };
-        
- 
-    return {
-    	executing: function(){
-    		return scene; // null if none
-    	},
-        sceneExists: function(sceneName) {
-			return scenes[sceneName] !== undefined;
-        },
-        start: function(sceneName, actors) {
-			sceneStart(sceneName, actors);
-        },
-        stop: function(sceneName) {
-			sceneStop(sceneName);
-        },
-        setLogger: function(logHandler) {
-            logger = logHandler;
-        }
-    };
-};
 
 var scenes = {
 	'Romantic Red': {
@@ -108,6 +37,27 @@ var scenes = {
 			return scenes.randomPallete(numberOfLampsIn, this.Palette);
 		}
 	},
+    'Thanksgiving': {
+        interval: 2000,
+        Palette: Palettes.Thanksgiving,
+        update: function(numberOfLampsIn) {
+            return scenes.randomPallete(numberOfLampsIn, this.Palette);
+        }
+    },
+    'TurkeyFeast': {
+        interval: 5000,
+        Palette: Palettes.TurkeyFeast,
+        update: function(numberOfLampsIn) {
+            return scenes.randomPallete(numberOfLampsIn, this.Palette);
+        }
+    },
+    'TurkeyDinner': {
+        interval: 1000,
+        Palette: Palettes.TurkeyDinner,
+        update: function(numberOfLampsIn) {
+            return scenes.randomPallete(numberOfLampsIn, this.Palette);
+        }
+    },
     makeArray: function(numberoflamps){
         if (!$.isArray(numberoflamps)) {
             numberoflamps = [numberoflamps];

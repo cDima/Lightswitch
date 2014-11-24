@@ -103,7 +103,7 @@ $('#colorsearch').keyup(function(e){
 $('button#search').click(initSearch);
 
 function initSearch(){
-    $.getJSON('http://www.colourlovers.com/api/palettes/top?jsonCallback=?', {
+    $.getJSON('https://colourlovers.herokupapp.com/api/palettes/top?jsonCallback=?', {
           keywords: $('#colorsearch').val(),
           numResults: 7
     }, function(allPalettes) {
@@ -260,9 +260,7 @@ function fillSettings() {
             log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
             var btn = $('<button type="button" class="actor"></button>').text(value.name).attr('id', key);
             btn.click(function(){
-              $('button').removeClass('active');
-              $('#groups button[id=' + key + ']').addClass('active');
-              hueCommander.setActor('group:' + key);
+              activateGroup(key);
             });
             $('#groups').append(btn);
         });
@@ -276,6 +274,8 @@ function fillSettings() {
                 var btn = $('<button type="button" class="savedscene"></button>').text(normalName).attr('id', key);
                 btn.click(function(){
                   hueCommander.command('scene:' + key);
+                  // update ui
+                  activatedScene(key);
                 });
                 $('#scenes').append(btn);
               }
@@ -290,6 +290,19 @@ function fillSettings() {
         hueCommander.setActor('group:1');
         $('#groups button[id=1]').addClass('active');
     }
+}
+
+function activatedScene(key){
+  $('#scenes button').removeClass('active');
+  $('.scene').removeClass('active');
+  $('#scenes button[id="' + key + '"').addClass('active');
+  $('.scene[data-scene="' + key + '"]').addClass('active');
+}
+function activateGroup(key){
+  $('#groups button').removeClass('active');
+  $('#lamps button').removeClass('active');
+  $('#groups button[id=' + key + ']').addClass('active');
+  hueCommander.setActor('group:' + key);
 }
 
 if (typeof String.prototype.endsWith !== 'function') {
@@ -379,8 +392,10 @@ $('.scene').each(function(index, sceneElement) {
 });
 
 $('.scene').click(function(element){
-   window.hueCommander.command('scene:' + $(this).data('scene'));
-   return false;
+  var key = $(this).data('scene');
+  window.hueCommander.command('scene:' + key);
+  activatedScene(key);
+  return false;
 });
 
 

@@ -285,7 +285,7 @@ var hue = function ($, colors) {
             }
             updateStatus('OK', message, allOn);
 
-            if (chrome !== null && chrome.browserAction !== null) {
+            if (chrome !== null && chrome.browserAction !== undefined) {
                 if (allOn)  {
                     chrome.browserAction.setIcon({path:'img/lightswitch.logo.on.128.png'});
                 } else {

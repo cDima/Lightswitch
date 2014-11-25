@@ -7,10 +7,10 @@
   "version": "1.4.2",
 
   "author": "Dmitry Sadakov (sadakov.com)",
-  "icons": { "16": "img/lightswitch.logo.on.16.png",
-             "32": "img/lightswitch.logo.on.32.png",
-             "48": "img/lightswitch.logo.on.48.png",
-            "128": "img/lightswitch.logo.on.128.png" },
+  "icons": { "16": "images/lightswitch.logo.on.16.png",
+             "32": "images/lightswitch.logo.on.32.png",
+             "48": "images/lightswitch.logo.on.48.png",
+            "128": "images/lightswitch.logo.on.128.png" },
 
   "permissions": [
     "https://www.meethue.com/",
@@ -18,21 +18,11 @@
   ],
   "background": {
     "scripts": [
-      "js/libs/jquery-1.11.1.min.js",
-      "js/libs/ga.js",
-      "js/libs/colors.js",
-      "js/libs/sceneCommander.js",
-      "js/libs/sequence.js",
-      "js/libs/palettes.js",
-      "js/libs/scenes.js",
-      "js/libs/hue.js",
-      "js/libs/colorUtil.js",
-      "js/libs/hueCommander.js",
-      "js/background.js"
+      "scripts/main.min.js"
     ]
   },
   "browser_action": {
-    "default_icon": "img/lightswitch.logo.128.png",
+    "default_icon": "images/lightswitch.logo.128.png",
     "default_popup": "index.html"
   },
   "content_security_policy": "script-src 'self' https://*.list-manage.com https://colorlovers.herokuapp.com https://ssl.google-analytics.com; object-src 'self';"

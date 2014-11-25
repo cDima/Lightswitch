@@ -14,7 +14,8 @@
           Palettes:false, 
           scenes:false, 
           trackEvent:false,
-          colorUtil:false
+          colorUtil:false,
+          ga:false
 */
 //$.ready(function())
 var sceneCmd = null;
@@ -34,6 +35,8 @@ window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), scene
 // copyright
 $('footer time').text(new Date().getFullYear());
 
+
+var hubStartTime = new Date().getTime();
 
 $('#brightness-control').slider().on('slideStop', function(slideEvt){
   var val = slideEvt.value;
@@ -217,6 +220,12 @@ function onStatus(status) {
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
         $('#manualbridgeip').hide();
         $('#cmn-toggle-1').prop('disabled', false);
+
+        // time to screen
+        var hubEndTime = new Date().getTime();
+        var timeSpent = hubEndTime - hubStartTime;
+        ga('send', 'timing', 'status-ok', 'Ping hub', timeSpent, 'Philips Hue Hub');
+
         //if (statusText !== status.text) {
         //    statusText = status.text;
         //    $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
@@ -292,6 +301,15 @@ function fillSettings() {
             ', ip: ' + state.config.ipaddress +
             ', portal: ' + state.config.portalconnection +
             ', zigbeechannel:' + state.config.zigbeechannel);
+
+
+        trackEvent('settings', 'init', 'version', state.config.swversion);
+        trackEvent('settings', 'init', 'ip', state.config.ipaddress);
+        trackEvent('settings', 'init', 'portal', state.config.portalconnection);
+        //trackEvent('settings', 'init', 'zigbeechannel', state.config.zigbeechannel);
+        trackEvent('settings', 'init', 'lightcount', state.lights.length);
+        trackEvent('settings', 'init', 'groupcount', state.groups.length);
+        trackEvent('settings', 'init', 'scenecount', state.scenes.length);
 
         hueCommander.setActor('group:1');
         $('#groups button[id=1]').addClass('active');

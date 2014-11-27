@@ -52,8 +52,11 @@ a:focus {outline:0;}
 #brightness-control .slider-selection {
 }
 .slider.slider-horizontal .slider-selection {
-  background: #BABABA;
   background: #95b7d4;
+}
+.slider.disabled .slider-selection {
+  background: #BABABA;
+ 
 }
 .slider-handle {
   background-color: #fff;
@@ -70,6 +73,12 @@ a:focus {outline:0;}
   background-image: none;
   cursor: pointer;
 }
+ 
+.slider.disabled .slider-handle,
+.slider.disabled .slider-track {
+  cursor: default;
+}
+
 .slider.slider-horizontal .slider-handle {
 margin-top: -8px;
 }
@@ -599,4 +608,7 @@ footer {
   display: block;
   background: #ccc;
   margin: 12px 0 0 14px;
+}
+footer time {
+  padding-right: 4px;
 }

@@ -2,3 +2,5 @@ node_modules
 .sass-cache
 dist
 .tmp
+
+lightswitch.zip

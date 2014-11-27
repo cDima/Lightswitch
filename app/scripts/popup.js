@@ -24,13 +24,14 @@ if (chrome !== null && chrome.extension !== undefined) {
     window.hue = chrome.extension.getBackgroundPage().hue;
     sceneCmd = chrome.extension.getBackgroundPage().sceneCmd;
 } else {
-    log('loading as no chrome, running as usual');
+    log('loading as no chrome, running standalone');
     window.hue = hue(window.jQuery, window.colors);
     window.hue.findBridge();
     sceneCmd = sceneCommander(window.jQuery, window.hue);
 }
 
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+//setInterval(window.hue.heartbeat, 2000);
 
 // copyright
 $('footer time').text(new Date().getFullYear());
@@ -41,7 +42,7 @@ var hubStartTime = new Date().getTime();
 $('#brightness-control').slider().on('slideStop', function(slideEvt){
   var val = slideEvt.value;
   log('new brightness: ' + val);
-  window.hue.setAllBrightness(val);
+  window.hueCommander.command('bri:' + val);
 });
 
 //console.log(background.hue.status);
@@ -194,16 +195,21 @@ function bruteForseIPs(){
 }
 
 function tryIP(ip, error){
-  $.ajax({
-        dataType: 'json',
-        url: 'http://' + ip + '/api/123-bogus',
-        success: function(){
-          hue.setIp(ip);
-          hue.heartbeat();
-        },
-        error: error,
-      timeout: 2000
-    });
+  try{
+    $.ajax({
+          dataType: 'json',
+          url: 'http://' + ip + '/api/123-bogus',
+          success: function(){
+            hue.setIp(ip);
+            hue.heartbeat();
+          },
+          error: error,
+        timeout: 2000
+      });
+  } 
+  catch(err) {
+    // do nothing.
+  }
 }
 
 function onStatus(status) {
@@ -255,28 +261,51 @@ function onStatus(status) {
     //updateStatus('BridgeNotFount', 'Philip Hue lights not found.');
 }
 
+function updateUIForActors(){
+  var actors = window.hueCommander.getActorStates();
+  var actorKey = window.hueCommander.getActor();
+ 
+  var on = false;
+  var bri = 0;
+  
+  $('button').removeClass('active');
+  $('button[id=' + actorKey + ']').addClass('active');
+  
+  $.each(actors, function(key, lamp){
+    on = on || lamp.state.on;
+    if (lamp.state.bri > bri) {
+      bri = lamp.state.bri;
+    }
+  });
+ 
+  $('#cmn-toggle-1').prop('checked', on);
+  $('#brightness-control').val(bri);
+  $('#brightness-control').change(); // update ui
+  $('#brightness-control').prop('disabled', !on);
+}
+
+function createActorBtn(key,value){
+  var btn = $('<button type="button" class="actor"></button>').text(value.name).attr('id', key);
+  btn.click(function(){
+    $('button').removeClass('active');
+    $('button[id=' + key + ']').addClass('active');
+    hueCommander.setActor(key); 
+    updateUIForActors();
+  });
+  return btn;
+}
+
 function fillSettings() {
     var state =window.hue.getState();
     if (state.lights !== null) {
         $.each(state.lights, function(key, value) {
             log('Lights: ' + key  + ', name: ' + value.name + ', reachable: ' + value.state.reachable + ', on: ' + value.state.on);
-            if (value.state.reachable) {
-              var btn = $('<button type="button" class="actor"></button>').text(value.name).attr('id', key);
-              btn.click(function(){
-                $('button').removeClass('active');
-                $('#lamps button[id=' + key + ']').addClass('active');
-                hueCommander.setActor(key); 
-              });
-              $('#lamps').append(btn);
-
-            }
+            var btn = createActorBtn(key, value);
+            $('#lamps').append(btn);
         });
         $.each(state.groups, function(key, value) {
             log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
-            var btn = $('<button type="button" class="actor"></button>').text(value.name).attr('id', key);
-            btn.click(function(){
-              activateGroup(key);
-            });
+            var btn = createActorBtn('group-' + key, value);
             $('#groups').append(btn);
         });
         $.each(state.scenes, function(key, value) {
@@ -311,8 +340,8 @@ function fillSettings() {
         trackEvent('settings', 'init', 'groupcount', state.groups.length);
         trackEvent('settings', 'init', 'scenecount', state.scenes.length);
 
-        hueCommander.setActor('group:1');
-        $('#groups button[id=1]').addClass('active');
+        hueCommander.setActor('group-1');
+        updateUIForActors();
     }
 }
 
@@ -322,12 +351,12 @@ function activatedScene(key){
   $('#scenes button[id="' + key + '"').addClass('active');
   $('.scene[data-scene="' + key + '"]').addClass('active');
 }
-function activateGroup(key){
-  $('#groups button').removeClass('active');
-  $('#lamps button').removeClass('active');
-  $('#groups button[id=' + key + ']').addClass('active');
-  hueCommander.setActor('group:' + key);
-}
+//function activateGroup(key){
+//  $('#groups button').removeClass('active');
+//  $('#lamps button').removeClass('active');
+//  $('#groups button[id=' + key + ']').addClass('active');
+//  hueCommander.setActor('group:' + key);
+//}
 
 if (typeof String.prototype.endsWith !== 'function') {
     String.prototype.endsWith = function(suffix) {
@@ -360,9 +389,11 @@ if (window.hue.status === 'OK') {
 $('#cmn-toggle-1').click(function(e){
     var turnOn = $('#cmn-toggle-1').is(':checked');
     if (turnOn) {
-        window.hue.turnOnAll();
+      window.hueCommander.command('on');
+      $('#brightness-control').prop('disabled', false);
     } else {
-        window.hue.turnOffAll();
+      window.hueCommander.command('off');
+      $('#brightness-control').prop('disabled', true);
     }
 
     trackEvent(e.target.id, 'clicked');

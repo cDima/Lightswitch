@@ -14,7 +14,7 @@ var sceneCommander = function ($, hue) {
     var logger = null,
         scene = null,
         sceneTimer = null,
-        sceneStart = function(sceneName, actors) 
+        sceneStart = function(sceneName, lampIds) 
         {
         	sceneStop(); 
             log('Starting scene ' + sceneName);
@@ -33,9 +33,9 @@ var sceneCommander = function ($, hue) {
                 else {
                 	// counter
     	            sceneTimer = setInterval(function intervaledSceneUpdate() {
-                        sceneUpdate(actors);
+                        sceneUpdate(lampIds);
                     }, scene.interval); 
-                    sceneUpdate(actors); // start now.
+                    sceneUpdate(lampIds); // start now.
     	        }
             }
         },
@@ -44,12 +44,12 @@ var sceneCommander = function ($, hue) {
             clearInterval(sceneTimer);
             scene = null;
         },
-        sceneUpdate = function(actors){
+        sceneUpdate = function(lampIds){
             log('Updating scenes');
             if(scene === null) {
                 clearInterval(sceneTimer);
             } else {
-                var lightStates = scene.update(hue.numberOfLamps(actors));
+                var lightStates = scene.update(lampIds);
                 $(lightStates).each(function setSceneState(index, state) {
                 	var co = state.color.color !== undefined ? state.color.color : state.color;
                     hue.setColor(state.lamp, co.substring(1));

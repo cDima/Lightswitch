@@ -22,23 +22,55 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (command === '#darken') {
                 hue.brightenAll(Math.floor(-255 / 3));
             }
-
+            if (command === 'on') {
+                executeOnActors(function(bulb){
+                    hue.turnOn(bulb);
+                });
+                return;
+            }
+            if (command === 'off') {
+                executeOnActors(function(bulb){
+                    hue.turnOff(bulb);
+                });
+                return;
+            }
+            var bri = detectBrigthness(command);
+            if (bri !== null) {
+                executeOnActors(function(bulb){
+                    hue.setBrightness(bulb, bri);
+                });
+                return;
+            }
             var color = colorUtil.getColor(command);
             if (color !== false) {
-                sceneCmd.stop();
-                var lights = hue.numberOfLamps(actors);
-                if (!$.isArray(lights)) {
-                    lights = [lights];
-                }
-                $.each(lights, function(index, val){
-                    hue.setColor(val, color.substring(1));
+                executeOnActors(function(bulb){
+                    hue.setColor(bulb, color.substring(1));
                 });
+                return;
             }
 
             if (command.lastIndexOf('scene:', 0) === 0) {
                 var sceneName = command.substring(6);
-                sceneCmd.start(sceneName, actors);
+                var lampids = hue.getLampIds(actors);
+                sceneCmd.start(sceneName, lampids);
+                return;
             }
+        },
+        executeOnActors = function(func){
+            sceneCmd.stop();
+            var lampIds = hue.getLampIds(actors);
+            if (!$.isArray(lampIds)) {
+                lampIds = [lampIds];
+            }
+            $.each(lampIds, function(index, val){
+                func(val);
+            });
+        },
+        detectBrigthness = function(command){
+            if (command.startsWith('bri:')) {
+                return command.substring('bri:'.length);
+            }
+            return null;
         },
         log = function (text){
             if (logger !== null) {
@@ -50,6 +82,26 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
     return {
         setActor: function(actor) {
             actors = actor;
+        },
+        getActor: function(actor) {
+            return actors;
+        },
+        getActorStates: function(actor) {
+            var lampIds = hue.getLampIds(actors);
+            var state = window.hue.getState();
+            var actorStates= [];
+            if (state.lights !== null) {
+                $.each(state.lights, function(key, lamp) {
+                    if (lampIds.indexOf(key) !== -1) {
+                        log('Lights: ' + key  + 
+                            ', name: ' + lamp.name + 
+                            ', reachable: ' + lamp.state.reachable + 
+                            ', on: ' + lamp.state.on);
+                        actorStates.push(lamp);
+                    }
+                });
+            } 
+            return actorStates;
         },
         command: function(commandText) {
             executeCommand(commandText);

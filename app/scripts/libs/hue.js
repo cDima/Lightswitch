@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals chrome:false */
+/*globals chrome:false, testData:false */
 /*exported hue */
 
 var hue = function ($, colors) { 
@@ -227,11 +227,11 @@ var hue = function ($, colors) {
          * @return {Object} JSON object used to set brightness.
          */
         buildBrightnessState = function(brightness) {
-            var stateObj = { bri: brightness };
+            var stateObj = { bri: Number(brightness) };
             return stateObj;
         },
         getBridgeState = function(){
-            log('Checking Authorization');
+            //log('Checking Authorization');
             $.ajax({
               dataType: 'json',
               url: baseApiUrl,
@@ -257,18 +257,17 @@ var hue = function ($, colors) {
             }
         },
         onAuthorized = function(data){
-            log('Authorized');
-
-            var allOn = true;
+            //log('Authorized');
+            if (typeof testData !== undefined) {
+                data = testData;
+            }
+            var allOn = false;
             var lightsReachable = [];
             $.each(data.lights, function(key, value){
-                //$('#connectStatus').append('<input class='light_select' type='checkbox' id=' + key + ' value='false'>') 
-                //$('#connectStatus').append(key + ': ' + value.name + '<br>');
-
                 if (value.state.reachable) {
                     lightsReachable.push(value);
                 }
-                allOn = allOn && value.state.reachable && value.state.on;
+                allOn = allOn || value.state.reachable || value.state.on;
             });
 
             // cache state
@@ -283,13 +282,13 @@ var hue = function ($, colors) {
             } else {
                 message = '' + numberOfLamps + ' lights found.';
             }
-            updateStatus('OK', message, allOn);
+            updateStatus('OK', message);
 
             if (chrome !== null && chrome.browserAction !== undefined) {
                 if (allOn)  {
-                    chrome.browserAction.setIcon({path:'img/lightswitch.logo.on.128.png'});
+                    chrome.browserAction.setIcon({path:'images/lightswitch.logo.on.128.png'});
                 } else {
-                    chrome.browserAction.setIcon({path:'img/lightswitch.logo.128.png'});
+                    chrome.browserAction.setIcon({path:'images/lightswitch.logo.128.png'});
                 }
             }
         },
@@ -645,16 +644,18 @@ var hue = function ($, colors) {
         heartbeat: function(){
             getBridgeState();
         },
-        numberOfLamps: function(actors){
+        getLampIds: function(actors){
             // parse actors
             //actors
-            if (actors.substring(0, 'group:'.length) === 'group:')
+            if (actors === null) {
+                return []; // no lamps
+            }
+            if (actors.substring(0, 'group-'.length) === 'group-')
             {
-                var group = actors.substring('group:'.length);
+                var group = actors.substring('group-'.length);
                 return state.groups[group].lights;
             }
-            return actors; // lights: prefix not used, just return number.
-        }
-
+            return [actors]; // lights: prefix not used, just return array of number.
+        } 
     };
 };

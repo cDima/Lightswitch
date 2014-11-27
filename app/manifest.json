@@ -4,7 +4,7 @@
   "name": "Lightswitch for Philips Hue",
   "short_name": "Lightswitch",
   "description": "Lightswitch — a chrome extension for Philips Hue lights",
-  "version": "1.4.2",
+  "version": "1.4.5",
 
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { "16": "images/lightswitch.logo.on.16.png",
@@ -14,16 +14,16 @@
 
   "permissions": [
     "https://www.meethue.com/",
-    "https://colorlovers.herokuapp.com"
+    "https://colorlovers.herokuapp.com/"
   ],
   "background": {
     "scripts": [
-      "scripts/main.min.js"
+      "scripts/background.min.js"
     ]
   },
   "browser_action": {
     "default_icon": "images/lightswitch.logo.128.png",
     "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://*.list-manage.com https://colorlovers.herokuapp.com https://ssl.google-analytics.com; object-src 'self';"
+  "content_security_policy": "script-src 'self' https://*.list-manage.com https://colorlovers.herokuapp.com https://www.google-analytics.com; object-src 'self';"
 }

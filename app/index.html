@@ -55,14 +55,19 @@
             </div>
         </header>
 
-
+<!--fa-toggle-off -->
         <div id="controls" class="container">
             <div class="row">
                 <div class="">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                       <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Rooms</a></li>
                       <li role="presentation"><a href="#moods" role="tab" data-toggle="tab">Moods</a></li>
-                      <li role="presentation"><a href="#search" role="tab" data-toggle="tab">Search</a></li>
+                      <li role="presentation"><a href="#search" role="tab" data-toggle="tab">
+	<i class="fa fa-binoculars"></i>
+	</a></li>
+						<li role="presentation"><a href="#eye" role="tab" data-toggle="tab">
+<i class="fa fa-eye"></i>
+</a></li>
                       <li role="presentation"><a href="#colors" role="tab" data-toggle="tab">
                       Colors</a></li>
                       <li role="presentation"><a href="#feedback" role="tab" data-toggle="tab"><i class="fa fa-paper-plane-o"></i></a></li>
@@ -172,28 +177,35 @@
                           </div>
                         </div>
                       </div>
-                      <!--<div role="tabpanel" class="tab-pane fade in" id="settings">
-                        <div class="panel-body">
 
+                      <div role="tabpanel" class="tab-pane fade in" id="eye">
+                        <div class="panel-body">
+                          <div class="eye">
+                            <div class="eye-enabled">
+                              	<div class="eye-switch" id="toggle-ambientweb-wrapper">
+	                              
+	<input id="toggle-ambientweb" class="cmn-toggle cmn-toggle-round" type="checkbox">
+	                              <label for="toggle-ambientweb"></label>
+	                            </div>
+								<label for="toggle-ambientweb">
+									Enable Ambient Web Colors
+								</label>
+                            </div>
+							<div class="web-preview">
+								<div class="eye-preview">
+									<canvas id="tabcanvas" width="200" height="150"></canvas>
+								</div>
+								<div class="preview-box"></div>
+								<div class="preview-box"></div>
+								<div class="preview-box"></div>
+							</div>
+                          </div>
                         </div>
-                      </div>-->
+                      </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Intro Header -->
-        <section class="log">
-            <div class="log-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-8 col-xs-offset-1">
-                            <div class="log-text hidden"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <footer>
           <p class="intro-text">

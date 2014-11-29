@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals chrome:false, testData:false */
+/*globals chrome:false */
 /*exported hue */
 
 var hue = function ($, colors) { 
@@ -258,9 +258,9 @@ var hue = function ($, colors) {
         },
         onAuthorized = function(data){
             //log('Authorized');
-            if (typeof testData !== undefined) {
-                data = testData;
-            }
+            //if (typeof testData !== undefined) {
+            //    data = testData;
+            //}
             var allOn = false;
             var lightsReachable = [];
             $.each(data.lights, function(key, value){

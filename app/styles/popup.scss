@@ -612,3 +612,27 @@ footer {
 footer time {
   padding-right: 4px;
 }
+
+/* eye */
+.eye-switch {
+	float:right;
+}
+
+.eye-preview {
+	width: 200px;
+	height: 150px;
+	/* margin: 0 auto; */
+	background: #eee;
+	/* BORDER: 10px solid; */
+	padding: 0px 10px 10px 0px;
+	float: left;
+}
+
+.web-preview {
+	padding-top: 10px;
+}
+.preview-box {
+	width: 70px;
+	height: 50px;
+	float: right; 
+} 

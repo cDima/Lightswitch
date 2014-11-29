@@ -468,7 +468,7 @@ $('.command').click(executeCommand); // buttons
 // color wheel:
 
 // create canvas and context objects
-function placeImage(picker, imgsrc){
+function placeImage(picker, imgsrc, w, h){
   var canvas = document.getElementById(picker);
   var ctx = canvas.getContext('2d');
 
@@ -477,7 +477,30 @@ function placeImage(picker, imgsrc){
   // select desired colorwheel
   image.src=imgsrc;
   image.onload = function () {
-      ctx.drawImage(image, 0, 0, image.width, image.height); // draw the image on the canvas
+	if (w === null) {
+		w = image.width;
+	}
+	if (h === null) {
+		h = image.height;
+    }
+
+    /// step 1
+    var virtualCanvas = document.createElement('canvas'),
+        virtualContext = virtualCanvas.getContext('2d');
+
+    virtualCanvas.width = image.width * 0.5;
+    virtualCanvas.height = image.height * 0.5;
+    virtualContext.drawImage(image, 0, 0, virtualCanvas.width, virtualCanvas.height);
+
+    /// step 2
+    virtualContext.drawImage(virtualCanvas, 
+		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5);
+    
+	ctx.drawImage(virtualCanvas, 
+		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5,
+		0, 0, w, h);
+	
+	//ctx.drawImage(image, 0, 0, w, h); // draw the image on the canvas
   };
 }
 
@@ -519,3 +542,19 @@ function getColor(e){
     $('#rgbVal').css({backgroundColor: hex});
     return hex;
 }
+
+
+function ActivateEye(tab) {
+	if (chrome !== null && 
+		chrome.tabs !== undefined && 
+		chrome.tabs.captureVisibleTab !== undefined) {
+		chrome.tabs.captureVisibleTab(null, {}, function (image) {
+		   placeImage('tabcanvas', image, 200, 150);
+		});	
+	} else {
+		// no chrome or tab, use a different image.
+		placeImage('tabcanvas', 'http://i.imgur.com/SHo6Fub.jpg', 200, 150);
+	}
+}
+
+new ActivateEye();

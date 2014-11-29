@@ -13,12 +13,23 @@
             "128": "images/lightswitch.logo.on.128.png" },
 
   "permissions": [
+    "activeTab",
     "https://www.meethue.com/",
     "https://colorlovers.herokuapp.com/"
   ],
   "background": {
     "scripts": [
-      "scripts/background.min.js"
+		/*
+		"scripts/libs/ga.js",	
+		"scripts/libs/jquery-1.11.1.min.js",
+		"scripts/libs/palettes.js",
+		"scripts/libs/colors.js",
+		"scripts/libs/scenes.js",
+		"scripts/libs/sceneCommander.js",
+		"scripts/libs/hue.js",
+		"scripts/background.js"
+        */
+		"scripts/background.min.js"
     ]
   },
   "browser_action": {

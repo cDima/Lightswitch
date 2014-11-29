@@ -15,7 +15,8 @@
           scenes:false, 
           trackEvent:false,
           colorUtil:false,
-          ga:false
+          ga:false, 
+		  ColorThief:false
 */
 //$.ready(function())
 var sceneCmd = null;
@@ -468,7 +469,7 @@ $('.command').click(executeCommand); // buttons
 // color wheel:
 
 // create canvas and context objects
-function placeImage(picker, imgsrc, w, h){
+function placeImage(picker, imgsrc){
   var canvas = document.getElementById(picker);
   var ctx = canvas.getContext('2d');
 
@@ -477,30 +478,7 @@ function placeImage(picker, imgsrc, w, h){
   // select desired colorwheel
   image.src=imgsrc;
   image.onload = function () {
-	if (w === null) {
-		w = image.width;
-	}
-	if (h === null) {
-		h = image.height;
-    }
-
-    /// step 1
-    var virtualCanvas = document.createElement('canvas'),
-        virtualContext = virtualCanvas.getContext('2d');
-
-    virtualCanvas.width = image.width * 0.5;
-    virtualCanvas.height = image.height * 0.5;
-    virtualContext.drawImage(image, 0, 0, virtualCanvas.width, virtualCanvas.height);
-
-    /// step 2
-    virtualContext.drawImage(virtualCanvas, 
-		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5);
-    
-	ctx.drawImage(virtualCanvas, 
-		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5,
-		0, 0, w, h);
-	
-	//ctx.drawImage(image, 0, 0, w, h); // draw the image on the canvas
+	ctx.drawImage(image, 0, 0, image.width, image.height); // draw the image on the canvas
   };
 }
 
@@ -543,13 +521,98 @@ function getColor(e){
     return hex;
 }
 
+/* ambient eye tab on show */
 
-function ActivateEye(tab) {
+var eyeIntervalPreview = false; 
+$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+	if (e.target.hash === '#eye')
+	{
+		if(eyeIntervalPreview !== true) {
+			eyeIntervalPreview = true;
+			new ActivateEye();
+		}
+	} else {
+		//clearInterval(eyeIntervalPreview);
+		eyeIntervalPreview = false;
+	}
+});
+
+var turnAmbientOn = false;
+$('#toggle-ambientweb').click(function(e){
+	turnAmbientOn = $('#toggle-ambientweb').is(':checked');
+});
+
+// create canvas and context objects
+function placeImageResized(picker, imgsrc, w, h){
+  var canvas = document.getElementById(picker);
+  var ctx = canvas.getContext('2d');
+
+  // drawing active image
+  var image = new Image();
+  // select desired colorwheel
+  image.src=imgsrc;
+  image.onload = function () {
+	if (w === null) {
+		w = image.width;
+	}
+	if (h === null) {
+		h = image.height;
+    }
+
+    /// step 1
+    var virtualCanvas = document.createElement('canvas'),
+        virtualContext = virtualCanvas.getContext('2d');
+
+    virtualCanvas.width = image.width * 0.5;
+    virtualCanvas.height = image.height * 0.5;
+    virtualContext.drawImage(image, 0, 0, virtualCanvas.width, virtualCanvas.height);
+
+    /// step 2
+    virtualContext.drawImage(virtualCanvas, 
+		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5);
+    
+	ctx.drawImage(virtualCanvas, 
+		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5,
+		0, 0, w, h);
+	// get main colors
+	var colorThief = new ColorThief();
+	var colors = colorThief.getPalette(image, 8);
+	//background-color: rgb({{0}}, {{1}}, {{2}});
+	$('.preview-box').each(function(index, value) {
+		$(value).css('background-color', rgbToHex(colors[index][0],
+			colors[index][1],
+			colors[index][2]));
+	});
+	
+	hueCommander.command(rgbToHex(colors[0][0],
+		colors[0][1],
+		colors[0][2]));
+		
+	// do it again
+	setTimeout(function() {
+		if (eyeIntervalPreview === true) {
+			new ActivateEye();
+		}
+	}, 200);
+
+  };
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function ActivateEye() {
 	if (chrome !== null && 
 		chrome.tabs !== undefined && 
 		chrome.tabs.captureVisibleTab !== undefined) {
-		chrome.tabs.captureVisibleTab(null, {}, function (image) {
-		   placeImage('tabcanvas', image, 200, 150);
+		chrome.tabs.captureVisibleTab(null, {quality:50}, function (image) {
+			placeImageResized('tabcanvas', image, 200, 150);
 		});	
 	} else {
 		// no chrome or tab, use a different image.

@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals chrome:false */
+/*globals chrome:false, colorUtil:false */
 /*exported hue */
 
 var hue = function ($, colors) { 
@@ -187,9 +187,11 @@ var hue = function ($, colors) {
          * @param {Number[]} CIE 1931 X,Y color coordinates.
          * @return {Object} State object containing CIE X,Y coordinates.
          */
-        buildXYState = function(xyCoords /* Number[] */) {
+        buildXYState = function(xyCoords /* Number[] */, brightness) {
             var stateObj = { xy: xyCoords };
-            
+            if (typeof(brightness) === 'number') {
+				stateObj.bri = brightness;
+			}
             if(typeof(transitionTime) === 'number' ) {
                 stateObj.transitiontime = transitionTime;
             }
@@ -413,7 +415,9 @@ var hue = function ($, colors) {
          * @return {Object} JSON object containing lamp state.
          */
         setAllColors: function(color /* String */) {
-            var state = buildXYState(colors.getCIEColor(color));
+			var xy = colors.getCIEColor(color);
+            var bri = colorUtil.getBrightness(color);
+			var state = buildXYState(xy, bri);
             return putGroupAction(0, state);
         },
         /** 

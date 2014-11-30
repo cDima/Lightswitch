@@ -579,14 +579,15 @@ function placeImageResized(picker, imgsrc, w, h){
 	var colors = colorThief.getPalette(image, 8);
 	//background-color: rgb({{0}}, {{1}}, {{2}});
 	$('.preview-box').each(function(index, value) {
-		$(value).css('background-color', rgbToHex(colors[index][0],
+		$(value).css('background-color', colorUtil.rgbToHex(colors[index][0],
 			colors[index][1],
 			colors[index][2]));
 	});
 	
-	hueCommander.command(rgbToHex(colors[0][0],
+	hueCommander.command(colorUtil.rgbToHex(colors[0][0],
 		colors[0][1],
 		colors[0][2]));
+	
 		
 	// do it again
 	setTimeout(function() {
@@ -596,15 +597,6 @@ function placeImageResized(picker, imgsrc, w, h){
 	}, 200);
 
   };
-}
-
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length === 1 ? '0' + hex : hex;
-}
-
-function rgbToHex(r, g, b) {
-    return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 function ActivateEye() {

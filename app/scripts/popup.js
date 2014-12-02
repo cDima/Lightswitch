@@ -579,12 +579,12 @@ function placeImageResized(picker, imgsrc, w, h){
 	var colors = colorThief.getPalette(image, 8);
 	//background-color: rgb({{0}}, {{1}}, {{2}});
 	$('.preview-box').each(function(index, value) {
-		$(value).css('background-color', colorUtil.rgbToHex(colors[index][0],
+		$(value).css('background-color', colorUtil().rgbToHex(colors[index][0],
 			colors[index][1],
 			colors[index][2]));
 	});
 	
-	hueCommander.command(colorUtil.rgbToHex(colors[0][0],
+	hueCommander.command(colorUtil().rgbToHex(colors[0][0],
 		colors[0][1],
 		colors[0][2]));
 	

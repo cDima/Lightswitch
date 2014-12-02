@@ -404,7 +404,9 @@ var hue = function ($, colors) {
          * @return {Object} JSON object containing lamp state.
          */
         setColor: function(lampIndex /* Number */, color /* String */) {
-            var state = buildXYState(colors.getCIEColor(color));
+            var xy = colors.getCIEColor(color);
+            var bri = colorUtil().getBrightness(color);
+            var state = buildXYState(xy, bri);
             return put(lampIndex, state);
         },
         /**
@@ -416,7 +418,7 @@ var hue = function ($, colors) {
          */
         setAllColors: function(color /* String */) {
 			var xy = colors.getCIEColor(color);
-            var bri = colorUtil.getBrightness(color);
+            var bri = colorUtil().getBrightness(color);
 			var state = buildXYState(xy, bri);
             return putGroupAction(0, state);
         },

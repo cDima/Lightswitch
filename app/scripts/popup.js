@@ -18,8 +18,8 @@
           ga:false, 
 		  ColorThief:false
 */
-//$.ready(function())
 var sceneCmd = null;
+
 if (chrome !== null && chrome.extension !== undefined) {
     log('loading as chrome extention popup');
     window.hue = chrome.extension.getBackgroundPage().hue;
@@ -158,7 +158,6 @@ function log(text) {
 }
 
             
-$('#manualbridgeip').hide();
 
 /* bridge ip */
 
@@ -213,14 +212,21 @@ function tryIP(ip, error){
   }
 }
 
+
+$('#manualbridgeip').hide();
+
 function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
-      $('#manualbridgeip').show();
+      setTimeout(function(){
+        $('#manualbridgeip').addClass('fade3').show();
+      }, 2000);
       $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
       $('html').animate({height: '160'}, 0);
+      $('body').animate({height: '160'}, 0);
       bruteForseIPs();
+      return;
     } 
 
     if (status.status === 'OK') {

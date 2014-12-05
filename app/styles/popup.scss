@@ -125,6 +125,11 @@ margin-top: -8px;
     -webkit-animation: fadein 3s; /* Safari and Chrome */
     -o-animation: fadein 3s; /* Opera */
 }
+.intro-text a {
+  cursor: pointer;
+  color: #aaa;
+  font-weight: 600;
+}
 
 .fade3 {
     animation: fadein 5s;
@@ -609,9 +614,9 @@ footer {
   background: #ccc;
   margin: 12px 0 0 14px;
 }
-footer time {
+/*footer time {
   padding-right: 4px;
-}
+}*/
 
 /* eye */
 .eye-switch {

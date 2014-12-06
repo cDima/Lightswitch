@@ -197,13 +197,13 @@ function bruteForseIPs(){
 function tryIP(ip, error){
   try{
     $.ajax({
-          dataType: 'json',
-          url: 'http://' + ip + '/api/123-bogus',
-          success: function(){
-            hue.setIp(ip);
-            hue.heartbeat();
-          },
-          error: error,
+        dataType: 'json',
+        url: 'http://' + ip + '/api/123-bogus',
+        success: function(){
+          hue.setIp(ip);
+          hue.heartbeat();
+        },
+        error: error,
         timeout: 2000
       });
   } 
@@ -218,16 +218,21 @@ $('#manualbridgeip').hide();
 function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
+    var manualIpInputAnimation = null;
     if (status.status === 'BridgeNotFound') {
       $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
       bruteForseIPs();
-      setTimeout(function(){
+      manualIpInputAnimation = setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
         $('html').animate({height: '160'}, 400);
         $('body').animate({height: '160'}, 400);
       }, 2000);
       return;
     } 
+    if (manualIpInputAnimation !== null) {
+      clearInterval(manualIpInputAnimation);
+      manualIpInputAnimation = null;
+    }
 
     if (status.status === 'OK') {
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
@@ -543,66 +548,49 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 	}
 });
 
-var turnAmbientOn = false;
+var ambientOn = false;
 $('#toggle-ambientweb').click(function(e){
-	turnAmbientOn = $('#toggle-ambientweb').is(':checked');
+	ambientOn = $('#toggle-ambientweb').is(':checked');
 });
 
 // create canvas and context objects
-function placeImageResized(picker, imgsrc, w, h){
-  var canvas = document.getElementById(picker);
-  var ctx = canvas.getContext('2d');
+function capturedImg(image){
 
-  // drawing active image
-  var image = new Image();
+  $('#ambientpreview').attr('src', image);
+
+
+  var img = new Image();
   // select desired colorwheel
-  image.src=imgsrc;
-  image.onload = function () {
-	if (w === null) {
-		w = image.width;
-	}
-	if (h === null) {
-		h = image.height;
-    }
+  img.src = image;
 
-    /// step 1
-    var virtualCanvas = document.createElement('canvas'),
-        virtualContext = virtualCanvas.getContext('2d');
-
-    virtualCanvas.width = image.width * 0.5;
-    virtualCanvas.height = image.height * 0.5;
-    virtualContext.drawImage(image, 0, 0, virtualCanvas.width, virtualCanvas.height);
-
-    /// step 2
-    virtualContext.drawImage(virtualCanvas, 
-		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5);
-    
-	ctx.drawImage(virtualCanvas, 
-		0, 0, virtualCanvas.width * 0.5, virtualCanvas.height * 0.5,
-		0, 0, w, h);
 	// get main colors
 	var colorThief = new ColorThief();
-	var colors = colorThief.getPalette(image, 8);
+	var colors = colorThief.getPalette(img, 8);
 	//background-color: rgb({{0}}, {{1}}, {{2}});
 	$('.preview-box').each(function(index, value) {
-		$(value).css('background-color', colorUtil().rgbToHex(colors[index][0],
-			colors[index][1],
-			colors[index][2]));
+		$(value).css('background-color', 
+      colorUtil().rgbToHex(
+        colors[index][0],
+  			colors[index][1],
+  			colors[index][2])
+      );
 	});
 	
-	hueCommander.command(colorUtil().rgbToHex(colors[0][0],
-		colors[0][1],
-		colors[0][2]));
-	
-		
+  if (ambientOn) {
+  	hueCommander.command(
+      colorUtil().rgbToHex(
+        colors[0][0],
+    		colors[0][1],
+    		colors[0][2])
+      );
+	}
+
 	// do it again
 	setTimeout(function() {
 		if (eyeIntervalPreview === true) {
 			new ActivateEye();
 		}
 	}, 200);
-
-  };
 }
 
 function ActivateEye() {
@@ -610,14 +598,12 @@ function ActivateEye() {
 		chrome.tabs !== undefined && 
 		chrome.tabs.captureVisibleTab !== undefined) {
 		chrome.tabs.captureVisibleTab(null, {quality:50}, function (image) {
-			placeImageResized('tabcanvas', image, 200, 150);
+      capturedImg(image);
 		});	
 	} else {
-		// no chrome or tab, use a different image.
-		placeImage('tabcanvas', 'http://i.imgur.com/SHo6Fub.jpg', 200, 150);
+    //
+    $('#ambientpreview').attr('background', '#ccc');
 	}
 }
 
 new ActivateEye();
-
-//'what the fuck.';

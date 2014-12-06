@@ -594,6 +594,7 @@ var hue = function ($, colors) {
             $.ajax({
                 url: 'https://www.meethue.com/api/nupnp',
                 dataType: 'json',
+                timeout: 2000,
                 success: function(data) {
                     if (data !== null && data.length > 0) {
                         bridgeIP = data[0].internalipaddress;

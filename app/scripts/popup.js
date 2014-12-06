@@ -1,5 +1,5 @@
 /**
- * Dmitry Sadakov"s Philips Hue api wrapper background page
+ * Dmitry Sadakov"s Philips Hue api wrapper popup page
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved.
  */
 
@@ -219,13 +219,13 @@ function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
+      $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
+      bruteForseIPs();
       setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
+        $('html').animate({height: '160'}, 400);
+        $('body').animate({height: '160'}, 400);
       }, 2000);
-      $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
-      $('html').animate({height: '160'}, 0);
-      $('body').animate({height: '160'}, 0);
-      bruteForseIPs();
       return;
     } 
 
@@ -619,3 +619,5 @@ function ActivateEye() {
 }
 
 new ActivateEye();
+
+//'what the fuck.';

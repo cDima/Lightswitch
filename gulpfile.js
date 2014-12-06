@@ -108,8 +108,8 @@ gulp.task('html', function() {
     .pipe($.if('*.css', $.uncss({
       html: [
         'app/index.html',
-        'app/lightswitch.html',
-        'app/shine.html'//,
+        'app/background.html'
+        //'app/shine.html',
         //'app/background.html'
       ],
       // CSS Selectors for UnCSS to ignore

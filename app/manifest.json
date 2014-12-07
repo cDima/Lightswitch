@@ -36,5 +36,5 @@
     "default_icon": "images/lightswitch.logo.128.png",
     "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://*.list-manage.com https://*.uservoice.com https://colorlovers.herokuapp.com https://www.google-analytics.com; object-src 'self';"
+  "content_security_policy": "script-src 'self' https://cdn.mxpnl.com https://*.list-manage.com https://*.uservoice.com https://colorlovers.herokuapp.com https://www.google-analytics.com; object-src 'self';"
 }

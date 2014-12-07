@@ -657,3 +657,10 @@ footer time {
 .preview-box ~ .preview-box{
   border-top: 0;
 }
+
+#ambientpreview {
+  max-width: 200px;
+  max-height: 150px;
+  margin: 0 auto;
+  display: block;
+}

@@ -543,12 +543,13 @@ function getColor(e){
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 	if (e.target.hash === '#eye')
 	{
-		if(ambieye.updateImage !== true) {
-  			ambieye.updateImage = true;
-  			var success = ambieye.run();
-        $('#toggle-ambientweb').attr('disabled', !success);
-        $('#toggle-ambientweb').prop('checked', ambieye.on);
-		}
+		ambieye.updateImage = true;
+    $('#toggle-ambientweb').prop('checked', ambieye.on);
+    var success = ambieye.on;
+    if (!success) {
+      success = ambieye.run();
+      $('#toggle-ambientweb').attr('disabled', !success);   
+    }
 	} else {
 		ambieye.updateImage = false;
 	}

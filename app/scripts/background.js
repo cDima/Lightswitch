@@ -7,14 +7,3 @@
 window.hue = hue(window.jQuery, window.colors);
 window.hue.findBridge();
 window.sceneCmd = sceneCommander(window.jQuery, window.hue);
-
-/*global chrome */
-chrome.app.runtime.onLaunched.addListener(function() {
-  chrome.app.window.create('popup.html', {
-  	id: 'app',
-    innerBounds: {
-      width: 320,
-      height: 115
-    }
-  });
-});

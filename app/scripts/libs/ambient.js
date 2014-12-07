@@ -67,7 +67,12 @@ var Ambient = (function () {
 		if (chrome !== null && 
 			chrome.tabs !== undefined && 
 			chrome.tabs.captureVisibleTab !== undefined) {
-			chrome.tabs.captureVisibleTab(null, {quality:50}, onImageUpdated);	
+			try {
+				chrome.tabs.captureVisibleTab(null, {quality:50}, onImageUpdated);	
+			} catch(err) {
+				// do nothing with err.
+				console.error(err);
+			}
 			return true;
 		}
 		return false;
@@ -77,6 +82,7 @@ var Ambient = (function () {
 		return requestImage();
 	};
 	publicMethods.onUpdate = function(func){
+		updateHandlers = []; // clear for now, memory might go unused on multi-timed open popup
 		updateHandlers.push(func);
 	};
 	publicMethods.getDominantColors = function (colorCount) {

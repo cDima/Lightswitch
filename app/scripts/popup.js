@@ -34,10 +34,8 @@ if (chrome !== null && chrome.extension !== undefined) {
     window.hue.findBridge();
     sceneCmd = sceneCommander(window.jQuery, window.hue);
     ambieye = window.Ambient;
+    ambieye.onUpdate(updatePreviewColors);
 }
-
-ambieye.on = false;
-ambieye.onUpdate(updatePreviewColors);
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
 //setInterval(window.hue.heartbeat, 2000);
 

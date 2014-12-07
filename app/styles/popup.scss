@@ -476,6 +476,16 @@ footer {
 #newsletter_form {
   padding-top: 10px;
   padding-left: 15px;
+  padding-bottom: 10px;
+}
+
+#uservoice {
+  overflow: hidden;
+}
+#uservoice > div { 
+  /*margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;*/
 }
 
 .input {

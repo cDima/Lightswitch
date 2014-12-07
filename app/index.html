@@ -78,10 +78,11 @@
                       <li role="presentation"><a href="#subscribe" role="tab" data-toggle="tab">
                         <i class="fa fa-paper-plane"></i>
                       </a></li>
+                      <!--
+
                       <li role="presentation"><a href="#feedback" role="tab" data-toggle="tab">
                         <i class="fa fa-comment"></i>
                       </a></li>
-                      <!--
                       <li role="presentation"><a href="#settings" role="tab" data-toggle="tab"><i class="fa fa-cog"></i>
                       -->
                       <!-- <span class="glyphicon glyphicon-cog"></span> -->
@@ -147,21 +148,12 @@
                           </div>
                         </div>
                       </div>
-
-                      <div role="tabpanel" class="tab-pane fade in" id="feedback">
-                        <div class="panel-body">
-                            <h5>Feedback and ideas</h5>
-                            <div class="pane-body">
-                            
-                            </div>
-                        </div>
-                      </div>
                       
                       <div role="tabpanel" class="tab-pane fade in" id="subscribe">
                         <div class="panel-body">
-                            <h5>Subscribe to our newsletter</h5>
+                            <h5>Newsletter, feedback, ideas</h5>
                             <div class="pane-body">
-                            Enter your email to be the first to know about new features for hue when they are out:
+                            Enter your email to be the first to know about new features &amp; releases:
                             </div>
                             <div id="newsletter_form">
                                 <form action="" method="post" class="subscribe-form" name="mc-embedded-subscribe-form"  id="mc-embedded-subscribe-form" novalidate>
@@ -171,15 +163,17 @@
                                 </form>
                                 <div class="successsubscribe">Thanks for subscribing, we will be in touch</div>
                             </div>
-                            <br />
-                            <h5>Feedback</h5>
                             <div class="pane-body">
-                            Send ideas &amp; feedback, and bugs to Dmitry at 
-                            <b><a href="mailto:apistarter@gmail.com" target="_blank">apistarter@gmail.com</a></b>. 
+                            You can <a href="mailto:apistarter@gmail.com" target="_blank">email privately</a>, and <a href="https://apistarter.uservoice.com/" target="_blank">publically</a>:
+
+                              <div id="uservoice">
+                                <div data-uv-embed="smartvote" data-uv-height="210px"></div>
+                              </div>
+
                             </div>
                             <div class="pane-body">
-                            <br />
-                            Made with ♥ in New York City.
+                            <!--<br />
+                            Made with ♥ in New York City.-->
                             </div>
                         </div>
                       </div>
@@ -206,18 +200,18 @@
 	<input id="toggle-ambientweb" class="cmn-toggle cmn-toggle-round" type="checkbox">
 	                              <label for="toggle-ambientweb"></label>
 	                            </div>
-								<label for="toggle-ambientweb">
-									Enable Ambient Web Colors
-								</label>
-                            </div>
-							<div class="web-preview">
-								<div class="eye-preview">
-									<img id="ambientpreview" width="200" height="150"></img>
-								</div>
-								<div class="preview-box"></div>
-								<div class="preview-box"></div>
-								<div class="preview-box"></div>
-							</div>
+              								<label for="toggle-ambientweb">
+              									Enable Ambient Web Colors
+              								</label>
+                                          </div>
+              							<div class="web-preview">
+              								<div class="eye-preview">
+              									<img id="ambientpreview" width="200" height="150"></img>
+              								</div>
+              								<div class="preview-box"></div>
+              								<div class="preview-box"></div>
+              								<div class="preview-box"></div>
+              							</div>
                           </div>
                         </div>
                       </div>
@@ -266,6 +260,7 @@
         <script src="scripts/libs/bootstrap-slider.min.js"></script>
 		    <script src="scripts/libs/color-thief.min.js"></script>
         <script src="scripts/libs/ga.js"></script>
+        <script src="scripts/libs/uservoice.js"></script>
       	<script src="scripts/libs/colors.js"></script>
         <script src="scripts/libs/palettes.js"></script>  
         <script src="scripts/libs/sequence.js"></script>  

@@ -10,11 +10,12 @@ window.sceneCmd = sceneCommander(window.jQuery, window.hue);
 
 /*global chrome */
 chrome.app.runtime.onLaunched.addListener(function() {
-  chrome.app.window.create('popup.html', {
+  chrome.app.window.create('index.html', {
   	id: 'app',
     innerBounds: {
       width: 320,
       height: 115
-    }
+    },
+    resizable: false
   });
 });

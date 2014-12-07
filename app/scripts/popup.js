@@ -251,6 +251,13 @@ function onStatus(status) {
         $('#connectStatus').fadeOut(600, function() {
             $('html').animate({height: '400'},400);
             $('.switch').fadeIn(600, showControls);
+            // if in chrome window
+            if (chrome !== undefined &&
+            chrome.app.window !== undefined &&  
+              chrome.app.window.current() !== null && 
+              chrome.app.window.current().ContentBounds !== undefined){
+              chrome.app.window.current().ContentBounds.height = 400;
+            }
             //$('body').addClass('on');
             fillSettings();
         });

@@ -98,12 +98,6 @@ function errorOnEmailSubmit(){
  
 /* search */
 var clPalettes = null;
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  if (e.target.text === 'Search' && clPalettes === null)
-  {
-    initSearch();
-  }
-});
 
 $('#colorsearch').keyup(function(e){
     if(e.keyCode === 13) {
@@ -476,6 +470,7 @@ function executeCommand() {
   /*jshint validthis:true */
   var command = $(this).attr('href');
   window.hueCommander.command(command);
+  activatedScene('none');
   return false; 
 }
 
@@ -507,7 +502,8 @@ placeImage('picker2', 'images/colorwheel-100.png');
 $('#picker, #picker2, #picker3').mousemove(getColor);
 $('#picker, #picker2, #picker3').click(function(e, ev){
   var hex = getColor(e);
-  window.hueCommander.command(hex); 
+  window.hueCommander.command(hex);
+  activatedScene('none');
 });
 
 function getColor(e){
@@ -553,6 +549,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 	} else {
 		ambieye.updateImage = false;
 	}
+
+  if (e.target.hash === '#search' && clPalettes === null)
+  {
+    initSearch();
+  }
+
 });
 
 function updatePreviewColors(colors, image){

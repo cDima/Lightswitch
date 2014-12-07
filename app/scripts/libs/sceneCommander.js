@@ -73,8 +73,8 @@ var sceneCommander = function ($, hue) {
         start: function(sceneName, actors) {
 			sceneStart(sceneName, actors);
         },
-        stop: function(sceneName) {
-			sceneStop(sceneName);
+        stop: function() {
+			sceneStop();
         },
         setLogger: function(logHandler) {
             logger = logHandler;

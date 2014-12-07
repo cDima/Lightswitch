@@ -49,6 +49,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 return;
             }
 
+            if (command === 'scene:stop') {
+                sceneCmd.stop();
+            }
             if (command.lastIndexOf('scene:', 0) === 0) {
                 var sceneName = command.substring(6);
                 var lampids = hue.getLampIds(actors);

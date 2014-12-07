@@ -38,7 +38,7 @@ var scenes = {
         index: 0
 	},
 	'Disco': {
-		interval: 100,
+		interval: 200,
 		Palette: Palettes.Rainbow,
 		update: function(lampIds) {
 			return scenes.randomPallete(lampIds, this.Palette);

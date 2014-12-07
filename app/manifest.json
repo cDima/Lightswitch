@@ -11,9 +11,9 @@
              "32": "images/lightswitch.logo.on.32.png",
              "48": "images/lightswitch.logo.on.48.png",
             "128": "images/lightswitch.logo.on.128.png" },
-
   "permissions": [
     "activeTab",
+    "<all_urls>",
     "https://www.meethue.com/",
     "https://colorlovers.herokuapp.com/"
   ],

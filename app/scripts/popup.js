@@ -27,11 +27,6 @@ if (chrome !== null && chrome.extension !== undefined) {
     var background = chrome.extension.getBackgroundPage();
     window.hue = background.hue;
     sceneCmd = background.sceneCmd;
-    if (background.Ambient === undefined) {
-      background.Ambient = window.Ambient; // inject popup's ambient into background page
-      background.Ambient.on = false;
-      background.Ambient.onUpdate(updatePreviewColors);
-    }
     ambieye = background.Ambient;
 } else {
     log('loading as no chrome, running standalone');
@@ -41,6 +36,8 @@ if (chrome !== null && chrome.extension !== undefined) {
     ambieye = window.Ambient;
 }
 
+ambieye.on = false;
+ambieye.onUpdate(updatePreviewColors);
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
 //setInterval(window.hue.heartbeat, 2000);
 
@@ -551,17 +548,19 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
   			ambieye.updateImage = true;
   			var success = ambieye.run();
         $('#toggle-ambientweb').attr('disabled', !success);
-        $('#toggle-ambientweb').prop('checked', success);
+        $('#toggle-ambientweb').prop('checked', ambieye.on);
 		}
 	} else {
 		ambieye.updateImage = false;
 	}
 });
 
-function updatePreviewColors(colors){
+function updatePreviewColors(colors, image){
   $('.preview-box').each(function(index, value) {
     $(value).css('background-color', colors[index]);
   });
+
+  $('#ambientpreview').attr('src', image);
 }
 
 $('#toggle-ambientweb').click(function(e){

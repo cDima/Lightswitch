@@ -4,7 +4,7 @@
 */
 
 'use strict';
-/*globals $, ColorThief, chrome, colorUtil*/
+/*globals ColorThief, chrome, colorUtil*/
 /*exported Ambient*/
 
 
@@ -22,8 +22,6 @@ var Ambient = (function () {
 		if (image === undefined) {
 			return;
 		}
-
-		$('#ambientpreview').attr('src', image);
 
 		var img = new Image();
 		img.src = image;
@@ -45,7 +43,7 @@ var Ambient = (function () {
 		});
 
 		updateHandlers.forEach(function(handler) {
-			handler(dominantColors);
+			handler(dominantColors, image);
 		});
 
 		/*if (this.on) {

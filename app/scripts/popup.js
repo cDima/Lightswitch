@@ -15,20 +15,30 @@
           scenes:false, 
           trackEvent:false,
           colorUtil:false,
-          ga:false, 
-		  ColorThief:false
+          ga:false
+          Ambient:false
+		      
 */
 var sceneCmd = null;
+var ambieye = null;
 
 if (chrome !== null && chrome.extension !== undefined) {
     log('loading as chrome extention popup');
-    window.hue = chrome.extension.getBackgroundPage().hue;
-    sceneCmd = chrome.extension.getBackgroundPage().sceneCmd;
+    var background = chrome.extension.getBackgroundPage();
+    window.hue = background.hue;
+    sceneCmd = background.sceneCmd;
+    if (background.Ambient === undefined) {
+      background.Ambient = window.Ambient; // inject popup's ambient into background page
+      background.Ambient.on = false;
+      background.Ambient.onUpdate(updatePreviewColors);
+    }
+    ambieye = background.Ambient;
 } else {
     log('loading as no chrome, running standalone');
     window.hue = hue(window.jQuery, window.colors);
     window.hue.findBridge();
     sceneCmd = sceneCommander(window.jQuery, window.hue);
+    ambieye = window.Ambient;
 }
 
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
@@ -534,76 +544,30 @@ function getColor(e){
 
 /* ambient eye tab on show */
 
-var eyeIntervalPreview = false; 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 	if (e.target.hash === '#eye')
 	{
-		if(eyeIntervalPreview !== true) {
-			eyeIntervalPreview = true;
-			new ActivateEye();
+		if(ambieye.updateImage !== true) {
+  			ambieye.updateImage = true;
+  			var success = ambieye.run();
+        $('#toggle-ambientweb').attr('disabled', !success);
+        $('#toggle-ambientweb').prop('checked', success);
 		}
 	} else {
-		//clearInterval(eyeIntervalPreview);
-		eyeIntervalPreview = false;
+		ambieye.updateImage = false;
 	}
 });
 
-var ambientOn = false;
+function updatePreviewColors(colors){
+  $('.preview-box').each(function(index, value) {
+    $(value).css('background-color', colors[index]);
+  });
+}
+
 $('#toggle-ambientweb').click(function(e){
-	ambientOn = $('#toggle-ambientweb').is(':checked');
+  var active = $('#toggle-ambientweb').is(':checked');
+	ambieye.on = active;
+  if (active) {
+    window.hueCommander.command('scene:Ambient');
+  }
 });
-
-// create canvas and context objects
-function capturedImg(image){
-
-  $('#ambientpreview').attr('src', image);
-
-
-  var img = new Image();
-  // select desired colorwheel
-  img.src = image;
-
-	// get main colors
-	var colorThief = new ColorThief();
-	var colors = colorThief.getPalette(img, 8);
-	//background-color: rgb({{0}}, {{1}}, {{2}});
-	$('.preview-box').each(function(index, value) {
-		$(value).css('background-color', 
-      colorUtil().rgbToHex(
-        colors[index][0],
-  			colors[index][1],
-  			colors[index][2])
-      );
-	});
-	
-  if (ambientOn) {
-  	hueCommander.command(
-      colorUtil().rgbToHex(
-        colors[0][0],
-    		colors[0][1],
-    		colors[0][2])
-      );
-	}
-
-	// do it again
-	setTimeout(function() {
-		if (eyeIntervalPreview === true) {
-			new ActivateEye();
-		}
-	}, 200);
-}
-
-function ActivateEye() {
-	if (chrome !== null && 
-		chrome.tabs !== undefined && 
-		chrome.tabs.captureVisibleTab !== undefined) {
-		chrome.tabs.captureVisibleTab(null, {quality:50}, function (image) {
-      capturedImg(image);
-		});	
-	} else {
-    //
-    $('#ambientpreview').attr('background', '#ccc');
-	}
-}
-
-new ActivateEye();

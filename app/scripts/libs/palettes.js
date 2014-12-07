@@ -3,6 +3,8 @@
 
 // fill solid palette
 var Palettes = {
+    'Empty': [
+    ],    
     'Kelvin degrees': [
         { name: 'Candle', color:'#FF9329'},
         { name: '40W Tungsten', color:'#FFC58F'},

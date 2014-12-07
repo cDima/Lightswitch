@@ -5,7 +5,7 @@
  *    - colors.js (packaged alongside this file)
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved. */
 
-/*globals $:false, Palettes:false */
+/*globals $:false, Palettes:false, Ambient */
 /*exported scenes */
 
 'use strict';
@@ -65,6 +65,20 @@ var scenes = {
             return scenes.randomPallete(lampIds, this.Palette);
         }
     },
+    'Ambient': {
+        interval: 1000,
+        Palette: Palettes.Empty,
+        update: function(lampIds) {
+            var lightStates = [];
+
+            var dominantColors = Ambient.getDominantColors();
+            $.each(lampIds, function(index, val){            
+                var color = dominantColors[index];
+                lightStates.push({lamp: val, color: color});
+            });
+            return lightStates;
+        }
+    },
     makeArray: function(lampIds){
         if (!$.isArray(lampIds)) {
             lampIds = [lampIds];
@@ -74,9 +88,9 @@ var scenes = {
     cycle:  function(lampIds, palette, cycleIndex){
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
+        var color = palette[cycleIndex]; 
 
-        $.each(lampIds, function(index, val){
-            var color = palette[cycleIndex]; 
+        $.each(lampIds, function(index, val){            
             lightStates.push({lamp: val, color: color});
         });
         

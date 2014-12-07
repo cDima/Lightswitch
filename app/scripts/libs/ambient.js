@@ -64,15 +64,15 @@ var Ambient = (function () {
 	}
 
 	function requestImage(){
+
+    	if (chrome.runtime.lastError) {
+        	console.log(chrome.runtime.lastError.message);
+        	return;
+        }
 		if (chrome !== null && 
 			chrome.tabs !== undefined && 
 			chrome.tabs.captureVisibleTab !== undefined) {
-			try {
-				chrome.tabs.captureVisibleTab(null, {quality:50}, onImageUpdated);	
-			} catch(err) {
-				// do nothing with err.
-				console.error(err);
-			}
+			chrome.tabs.captureVisibleTab({quality:30}, onImageUpdated);	
 			return true;
 		}
 		return false;

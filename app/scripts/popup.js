@@ -343,15 +343,6 @@ function fillSettings() {
             ', portal: ' + state.config.portalconnection +
             ', zigbeechannel:' + state.config.zigbeechannel);
 
-
-        trackEvent('settings', 'init', 'version', state.config.swversion);
-        trackEvent('settings', 'init', 'ip', state.config.ipaddress);
-        trackEvent('settings', 'init', 'portal', state.config.portalconnection);
-        //trackEvent('settings', 'init', 'zigbeechannel', state.config.zigbeechannel);
-        trackEvent('settings', 'init', 'lightcount', state.lights.length);
-        trackEvent('settings', 'init', 'groupcount', state.groups.length);
-        trackEvent('settings', 'init', 'scenecount', state.scenes.length);
-
         hueCommander.setActor('group-1');
         updateUIForActors();
     }

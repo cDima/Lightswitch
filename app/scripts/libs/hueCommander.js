@@ -5,6 +5,7 @@
  *    - colors.js (packaged alongside this file)
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved. */
 
+/*globals trackEvent*/
 /*exported hueCommander */
  
 var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
@@ -15,6 +16,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         actors = null,
         executeCommand = function(command) {
             log('executing command: ' + command + ' on actors: ' + actors);
+            trackEvent('huecommander', 'command', command);
 
             if (command === '#brighten') {
                 hue.brightenAll(Math.floor(255 / 3));

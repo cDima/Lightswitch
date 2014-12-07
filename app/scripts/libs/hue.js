@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals chrome:false, colorUtil:false */
+/*globals chrome:false, colorUtil:false, trackEvent */
 /*exported hue */
 
 var hue = function ($, colors) { 
@@ -296,6 +296,15 @@ var hue = function ($, colors) {
                     chrome.browserAction.setIcon({path:'images/lightswitch.logo.128.png'});
                 }
             }
+
+            trackEvent('settings', 'init', 'version', state.config.swversion);
+            trackEvent('settings', 'init', 'ip', state.config.ipaddress);
+            trackEvent('settings', 'init', 'portal', state.config.portalconnection);
+            //trackEvent('settings', 'init', 'zigbeechannel', state.config.zigbeechannel);
+            trackEvent('settings', 'init', 'lightcount', state.lights.length);
+            trackEvent('settings', 'init', 'groupcount', state.groups.length);
+            trackEvent('settings', 'init', 'scenecount', state.scenes.length);
+
         },
         onAuthError = function(err){
             if (err.statusText === 'timeout') {

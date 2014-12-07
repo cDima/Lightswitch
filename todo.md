@@ -1,8 +1,10 @@
 Todo:
 
 - convert to chrome app
-- mixpanel w/ tabs, setup info
-- ambieye
+	- app.js/ app.min.js/ manifest updated
+- mixpanel:
+	- w/ tabs, setup info
+- ambieye:
 	- timing of ambieye
  	- settings, limits, max brightness
 - improve icons
@@ -17,3 +19,4 @@ Future:
 
 done:
 - uservoice embed
+- mixpanel, with events 

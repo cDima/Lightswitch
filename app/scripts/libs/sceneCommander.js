@@ -52,7 +52,8 @@ var sceneCommander = function ($, hue) {
                 var lightStates = scene.update(lampIds);
                 $(lightStates).each(function setSceneState(index, state) {
                 	var co = state.color.color !== undefined ? state.color.color : state.color;
-                    hue.setColor(state.lamp, co.substring(1));
+                    var time = state.transitionTime; 
+                    hue.setColor(state.lamp, co.substring(1), time);
                 });
             }
         },

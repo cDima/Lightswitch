@@ -25,6 +25,38 @@ var scenes = {
 			return scenes.randomPallete(lampIds, this.Palette);
 		}
 	},
+    'Christmas': {
+        interval: 5000,
+        Palette: Palettes.Christmas,
+        update: function(lampIds) {
+            return scenes.randomPallete(lampIds, this.Palette, 50);
+        },
+        index: 0
+    },
+    'Broadway': {
+        interval: 400,
+        Palette: Palettes.Broadway,
+        update: function(lampIds) {
+            scenes.Broadway.index++;
+            if (scenes.Broadway.index >= lampIds.length){
+                scenes.Broadway.index = 0;
+            }
+            return scenes.one(lampIds, this.Palette, scenes.Broadway.index, 0);
+        },
+        index: 0
+    },
+    'Police': {
+        interval: 200,
+        Palette: Palettes.Police,
+        update: function(lampIds) {
+            scenes.Police.index++;
+            if (scenes.Police.index >= this.Palette.length){
+                scenes.Police.index = 0;
+            }
+            return scenes.cycle(lampIds, this.Palette, scenes.Police.index, 0);
+        },
+        index: 0
+    },
 	'Sunrise': {
 		interval: 5000,
 		Palette: Palettes.Sunrise,
@@ -74,7 +106,7 @@ var scenes = {
             var dominantColors = Ambient.getDominantColors();
             $.each(lampIds, function(index, val){            
                 var color = dominantColors[index];
-                lightStates.push({lamp: val, color: color});
+                lightStates.push({lamp: val, color: color, transitionTime: 10});
             });
             return lightStates;
         }
@@ -85,24 +117,48 @@ var scenes = {
         }
         return lampIds;
     },
-    cycle:  function(lampIds, palette, cycleIndex){
+    one:  function(lampIds, palette, cycleIndex, transitionTime){
+        lampIds = scenes.makeArray(lampIds);
+        var lightStates = [];
+        $.each(lampIds, function(index, val){
+            if (index == cycleIndex) {
+                lightStates.push({lamp: val, color: palette[1], transitionTime: transitionTime});
+            } else {
+                lightStates.push({lamp: val, color: palette[0], transitionTime: transitionTime});
+            }
+        });
+        
+        return lightStates;
+    },
+    chain:  function(lampIds, palette, cycleIndex, transitionTime){
+        lampIds = scenes.makeArray(lampIds);
+        var lightStates = [];
+        var chainindex = cycleIndex;
+        $.each(lampIds, function(index, val){
+            var co = palette[index + cycleIndex]; // need to circle back if length larger
+            lightStates.push({lamp: val, color: co, transitionTime: transitionTime});
+        });
+        
+        return lightStates;
+    },
+    cycle:  function(lampIds, palette, cycleIndex, transitionTime){
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
         var color = palette[cycleIndex]; 
 
         $.each(lampIds, function(index, val){            
-            lightStates.push({lamp: val, color: color});
+            lightStates.push({lamp: val, color: color, transitionTime: transitionTime});
         });
         
         return lightStates;
     },
-	randomPallete: function(lampIds, palette){
+	randomPallete: function(lampIds, palette, transitionTime){
         lampIds = scenes.makeArray(lampIds);
 
         var lightStates = [];
         $.each(lampIds, function(index, val){
             var color = palette[Math.round(Math.random() * (palette.length - 1))]; // random
-            lightStates.push({lamp: val, color: color});
+            lightStates.push({lamp: val, color: color, transitionTime: transitionTime});
         });
         
 		return lightStates;

@@ -91,4 +91,26 @@ var Palettes = {
         { name: 'Grow Light Fluorescent', color: '#FFEFF7'},
         { name: 'Catch a turkey', color: '#AA5B00'}
     ],
+    'Police': [
+        '#0000FF',
+        '#FF0000',
+        '#0000FF',
+        '#0000FF',
+        '#FF0000'
+    ],
+    'Christmas': [
+        '#FF3333',
+        '#FFFFFF',
+        '#33FF33'
+    ],
+    'Broadway': [
+        '#FFFFFF',
+        '#FFFE99',
+        '#FFFFFF',
+        '#FFFE99',
+        '#FFFFFF',
+        '#FFFE99',
+        '#FFFFFF',
+        '#FFFE99',
+    ],
 };

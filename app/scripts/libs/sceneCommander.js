@@ -51,9 +51,13 @@ var sceneCommander = function ($, hue) {
             } else {
                 var lightStates = scene.update(lampIds);
                 $(lightStates).each(function setSceneState(index, state) {
-                	var co = state.color.color !== undefined ? state.color.color : state.color;
                     var time = state.transitionTime; 
-                    hue.setColor(state.lamp, co.substring(1), time);
+                    if (state.color !== undefined) {
+                    	var co = state.color.color !== undefined ? state.color.color : state.color;
+                        hue.setColor(state.lamp, co.substring(1), time, state.bri);
+                    } else if (state.bri !== undefined) {
+                        hue.brighten(state.lamp, state.bri, time);
+                    }
                 });
             }
         },

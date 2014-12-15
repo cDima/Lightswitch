@@ -38,7 +38,6 @@ if (chrome !== null && chrome.extension !== undefined) {
 
 ambieye.onUpdate(updatePreviewColors);
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
-//setInterval(window.hue.heartbeat, 2000);
 
 // copyright
 $('footer time').text(new Date().getFullYear());
@@ -71,11 +70,12 @@ $('.subscribe-form').submit(function(e) {
       data: $this.serialize(),
       dataType: 'jsonp',
       contentType: 'application/json; charset=utf-8',
-      error: errorOnEmailSubmit,
+      error: function(){
+        errorShake('.subscribe-form');
+      },
       success: function(data) {
           if (data.result !== 'success') {
-              // Something went wrong, parse data.msg string and display message
-              errorOnEmailSubmit();
+              errorShake('.subscribe-form');
           } else {
               // It worked, so hide form and display thank-you message.
               $('.subscribe-form').removeClass('error'); 
@@ -88,32 +88,63 @@ $('.subscribe-form').submit(function(e) {
   return false;
 });
 
-function errorOnEmailSubmit(){
-  $('.subscribe-form').addClass('error'); 
-  $('.subscribe-form').addClass('shake');
-  $('.subscribe-form').bind('oanimationend animationend webkitAnimationEnd', function() { 
-     $('.subscribe-form').removeClass('shake');
+function errorShake(id){
+  $(id).addClass('error'); 
+  $(id).addClass('shake');
+  $(id).bind('oanimationend animationend webkitAnimationEnd', function() { 
+     $(id).removeClass('shake');
   });
 }
  
 /* search */
 var clPalettes = null;
+var skip = 0;
 
 $('#colorsearch').keyup(function(e){
     if(e.keyCode === 13) {
-      initSearch();
+      skip = 0;
+      initSearch('top');
     }
 });
 
-$('button#search').click(initSearch);
+$('button#search').click(function() {
+  skip = 0;
+  initSearch('top');
+});
 
-function initSearch(){
-    $.getJSON('https://colorlovers.herokuapp.com/api/palettes/top?jsonCallback=?', {
+$('a[href="#search?top"]').click(function(){
+  initSearch('top');
+});
+
+$('a[href$="#search?new"]').click(function(){
+  initSearch('new');
+});
+
+$('a[href$="#search?random"]').click(function(){
+  initSearch('random');
+});
+
+
+function initSearch(type){
+    $('#search-loading').show();
+    $.getJSON('https://colorlovers.herokuapp.com/api/palettes/' + type + '?jsonCallback=?', {
           keywords: $('#colorsearch').val(),
+          resultOffset: skip,
           numResults: 7
     }, function(allPalettes) {
+        $('#search-loading').hide();
         clPalettes = allPalettes;
         showPalettes(clPalettes);
+        $('a[href$="#search?back"]').off('click');
+        $('a[href$="#search?back"]').click(function(){
+          skip -= 7;
+          initSearch('new', skip);
+        });
+        $('a[href$="#search?next"]').off('click');
+        $('a[href$="#search?next"]').click(function(){
+          skip += 7;
+          initSearch('new', skip);
+        });
     });
 }
 
@@ -138,7 +169,7 @@ function showPalettes(palettes){
     $('.palette-name', result).text(v.title);
 
     $(result).click(function(){
-      scenes.RelaxedRandom.Palette = v.colors;
+      scenes.RelaxedRandom.Palette = v.colors.map(function(n) { return '#' + n });
       hueCommander.command('scene:RelaxedRandom');
       activatedScene('RelaxedRandom');
     });
@@ -212,7 +243,6 @@ function tryIP(ip, error){
   }
 }
 
-
 $('#manualbridgeip').hide();
 
 function onStatus(status) {
@@ -255,6 +285,8 @@ function onStatus(status) {
             fillSettings();
         });
         $('#cmn-toggle-1').prop('checked', status.data);
+
+        setInterval(window.hue.heartbeat, 2000);
     } else {
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
         $('#cmn-toggle-1').prop('disabled', true);
@@ -296,30 +328,91 @@ function updateUIForActors(){
   $('#brightness-control').prop('disabled', !on);
 }
 
-function createActorBtn(key,value){
-  var btn = $('<button type="button" class="actor"></button>').text(value.name).attr('id', key);
-  btn.click(function(){
-    $('button').removeClass('active');
-    $('button[id=' + key + ']').addClass('active');
-    hueCommander.setActor(key); 
-    updateUIForActors();
-  });
+
+$('#create-group').hide();
+$('#make-group').click(function(){
+  $('#create-group').slideToggle();
+});
+$('#add-group').click(function(){
+  var name = $('#group-name input').val();
+  if (name === '') {
+    errorShake('#group-name');
+    return;
+  }
+  $('#group-name').removeClass('error');
+  var lampIds = $('#group-add-lamps .lamp-select.active').map(function() {
+        return this.id;
+    }).get();
+  if (lampIds.length === 0) {
+    errorShake('#group-add-lamps');
+    return;
+  }
+  $('#group-add-lamps').removeClass('error');
+  // add group
+  hue.createGroup(name, lampIds);
+  // reset
+  setTimeout(fillSettings, 2000);
+});
+
+function createActorBtn(key,name){
+  var btn = $('<button type="button" class="actor"></button>').text(name).attr('id', key);
   return btn;
 }
+
+function actorClick(event){
+  var key = event.target.id;
+  $('button').removeClass('active');
+  $('button[id=' + key + ']').addClass('active');
+  hueCommander.setActor(key); 
+  updateUIForActors();
+}
+
+
 
 function fillSettings() {
     var state =window.hue.getState();
     if (state.lights !== null) {
+
+        $('#lamps').empty();
+        $('#group-add-lamps').empty();
+        $('#groups').empty();
+        $('#scenes').empty();
+        $('#group-remove').empty();
+
         $.each(state.lights, function(key, value) {
             log('Lights: ' + key  + ', name: ' + value.name + ', reachable: ' + value.state.reachable + ', on: ' + value.state.on);
-            var btn = createActorBtn(key, value);
+            var btn = createActorBtn(key, value.name);
+            btn.click(actorClick);
             $('#lamps').append(btn);
+            
+            var selector = createActorBtn(key, value.name);
+            selector.addClass('lamp-select');
+
+            selector.click(function(){
+              $(this).toggleClass('active');
+
+            });
+            $('#group-add-lamps').append(selector);
         });
+
         $.each(state.groups, function(key, value) {
             log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
-            var btn = createActorBtn('group-' + key, value);
+            var btn = createActorBtn('group-' + key, value.name);
+            btn.click(actorClick);
             $('#groups').append(btn);
+
+            var selector = createActorBtn(key + ' ', value.name);
+            selector.click(function(){
+              hue.removeGroup(key);
+              setTimeout(fillSettings, 2000);
+              $(this).hide('slow');
+            });
+            selector.append('&nbsp;');
+            selector.append($('<li class="fa fa-remove"></li>'));
+            $('#group-remove').append(selector);
+
         });
+
         $.each(state.scenes, function(key, value) {
             log('Scenes: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
 

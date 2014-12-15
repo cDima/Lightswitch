@@ -473,6 +473,12 @@ footer {
   display: table;
 }
 
+.colorlovers.shortcuts, 
+.colorlovers.shortcuts a {
+  padding: 5px;
+  text-decoration: none;
+}
+
 #newsletter_form {
   padding-top: 10px;
   padding-left: 15px;
@@ -490,7 +496,7 @@ footer {
 
 .input {
   width: 69%;
-  height: 30px;
+  height: 23px;
   display: table-cell;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
@@ -514,7 +520,7 @@ footer {
   font-size: 1.1rem;
   font-weight: 600;
   font-style: normal;
-  height: 3rem;
+  height: 23px;
   width: 8rem;
   line-height: 1rem;
   text-decoration: none;
@@ -663,4 +669,47 @@ footer time {
   max-height: 150px;
   margin: 0 auto;
   display: block;
+}
+h5 a, h5 a:hover  {
+  float: right;
+  text-decoration: none;
+}
+#create-group {
+  background: #F5F5F5;
+  border-radius: 20px;
+}
+#create-group #group-name {
+  width: 266px;
+  display: table;
+  margin-bottom: 0;
+}
+#group-name .input {
+  width: 81%;
+  height: 23px;
+  margin: 10px 0px 10px 10px;
+}
+#group-name .submit {
+  height: 23px;
+  background: #678389;
+  width: auto;  
+}
+#group-add-lamps, #group-remove {
+  margin: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-bottom: 10px;
+}
+#group-remove {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+.error .input {
+  border-color: red;
+}
+
+.error .submit {
+  border-color: red;
+}
+#group-remove button:hover {
+  background: red;
 }

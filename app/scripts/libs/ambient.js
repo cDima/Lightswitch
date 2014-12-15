@@ -12,7 +12,8 @@ var Ambient = (function () {
 
     var dominantColors  = [],
 	    updateHandlers = [],
-		publicMethods = {};
+		publicMethods = {}, 
+		lastUpdate = null;
 
 	// fields
 	publicMethods.on = false;
@@ -22,49 +23,52 @@ var Ambient = (function () {
 		if (image === undefined) {
 			return;
 		}
+		if (chrome.runtime.lastError) {
+        	console.log(chrome.runtime.lastError.message);
+        	chrome.runtime.lastError = null;
+        } else {
+			var img = new Image();
+			img.src = image;
 
-		var img = new Image();
-		img.src = image;
+			// get main colors
+			var colorThief = new ColorThief();
+			var colors = colorThief.getPalette(img, 8);
 
-		// get main colors
-		var colorThief = new ColorThief();
-		var colors = colorThief.getPalette(img, 8);
+			lastUpdate = new Date();
 
-		dominantColors = [];
+			dominantColors = [];
 
-		colors.forEach(function(color){
-			dominantColors.push(
-				colorUtil().rgbToHex(
-				    color[0],
-					color[1],
-					color[2]
-				)
-			  );
-		});
+			colors.forEach(function(color){
+				dominantColors.push(
+					colorUtil().rgbToHex(
+					    color[0],
+						color[1],
+						color[2]
+					)
+				  );
+			});
 
-		updateHandlers.forEach(function(handler) {
-			handler(dominantColors, image);
-		});
-
-		/*if (this.on) {
-			hueCommander.command(
-		  colorUtil().rgbToHex(
-		    colors[0][0],
-				colors[0][1],
-				colors[0][2])
-		  );
-		}*/
+			updateHandlers.forEach(function(handler) {
+				handler(dominantColors, image);
+			});
+		}
 
 		// do it again
-		setTimeout(function() {
-			if (publicMethods.on || publicMethods.updateImage) {
+		setTimeout(retryRequestImage, 200);
+	}
+
+	function retryRequestImage(){	
+		if (publicMethods.on || publicMethods.updateImage) {		
+			try {
 				requestImage();
+			} catch(e) {
+				setTimeout(retryRequestImage, 1000);
+				console.log(e);
 			}
-		}, 200);
+		}
 	}
 
 	function requestImage(){
-
     	if (chrome.runtime.lastError) {
         	console.log(chrome.runtime.lastError.message);
         	return;
@@ -86,6 +90,9 @@ var Ambient = (function () {
 		updateHandlers.push(func);
 	};
 	publicMethods.getDominantColors = function (colorCount) {
+		if ((new Date() - lastUpdate) > 2000) { // more than two seconds delay
+			retryRequestImage();
+		}
 	    return dominantColors;
 	};
 

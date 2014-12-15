@@ -33,8 +33,26 @@ var scenes = {
         },
         index: 0
     },
+    'NewYears': {
+        interval: 500,
+        Palette: Palettes.NewYears,
+        update: function(lampIds) {
+            var lightStates = [];
+            $.each(lampIds, function(index, val){
+                if (Math.random() > 0.6) {
+                    var color = Palettes.NewYears[Math.round(Math.random() * (Palettes.NewYears.length - 1))]; // random
+                    lightStates.push({lamp: val, color:color, bri: 255, transitionTime: 0});
+                } else {
+                    var random = Math.floor(Math.random()*(15-6+1)+6);
+                    lightStates.push({lamp: val, bri: -255, transitionTime: random});
+                }
+            });
+            return lightStates;
+        },
+        index: 0
+    },
     'Broadway': {
-        interval: 400,
+        interval: 500,
         Palette: Palettes.Broadway,
         update: function(lampIds) {
             scenes.Broadway.index++;
@@ -65,7 +83,7 @@ var scenes = {
             if (scenes.Sunrise.index >= this.Palette.length){
                 scenes.Sunrise.index = 0;
             }
-			return scenes.cycle(lampIds, this.Palette, scenes.Sunrise.index);
+			return scenes.cycle(lampIds, this.Palette, scenes.Sunrise.index, 50);
 		},
         index: 0
 	},
@@ -121,7 +139,7 @@ var scenes = {
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
         $.each(lampIds, function(index, val){
-            if (index == cycleIndex) {
+            if (index === cycleIndex) {
                 lightStates.push({lamp: val, color: palette[1], transitionTime: transitionTime});
             } else {
                 lightStates.push({lamp: val, color: palette[0], transitionTime: transitionTime});
@@ -133,7 +151,7 @@ var scenes = {
     chain:  function(lampIds, palette, cycleIndex, transitionTime){
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
-        var chainindex = cycleIndex;
+        //var chainindex = cycleIndex;
         $.each(lampIds, function(index, val){
             var co = palette[index + cycleIndex]; // need to circle back if length larger
             lightStates.push({lamp: val, color: co, transitionTime: transitionTime});

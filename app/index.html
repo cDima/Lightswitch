@@ -101,30 +101,49 @@
                                 <input id="brightness-control" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="254"  data-slider-tooltip="hide" />
                               </div>
                             </div>
-                            <h5>Groups</h5>
+                            <h5>Groups <a id="make-group" href="#"><i class="fa fa-pencil"></i></a></h5>
+                            <div id="create-group">
+                              <p id="group-name">
+                                <input class="groupname input" placeholder="Enter group name..." />
+                                <button class="submit" name="Add" type="submit"  id="add-group" value="Add">Add</button>
+                              </p>
+                              <div id="group-add-lamps"></div>
+                              <div id="group-remove"></div>
+                            </div>
                             <div id="groups"></div>
                             <h5>Lamps</h5>
                             <div id="lamps"></div>
-                            <h5>More lights</h5>
-                            <div class="pane-body"><a href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue Lights, Strips, Irises on Amazon »</a> </div>
+                            <h5>More info</h5>
+                            <div class="pane-body">
+                              <a href="https://www.facebook.com/virtual.lightswitch" target="_blank">
+                                <i class="fa fa-facebook"></i> facebook  » 
+                              </a>  &nbsp;
+                              <a href="https://twitter.com/huelightswitch" target="_blank">
+                                <i class="fa fa-twitter"></i> twitter » 
+                              </a>  &nbsp;
+                              <a href="http://bit.ly/lightswitchhue" target="_blank">
+                                <i class="fa fa-shopping-cart"></i> Philips Hue  »
+                              </a> 
+                            </div>
                         </div>
                       </div>
                       <div role="tabpanel" class="tab-pane fade in" id="moods">
                         <div class="panel-body">
                           <h5>Dynamic scenes</h5>
-                          <div class="scene" data-scene="Christmas"></div>
-                          <div class="scene" data-scene="Police"></div>
-                          <div class="scene" data-scene="NewYears"></div>
                           <div class="scene" data-scene="Broadway"></div>
                           <div class="scene" data-scene="Sunrise"></div>
+                          <div class="scene" data-scene="Sunset"></div>
                           <div class="scene" data-scene="Coffee"></div>
                           <div class="scene" data-scene="GreenForest"></div>
                           <div class="scene" data-scene="Disco"></div>
                           <div class="scene" data-scene="Romantic Red"></div>
-                          <div class="scene" data-scene="Sunset"></div>
+                          <div class="scene" data-scene="Police"></div>
+                          <h5>Holiday scenes</h5>
+                          <div class="scene" data-scene="NewYears"></div>
+                          <div class="scene" data-scene="Christmas"></div>
                           <div class="scene" data-scene="Thanksgiving"></div>
-                          <div class="scene" data-scene="TurkeyFeast"></div>
-                          <!--<h5 class="colors-name">Morning</h5>
+                          <!--<div class="scene" data-scene="TurkeyFeast"></div>
+                          <h5 class="colors-name">Morning</h5>
                           <h5 class="colors-name">Daytime</h5>
                           <h5 class="colors-name">Afternoon</h5>-->
                           <br />
@@ -188,8 +207,16 @@
                             <button  name="search" type="submit"  id="search" value="search" class="search-submit submit">
                             <!--<i class="fa fa-search"></i>-->
                              Search</button>
-                            <div class="search-results">
-                              Loading...
+                             <div class="colorlovers shortcuts">
+                               <a href="#search?top">top</a>
+                               <a href="#search?new">new</a>
+                               <a href="#search?random">random</a>
+                               <a href="#search?back"><span aria-hidden="true">&larr;</span> back</a>
+                               <a href="#search?next">next <span aria-hidden="true">&rarr;</span></a>
+                               <b id="search-loading"><i class="fa fa-circle-o-notch fa-spin"></i></b>
+                             </div>
+                            <div class="search-results center">
+                              <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
                             </div>
                           </div>
                         </div>
@@ -200,8 +227,7 @@
                           <div class="eye">
                             <div class="eye-enabled">
                               	<div class="eye-switch" id="toggle-ambientweb-wrapper">
-	                              
-	<input id="toggle-ambientweb" class="cmn-toggle cmn-toggle-round" type="checkbox">
+	                              <input id="toggle-ambientweb" class="cmn-toggle cmn-toggle-round" type="checkbox">
 	                              <label for="toggle-ambientweb"></label>
 	                            </div>
               								<label for="toggle-ambientweb">

@@ -101,7 +101,15 @@ var Palettes = {
     'Christmas': [
         '#FF3333',
         '#FFFFFF',
+        '#FFFE99',
         '#33FF33'
+    ],
+    'NewYears': [
+        '#5B1D99',
+        '#0074B4',
+        '#00B34C',
+        '#FFD41F',
+        '#FC6E3D',
     ],
     'Broadway': [
         '#FFFFFF',

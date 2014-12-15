@@ -169,7 +169,7 @@ function showPalettes(palettes){
     $('.palette-name', result).text(v.title);
 
     $(result).click(function(){
-      scenes.RelaxedRandom.Palette = v.colors.map(function(n) { return '#' + n });
+      scenes.RelaxedRandom.Palette = v.colors.map(function(n) { return '#' + n; });
       hueCommander.command('scene:RelaxedRandom');
       activatedScene('RelaxedRandom');
     });

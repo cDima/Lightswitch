@@ -112,17 +112,18 @@ var hue = function ($, colors) {
          * @return {Object} JSON bulb configuration data.
          */
         get = function(destination, success, error) {
-            var callback = success || null,
-                stateData = null;
+            var callback = success || null;
             callback = null === callback ? apiSuccess : success;
             
-            $.ajaxSetup({async: false});
-            $.getJSON(destination)
-            .done(function(data) {
-                stateData = data;
-            })
-            .fail(error);
-            return stateData;
+            $.ajax({
+                dataType: 'json',
+                url: destination,
+                success: function(data) {
+                    success(data);
+                },
+                error: error,
+                timeout: 2000
+            });
         },
 
         /**
@@ -257,9 +258,16 @@ var hue = function ($, colors) {
          * @param {Number} lampIndex 1-based index of the lamp to query.
          * @return {Number} Brightness of the lamp at lampIndex. 0 - 255.
          */
-        getBrightness = function(lampIndex /* Number */) {
-            var lampState = get(buildLampQueryURL(lampIndex));
-            return lampState.state.bri;
+        getBrightness = function(lampIndex /* Number */, success) {
+            get(buildLampQueryURL(lampIndex), function(data) {
+                // success
+                //data = null;
+                success(data.state.bri);
+            }, function(err){
+                err = null;
+                // fail
+            });
+            //return lampState.state.bri;
         },
         
         /**
@@ -276,13 +284,14 @@ var hue = function ($, colors) {
             return stateObj;
         },
 
-        adjustBrightness = function(lampId, brightness) {
+        adjustBrightness = function(lampId, brightness, success) {
             brightness = Number(brightness);
-            var currentBrightness = getBrightness(lampId);
-            var adjustedBrightness = currentBrightness + brightness;
-            var newBrightness = (adjustedBrightness< 255) ? adjustedBrightness : 254;
-            newBrightness = (adjustedBrightness > 0) ? adjustedBrightness : 0;
-            return Math.round(newBrightness);
+            getBrightness(lampId, function(currentBrightness){
+                var adjustedBrightness = currentBrightness + brightness;
+                var newBrightness = (adjustedBrightness< 255) ? adjustedBrightness : 254;
+                newBrightness = (adjustedBrightness > 0) ? adjustedBrightness : 0;
+                success(Math.round(newBrightness));
+            });
         },
         getBridgeState = function(){
             $.ajax({
@@ -447,14 +456,18 @@ var hue = function ($, colors) {
          * @param {String} color String representing a hexadecimal color value.
          * @return {Object} JSON object containing lamp state.
          */
-        setColor: function(lampIndex /* Number */, color /* String */, transitiontime, adjustBrightness) {
+        setColor: function(lampIndex /* Number */, color /* String */, transitiontime, brightness) {
             var xy = colors.getCIEColor(color);
-            var bri = colorUtil().getBrightness(color);
             if (typeof(brightness) === 'number') {
-                bri = adjustBrightness(lampIndex, bri);
+                var bri = colorUtil().getBrightness(color);
+                adjustBrightness(lampIndex, bri, function(bri){
+                    var state = buildXYState(xy, bri, transitiontime);
+                    put(lampIndex, state);
+                });
+            } else {
+                var state = buildXYState(xy, null, transitiontime);
+                put(lampIndex, state);
             }
-            var state = buildXYState(xy, bri, transitiontime);
-            return put(lampIndex, state);
         },
         /**
          * Sets all connected lamps to the approximate CIE x,y equivalent of 
@@ -465,9 +478,10 @@ var hue = function ($, colors) {
          */
         setAllColors: function(color /* String */) {
 			var xy = colors.getCIEColor(color);
-            var bri = colorUtil().getBrightness(color);
-			var state = buildXYState(xy, bri);
-            return putGroupAction(0, state);
+            colorUtil().getBrightness(color, function(bri){
+                var state = buildXYState(xy, bri);
+                putGroupAction(0, state);
+            });
         },
         createGroup: function(name, lights) {
             return postGroup(name, lights);
@@ -564,10 +578,11 @@ var hue = function ($, colors) {
          * @param {Number} [decrement] Amount to decrement brightness by (between 0 and 255).
          * @return {Object} JSON object containing lamp state.
          */
-        dim: function(lampIndex /* Number */, decrement /* Number */) {
+        dim: function(lampIndex /* Number */, decrement /* Number */, transitiontime) {
             decrement = decrement || -10; // default to 10 if decrement not provided.
-            var newBrightness = adjustBrightness(decrement);
-            return this.setBrightness(lampIndex, newBrightness);
+            adjustBrightness(decrement, function(newBrightness) {
+                return put(lampIndex, buildBrightnessState(newBrightness, transitiontime));
+            });
         },
         /**
          * Dim all lamps by decrement.
@@ -591,8 +606,10 @@ var hue = function ($, colors) {
          */
         brighten: function(lampIndex, increment, transitiontime) {
             increment = increment || 10;
-            var newBrightness = adjustBrightness(lampIndex, increment);
-            return this.setBrightness(lampIndex, newBrightness, transitiontime);
+            adjustBrightness(lampIndex, increment, function(newBrightness) {
+                //this.setBrightness(lampIndex, newBrightness, transitiontime);
+                return put(lampIndex, buildBrightnessState(newBrightness, transitiontime));
+            });
         },
         /**
          * Brighten all lamps by increment.

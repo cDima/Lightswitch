@@ -181,6 +181,11 @@ margin-top: -8px;
 body.light .logo {
   background-image: url(../images/lightswitch.grey.png);
 }
+body.app .logo {
+  background-image: url(../images/shine.png);
+  background-size: 134px;
+  margin-left: 30px;
+}
 body.pro .logo {
   background-image: url(../images/lightswitch.grey.png);
 }
@@ -737,6 +742,16 @@ h5 a, h5 a:hover  {
 }
 
 .light .only-light {
+  display: block !important;
+  visibility: visible !important;
+}
+.app .not-app {
+  display:none;
+}
+.only-app {
+  display:none;
+}
+.app .only-app {
   display: block !important;
   visibility: visible !important;
 }

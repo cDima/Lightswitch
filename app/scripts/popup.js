@@ -22,13 +22,21 @@
 
 
  var config = {
-  app: 'light' // light, ambieye, pro, web
+  //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
   //app: 'pro',
+  app: 'app',
   //app: 'web',
  };
 
- switch(config.app) {
+
+config.ambieye = true;
+config.scenes = true;
+config.search = true;
+config.tabs = true;
+config.feedback = true;
+
+switch(config.app) {
   case 'light':
       config.ambieye = false;
       config.scenes = false;
@@ -36,10 +44,17 @@
       config.tabs = false;
       break;
   case 'pro':
-      config.ambieye = false;
+      config.ambieye = true;
       config.scenes = true;
       config.search = true;
       config.tabs = true;
+      break;
+  case 'app':
+      config.ambieye = false;
+      config.scenes = true;
+      config.search = false;
+      config.tabs = true;
+      config.feedback = false;
       break;
   case 'ambieye':
       config.ambieye = true;
@@ -47,19 +62,38 @@
       config.search = false;
       config.tabs = true;
       break;
-  default:
-      config.ambieye = true;
-      config.scenes = true;
-      config.search = true;
-      config.tabs = true;
  }
 
- $('body').addClass(config.app);
+$('body').addClass(config.app);
  //config.ambieye
 $('.config-moods').toggle(config.scenes);
 $('.config-colors').toggle(config.scenes);
 $('.config-search').toggle(config.search);
 $('.config-ambieye').toggle(config.ambieye);
+$('.config-feedback').toggle(config.feedback);
+
+if(config.app !== 'app') {
+
+
+/* jshint ignore:start */
+  // Set colors
+  UserVoice.push(['set', {
+    target : '#uservoice',
+    accent_color: '#448dd6',
+    trigger_color: 'white',
+    trigger_background_color: 'rgba(46, 49, 51, 0.6)',
+    strings: {
+      post_suggestion_body: ''
+      //post_suggestion_title: '',
+      //post_suggestion_details_title: ''
+
+    }
+  }]);
+
+
+/* jshint ignore:end */
+
+}
 
 var sceneCmd = null;
 var ambieye = null;

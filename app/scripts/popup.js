@@ -16,53 +16,11 @@
           trackEvent:false,
           colorUtil:false,
           ga:false
-          Ambient:false
-		      
+          Ambient:false,
+		      config:false
 */
 
 
- var config = {
-  //app: 'light' // light, ambieye, pro, web
-  //app: 'ambieye',
-  //app: 'pro',
-  app: 'app',
-  //app: 'web',
- };
-
-
-config.ambieye = true;
-config.scenes = true;
-config.search = true;
-config.tabs = true;
-config.feedback = true;
-
-switch(config.app) {
-  case 'light':
-      config.ambieye = false;
-      config.scenes = false;
-      config.search = false;
-      config.tabs = false;
-      break;
-  case 'pro':
-      config.ambieye = true;
-      config.scenes = true;
-      config.search = true;
-      config.tabs = true;
-      break;
-  case 'app':
-      config.ambieye = false;
-      config.scenes = true;
-      config.search = false;
-      config.tabs = true;
-      config.feedback = false;
-      break;
-  case 'ambieye':
-      config.ambieye = true;
-      config.scenes = false;
-      config.search = false;
-      config.tabs = true;
-      break;
- }
 
 $('body').addClass(config.app);
  //config.ambieye
@@ -73,9 +31,7 @@ $('.config-ambieye').toggle(config.ambieye);
 $('.config-feedback').toggle(config.feedback);
 
 if(config.app !== 'app') {
-
-
-/* jshint ignore:start */
+  /* jshint ignore:start */
   // Set colors
   UserVoice.push(['set', {
     target : '#uservoice',
@@ -89,10 +45,7 @@ if(config.app !== 'app') {
 
     }
   }]);
-
-
-/* jshint ignore:end */
-
+  /* jshint ignore:end */
 }
 
 var sceneCmd = null;
@@ -332,6 +285,8 @@ function onStatus(status) {
         $('#manualbridgeip').addClass('fade3').show();
         $('html').animate({height: '160'}, 400);
         $('body').animate({height: '160'}, 400);
+        $('.switch').fadeOut(600);
+        hideControls();
       }, 2000);
       return;
     } 
@@ -365,10 +320,17 @@ function onStatus(status) {
         });
         $('#cmn-toggle-1').prop('checked', status.data);
 
-        setInterval(window.hue.heartbeat, 2000);
+        if (heartbeat !== null) {
+          clearInterval(heartbeat);
+        }
+        heartbeat = setInterval(window.hue.heartbeat, 2000);
 
 
     } else {
+        if (heartbeat !== null) {
+          clearInterval(heartbeat);
+        }
+        
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
         $('#cmn-toggle-1').prop('disabled', true);
         $('#cmn-toggle-1').prop('checked', false);
@@ -569,6 +531,11 @@ if (typeof String.prototype.endsWith !== 'function') {
     };
 }
 
+function hideControls(){
+  $('.tab-content').hide(0);
+  $('#controls').fadeOut(600, showTabContent);
+}
+
 function showControls(){
     $('.tab-content').hide(0);
     if (config.tabs === true) {
@@ -582,7 +549,7 @@ function showTabContent() {
 if (window.hue.status === 'OK') {
   $('#cmn-toggle-1').prop('checked', window.hue.status.data);
 }
-//var heartbeat = setInterval(hue.heartbeat, 1000); // dies with closed popup.
+var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
 // if no hearbeat, then activate the fail button.
 /*if ($('#linkButton').length === 0) {

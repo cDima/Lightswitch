@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "Shine for Philips Hue",
+  "short_name": "Shine",
+  "description": "Shine — an app for Philips Hue lights",
+  "version": "1.6.7",
+  "author": "Dmitry Sadakov (sadakov.com)",
+  "icons": { 
+            "128": "images/shine-logo128.png" },
+  "permissions": [
+    "https://www.meethue.com/",
+    "https://cdn.mxpnl.com/", 
+    "https://*.list-manage.com/",
+    "https://www.google-analytics.com/"
+  ],
+  "app": {
+    "background": {
+      "scripts": ["scripts/background.min.js"]
+    }
+  }
+}

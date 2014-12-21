@@ -299,7 +299,7 @@ var hue = function ($, colors) {
                 url: baseApiUrl,
                 success: onGotBridgeState,
                 error: onAuthError,
-                timeout: 2000
+                timeout: 5000
             });
         },
         onGotBridgeState = function(dataArray) {
@@ -349,11 +349,11 @@ var hue = function ($, colors) {
         },
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
-                getBridgeState(); // retry
-            } else {
-                log('error on auth: ' + err);
+                //getBridgeState(); // retry
+            } else if (err.statusText !== 'error') {
+                log('error on auth: ' + err);                
                 updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
-            }
+            } // what now?
         },
         addUser = function(){
             log('adding user...');

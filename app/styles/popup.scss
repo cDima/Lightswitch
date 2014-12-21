@@ -745,7 +745,8 @@ h5 a, h5 a:hover  {
   display: block !important;
   visibility: visible !important;
 }
-.app .not-app {
+.app .not-app,
+.pro .not-pro {
   display:none;
 }
 .only-app {

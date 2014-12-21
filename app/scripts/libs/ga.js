@@ -8,7 +8,9 @@
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-55863666-2', 'auto');
+// light
+ga('create', 'UA-55863666-1', 'auto');
+// ambieye ga('create', 'UA-55863666-6', 'auto');
 ga('require', 'displayfeatures');
 ga('send', 'pageview');
 

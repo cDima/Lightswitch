@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals chrome:false, colorUtil:false, trackEvent */
+/*globals colorUtil:false, trackEvent */
 /*exported hue */
 
 var hue = function ($, colors) { 
@@ -314,14 +314,6 @@ var hue = function ($, colors) {
             //if (typeof testData !== undefined) {
             //    data = testData;
             //}
-            var allOn = false;
-            var lightsReachable = [];
-            $.each(data.lights, function(key, value){
-                if (value.state.reachable) {
-                    lightsReachable.push(value);
-                }
-                allOn = allOn || value.state.reachable || value.state.on;
-            });
 
             // cache state
             state = data;
@@ -336,14 +328,6 @@ var hue = function ($, colors) {
                 message = '' + numberOfLamps + ' lights found.';
             }
             updateStatus('OK', message);
-
-            if (chrome !== null && chrome.browserAction !== undefined) {
-                if (allOn)  {
-                    chrome.browserAction.setIcon({path:'images/lightswitch.logo.on.128.png'});
-                } else {
-                    chrome.browserAction.setIcon({path:'images/lightswitch.logo.128.png'});
-                }
-            }
 
             trackEvent('settings', 'init', 'version', state.config.swversion);
             trackEvent('settings', 'init', 'ip', state.config.ipaddress);

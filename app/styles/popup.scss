@@ -171,9 +171,27 @@ margin-top: -8px;
   background-image: url('../images/lightswitch.grey.png');
   background-repeat: no-repeat;
   background-size: 200px;
-  text-indent: -3000px;
-  
+  text-indent: -3000px;  
 }
+
+
+.logo {
+  background-image: url(../images/lightswitch.grey.png);
+}
+body.light .logo {
+  background-image: url(../images/lightswitch.grey.png);
+}
+body.pro .logo {
+  background-image: url(../images/lightswitch.grey.png);
+}
+body.ambieye .logo {
+  background-image: url(../images/ambieye.png);
+}
+body.web .logo {
+  background-image: url(../images/lightswitch.grey.png);
+}
+
+
 .switch {
   padding-top: 50px;
   padding-left: 76px;
@@ -712,4 +730,13 @@ h5 a, h5 a:hover  {
 }
 #group-remove button:hover {
   background: red;
+}
+
+.applinks {
+  margin-top: 1px;
+}
+
+.light .only-light {
+  display: block !important;
+  visibility: visible !important;
 }

@@ -19,6 +19,48 @@
           Ambient:false
 		      
 */
+
+
+ var config = {
+  app: 'light' // light, ambieye, pro, web
+  //app: 'ambieye',
+  //app: 'pro',
+  //app: 'web',
+ };
+
+ switch(config.app) {
+  case 'light':
+      config.ambieye = false;
+      config.scenes = false;
+      config.search = false;
+      config.tabs = false;
+      break;
+  case 'pro':
+      config.ambieye = false;
+      config.scenes = true;
+      config.search = true;
+      config.tabs = true;
+      break;
+  case 'ambieye':
+      config.ambieye = true;
+      config.scenes = false;
+      config.search = false;
+      config.tabs = true;
+      break;
+  default:
+      config.ambieye = true;
+      config.scenes = true;
+      config.search = true;
+      config.tabs = true;
+ }
+
+ $('body').addClass(config.app);
+ //config.ambieye
+$('.config-moods').toggle(config.scenes);
+$('.config-colors').toggle(config.scenes);
+$('.config-search').toggle(config.search);
+$('.config-ambieye').toggle(config.ambieye);
+
 var sceneCmd = null;
 var ambieye = null;
 
@@ -42,7 +84,6 @@ window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), scene
 // copyright
 $('footer time').text(new Date().getFullYear());
 
-
 var hubStartTime = new Date().getTime();
 
 $('#brightness-control').slider().on('slideStop', function(slideEvt){
@@ -59,7 +100,7 @@ $('#brightness-control').slider().on('slideStop', function(slideEvt){
 $('.switch').hide();
 $('#controls').hide();
 $('.successsubscribe').hide();
-$('html').animate({height: '130'}, 0);
+$('html').animate({height: '150'}, 0);
 
 /* email subscribe form */
 $('.subscribe-form').submit(function(e) {
@@ -245,10 +286,11 @@ function tryIP(ip, error){
 
 $('#manualbridgeip').hide();
 
+var manualIpInputAnimation = null;
+
 function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
-    var manualIpInputAnimation = null;
     if (status.status === 'BridgeNotFound') {
       $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
       bruteForseIPs();
@@ -279,14 +321,19 @@ function onStatus(status) {
         //    $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
         //}
         $('#connectStatus').fadeOut(600, function() {
+          if (config.tabs === true) {
             $('html').animate({height: '400'},400);
-            $('.switch').fadeIn(600, showControls);
-            //$('body').addClass('on');
-            fillSettings();
+          }
+          $('.switch').fadeIn(600, showControls);
+            
+          //$('body').addClass('on');
+          fillSettings();
         });
         $('#cmn-toggle-1').prop('checked', status.data);
 
         setInterval(window.hue.heartbeat, 2000);
+
+
     } else {
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
         $('#cmn-toggle-1').prop('disabled', true);
@@ -295,7 +342,7 @@ function onStatus(status) {
         //$('body').removeClass('on');
         $('#controls').fadeOut(600);
         $('.tab-content').hide();
-        $('html').animate({height: '130'}, 0);
+        $('html').animate({height: '150'}, 0);
 
         $('.switch').fadeOut(600, function() {
             $('#connectStatus').fadeIn(600);
@@ -395,6 +442,34 @@ function fillSettings() {
             $('#group-add-lamps').append(selector);
         });
 
+
+        var allOn = false;
+        var lightsReachable = [];
+        $.each(state.lights, function(key, value){
+            if (value.state.reachable) {
+                lightsReachable.push(value);
+            }
+            allOn = allOn || value.state.reachable || value.state.on;
+        });
+        
+        if (chrome !== null && chrome.browserAction !== undefined) {
+          var path = 'images/lightswitch.logo.on.128.png';
+            if (allOn)  {
+                if (config.app === 'ambieye') {
+                  path ='images/ambieye-ico-on.png';
+                } else {
+                  path ='images/lightswitch.logo.on.128.png';
+                }
+            } else {
+                if (config.app === 'ambieye') {
+                  path ='images/ambieye-ico.png';
+                } else {
+                  path ='images/lightswitch.logo.128.png';
+                }
+            }
+            chrome.browserAction.setIcon({path:path});
+        }
+
         $.each(state.groups, function(key, value) {
             log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
             var btn = createActorBtn('group-' + key, value.name);
@@ -462,7 +537,9 @@ if (typeof String.prototype.endsWith !== 'function') {
 
 function showControls(){
     $('.tab-content').hide(0);
-    $('#controls').fadeIn(600, showTabContent);
+    if (config.tabs === true) {
+      $('#controls').fadeIn(600, showTabContent);
+    }
 }
 function showTabContent() {
     $('.tab-content').fadeIn(600);
@@ -654,5 +731,7 @@ $('#toggle-ambientweb').click(function(e){
 	ambieye.on = active;
   if (active) {
     window.hueCommander.command('scene:Ambient');
+  } else {
+    window.hueCommander.command('scene:none');
   }
 });

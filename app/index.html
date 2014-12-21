@@ -60,24 +60,34 @@
             <div class="row">
                 <div class="">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
-                      <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Rooms</a></li>
-                      <li role="presentation"><a href="#moods" role="tab" data-toggle="tab">
-                      <i class="fa fa-paint-brush"></i>
-                      <!--Moods-->
+                      <li role="presentation" class="active">
+                        <a href="#home" role="tab" data-toggle="tab">  
+                        <i class="fa fa-gear"></i> Settings
                       </a></li>
-                      <li role="presentation"><a href="#colors" role="tab" data-toggle="tab">
+                      <li role="presentation" class="config-moods">
+                        <a href="#moods" role="tab" data-toggle="tab">
+                          <i class="fa fa-paint-brush"></i>
+                        <!--Moods-->
+                        </a>
+                      </li>
+                      <li role="presentation" class="config-colors">
+                        <a href="#colors" role="tab" data-toggle="tab">
                       <!--Colors-->
-                      <i class="fa fa-eyedropper"></i>
+                        <i class="fa fa-eyedropper"></i>
                       </a></li>
-                      <li role="presentation"><a href="#search" role="tab" data-toggle="tab">
+                      <li role="presentation" class="config-search">
+                        <a href="#search" role="tab" data-toggle="tab">
                         <i class="fa fa-binoculars"></i>
                       </a></li>
-                      <li role="presentation"><a href="#eye" role="tab" data-toggle="tab">
-                      <i class="fa fa-eye"></i>
+                      <li role="presentation" class="config-ambieye">
+                        <a href="#eye" role="tab" data-toggle="tab">
+                        <i class="fa fa-eye"></i> Ambience
                       </a></li>
-                      <li role="presentation"><a href="#subscribe" role="tab" data-toggle="tab">
-                        <i class="fa fa-paper-plane"></i>
-                      </a></li>
+                      <li role="presentation">
+                        <a href="#subscribe" role="tab" data-toggle="tab">
+                          <i class="fa fa-paper-plane"></i> Feedback
+                        </a>
+                      </li>
                       <!--
 
                       <li role="presentation"><a href="#feedback" role="tab" data-toggle="tab">
@@ -113,7 +123,7 @@
                             <div id="groups"></div>
                             <h5>Lamps</h5>
                             <div id="lamps"></div>
-                            <h5>More info</h5>
+                            <h5>Links</h5>
                             <div class="pane-body">
                               <a href="https://www.facebook.com/virtual.lightswitch" target="_blank">
                                 <i class="fa fa-facebook"></i> facebook  » 
@@ -124,6 +134,20 @@
                               <a href="http://bit.ly/lightswitchhue" target="_blank">
                                 <i class="fa fa-shopping-cart"></i> Philips Hue  »
                               </a> 
+                            </div>
+                            <div class="pane-body applinks">
+                              <!--<a href="http://bit.ly/huelights" target="_blank">
+                                <i class="fa fa-toggle-off"></i> Light »
+                              </a> &nbsp;-->
+                              <a href="http://bit.ly/lightpro" target="_blank">
+                                <i class="fa fa-toggle-on"></i> Lightswitch »
+                              </a> &nbsp;
+                              <a href="http://bit.ly/ambieye" target="_blank">
+                                <i class="fa fa-eye"></i> Ambieye »
+                              </a> &nbsp;
+                              <a href="https://apistarter.uservoice.com/" target="_blank">
+                                <i class="fa fa-life-bouy"></i> Help »
+                              </a>                              
                             </div>
                         </div>
                       </div>
@@ -252,11 +276,19 @@
 
         <footer>
           <p class="intro-text">
-          <nobr>&copy; <time>2015</time> <a href="http://apistarter.com"  target="_blank">API Starter</a>
           <!--
            — <a href="http://sadakov.com"  target="_blank">Dmitry Sadakov</a>
           -->
-          </nobr></p>
+            <div class="only-light hidden">
+              <a href="http://bit.ly/lightpro" target="_blank">
+                <i class="fa fa-toggle-on"></i> Lightswitch Pro »
+              </a> &nbsp;
+              <a href="http://bit.ly/ambieye" target="_blank">
+                <i class="fa fa-eye"></i> Ambieye »
+              </a> 
+            </div>
+            &copy; <time>2015</time> <a href="http://apistarter.com"  target="_blank">API Starter</a>
+          </p>
         </footer>
 
 

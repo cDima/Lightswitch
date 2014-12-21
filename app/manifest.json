@@ -1,30 +1,28 @@
 {
   "manifest_version": 2,
 
-  "name": "Lightswitch for Philips Hue",
+  "name": "Lightswitch Light for Philips Hue",
   "short_name": "Lightswitch",
-  "description": "Lightswitch — a chrome extension for Philips Hue lights",
-  "version": "1.5.1",
+  "description": "Lightswitch Light allows control over digitally connected lightbulbs, such as Philips Hue.",
+  "version": "1.6.4",
 
   "author": "Dmitry Sadakov (sadakov.com)",
-  "icons": { "16": "images/lightswitch.logo.on.16.png",
-             "32": "images/lightswitch.logo.on.32.png",
-             "48": "images/lightswitch.logo.on.48.png",
-            "128": "images/lightswitch.logo.on.128.png" },
+  "icons": { "16": "images/lightswitch.logo.16.png",
+             "32": "images/lightswitch.logo.32.png",
+             "48": "images/lightswitch.logo.48.png",
+            "128": "images/lightswitch.logo.128.png" },
+
   "permissions": [
-    "activeTab",
-    "<all_urls>",
-    "https://www.meethue.com/",
-    "https://colorlovers.herokuapp.com/"
+    "https://www.meethue.com/"
   ],
   "background": {
     "scripts": [
-		"scripts/background.min.js"
+      "scripts/background.min.js"
     ]
   },
   "browser_action": {
-    "default_icon": "images/lightswitch.logo.128.png",
+    "default_icon": "images/lightswitch.logo.48.png",
     "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://cdn.mxpnl.com https://*.list-manage.com https://*.uservoice.com https://colorlovers.herokuapp.com https://www.google-analytics.com; object-src 'self';"
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

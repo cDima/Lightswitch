@@ -1,7 +1,4 @@
-/**
- * Dmitry Sadakov"s Philips Hue api wrapper popup page
- * Copyright (c) 2014 Dmitry Sadakov, All rights reserved.
- */
+/* (C) 2014 Dmitry Sadakov */
 
 'use strict';
 

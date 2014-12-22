@@ -9,6 +9,7 @@ var browserSync = require('browser-sync');
 var zip = require('gulp-zip');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
+var rename = require("gulp-rename");
 
 var AUTOPREFIXER_BROWSERS = [
   //'ie >= 10',
@@ -166,10 +167,16 @@ gulp.task('serve:dist', ['default'], function() {
 });
 
 // Build and serve the output from the dist build
-gulp.task('serve:app', [], function() {
-  $.replace('app/scripts/config.app.js', 'app/scripts/config.js');
-  $.replace('app/manifest-app.json', 'app/manifest.json');
-  runSequence('serve:dist');
+gulp.task('app', function() {
+   gulp.src('app/scripts/config.app.js')
+    .pipe(rename('config.js'))
+  	.pipe(gulp.dest('app/scripts'));
+
+   gulp.src('app/manifest-app.json')
+    .pipe(rename('manifest.json'))
+  	.pipe(gulp.dest('app'));
+
+   runSequence('serve:dist');
 });
 
 // Build Production Files, the Default Task

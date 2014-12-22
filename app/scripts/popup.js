@@ -285,7 +285,11 @@ function onStatus(status) {
       bruteForseIPs();
       manualIpInputAnimation = setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
-        setHeight(160, 400);
+        if (config.app === 'light') {
+          setHeight(170, 400);
+        } else {
+          setHeight(160, 400);
+        }
         $('.switch').fadeOut(600);
         hideControls();
       }, 2000);
@@ -353,6 +357,8 @@ function onStatus(status) {
         $('.tab-content').hide();
         if (config.app === 'app') {
           setHeight(130, 0);
+        //} else if (config.app === 'light') {
+        //  setHeight(140, 0);
         } else {
           setHeight(150, 0);
         }

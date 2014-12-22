@@ -20,8 +20,6 @@
 		      config:false
 */
 
-
-
 $('body').addClass(config.app);
  //config.ambieye
 $('.config-moods').toggle(config.scenes);
@@ -87,7 +85,11 @@ $('#brightness-control').slider().on('slideStop', function(slideEvt){
 $('.switch').hide();
 $('#controls').hide();
 $('.successsubscribe').hide();
-$('html').animate({height: '150'}, 0);
+if (config.app === 'app') {
+  setHeight(130, 0);
+} else {
+  setHeight(150, 0);
+}
 
 /* email subscribe form */
 $('.subscribe-form').submit(function(e) {
@@ -283,8 +285,7 @@ function onStatus(status) {
       bruteForseIPs();
       manualIpInputAnimation = setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
-        $('html').animate({height: '160'}, 400);
-        $('body').animate({height: '160'}, 400);
+        setHeight(160, 400);
         $('.switch').fadeOut(600);
         hideControls();
       }, 2000);
@@ -319,7 +320,7 @@ function onStatus(status) {
         //}
         $('#connectStatus').fadeOut(600, function() {
           if (config.tabs === true) {
-            $('html').animate({height: '400'},400);
+            setHeight(400, 400);
           }
           $('.switch').fadeIn(600, showControls);
             
@@ -350,7 +351,11 @@ function onStatus(status) {
         //$('body').removeClass('on');
         $('#controls').fadeOut(600);
         $('.tab-content').hide();
-        $('html').animate({height: '150'}, 0);
+        if (config.app === 'app') {
+          setHeight(130, 0);
+        } else {
+          setHeight(150, 0);
+        }
 
         $('.switch').fadeOut(600, function() {
             $('#connectStatus').fadeIn(600);
@@ -358,6 +363,17 @@ function onStatus(status) {
     }
 
     //updateStatus('BridgeNotFount', 'Philip Hue lights not found.');
+}
+
+function setHeight(height, transitionTime) {
+  //height = $('wrapper').height();
+  $('html').animate({height: height}, transitionTime);
+  $('body').animate({height: height}, transitionTime);
+  if (chrome.app.window !== undefined) {
+    var wind = chrome.app.window.current();
+    wind.innerBounds.height = height;
+    wind.innerBounds.width = 320;
+  }
 }
 
 function updateUIForActors(){
@@ -757,4 +773,9 @@ $('#toggle-ambientweb').click(function(e){
   } else {
     window.hueCommander.command('scene:none');
   }
+});
+
+
+$('#close-app').click(function(){
+  window.close();
 });

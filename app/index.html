@@ -26,13 +26,18 @@
 <body id="page-top" class="background" data-spy="scroll" data-target=".navbar-fixed-top">
     <div id="wrapper"> 
         <!-- Intro Header -->
-        <header class="intro">
+        <header class="intro draggable">
+          <div class="close-icon only-app no-drag">
+            <a href="#close" id="close-app" alt='close'>
+              <i class="fa fa-close"></i>
+            </a>
+          </div>
             <div class="intro-body">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-10 offset">
                             <div id="lamp"></div>
-                            <div class="switch" id="toggle-lights">
+                            <div class="switch no-drag" id="toggle-lights">
                               <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
                               <label for="cmn-toggle-1"></label>
                             </div>
@@ -43,10 +48,9 @@
                             <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
                                 <i class="fa fa-angle-double-down animated"></i>
                             </a> -->
-                            <p id="manualbridgeip" class="">
+                            <p id="manualbridgeip" class="no-drag">
                               <input class="bridgeip input" placeholder="Enter the bridge IP..." />
                               <button class="submit" name="Find" type="submit"  id="findbridge" value="Find">Find</button>
-                            </p>
                             </p>
                             <div class="clear"></div>
                         </div>
@@ -339,6 +343,7 @@
         <script src="scripts/libs/bootstrap-slider.min.js"></script>
 		    <script src="scripts/libs/color-thief.min.js"></script>
         <script src="scripts/config.js"></script>
+        <script src="scripts/config.features.js"></script>
         <script src="scripts/libs/ga.js"></script>
         <script src="scripts/libs/uservoice.js"></script>
       	<script src="scripts/libs/colors.js"></script>

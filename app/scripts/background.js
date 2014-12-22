@@ -15,9 +15,11 @@ if (config.app === 'app') {
 		chrome.app.runtime.onLaunched.addListener(function() {
 		  chrome.app.window.create('index.html', {
 		  	id: 'app',
+		  	frame: 'none',
+		  	resizable: false,
 		    innerBounds: {
 		      width: 320,
-		      height: 115
+		      height: 140
 		    }
 		  });
 		});

@@ -8,6 +8,6 @@
   //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
   //app: 'pro',
-  app: 'app',
-  //app: 'web',
+  //app: 'app',
+  app: 'web',
  };

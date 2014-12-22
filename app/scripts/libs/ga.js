@@ -201,10 +201,11 @@ switch(config.app) {
 ga('require', 'displayfeatures');
 ga('send', 'pageview');
 
-
-mixpanel.track_links("a", "click", {
-    "referrer": document.referrer
-});
+if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
+	mixpanel.track_links("a", "click", {
+	    "referrer": document.referrer
+	});
+}
 /**/
 
 function trackEvent(category, action, label, value) {
@@ -214,7 +215,9 @@ function trackEvent(category, action, label, value) {
   	'value': value
   }); 
 
-  mixpanel.track(label, {'category': category, 'action': action, 'value': value});
+  if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
+  	mixpanel.track(label, {'category': category, 'action': action, 'value': value});
+  }
 }
 
 /*(function(d, s, id) {

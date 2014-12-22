@@ -38,7 +38,7 @@ gulp.task('jshint', function() {
 
 gulp.task('zip', function () {
     return gulp.src('dist/**')
-        .pipe(zip('lightswitch.zip'))
+        .pipe(zip('dist.zip'))
         .pipe(gulp.dest(''));
 });
 
@@ -166,25 +166,39 @@ gulp.task('serve:dist', ['default'], function() {
   });
 });
 
-// Build and serve the output from the dist build
-gulp.task('app', function() {
-   gulp.src('app/scripts/config.app.js')
+function replaceConfigAndManifest(projectName) {
+	var config = 'app/scripts/config.' + projectName + '.js';
+	console.log('Using config: ' + config);
+	gulp.src(config)
     .pipe(rename('config.js'))
   	.pipe(gulp.dest('app/scripts'));
 
-   gulp.src('app/manifest-app.json')
+   gulp.src('app/manifest.' + projectName + '.json')
     .pipe(rename('manifest.json'))
   	.pipe(gulp.dest('app'));
 
    runSequence('serve:dist');
+}
+// Build and serve the output from the dist build
+gulp.task('app', function() {
+   replaceConfigAndManifest('app');
+});
+gulp.task('ambieye', function() {
+   replaceConfigAndManifest('ambieye');
+});
+gulp.task('light', function() {
+   replaceConfigAndManifest('light');
+});
+gulp.task('pro', function() {
+   replaceConfigAndManifest('pro');
 });
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
   runSequence('styles',
-    //[
+    [
     'jshint', 'html', 'images', 'fonts', 'copy' 
-    //]
+    ]
     , 'zip', cb);
 });
 

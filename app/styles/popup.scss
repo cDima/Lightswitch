@@ -756,3 +756,21 @@ h5 a, h5 a:hover  {
   display: block !important;
   visibility: visible !important;
 }
+.draggable {
+  -webkit-app-region: drag;
+}
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+.close-icon {
+  position:absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 0.9em;
+}
+.close-icon i {
+  color: #ccc;
+}
+.close-icon i:hover {
+  color: #000;
+}

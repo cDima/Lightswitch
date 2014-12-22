@@ -165,6 +165,13 @@ gulp.task('serve:dist', ['default'], function() {
   });
 });
 
+// Build and serve the output from the dist build
+gulp.task('serve:app', [], function() {
+  $.replace('app/scripts/config.app.js', 'app/scripts/config.js');
+  $.replace('app/manifest-app.json', 'app/manifest.json');
+  runSequence('serve:dist');
+});
+
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
   runSequence('styles',

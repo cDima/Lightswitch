@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals colorUtil:false, trackEvent */
+/*globals colorUtil:false */ /*trackEvent*/
 /*exported hue */
 
 var hue = function ($, colors) { 
@@ -336,22 +336,15 @@ var hue = function ($, colors) {
             } else {
                 message = '' + numberOfLamps + ' lights found.';
             }
+
+            log('Updating Status - ok...');
             updateStatus('OK', message);
-
-            trackEvent('settings', 'init', 'version', state.config.swversion);
-            trackEvent('settings', 'init', 'ip', state.config.ipaddress);
-            trackEvent('settings', 'init', 'portal', state.config.portalconnection);
-            //trackEvent('settings', 'init', 'zigbeechannel', state.config.zigbeechannel);
-            trackEvent('settings', 'init', 'lightcount', state.lights.length);
-            trackEvent('settings', 'init', 'groupcount', state.groups.length);
-            trackEvent('settings', 'init', 'scenecount', state.scenes.length);
-
         },
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
-                //getBridgeState(); // retry
-            } else if (err.statusText !== 'error') {
-                log('error on auth: ' + err);                
+                getBridgeState(); // retry
+            } else { //if (err.statusText !== 'error') {
+                log('error on auth: ' + err.statusText);
                 updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
             } // what now?
         },

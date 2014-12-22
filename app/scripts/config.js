@@ -30,7 +30,7 @@ switch(config.app) {
       config.tabs = false;
       break;
   case 'pro':
-      config.ambieye = false;
+      config.ambieye = true;
       config.scenes = true;
       config.search = true;
       config.tabs = true;

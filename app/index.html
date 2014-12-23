@@ -18,7 +18,7 @@
     <link href="styles/switch.css" rel="stylesheet">
     <!--fonts -->
     <link href="styles/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="styles/font-montserrat.min.css" rel="stylesheet" type="text/css">
 
   </head>
 
@@ -27,6 +27,11 @@
     <div id="wrapper"> 
         <!-- Intro Header -->
         <header class="intro draggable">
+          <div class="minimize-icon only-app no-drag">
+            <a href="#minimize" id="minimize-app" alt='minimize'>
+              <i class="fa fa-minus"></i>
+            </a>
+          </div>
           <div class="close-icon only-app no-drag">
             <a href="#close" id="close-app" alt='close'>
               <i class="fa fa-close"></i>
@@ -67,43 +72,43 @@
                       <li role="presentation" class="active">
                         <a href="#home" role="tab" data-toggle="tab">  
                         <i class="fa fa-gear"></i> 
-                        <div class="not-pro">&nbsp; Lights</div>
+                        <b class="not-pro">&nbsp; Lights</b>
                       </a></li>
                       <li role="presentation" class="config-moods">
                         <a href="#moods" role="tab" data-toggle="tab">
                           <i class="fa fa-paint-brush"></i>
                         <!--Moods--> 
-                        <div class="not-pro">&nbsp;
+                        <b class="not-pro">&nbsp;
                         Scenes
-                        </div>
+                        </b>
                         </a>
                       </li>
                       <li role="presentation" class="config-colors">
                         <a href="#colors" role="tab" data-toggle="tab">
                       <!--Colors-->
                         <i class="fa fa-eyedropper"></i>
-                        <div class="not-pro">&nbsp;
+                        <b class="not-pro">&nbsp;
                         Colors
-                        </div>
+                        </b>
                       </a></li>
                       <li role="presentation" class="config-search">
                         <a href="#search" role="tab" data-toggle="tab">
                         <i class="fa fa-binoculars"></i>
-                        <div class="not-pro">&nbsp;
+                        <b class="not-pro">&nbsp;
                         Search
-                        </div>
+                        </b>
                       </a></li>
                       <li role="presentation" class="config-ambieye">
                         <a href="#eye" role="tab" data-toggle="tab">
                         <i class="fa fa-eye"></i>
-                        <div class="not-pro">&nbsp;Ambience</div>
+                        <b class="not-pro">&nbsp;Ambience</b>
                       </a></li>
                       <li role="presentation" class="config-feedback">
                         <a href="#subscribe" role="tab" data-toggle="tab">
                           <i class="fa fa-paper-plane"></i> 
-                          <div class="not-pro">&nbsp;
+                          <b class="not-pro">&nbsp;
                           Feedback
-                          </div>
+                          </b>
                         </a>
                       </li>
                       <!--
@@ -153,19 +158,28 @@
                                 <i class="fa fa-shopping-cart"></i> Philips Hue  »
                               </a> 
                             </div>
-                            <div class="pane-body applinks">
-                              <!--<a href="http://bit.ly/huelights" target="_blank">
-                                <i class="fa fa-toggle-off"></i> Light »
-                              </a> &nbsp;-->
+                            <div class="pane-body applinks only-pro">
                               <a href="https://chrome.google.com/webstore/detail/lightswitch-for-philips-h/ahcbfmbmpojngalhbkkggbfamgmkneoo/reviews" target="_blank">
                                 <i class="fa fa-toggle-on"></i> Reviews »
-                              </a> &nbsp;
+                              </a>&nbsp;
+                              <a href="http://bit.ly/shinehue" target="_blank">
+                                <i class="fa fa-eye"></i> Shine »
+                              </a>&nbsp;
+                              <a href="https://apistarter.uservoice.com/" target="_blank">
+                                <i class="fa fa-life-bouy"></i> Help »
+                              </a>                       
+                            </div>
+
+                            <div class="pane-body applinks only-app">
+                              <a href="https://chrome.google.com/webstore/detail/shine-for-philips-hue/ahhkdhdkelfamkepplgbeidokokhokbp/reviews" target="_blank">
+                                <i class="fa fa-toggle-on"></i> Reviews »
+                              </a>&nbsp;
                               <a href="http://bit.ly/ambieye" target="_blank">
                                 <i class="fa fa-eye"></i> Ambieye »
-                              </a> &nbsp;
-                              <a href="http://bit.ly/shinehue" target="_blank">
+                              </a>&nbsp;
+                              <a href="https://apistarter.uservoice.com/" target="_blank">
                                 <i class="fa fa-life-bouy"></i> Help »
-                              </a>                              
+                              </a>                       
                             </div>
                         </div>
                       </div>

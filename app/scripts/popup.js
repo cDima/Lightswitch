@@ -375,10 +375,12 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (chrome.app.window !== undefined) {
-    var wind = chrome.app.window.current();
-    wind.innerBounds.height = height;
-    wind.innerBounds.width = 320;
+  if (typeof(chrome) !== 'undefined' && chrome.app.window !== undefined) {
+    setTimeout(function(){
+      var wind = chrome.app.window.current();
+      wind.innerBounds.height = height;
+      wind.innerBounds.width = 320;
+    }, 500); // wait until animations are done.
   }
 }
 
@@ -784,4 +786,8 @@ $('#toggle-ambientweb').click(function(e){
 
 $('#close-app').click(function(){
   window.close();
+});
+
+$('#minimize-app').click(function(){
+  chrome.app.window.current().minimize();
 });

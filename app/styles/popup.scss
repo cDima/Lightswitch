@@ -749,10 +749,12 @@ h5 a, h5 a:hover  {
 .pro .not-pro {
   display:none;
 }
-.only-app {
+.only-app, 
+.only-pro {
   display:none;
 }
-.app .only-app {
+.app .only-app,
+.pro .only-pro {
   display: block !important;
   visibility: visible !important;
 }
@@ -762,15 +764,21 @@ h5 a, h5 a:hover  {
 .no-drag {
   -webkit-app-region: no-drag;
 }
-.close-icon {
+.close-icon, .minimize-icon {
   position:absolute;
   top: 15px;
   right: 15px;
   font-size: 0.9em;
 }
-.close-icon i {
+.minimize-icon {
+  top: 18px;
+  right: 32px;
+}
+.close-icon i,
+.minimize-icon i {
   color: #ccc;
 }
-.close-icon i:hover {
+.close-icon i:hover, 
+.minimize-icon i:hover {
   color: #000;
 }

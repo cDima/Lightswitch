@@ -4,7 +4,7 @@
   "name": "Ambieye for Philips Hue",
   "short_name": "Ambieye",
   "description": "Ambieye — ambient lighting for the web with Philips Hue lights",
-  "version": "1.6.3",
+  "version": "1.6.9",
 
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { "128": "images/ambieye-ico-on.png" },

@@ -494,6 +494,18 @@ function fillSettings() {
             allOn = allOn || value.state.reachable || value.state.on;
         });
         
+
+        if (Object.keys(state.groups).length === 0) {
+          // creating default group, All
+          var lampIds = $.map(state.lights, function(lamp, key) {
+            return key;
+          });
+          hue.createGroup('All', lampIds);
+          hue.heartbeat();
+          setTimeout(fillSettings, 500); // reset UI
+          return;
+        }
+
         if (chrome !== null && chrome.browserAction !== undefined) {
           var path = 'images/lightswitch.logo.on.128.png';
             if (allOn)  {
@@ -521,6 +533,7 @@ function fillSettings() {
             var selector = createActorBtn(key + ' ', value.name);
             selector.click(function(){
               hue.removeGroup(key);
+              hue.heartbeat();
               setTimeout(fillSettings, 2000);
               $(this).hide('slow');
             });

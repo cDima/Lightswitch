@@ -55,6 +55,31 @@ if (chrome !== null && chrome.extension !== undefined) {
     window.hue = background.hue;
     sceneCmd = background.sceneCmd;
     ambieye = background.Ambient;
+
+    /*
+    manifest: 
+      "optional_permissions": [ 
+        "activeTab",
+        "<all_urls>"
+      ],
+    */
+
+    background.hasAllUrlAccess(function(granted){
+      $('#ambieyepermissions').toggle(!granted);
+      if (granted) {
+        tryEnableEye();
+      } 
+    });
+
+    $('#ambieyepermissions').click(function(){
+      background.requestAmbientPermission(function(granted) {
+        if (granted) {
+          tryEnableEye();
+        } 
+      });
+    });
+
+
 } else {
     log('loading as no chrome, running standalone');
     window.hue = hue(window.jQuery, window.colors);
@@ -502,7 +527,7 @@ function fillSettings() {
           });
           hue.createGroup('All', lampIds);
           hue.heartbeat();
-          setTimeout(fillSettings, 500); // reset UI
+          setTimeout(fillSettings, 1000); // reset UI
           return;
         }
 
@@ -538,7 +563,9 @@ function fillSettings() {
               $(this).hide('slow');
             });
             selector.append('&nbsp;');
-            selector.append($('<li class="fa fa-remove"></li>'));
+            if (key !== '1') {
+              selector.append($('<li class="fa fa-remove"></li>'));
+            }
             $('#group-remove').append(selector);
 
         });
@@ -758,15 +785,12 @@ function getColor(e){
 /* ambient eye tab on show */
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+  log('in tab: ' + e.target.hash);
+  trackEvent('click', 'tab', e.target.hash);
+
 	if (e.target.hash === '#eye')
 	{
-		ambieye.updateImage = true;
-    $('#toggle-ambientweb').prop('checked', ambieye.on);
-    var success = ambieye.on;
-    if (!success) {
-      success = ambieye.run();
-      $('#toggle-ambientweb').attr('disabled', !success);   
-    }
+    tryEnableEye();
 	} else {
 		ambieye.updateImage = false;
 	}
@@ -777,6 +801,24 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
   }
 
 });
+
+function tryEnableEye(){
+  // check permissions for access to <all_tabs> 
+  if (chrome !== null && chrome.extension !== undefined) {
+    log('loading as chrome extention popup');
+    var background = chrome.extension.getBackgroundPage();
+    background.hasAllUrlAccess(function() {
+      ambieye.updateImage = true;
+      $('#toggle-ambientweb').prop('checked', ambieye.on);
+      var alreadyOn = ambieye.on;
+      if (!alreadyOn) {
+        alreadyOn = ambieye.run();
+        $('#toggle-ambientweb').attr('disabled', !alreadyOn);   
+      }
+    });
+  }
+}
+
 
 function updatePreviewColors(colors, image){
   $('.preview-box').each(function(index, value) {

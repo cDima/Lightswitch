@@ -349,6 +349,16 @@ footer {
   outline: none;
   border: solid 1px #EDEDED;
 }
+a.hightlight {
+  background-color: #FFFE99;
+  outline: none;
+  margin: 0 0px;
+  border-radius: 5px;
+  padding: 0 5px;
+  line-height: 2em;
+  cursor: pointer;
+}
+
 .scene .colors,
 .palette .colors {
   list-style: none;

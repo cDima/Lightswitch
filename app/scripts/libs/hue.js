@@ -677,7 +677,7 @@ var hue = function ($, colors) {
                     // error
                     log(err);
                     updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
-                    if (onerror !== null) {
+                    if (typeof(onerror) !== 'undefined') {
                         onerror(err);
                     }
                 }

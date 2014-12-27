@@ -73,7 +73,7 @@ var Ambient = (function () {
         	console.log(chrome.runtime.lastError.message);
         	return;
         }
-		if (chrome !== null && 
+		if (typeof(chrome) !== 'undefined' && 
 			chrome.tabs !== undefined && 
 			chrome.tabs.captureVisibleTab !== undefined) {
 			chrome.tabs.captureVisibleTab({quality:30}, onImageUpdated);	

@@ -49,7 +49,7 @@ if(config.app !== 'app') {
 var sceneCmd = null;
 var ambieye = null;
 
-if (chrome !== null && chrome.extension !== undefined) {
+if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
     log('loading as chrome extention popup');
     var background = chrome.extension.getBackgroundPage();
     window.hue = background.hue;
@@ -531,7 +531,7 @@ function fillSettings() {
           return;
         }
 
-        if (chrome !== null && chrome.browserAction !== undefined) {
+        if (typeof(chrome) !== 'undefined'  && chrome.browserAction !== undefined) {
           var path = 'images/lightswitch.logo.on.128.png';
             if (allOn)  {
                 if (config.app === 'ambieye') {
@@ -804,7 +804,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
 
 function tryEnableEye(){
   // check permissions for access to <all_tabs> 
-  if (chrome !== null && chrome.extension !== undefined) {
+  if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
     log('loading as chrome extention popup');
     var background = chrome.extension.getBackgroundPage();
     background.hasAllUrlAccess(function() {

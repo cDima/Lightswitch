@@ -471,7 +471,16 @@ function actorClick(event){
   updateUIForActors();
 }
 
+function findGroupIdByName(groups, name) {
+  for(var group in groups) {
+    if (groups[group].name === name) {
+      return group;
+    }
+  }
+  return null;
+}
 
+var triedCreateGroup = false;
 
 function fillSettings() {
     var state =window.hue.getState();
@@ -520,15 +529,19 @@ function fillSettings() {
         });
         
 
-        if (Object.keys(state.groups).length === 0) {
-          // creating default group, All
-          var lampIds = $.map(state.lights, function(lamp, key) {
-            return key;
-          });
-          hue.createGroup('All', lampIds);
-          hue.heartbeat();
-          setTimeout(fillSettings, 1000); // reset UI
-          return;
+        //if (Object.keys(state.groups).length === 0 || 
+        if (findGroupIdByName(state.groups, 'All') === null) {
+          if (triedCreateGroup === false) {
+            triedCreateGroup = true;
+            // creating default group, All
+            var lampIds = $.map(state.lights, function(lamp, key) {
+              return key;
+            });
+            hue.createGroup('All', lampIds);
+            hue.heartbeat();
+            setTimeout(fillSettings, 1000); // reset UI
+            return;
+          }
         }
 
         if (typeof(chrome) !== 'undefined'  && chrome.browserAction !== undefined) {
@@ -593,7 +606,13 @@ function fillSettings() {
             ', portal: ' + state.config.portalconnection +
             ', zigbeechannel:' + state.config.zigbeechannel);
 
-        hueCommander.setActor('group-1');
+        var groupAll = findGroupIdByName(state.groups, 'All');
+        if (groupAll === null) {
+          hueCommander.setActor('group-1');
+        } else {
+          hueCommander.setActor('group-' + groupAll);
+        }
+        
         updateUIForActors();
     }
 }

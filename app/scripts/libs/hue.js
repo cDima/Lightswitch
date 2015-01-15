@@ -320,9 +320,11 @@ var hue = function ($, colors) {
         },
         onAuthorized = function(data){
             //log('Authorized');
-            //if (typeof testData !== undefined) {
-            //    data = testData;
-            //}
+            /* jshint ignore:start */
+            if (typeof testData !== undefined && testData !== null) {
+                data = testData;
+            }
+            /* jshint ignore:end */
 
             // cache state
             state = data;

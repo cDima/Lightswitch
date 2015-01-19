@@ -727,8 +727,14 @@ $('.scene').each(function(index, sceneElement) {
 
 $('.scene').click(function(element){
   var key = $(this).data('scene');
-  window.hueCommander.command('scene:' + key);
-  activatedScene(key);
+  if (!$(this).hasClass('active')) {
+    window.hueCommander.command('scene:' + key);
+    activatedScene(key);
+  } else {
+    // deactivate all
+    window.hueCommander.command('scene:stop');
+    activatedScene('stop');
+  }
   return false;
 });
 
@@ -737,7 +743,7 @@ function executeCommand() {
   /*jshint validthis:true */
   var command = $(this).attr('href');
   window.hueCommander.command(command);
-  activatedScene('none');
+  activatedScene('stop');
   return false; 
 }
 
@@ -770,7 +776,7 @@ $('#picker, #picker2, #picker3').mousemove(getColor);
 $('#picker, #picker2, #picker3').click(function(e, ev){
   var hex = getColor(e);
   window.hueCommander.command(hex);
-  activatedScene('none');
+  activatedScene('stop');
 });
 
 function getColor(e){

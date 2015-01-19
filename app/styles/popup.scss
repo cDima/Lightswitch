@@ -25,6 +25,7 @@ html, body {
     min-width: 320px;
     margin: 0 auto;
     background-color: #EDEDED;
+    zoom: reset; 
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -400,6 +401,7 @@ a.hightlight {
 .scene.active
 {
   background-color: #FFFE99;
+  border-radius: 20px;
 }
 
 .scene:hover .colors {

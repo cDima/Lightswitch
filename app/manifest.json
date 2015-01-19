@@ -1,28 +1,24 @@
 {
   "manifest_version": 2,
 
-  "name": "Lightswitch Light for Philips Hue",
-  "short_name": "Lightswitch",
-  "description": "Lightswitch Light allows control over digitally connected lightbulbs, such as Philips Hue.",
+  "name": "Shine for Philips Hue",
+  "short_name": "Shine",
+  "description": "Shine — an app for Philips Hue lights",
   "version": "1.7.0",
-
   "author": "Dmitry Sadakov (sadakov.com)",
-  "icons": { "16": "images/lightswitch.logo.16.png",
-             "32": "images/lightswitch.logo.32.png",
-             "48": "images/lightswitch.logo.48.png",
-            "128": "images/lightswitch.logo.128.png" },
-
+  "icons": { 
+            "128": "images/shine-logo128.png" },
   "permissions": [
-    "https://www.meethue.com/"
+    "https://www.meethue.com/",
+    "https://cdn.mxpnl.com/", 
+    "https://*.list-manage.com/",
+    "https://*.uservoice.com/",
+    "https://colorlovers.herokuapp.com/",
+    "https://www.google-analytics.com/"
   ],
-  "background": {
-    "scripts": [
-      "scripts/background.min.js"
-    ]
-  },
-  "browser_action": {
-    "default_icon": "images/lightswitch.logo.48.png",
-    "default_popup": "index.html"
-  },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+  "app": {
+    "background": {
+      "scripts": ["scripts/background.min.js"]
+    }
+  }
 }

@@ -5,9 +5,9 @@
 /*exported config */
 
  var config = {
-  app: 'light' // light, ambieye, pro, web
+  //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
   //app: 'pro',
-  //app: 'app',
+  app: 'app',
   //app: 'web',
  };

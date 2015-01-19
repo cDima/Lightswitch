@@ -14,6 +14,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
     
     var logger = null,
         actors = null,
+        stateCache = null,
         executeCommand = function(command) {
             log('executing command: ' + command + ' on actors: ' + actors);
             trackEvent('huecommander', 'command', command);
@@ -53,22 +54,42 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
 
             if (command === 'scene:stop') {
                 sceneCmd.stop();
+                restoreState();
             }
             if (command.lastIndexOf('scene:', 0) === 0) {
                 var sceneName = command.substring(6);
                 var lampids = hue.getLampIds(actors);
+
+                saveState();
+
                 sceneCmd.start(sceneName, lampids);
                 return;
             }
         },
+        saveState = function(){
+            if (stateCache === null) {
+                stateCache = getActorStatesInternal();
+            }
+        },
+        restoreState = function(){
+            if (stateCache !== null) {
+                var newstate = stateCache;
+                stateCache = null;
+                $.each(newstate, function(key, value){
+                    hue.setXYState(value.key,value.state.xy, 10, value.state.bri);
+                });
+            }
+        },
         executeOnActors = function(func){
             sceneCmd.stop();
+            restoreState();
+
             var lampIds = hue.getLampIds(actors);
             if (!$.isArray(lampIds)) {
                 lampIds = [lampIds];
             }
             $.each(lampIds, function(index, val){
-                func(val);
+                func(val, index);
             });
         },
         detectBrigthness = function(command){
@@ -81,17 +102,8 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (logger !== null) {
                 logger(text);
             }
-        };
-        
- 
-    return {
-        setActor: function(actor) {
-            actors = actor;
         },
-        getActor: function(actor) {
-            return actors;
-        },
-        getActorStates: function(actor) {
+        getActorStatesInternal = function(actor){
             var lampIds = hue.getLampIds(actors);
             var state = window.hue.getState();
             var actorStates= [];
@@ -102,11 +114,48 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                             ', name: ' + lamp.name + 
                             ', reachable: ' + lamp.state.reachable + 
                             ', on: ' + lamp.state.on);
+                        lamp.key = key;
                         actorStates.push(lamp);
                     }
                 });
             } 
             return actorStates;
+        },
+        getActorBrightnessInternal = function() {
+            var bri = 0;
+            var actors = getActorStatesInternal();
+            $.each(actors, function(key, lamp){
+                if (lamp.state.bri > bri) {
+                  bri = lamp.state.bri;
+                }
+            });
+            return bri;
+        },
+        getActorTurnedOn = function() {
+            var on = false;
+            var actors = getActorStatesInternal();
+            $.each(actors, function(key, lamp){
+                on = on || lamp.state.on;
+            });
+            return on;
+        };
+        
+ 
+    return {
+        setActor: function(actor) {
+            actors = actor;
+        },
+        getActor: function(actor) {
+            return actors;
+        },
+        getActorBrightness: function() {
+            return {
+                bri: getActorBrightnessInternal(), 
+                on: getActorTurnedOn() 
+            };
+        },
+        getActorStates: function(actor) {
+            return getActorStatesInternal(actor);
         },
         command: function(commandText) {
             executeCommand(commandText);

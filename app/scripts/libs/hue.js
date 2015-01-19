@@ -405,8 +405,11 @@ var hue = function ($, colors) {
                 console.log('hue: sending status change, ' + status.status + ', text: ' + status.text + ', data: ' + status.data);
                 statusChangeHandler(status);
             }
-        }
-        ;
+        },
+        setXYState = function(lampIndex /* Number */, xy, transitiontime, bri) {
+            var state = buildXYState(xy, bri, transitiontime);
+            put(lampIndex, state);
+        };
         
     return {
         /** 
@@ -456,13 +459,14 @@ var hue = function ($, colors) {
             if (typeof(brightness) === 'number') {
                 var bri = colorUtil().getBrightness(color);
                 adjustBrightness(lampIndex, bri, function(bri){
-                    var state = buildXYState(xy, bri, transitiontime);
-                    put(lampIndex, state);
+                    setXYState(lampIndex, xy, transitiontime, bri);
                 });
             } else {
-                var state = buildXYState(xy, null, transitiontime);
-                put(lampIndex, state);
+                setXYState(lampIndex, xy, transitiontime, null);
             }
+        },
+        setXYState: function(lampIndex, xy, transitiontime, bri){
+            setXYState(lampIndex, xy, transitiontime, bri);
         },
         /**
          * Sets all connected lamps to the approximate CIE x,y equivalent of 

@@ -55,29 +55,33 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (command === 'scene:stop') {
                 sceneCmd.stop();
                 restoreState();
-            }
-            if (command.lastIndexOf('scene:', 0) === 0) {
-                var sceneName = command.substring(6);
-                var lampids = hue.getLampIds(actors);
+            } else {
+                if (command.lastIndexOf('scene:', 0) === 0) {
+                    var sceneName = command.substring(6);
+                    var lampids = hue.getLampIds(actors);
 
-                saveState();
+                    saveState();
 
-                sceneCmd.start(sceneName, lampids);
-                return;
+                    sceneCmd.start(sceneName, lampids);
+                    return;
+                }
             }
         },
         saveState = function(){
             if (stateCache === null) {
                 stateCache = getActorStatesInternal();
+                log('Saved state' + JSON.stringify(stateCache));
             }
         },
         restoreState = function(){
             if (stateCache !== null) {
                 var newstate = stateCache;
                 stateCache = null;
+                log('Restoring state' + JSON.stringify(newstate));
                 $.each(newstate, function(key, value){
-                    hue.setXYState(value.key,value.state.xy, 10, value.state.bri);
+                    hue.setXYState(value.key,value.state.xy, 0, value.state.bri);
                 });
+                hue.heartbeat();// force refresh from bridge
             }
         },
         executeOnActors = function(func){

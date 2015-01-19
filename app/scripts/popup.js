@@ -48,6 +48,7 @@ if(config.app !== 'app') {
 
 var sceneCmd = null;
 var ambieye = null;
+var heartbeatInterval = 2000;
 
 if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
     log('loading as chrome extention popup');
@@ -90,6 +91,11 @@ if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
 
 ambieye.onUpdate(updatePreviewColors);
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+
+log('client: binding to status change.');
+
+window.hue.onStatusChange(onStatus);
+window.hueCommander.setLogger(log);
 
 // copyright
 $('footer time').text(new Date().getFullYear());
@@ -234,11 +240,6 @@ function showPalettes(palettes){
 }
 
 
-log('client: binding to status change.');
-
-window.hue.onStatusChange(onStatus);
-window.hueCommander.setLogger(log);
-
 function log(text) {
     console.log(text);
 }
@@ -302,6 +303,18 @@ $('#manualbridgeip').hide();
 
 var manualIpInputAnimation = null;
 
+function stopHeartbeat(){
+  if (heartbeat !== null) {
+    log('Clearing heartbeat');
+    clearInterval(heartbeat);
+  }
+}
+
+function startHeartbeat() {
+  log('Starting heartbeat');
+  heartbeat = setInterval(window.hue.heartbeat, heartbeatInterval);
+}
+
 function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
@@ -318,11 +331,7 @@ function onStatus(status) {
         $('.switch').fadeOut(600);
         hideControls();
       }, 2000);
-
-      if (heartbeat !== null) {
-        log('Clearing heartbeat');
-        clearInterval(heartbeat);
-      }
+      stopHeartbeat();
       
       return;
     } 
@@ -343,10 +352,6 @@ function onStatus(status) {
         log('Tracking event OK');
         ga('send', 'timing', 'status-ok', 'Ping hub', timeSpent, 'Philips Hue Hub');
 
-        //if (statusText !== status.text) {
-        //    statusText = status.text;
-        //    $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
-        //}
         $('#connectStatus').fadeOut(600, function() {
           if (config.tabs === true) {
             setHeight(400, 400);
@@ -358,19 +363,10 @@ function onStatus(status) {
         });
         $('#cmn-toggle-1').prop('checked', status.data);
 
-        if (heartbeat !== null) {
-          log('Clearing heartbeat');
-          clearInterval(heartbeat);
-        }
-        log('Starting heartbeat');
-        heartbeat = setInterval(window.hue.heartbeat, 2000);
-
-
+        stopHeartbeat();
+        startHeartbeat();
     } else {
-        if (heartbeat !== null) {
-          log('Clearing heartbeat');
-          clearInterval(heartbeat);
-        }
+        stopHeartbeat();
         
         log('Hiding elements, bridge not found');
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');

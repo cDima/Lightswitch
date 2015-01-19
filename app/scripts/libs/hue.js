@@ -23,7 +23,8 @@ var hue = function ($, colors) {
 
         // defaults
         baseUrl = 'http://' + bridgeIP + '/api',
-        baseApiUrl = baseUrl + '/' + apiKey,
+        baseApiUrl = null,//baseUrl + '/' + apiKey,
+        lightApiUrl =null,// baseApiUrl + '/lights',
         lastResult = null,
         numberOfLamps = 3, // defaulted to the # of lamps included in the starter kit, update if you've connected additional bulbs
 
@@ -43,6 +44,7 @@ var hue = function ($, colors) {
         updateURLs = function() {
             baseUrl = 'http://' + bridgeIP + '/api';
             baseApiUrl = baseUrl + '/' + apiKey;
+            lightApiUrl = baseApiUrl + '/lights';
         },
         /**
          * Sets the response to the lastResult member for use. Currently unused.
@@ -76,6 +78,7 @@ var hue = function ($, colors) {
                 data: JSON.stringify(data)
             };
             $.ajax(options);
+            //log(JSON.stringify(options));
             return data;
         },
 
@@ -90,6 +93,7 @@ var hue = function ($, colors) {
                 data: JSON.stringify(data)
             };
             $.ajax(options);
+            //log(JSON.stringify(options));
             return data;
         },
 
@@ -101,6 +105,7 @@ var hue = function ($, colors) {
                 error: error
             };
             $.ajax(options);
+            log(JSON.stringify(options));
         },
         
         /**
@@ -293,6 +298,20 @@ var hue = function ($, colors) {
                 success(Math.round(newBrightness));
             });
         },
+        getLightState = function(){
+            $.ajax({
+                dataType: 'json',
+                url: lightApiUrl,
+                success: onLightUpdate,
+                error: onAuthError,
+                timeout: 2000
+            });
+        },
+        onLightUpdate = function(lights){
+            // cache state
+            state.lights = lights;
+            log('hue: saving light state - ' + JSON.stringify(lights));
+        },
         getBridgeState = function(){
             $.ajax({
                 dataType: 'json',
@@ -328,6 +347,7 @@ var hue = function ($, colors) {
 
             // cache state
             state = data;
+            log('hue: saving state - ' + JSON.stringify(data));
 
             numberOfLamps = Object.keys(data.lights).length;
             var message = 'No  lights found';
@@ -389,7 +409,7 @@ var hue = function ($, colors) {
                 status = newStatus;
                 statusChange();
             }
-            //$('#connectStatus').html('<div class='intro-text'>' + text + '</div>');
+            
         }, 
         log = function(text) {
             console.log('hue: ' + text);
@@ -714,7 +734,7 @@ var hue = function ($, colors) {
             return state;
         },
         heartbeat: function(){
-            getBridgeState();
+            getLightState();
         },
         getLampIds: function(actors){
             // parse actors

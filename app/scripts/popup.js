@@ -102,16 +102,17 @@ $('footer time').text(new Date().getFullYear());
 
 var hubStartTime = new Date().getTime();
 
+
+//$('#brightness-control').rangepicker().on('slideStop', function(slideEvt){
 $('#brightness-control').slider().on('slideStop', function(slideEvt){
   var val = slideEvt.value;
   log('new brightness: ' + val);
   window.hueCommander.command('bri:' + val);
 });
 
-//console.log(background.hue.status);
-//chrome.runtime.onMessage.addListener(function (message, sender, callback){
-    // received message from hue backend
-//});
+function disableBrightness(on){
+    $('#toggle-ambientweb').attr('disabled', on);
+}
 
 $('.switch').hide();
 $('#controls').hide();
@@ -343,7 +344,7 @@ function onStatus(status) {
     if (status.status === 'OK') {
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
         $('#manualbridgeip').hide();
-        $('#cmn-toggle-1').prop('disabled', false);
+        $('#lightswitch').prop('disabled', false);
 
         // time to screen
         var hubEndTime = new Date().getTime();
@@ -361,7 +362,7 @@ function onStatus(status) {
           //$('body').addClass('on');
           fillSettings();
         });
-        $('#cmn-toggle-1').prop('checked', status.data);
+        $('#lightswitch').prop('checked', status.data);
 
         stopHeartbeat();
         startHeartbeat();
@@ -370,8 +371,8 @@ function onStatus(status) {
         
         log('Hiding elements, bridge not found');
         $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
-        $('#cmn-toggle-1').prop('disabled', true);
-        $('#cmn-toggle-1').prop('checked', false);
+        $('#lightswitch').prop('disabled', true);
+        $('#lightswitch').prop('checked', false);
 
         //$('body').removeClass('on');
         $('#controls').fadeOut(600);
@@ -422,10 +423,10 @@ function updateUIForActors(){
     }
   });
  
-  $('#cmn-toggle-1').prop('checked', on);
+  $('#lightswitch').prop('checked', on);
   $('#brightness-control').val(bri);
   $('#brightness-control').change(); // update ui
-  $('#brightness-control').prop('disabled', !on);
+  disableBrightness(on);
 }
 
 
@@ -648,7 +649,7 @@ function showTabContent() {
 }
 
 if (window.hue.status === 'OK') {
-  $('#cmn-toggle-1').prop('checked', window.hue.status.data);
+  $('#lightswitch').prop('checked', window.hue.status.data);
 }
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
@@ -661,14 +662,13 @@ var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed po
     }); // Add a click handler
 }*/
 
-$('#cmn-toggle-1').click(function(e){
-    var turnOn = $('#cmn-toggle-1').is(':checked');
+$('#lightswitch').click(function(e){
+    var turnOn = $('#lightswitch').is(':checked');
+    disableBrightness(turnOn);
     if (turnOn) {
       window.hueCommander.command('on');
-      $('#brightness-control').prop('disabled', false);
     } else {
       window.hueCommander.command('off');
-      $('#brightness-control').prop('disabled', true);
     }
 
     trackEvent(e.target.id, 'clicked');

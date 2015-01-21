@@ -12,15 +12,15 @@ var reload = browserSync.reload;
 var rename = require("gulp-rename");
 
 var AUTOPREFIXER_BROWSERS = [
-  //'ie >= 10',
-  //'ie_mob >= 10',
-  //'ff >= 30',
+  'ie >= 10',
+  'ie_mob >= 10',
+  'ff >= 30',
   'chrome >= 34',
-  //'safari >= 7',
-  //'opera >= 23',
-  //'ios >= 7',
-  //'android >= 4.4',
-  //'bb >= 10'
+  'safari >= 7',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 4.4',
+  'bb >= 10'
 ];
 
 // Lint JavaScript
@@ -101,11 +101,12 @@ gulp.task('html', function() {
   return gulp.src('app/**/*.html')
     .pipe(assets)
     // Concatenate And Minify JavaScript
-    .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+    //.pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
     
 	// Remove Any Unused CSS
     // Note: If not using the Style Guide, you can delete it from
     // the next line to only include styles your project uses.
+    /*
     .pipe($.if('*.css', $.uncss({
       html: [
         'app/index.html',
@@ -119,6 +120,7 @@ gulp.task('html', function() {
         /.app-bar.open/
       ]
     })))
+    */
     // Concatenate And Minify Styles
     // In case you are still using useref build blocks
     .pipe($.if('*.css', $.csso()))

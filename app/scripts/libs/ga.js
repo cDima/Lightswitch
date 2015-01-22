@@ -226,15 +226,15 @@ function trackEvent(category, action, label, value) {
   }
 }
 
-if (config.app === 'pro') {
-
-/*(function(_, __) { _._errs = []; var h = _.onerror; var f = function() { var a = arguments; _errs.push(a); h && h.apply(this, a)}; 
+if (config.app === 'pro' || config.app === 'web') {
+	// script.fail
+	(function(_, __) { _._errs = []; var h = _.onerror; var f = function() { var a = arguments; _errs.push(a); h && h.apply(this, a)}; 
 	var sf = __.createElement('script'); sf.type = 'text/javascript'; 
 	sf.async = true; sf.id = 'onscriptfail'; 
 	sf.src = 'https://script.fail/inform?sadakov@gmail.com'; 
 	var s = __.getElementsByTagName('script')[0]; 
 	s.parentNode.insertBefore(sf, s); _.onerror = f; })(window, document); 
-*/
+
 }
 /*(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];

@@ -617,7 +617,7 @@ function fillSettings() {
 function activatedScene(key){
   $('#scenes button').removeClass('active');
   $('.scene').removeClass('active');
-  $('#scenes button[id="' + key + '"').addClass('active');
+  $('#scenes button[id="' + key + '"]').addClass('active');
   $('.scene[data-scene="' + key + '"]').addClass('active');
 }
 //function activateGroup(key){

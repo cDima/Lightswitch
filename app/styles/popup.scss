@@ -2,9 +2,6 @@
 .intro {
     height: 115px;
 }
-.container {
-  width: 100%;
-}
 html{}
 body {
   overflow: hidden;
@@ -17,13 +14,13 @@ body.on {
 html, body {
     height: 100%;
     width: 100%;
-    width: 320px;
+    min-width: 320px;
+    /*max-width: 600px;*/
     padding: 0;
+    margin: 0 auto;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #555;
     color: #B5B5B5;
-    min-width: 320px;
-    margin: 0 auto;
     background-color: #EDEDED;
     zoom: reset; 
 
@@ -34,6 +31,33 @@ html, body {
     -ms-user-select: none;
     user-select: none;
 }
+
+
+ /* CSS that's applied when the viewing area's width is 450px or less */
+@media only screen and (max-width: 500px) {
+  .tab-text {
+    display: none;
+  }
+}
+/*
+@media only screen and (max-width: 640px) {
+  .tab-content > .tab-pane {
+    display: block;
+    float: left;
+    width: 320px;
+    padding: 25px 0;
+  }
+  .nav-tabs {
+    display: none;
+  }
+}
+*/
+
+.container {
+  width: 100%;
+  padding-bottom:25px;   /* Height of the footer element */
+}
+
 h5 {
   font-size: 12px;
   line-height: 0.8em;
@@ -70,12 +94,15 @@ a:focus {outline:0;}
 }
 #wrapper  {
   position: relative;
-  height: 100%;
+  /*height: 100%;*/
   width: 100%;
+  min-height:100%;
 }
 
 .intro-body {
-    padding-top: 30px;
+  padding-top: 30px;
+  width: 320px;
+  margin: 0 auto;
 }
 .intro-body {
     animation: fadein 2s;
@@ -194,7 +221,7 @@ p {margin: 0 0 5px;}
 
 .tab-pane{
   overflow:auto;
-  height: 215px;  
+  /*height: 215px;  */
   margin: 10px;
   font-family: verdana, helvetica, verdana, arial;
   color: #333;
@@ -209,12 +236,14 @@ p {margin: 0 0 5px;}
 
 footer {
   position: absolute;
-  bottom: 0px;
+  text-align: center;
   font-size: 0.8em;
   font-size: 0.7em;
   margin: 0 auto;
   width: 100%;
-  text-align: center;
+  height: 22px;
+  bottom: 0;
+  left: 0;
 }
 .center {
   margin: 0 auto;
@@ -681,14 +710,14 @@ h5 a, h5 a:hover  {
   margin-bottom: 0;
 }
 #group-name .input {
-  width: 81%;
+  width: auto;
   height: 23px;
   margin: 10px 0px 10px 10px;
 }
 #group-name .submit {
   height: 23px;
   background: #678389;
-  width: auto;  
+  width: 50px;
 }
 #group-add-lamps, #group-remove {
   margin: 10px;

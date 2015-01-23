@@ -5,7 +5,8 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
     <meta name="description" content="Lightswitch v1.4">
     <meta name="author" content="Dmitry Sadakov">
 
@@ -74,42 +75,41 @@
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                       <li role="presentation" class="active">
                         <a href="#home" role="tab" data-toggle="tab">  
-                        <i class="fa fa-gear"></i> 
-                        <b class="not-pro">&nbsp; Lights</b>
-                      </a></li>
+                          <i class="fa fa-gear"></i> 
+                          <b class="tab-text not-pro">&nbsp; Lights</b>
+                        </a>
+                      </li>
                       <li role="presentation" class="config-moods">
                         <a href="#moods" role="tab" data-toggle="tab">
                           <i class="fa fa-paint-brush"></i>
                         <!--Moods--> 
-                        <b class="not-pro">&nbsp;
-                        Scenes
-                        </b>
+                        <b class="tab-text not-pro">&nbsp; Scenes</b>
                         </a>
                       </li>
                       <li role="presentation" class="config-colors">
                         <a href="#colors" role="tab" data-toggle="tab">
                       <!--Colors-->
                         <i class="fa fa-eyedropper"></i>
-                        <b class="not-pro">&nbsp;
+                        <b class="tab-text not-pro">&nbsp;
                         Colors
                         </b>
                       </a></li>
                       <li role="presentation" class="config-search">
                         <a href="#search" role="tab" data-toggle="tab">
                         <i class="fa fa-binoculars"></i>
-                        <b class="not-pro">&nbsp;
+                        <b class="tab-text not-pro">&nbsp;
                         Search
                         </b>
                       </a></li>
                       <li role="presentation" class="config-ambieye">
                         <a href="#eye" role="tab" data-toggle="tab">
                         <i class="fa fa-eye"></i>
-                        <b class="not-pro">&nbsp;Ambience</b>
+                        <b class="tab-text not-pro">&nbsp;Ambience</b>
                       </a></li>
                       <li role="presentation" class="config-feedback">
                         <a href="#subscribe" role="tab" data-toggle="tab">
                           <i class="fa fa-paper-plane"></i> 
-                          <b class="not-pro">&nbsp;
+                          <b class="tab-text not-pro">&nbsp;
                           Feedback
                           </b>
                         </a>
@@ -134,7 +134,14 @@
                             <a class="link-btn command" href="#brighten" title="Brighten">+</a>-->
                             <div class="pane-body">
                               <div> 
-                                <input id="brightness-control" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="254"  data-slider-tooltip="hide" />
+                                <input id="brightness-control" 
+                                data-slider-id='ex1Slider' 
+                                type="text" 
+                                data-slider-min="0"
+                                 data-slider-max="255" 
+                                 data-slider-step="1" 
+                                 data-slider-value="254"  
+                                 data-slider-tooltip="hide" />
                               </div>
                             </div>
                             <h5>Groups <a id="make-group" href="#"><i class="fa fa-pencil"></i></a></h5>
@@ -251,7 +258,7 @@
                               <div class="not-app">
 
                                 <div id="uservoice">
-                                  <div data-uv-embed="smartvote" data-uv-height="210px"></div>
+                                  <div data-uv-embed="smartvote" data-uv-height="210px" data-uv-width="300px"></div>
                                 </div>
 
                               </div>

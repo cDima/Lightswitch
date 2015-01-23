@@ -117,7 +117,10 @@ function disableBrightness(on){
 $('.switch').hide();
 $('#controls').hide();
 $('.successsubscribe').hide();
-if (config.app === 'app') {
+
+if (config.app === 'web') {
+  // do nothing
+} else if (config.app === 'app') {
   setHeight(130, 0);
 } else {
   setHeight(150, 0);
@@ -324,7 +327,9 @@ function onStatus(status) {
       bruteForseIPs();
       manualIpInputAnimation = setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
-        if (config.app === 'light') {
+        if (config.app === 'web') {
+          // do nothing
+        } else if (config.app === 'light') {
           setHeight(170, 400);
         } else {
           setHeight(160, 400);
@@ -355,7 +360,11 @@ function onStatus(status) {
 
         $('#connectStatus').fadeOut(600, function() {
           if (config.tabs === true) {
-            setHeight(400, 400);
+            if (config.app === 'web') {
+              // do nothing
+            } else {
+              setHeight(400, 400);
+            }
           }
           $('.switch').fadeIn(600, showControls);
             
@@ -377,10 +386,10 @@ function onStatus(status) {
         //$('body').removeClass('on');
         $('#controls').fadeOut(600);
         $('.tab-content').hide();
-        if (config.app === 'app') {
+        if (config.app === 'web') {
+          // do nothing
+        } else if (config.app === 'app') {
           setHeight(130, 0);
-        //} else if (config.app === 'light') {
-        //  setHeight(140, 0);
         } else {
           setHeight(150, 0);
         }

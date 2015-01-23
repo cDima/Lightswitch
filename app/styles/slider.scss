@@ -14,9 +14,15 @@
   position: relative;
 }
 .slider.slider-horizontal {
-  width: 210px;
+  /*width: 210px;*/
   height: 20px;
+  width: 100%;
 }
+#brightness-control {
+}
+#brightness-control .slider-selection {
+}
+
 .slider.slider-horizontal .slider-track {
   height: 10px;
   width: 100%;
@@ -146,11 +152,6 @@
   width: 16px;
 }
 
-#brightness-control {
-  width: 240px
-}
-#brightness-control .slider-selection {
-}
 .slider.slider-horizontal .slider-selection,
 .range-quantity {
   background: #95b7d4;

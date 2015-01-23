@@ -175,7 +175,7 @@ function replaceConfigAndManifest(projectName) {
     .pipe(rename('config.js'))
   	.pipe(gulp.dest('app/scripts'));
 
-   gulp.src('app/manifest.' + projectName + '.json')
+   gulp.src('app/manifests/manifest.' + projectName + '.json')
     .pipe(rename('manifest.json'))
   	.pipe(gulp.dest('app'));
 
@@ -193,6 +193,9 @@ gulp.task('light', function() {
 });
 gulp.task('pro', function() {
    replaceConfigAndManifest('pro');
+});
+gulp.task('web', function() {
+   replaceConfigAndManifest('web');
 });
 
 // Build Production Files, the Default Task

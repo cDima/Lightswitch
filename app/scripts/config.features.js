@@ -23,6 +23,12 @@ switch(config.app) {
       config.search = true;
       config.tabs = true;
       break;
+  case 'web':
+      config.ambieye = false;
+      config.scenes = true;
+      config.search = true;
+      config.tabs = true;
+      break;
   case 'app':
       config.ambieye = false;
       config.scenes = true;

@@ -271,7 +271,7 @@ function tryBridge(){
   });
 }
 
-function bruteForseIPs(){
+function bruteForceIPs(){
   // try default ips for win and mac
   var ips = [];
   for(var i = 0; i < 21; i++) {
@@ -324,7 +324,7 @@ function onStatus(status) {
     
     if (status.status === 'BridgeNotFound') {
       $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
-      bruteForseIPs();
+      bruteForceIPs();
       manualIpInputAnimation = setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
         if (config.app === 'web') {
@@ -336,6 +336,8 @@ function onStatus(status) {
         }
         $('.switch').fadeOut(600);
         hideControls();
+
+        window.hue.findBridge();
       }, 2000);
       stopHeartbeat();
       

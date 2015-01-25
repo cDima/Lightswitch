@@ -774,33 +774,101 @@ function placeImage(picker, imgsrc){
   };
 }
 
+
+window.ondevicemotion = function(event){
+    var accelerationX = event.accelerationIncludingGravity.x;
+    var accelerationY = event.accelerationIncludingGravity.y;
+    var accelerationZ = event.accelerationIncludingGravity.z;
+
+    $('#varx').text(round(accelerationX));
+    $('#vary').text(round(accelerationY));
+    $('#varz').text(round(accelerationZ));
+};
+
+function round(n){
+  var num = n.toFixed(2);
+  if (n >= 0) {
+    num = '+' + num;
+  } 
+  return num;
+}
+
+var gravity = false;
+$('#toggle-gravity').click(function(e){
+  var active = $('#toggle-gravity').is(':checked');
+  gravity = active;
+});
+
 placeImage('picker', 'images/colorbox-100.png');
 placeImage('picker2', 'images/colorwheel-100.png');
 //placeImage('#picker', 'img/colorwhell2.png');
 
 //$('#picker').click(function(e) { // click event handler
-$('#picker, #picker2, #picker3').mousemove(getColor);
-$('#picker, #picker2, #picker3').click(function(e, ev){
-  var hex = getColor(e);
-  window.hueCommander.command(hex);
-  activatedScene('stop');
+$('#picker, #picker2, #picker3').on({
+  'touchmove': throttleCmd,
+  'mousemove': getColor,
+  //'mouseover': getColor,
+  'touchstart': getColor
 });
+$('#picker, #picker2, #picker3').click(throttleCmd);
 
+var circle = $('#picker-circle');
+
+circle.hide();
+var hideCircleTimer = null;
+
+var delayedSend = null;
+function throttleCmd(e){ 
+    var hex = getColor(e);
+    if (delayedSend !== null) {
+      clearTimeout(delayedSend);
+    }
+    delayedSend = setTimeout(function(){
+      window.hueCommander.command(hex);
+      activatedScene('stop');
+    }, 100);
+}
 function getColor(e){
+
+    e.preventDefault();
     // get coordinates of current position
     var canvasOffset = $(e.target).offset();
+    if (e.pageX === undefined) { 
+      e = e.originalEvent; 
+    }
     var canvasX = Math.floor(e.pageX - canvasOffset.left);
     var canvasY = Math.floor(e.pageY - canvasOffset.top);
-
-    // get current pixel
+    var pixel = null;
+    
     var ctx = document.getElementById(e.target.id).getContext('2d');
     var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
-    var pixel = imageData.data;
+    pixel = imageData.data;
 
+    // show picker circle
+    
     // update preview color
+    if (pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0) {
+      circle.fadeOut();
+      return;
+    }
     var pixelColor = 'rgb('+pixel[0]+', '+pixel[1]+', '+pixel[2]+')';
     $('.preview').css('backgroundColor', pixelColor);
 
+    circle.css({ 
+          backgroundColor: pixelColor, 
+          top: e.pageY - 50,
+          left: e.pageX -10
+        });
+
+    circle.show();
+    circle.fadeIn();
+    if (hideCircleTimer !== null) {
+      clearTimeout(hideCircleTimer); 
+    }
+    hideCircleTimer = setTimeout(function(){
+      circle.fadeOut();
+    }, 2000);
+    
     // update controls
     //$('#rVal').val(pixel[0]);
     //$('#gVal').val(pixel[1]);
@@ -817,6 +885,7 @@ function getColor(e){
 /* ambient eye tab on show */
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+  circle.hide();
   log('in tab: ' + e.target.hash);
   trackEvent('click', 'tab', e.target.hash);
 

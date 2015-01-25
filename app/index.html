@@ -235,7 +235,25 @@
                               <canvas id="picker2" var="1" width="100" height="100"></canvas>
                               <div id="rgbVal"></div>
                           </div>
+
                         </div>
+
+                          <div class="panel-body">
+                          
+                            <div class="ground-enabled">
+                              <div class="ground-switch" id="toggle-ground-wrapper">
+                                <input id="toggle-ground" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                                <label for="toggle-ground"></label>
+                              </div>
+                              <label for="toggle-ground">
+                                Enable accelerometer color picker
+                              </label>
+                            </div>
+                          
+                            X: <span id="varx"></span>
+                            Y: <span id="vary"></span>
+                            Z: <span id="varz"></span>
+                          </div>
                       </div>
                       
                       <div role="tabpanel" class="tab-pane fade in" id="subscribe">
@@ -254,7 +272,8 @@
                             </div>
                             <div class="pane-body">
                               You can <a href="mailto:apistarter@gmail.com" target="_blank">email privately</a>, and <a href="https://apistarter.uservoice.com/" target="_blank">publically</a>.
-
+                            </div>
+                            <div class="">
                               <div class="not-app">
 
                                 <div id="uservoice">
@@ -305,7 +324,7 @@
               								<label for="toggle-ambientweb">
               									Enable Ambient Web Colors
               								</label>
-                                          </div>
+                            </div>
               							<div class="web-preview">
               								<div class="eye-preview">
               									<img id="ambientpreview"></img>
@@ -338,7 +357,8 @@
             &copy; <time>2015</time> <a href="http://apistarter.com"  target="_blank">API Starter</a>
           </p>
         </footer>
-
+        
+        <div id="picker-circle"></div>
 
         <!-- 
         <span class="glyphicon glyphicon-chevron-up"></span>

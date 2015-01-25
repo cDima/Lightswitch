@@ -309,8 +309,11 @@ var hue = function ($, colors) {
         },
         onLightUpdate = function(lights){
             // cache state
-            state.lights = lights;
-            log('hue: saving light state - ' + JSON.stringify(lights));
+            /*jshint sub:true*/
+            if (lights !== null && state !== null) {
+                state.lights = lights;
+                log('hue: saving light state - ' + JSON.stringify(lights));
+            }
         },
         getBridgeState = function(){
             $.ajax({

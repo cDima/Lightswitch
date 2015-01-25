@@ -774,15 +774,46 @@ function placeImage(picker, imgsrc){
   };
 }
 
+$(window).on( 'orientationchange', function(e){
+  $('#orien').text(window.orientation);
+  log('orientation: ' + window.orientation);
+}); 
+window.ondeviceorientation = function(e) {
+  $('#orienA').text(round(e.alpha || 0));
+  $('#orienB').text(round(e.beta));
+  $('#orienG').text(round(e.gamma));
+  var north = e.webkitCompassHeading || 0;
+  $('#north').text(north);
+  gravity.a = e.alpha;
+  gravity.b = e.beta;
+  gravity.g = e.gamma;
+  gravity.north = north;
+};
 
 window.ondevicemotion = function(event){
-    var accelerationX = event.accelerationIncludingGravity.x;
-    var accelerationY = event.accelerationIncludingGravity.y;
-    var accelerationZ = event.accelerationIncludingGravity.z;
+  var accelerationX = event.accelerationIncludingGravity.x;
+  var accelerationY = event.accelerationIncludingGravity.y;
+  var accelerationZ = event.accelerationIncludingGravity.z;
+  var deg = window.orientation;
+  if (deg === 90) {
+    // x is -9
+    var y = accelerationY;
+    accelerationY = accelerationX;
+    accelerationX = -y;
+  } else if (deg === -90) {
+    // x is +9
+    var te = accelerationY;
+    accelerationY = -accelerationX;
+    accelerationX = te;
+  }
+  // y is usually -9
+  $('#varx').text(round(accelerationX));
+  $('#vary').text(round(accelerationY));
+  $('#varz').text(round(accelerationZ));
 
-    $('#varx').text(round(accelerationX));
-    $('#vary').text(round(accelerationY));
-    $('#varz').text(round(accelerationZ));
+  gravity.x = accelerationX;
+  gravity.y = accelerationY;
+  gravity.z = accelerationZ;
 };
 
 function round(n){
@@ -793,11 +824,78 @@ function round(n){
   return num;
 }
 
-var gravity = false;
+var gravity = {
+  active: false,
+  a: 0,
+  b: 0,
+  g: 0,
+  x: 0,
+  y: 0,
+  z: 0,
+  hue: 0,
+  bri: 0, 
+  sat: 255,
+  north: 0,
+  timer: null,
+  delaySend: null
+};
+
 $('#toggle-gravity').click(function(e){
   var active = $('#toggle-gravity').is(':checked');
-  gravity = active;
+  gravity.active = active;
+  if (!active || gravity.timer !== null) {
+    clearInterval(gravity.timer);
+    gravity.timer = null;
+  } else {    
+    gravity.timer = setInterval(gravityUpdate, 300);
+  }
 });
+
+function gravityUpdate(){
+  if (gravity.active) {
+    var briCoef = null;
+    var hueCoef = null;
+    if (gravity.a === 0) {
+      // mac books?
+      briCoef = Math.abs(gravity.y);
+    } else {
+      // iphones
+      briCoef = (10 - Math.abs(gravity.y));
+    }
+
+    hueCoef = gravity.x;
+
+    var bri = ((briCoef) / 10) * 255;
+    var hueDiff = (hueCoef / 10) * 65535 * 0.05; // 5% change
+    bri = Math.round(bri);
+    gravity.bri = bri;
+    gravity.hue += Math.round(hueDiff);
+    while (gravity.hue < 0) {
+      gravity.hue += 65535;
+    }
+    while (65535 < gravity.hue) {
+      gravity.hue -= 65535;
+    }
+    gravity.sat = 255; // max color 
+
+    var json = {
+      hue: gravity.hue,
+      sat:gravity.sat,
+      bri: gravity.bri
+    };
+    var cmd = JSON.stringify(json);
+    log('Setting gravity:  ' + cmd);
+    window.hueCommander.command(cmd);
+
+    var color = 'hsl('+
+      Math.round(360 * (json.hue / 65535)) +', '+
+      Math.round(100 * json.sat / 255)+'%, '+
+      Math.round(100 - (50 * json.bri / 255))+'%)';
+    $('#rgbVal').css({backgroundColor: color});
+
+    activatedScene('stop');
+  }
+}
 
 placeImage('picker', 'images/colorbox-100.png');
 placeImage('picker2', 'images/colorwheel-100.png');
@@ -852,7 +950,7 @@ function getColor(e){
       return;
     }
     var pixelColor = 'rgb('+pixel[0]+', '+pixel[1]+', '+pixel[2]+')';
-    $('.preview').css('backgroundColor', pixelColor);
+    //$('.preview').css('backgroundColor', pixelColor);
 
     circle.css({ 
           backgroundColor: pixelColor, 

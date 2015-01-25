@@ -50,6 +50,25 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 });
                 return;
             }
+            var json = parseJson(command);
+            if (json !== null)
+            {   
+                // hue, sat, bri command:
+                if('hue' in json) {
+                    executeOnActors(function(bulb){
+                        hue.setHueSatState(bulb, json.hue, json.sat, json.bri, json.time);
+                    });
+                    return;
+                } else if('bri' in json) {
+                    executeOnActors(function(bulb){
+                       hue.setBrightness(bulb, json.bri);
+                    });
+                    return;
+                } 
+                //else if('color' in json) {
+                //    hue.setColor(color.substring(1));
+                //}
+            }
             var bri = detectBrigthness(command);
             if (bri !== null) {
                 executeOnActors(function(bulb){
@@ -78,6 +97,15 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                     sceneCmd.start(sceneName, lampids);
                     return;
                 }
+            }
+        },
+        parseJson = function(cmd){
+            try {
+                return JSON.parse(cmd);
+            }
+            catch(ex)
+            {
+                log('Bad command:' + cmd + ' ex:' + ex.message);
             }
         },
         saveState = function(){

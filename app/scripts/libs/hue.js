@@ -243,6 +243,22 @@ var hue = function ($, colors) {
             addTransitionTime(stateObj, transitionTimeOverride);
             return stateObj;
         },
+
+        /** 
+         * Builds a JSON state object for the hue, saturation, and brightness provided.
+         * @param {Number} hue from 0 to 65535.
+         * @param {Number} sat from 0 to 255.
+         * @param {Number} bri from 0 to 255.
+         * @return {Object} State object containing CIE X,Y coordinates.
+         */
+        buildHueSatState = function(hue, sat, brightness, transitionTimeOverride) {
+            var stateObj = { hue: hue, sat: sat };
+            if (typeof(brightness) === 'number') {
+                stateObj.bri = brightness;
+            }
+            addTransitionTime(stateObj, transitionTimeOverride);
+            return stateObj;
+        },
         addTransitionTime = function(stateObj, transitionTimeOverride){
             if(typeof(transitionTime) === 'number' ) {
                 stateObj.transitiontime = transitionTime;
@@ -279,7 +295,7 @@ var hue = function ($, colors) {
          * Builds a JSON state object used to set the brightness of a Hue lamp to
          * the value of the brightness parameter.
          *
-         * @param {Number} brightness Integer value between 0 and 254. Note that 0
+         * @param {Number} brightness Integer value between 0 and 255. Note that 0
          * is not equivalent to the lamp's off state.
          * @return {Object} JSON object used to set brightness.
          */
@@ -429,6 +445,10 @@ var hue = function ($, colors) {
                 statusChangeHandler(status);
             }
         },
+        setHueSatState = function(lampIndex, hue, sat, bri, transitiontime) {
+            var state = buildHueSatState(hue, sat, bri, transitiontime);
+            put(lampIndex, state);
+        },
         setXYState = function(lampIndex /* Number */, xy, transitiontime, bri) {
             var state = buildXYState(xy, bri, transitiontime);
             put(lampIndex, state);
@@ -491,6 +511,17 @@ var hue = function ($, colors) {
         setXYState: function(lampIndex, xy, transitiontime, bri){
             setXYState(lampIndex, xy, transitiontime, bri);
         },
+        /** 
+         * Sets state for the hue, saturation, and brightness provided.
+         * @param {Number} hue from 0 to 65535.
+         * @param {Number} sat from 0 to 255.
+         * @param {Number} bri from 0 to 255.
+         * @return {Object} State object containing CIE X,Y coordinates.
+         */
+        setHueSatState: function(lampIndex, hue, sat, bri, transitiontime){
+            setHueSatState(lampIndex, hue, sat, bri, transitiontime);
+        },
+
         /**
          * Sets all connected lamps to the approximate CIE x,y equivalent of 
          * the provided hex color.

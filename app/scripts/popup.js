@@ -779,6 +779,10 @@ $(window).on( 'orientationchange', function(e){
   log('orientation: ' + window.orientation);
 }); 
 window.ondeviceorientation = function(e) {
+  if (e.beta === null) {
+    $('.north-enabled').hide();
+    return; // windows has beta null.
+  }
   $('#orienA').text(round(e.alpha || 0));
   $('#orienB').text(round(e.beta));
   $('#orienG').text(round(e.gamma));
@@ -791,6 +795,10 @@ window.ondeviceorientation = function(e) {
 };
 
 window.ondevicemotion = function(event){
+  if (event.accelerationIncludingGravity.x === null) {
+    $('.ground-enabled').hide();
+    return; // windows has beta null.
+  }
   var accelerationX = event.accelerationIncludingGravity.x;
   var accelerationY = event.accelerationIncludingGravity.y;
   var accelerationZ = event.accelerationIncludingGravity.z;
@@ -836,13 +844,17 @@ var gravity = {
   bri: 0, 
   sat: 255,
   north: 0,
+  northhue: false,
   timer: null,
   delaySend: null
 };
 
+$('#north-enabled').hide();
+
 $('#toggle-gravity').click(function(e){
   var active = $('#toggle-gravity').is(':checked');
   gravity.active = active;
+  $('#north-enabled').toggle(active);
   if (!active || gravity.timer !== null) {
     clearInterval(gravity.timer);
     gravity.timer = null;
@@ -850,42 +862,57 @@ $('#toggle-gravity').click(function(e){
     gravity.timer = setInterval(gravityUpdate, 300);
   }
 });
+$('#north-enabled').click(function(e){
+  var active = $('#toggle-gravity').is(':checked');
+  gravity.northhue = active;
+});
 
 function gravityUpdate(){
   if (gravity.active) {
-    var briCoef = null;
-    var hueCoef = null;
+    var yCoef = null;
+    var xCoef = null;
     if (gravity.a === 0) {
       // mac books?
-      briCoef = Math.abs(gravity.y);
+      yCoef = Math.abs(gravity.y);
     } else {
       // iphones
-      briCoef = (10 - Math.abs(gravity.y));
+      yCoef = (10 - Math.abs(gravity.y));
     }
 
-    hueCoef = gravity.x;
+    xCoef = gravity.x;
 
-    var bri = ((briCoef) / 10) * 255;
-    var hueDiff = (hueCoef / 10) * 65535 * 0.05; // 5% change
-    bri = Math.round(bri);
-    gravity.bri = bri;
-    gravity.hue += Math.round(hueDiff);
+    if (!gravity.northhue){
+      gravity.sat = Math.round((yCoef / 10) * 255);
+      gravity.hue += Math.round((xCoef / 10) * 65535 * 0.05);
+      gravity.bri = 255; // max 
+    } else {
+      gravity.sat = Math.round((yCoef / 10) * 255);
+      gravity.hue = Math.round((gravity.north / 360) * 65535);
+      gravity.bri = Math.round((xCoef / 10) * 255);
+    }  
     while (gravity.hue < 0) {
       gravity.hue += 65535;
     }
     while (65535 < gravity.hue) {
       gravity.hue -= 65535;
     }
-    gravity.sat = 255; // max color 
+
 
     var json = {
       hue: gravity.hue,
       sat:gravity.sat,
       bri: gravity.bri
     };
+
+  $('#hue').text(round(gravity.hue));
+  $('#sat').text(round(gravity.sat));
+  $('#bri').text(round(gravity.bri));
+
     var cmd = JSON.stringify(json);
     log('Setting gravity:  ' + cmd);
     window.hueCommander.command(cmd);
+
+
 
     var color = 'hsl('+
       Math.round(360 * (json.hue / 65535)) +', '+

@@ -106,6 +106,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             catch(ex)
             {
                 log('Bad command:' + cmd + ' ex:' + ex.message);
+                return null;
             }
         },
         saveState = function(){

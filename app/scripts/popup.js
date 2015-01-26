@@ -849,12 +849,12 @@ var gravity = {
   delaySend: null
 };
 
-$('#north-enabled').hide();
+$('.north-enabled').hide();
 
 $('#toggle-gravity').click(function(e){
   var active = $('#toggle-gravity').is(':checked');
   gravity.active = active;
-  $('#north-enabled').toggle(active);
+  $('.north-enabled').toggle(active);
   if (!active || gravity.timer !== null) {
     clearInterval(gravity.timer);
     gravity.timer = null;
@@ -862,8 +862,8 @@ $('#toggle-gravity').click(function(e){
     gravity.timer = setInterval(gravityUpdate, 300);
   }
 });
-$('#north-enabled').click(function(e){
-  var active = $('#toggle-gravity').is(':checked');
+$('#toggle-north').click(function(e){
+  var active = $('#toggle-north').is(':checked');
   gravity.northhue = active;
 });
 
@@ -887,8 +887,12 @@ function gravityUpdate(){
       gravity.bri = 255; // max 
     } else {
       gravity.sat = Math.round((yCoef / 10) * 255);
-      gravity.hue = Math.round((gravity.north / 360) * 65535);
-      gravity.bri = Math.round((xCoef / 10) * 255);
+      var n = gravity.north - 180;
+      if (n < 0) {
+        n += 360;
+      }
+      gravity.hue = Math.round((n / 360) * 65535);
+      gravity.bri = 255;//Math.round((xCoef / 10) * 255);
     }  
     while (gravity.hue < 0) {
       gravity.hue += 65535;

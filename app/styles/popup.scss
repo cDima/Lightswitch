@@ -42,7 +42,7 @@ html, body {
 /**/
 }
 .footer-padding {
-  padding-bottom: 25px;
+  padding-bottom: 45px;
 }
 
 #wrapper  {
@@ -78,17 +78,21 @@ html, body {
   .tab-text {
     display: none;
   }
+
+  .social-name {
+    display:none;
+  }
 }
 
 
 .container {
   width: 100%;
-  padding-bottom:25px;   /* Height of the footer element */
+  padding-bottom: 45px;
 }
 
 footer {
   position: absolute;
-  height: 22px;
+  height: 40px;
   bottom: 0;
   left: 0;
   margin: 0 auto;
@@ -217,7 +221,7 @@ body.ambieye .logo {
   background-image: url(../images/ambieye.png);
 }
 body.web .logo {
-  background-image: url(../images/lightswitch.grey.png);
+  background-image: url(../images/ambieye-beta.png);
 }
 
 
@@ -652,8 +656,12 @@ a.hightlight {
   display: table;
   position: relative;
   width: 200px;
-  margin-top: 9px;
+  margin: 0px auto 25px;
 }
+a.amazonlink {
+  border-bottom: 1px dashed #ccc;
+}
+
 .bridgeip {
   font-size: 0.9em;
   width: 150px;
@@ -784,22 +792,27 @@ h5 a, h5 a:hover  {
   margin-top: 1px;
 }
 
-.light .only-light {
-  display: block !important;
-  visibility: visible !important;
-}
+.not-web,
 .app .not-app,
-.pro .not-pro {
-  display:none;
-}
+.pro .not-pro,
 .only-app, 
-.only-pro {
+.only-pro,
+.only-web {
   display:none;
 }
+
+.light .only-light,
+.web .only-web,
 .app .only-app,
 .pro .only-pro {
   display: block !important;
   visibility: visible !important;
+}
+.light span.only-light,
+.web span.only-web,
+.app span.only-app,
+.pro span.only-pro {
+  display: inline-block !important;
 }
 .draggable {
   -webkit-app-region: drag;

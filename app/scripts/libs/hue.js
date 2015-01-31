@@ -36,7 +36,8 @@ var hue = function ($, colors) {
         shortFlashState = { alert: shortFlashType },
         longFlashState = { alert: longFlashType },
         transitionTime = null,
-
+        timeoutAuthCounter = 0,
+        retryAuthCounter = 0,
         
         /**
          * Reconstruct the baseUrl and baseApiUrl members when configuration is updated.
@@ -329,6 +330,7 @@ var hue = function ($, colors) {
             if (lights !== null && state !== null) {
                 state.lights = lights;
                 log('hue: saving light state - ' + JSON.stringify(lights));
+                timeoutAuthCounter = 0;
             }
         },
         getBridgeState = function(){
@@ -345,14 +347,16 @@ var hue = function ($, colors) {
             if ($.isArray(data)) {
                 data = dataArray[0]; // take first
             }
-
+            timeoutAuthCounter = 0;
             if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
             {
                 log('Not authorized with bridge, registering...');
+                retryAuthCounter++;
                 addUser();
             }
             else if (data.hasOwnProperty('lights'))
             {
+                retryAuthCounter = 0;
                 onAuthorized(data);
             }
         },
@@ -383,7 +387,15 @@ var hue = function ($, colors) {
         },
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
-                getBridgeState(); // retry
+                timeoutAuthCounter++;
+                if (timeoutAuthCounter > 3) {
+                    timeoutAuthCounter = 0;
+                    log('too many timeouts with IP ' + baseUrl);
+                    updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
+                } else {
+                    log('timeout on auth: ' + err.statusText + ' retry #' + timeoutAuthCounter);
+                    getBridgeState(); // retry
+                }
             } else { //if (err.statusText !== 'error') {
                 log('error on auth: ' + err.statusText);
                 updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');

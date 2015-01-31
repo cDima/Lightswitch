@@ -77,7 +77,7 @@ gulp.task('styles', function() {
   return gulp.src([
       'app/styles/*.scss',
       'app/styles/**/*.css',
-      'app/styles/components/components.scss'
+      'app/styles/components/components.scss',
     ])
     .pipe($.changed('styles', {extension: '.scss'}))
     .pipe($.rubySass({

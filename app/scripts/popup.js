@@ -323,7 +323,7 @@ function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
-      $('#connectStatus').html('<div class="intro-text"><a href="http://bit.ly/lightswitchhue" target="_blank">Philip Hue bridge</a> not found.</div>');
+      $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
       bruteForceIPs();
       manualIpInputAnimation = setTimeout(function(){
         $('#manualbridgeip').addClass('fade3').show();
@@ -723,12 +723,12 @@ $('.scene').each(function(index, sceneElement) {
       $(ec).css({backgroundColor: color});
       colorsElement.append(ec);
     });
-    sceneElement.append(colorsElement);
 
     var e = $('<div class="scene-name"></div>');
     e.text(sceneName);
-    sceneElement.append(e);
     
+    sceneElement.append(e);
+    sceneElement.append(colorsElement);    
   } 
 });
 

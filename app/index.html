@@ -14,6 +14,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/social-likes_flat.css" rel="stylesheet" >
     <link href="styles/slider.css" rel="stylesheet">
     <link href="styles/popup.css" rel="stylesheet">
     <link href="styles/switch.css" rel="stylesheet">
@@ -28,7 +29,7 @@
 
 
 <body id="page-top" class="background" data-spy="scroll" data-target=".navbar-fixed-top">
-    <!--<div id="wrapper">--> 
+    <div id="wrapper">
         <!-- Intro Header -->
         <header class="intro draggable">
           <div class="minimize-icon only-app no-drag">
@@ -54,13 +55,6 @@
                                 Lightswitch
                             </h1>
                             <p id="connectStatus"></p>
-                            <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
-                                <i class="fa fa-angle-double-down animated"></i>
-                            </a> -->
-                            <p id="manualbridgeip" class="no-drag">
-                              <input class="bridgeip input" placeholder="Enter the bridge IP..." />
-                              <button class="submit" name="Find" type="submit"  id="findbridge" value="Find">Find</button>
-                            </p>
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -69,7 +63,16 @@
         </header>
 
 <!--fa-toggle-off -->
-        <div id="controls" class="container footer-padding">
+        <div class="container footer-padding">
+
+          <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
+              <i class="fa fa-angle-double-down animated"></i>
+          </a> -->
+          <p id="manualbridgeip" class="no-drag">
+            <input class="bridgeip input" placeholder="Enter the bridge IP..." />
+            <button class="submit" name="Find" type="submit"  id="findbridge" value="Find">Find</button>
+          </p>
+          <div id="controls">
             <div class="row">
                 <div class="">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -299,7 +302,7 @@
                               <div class="not-app">
 
                                 <div id="uservoice">
-                                  <div data-uv-embed="smartvote" data-uv-height="210px" data-uv-width="300px"></div>
+                                  <div data-uv-embed="smartvote" data-uv-height="210px" data-uv-width="280px"></div>
                                 </div>
 
                               </div>
@@ -361,9 +364,17 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> <!-- controls -->
+        </div> <!-- container -->
 
         <footer>
+
+          <div class="social-likes" data-url="http://ambieye.com">
+            <div class="facebook" title="Share link on Facebook"><span class="service-name">Facebook</span></div>
+            <div class="twitter" title="Share link on Twitter"><span class="service-name">Twitter</span></div>
+            <div class="plusone" title="Share link on Google+"><span class="service-name">Google+</span></div>
+            <div class="pinterest" title="Share image on Pinterest" data-media=""><span class="service-name">Pinterest</span></div>
+          </div>
           <p class="intro-text">
           <!--
            — <a href="http://sadakov.com"  target="_blank">Dmitry Sadakov</a>
@@ -376,7 +387,13 @@
                 <i class="fa fa-eye"></i> Ambieye »
               </a> 
             </div>
-            &copy; <time>2015</time> <a href="http://apistarter.com"  target="_blank">API Starter</a>
+            &copy; <time>2015</time> 
+            <span class="only-web">
+              <a href="http://ambieye.com"  target="_blank">Ambieye</a>
+            </span>
+            <span class="not-web">
+              <a href="http://apistarter.com"  target="_blank">API Starter</a>
+            </span>
           </p>
         </footer>
         
@@ -406,11 +423,12 @@
 
         </svg> -->
 
-        <!-- build:js scripts/main.min.js -->
+        <!-- build:js scripts/main.js -->
         <script src="scripts/libs/jquery-1.11.1.min.js"></script>
         <script src="scripts/libs/bootstrap.min.js"></script>
         <script src="scripts/libs/bootstrap-slider.min.js"></script>
 		    <script src="scripts/libs/color-thief.min.js"></script>
+        <script src="bower_components/social-likes/src/social-likes.js"></script>
         <script src="scripts/config.js"></script>
         <script src="scripts/config.features.js"></script>
         <script src="scripts/libs/ga.js"></script>
@@ -427,6 +445,6 @@
         <script src="scripts/libs/hueCommander.js"></script>
         <script src="scripts/popup.js"></script>  
         <!-- endbuild -->
-    <!--</div>-->
+    </div><!-- wrapper -->
   </body>
 </html>

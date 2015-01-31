@@ -478,6 +478,13 @@ function actorClick(event){
   hueCommander.setActor(key); 
   updateUIForActors();
 }
+function removeGroupClick(){
+  var key = event.target.id;
+  hue.removeGroup(key);
+  hue.heartbeat();
+  setTimeout(fillSettings, 2000);
+  $(event.target).hide('slow');
+}
 
 function findGroupIdByName(groups, name) {
   for(var group in groups) {
@@ -488,10 +495,28 @@ function findGroupIdByName(groups, name) {
   return null;
 }
 
+function activateSceneClick(){
+  var key = event.target.id;
+  hueCommander.command('scene:' + key);
+  // update ui
+  activatedScene(key);
+}
+
+function toggleActiveClick(){
+  $(event.target).toggleClass('active');
+}
+
 var triedCreateGroup = false;
 
 function fillSettings() {
     var state =window.hue.getState();
+
+    // safari ios compatibility issues:
+    var i = 0,
+        key = null, 
+        value = null,
+        btn = null, 
+        selector = null;
 
     if (state.lights !== null) {
 
@@ -510,48 +535,37 @@ function fillSettings() {
         $('#scenes').empty();
         $('#group-remove').empty();
 
-        $.each(state.lights, function(key, value) {
+        //$.each(state.lights, function(key, value) {
+        for(i in state.lights) {
+            key = i;
+            value = state.lights[i];
+        
             log('Lights: ' + key  + ', name: ' + value.name + ', reachable: ' + value.state.reachable + ', on: ' + value.state.on);
-            var btn = createActorBtn(key, value.name);
+            btn = createActorBtn(key, value.name);
             btn.click(actorClick);
             $('#lamps').append(btn);
             
-            var selector = createActorBtn(key, value.name);
+            selector = createActorBtn(key, value.name);
             selector.addClass('lamp-select');
 
-            selector.click(function(){
-              $(this).toggleClass('active');
-
-            });
+            selector.click(toggleActiveClick);
             $('#group-add-lamps').append(selector);
-        });
+        }
 
 
         var allOn = false;
         var lightsReachable = [];
-        $.each(state.lights, function(key, value){
+
+        for(i in state.lights) {
+            key = i;
+            value = state.lights[i];
+        //$.each(state.lights, function(key, value){
             if (value.state.reachable) {
                 lightsReachable.push(value);
             }
             allOn = allOn || value.state.reachable || value.state.on;
-        });
-        
-
-        //if (Object.keys(state.groups).length === 0 || 
-        if (findGroupIdByName(state.groups, 'All') === null) {
-          if (triedCreateGroup === false) {
-            triedCreateGroup = true;
-            // creating default group, All
-            var lampIds = $.map(state.lights, function(lamp, key) {
-              return key;
-            });
-            hue.createGroup('All', lampIds);
-            hue.heartbeat();
-            setTimeout(fillSettings, 1000); // reset UI
-            return;
-          }
         }
-
+        
         if (typeof(chrome) !== 'undefined'  && chrome.browserAction !== undefined) {
           var path = 'images/lightswitch.logo.on.128.png';
             if (allOn)  {
@@ -570,49 +584,64 @@ function fillSettings() {
             chrome.browserAction.setIcon({path:path});
         }
 
-        $.each(state.groups, function(key, value) {
+        //$.each(state.groups, function (key, value) {
+        for(i in state.groups) {
+          key = i;
+          value = state.groups[i];
             log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
-            var btn = createActorBtn('group-' + key, value.name);
+            btn = createActorBtn('group-' + key, value.name);
             btn.click(actorClick);
             $('#groups').append(btn);
 
-            var selector = createActorBtn(key + ' ', value.name);
-            selector.click(function(){
-              hue.removeGroup(key);
-              hue.heartbeat();
-              setTimeout(fillSettings, 2000);
-              $(this).hide('slow');
-            });
+            selector = createActorBtn(key, value.name);
+            selector.click(removeGroupClick);
             selector.append('&nbsp;');
             if (key !== '1') {
               selector.append($('<li class="fa fa-remove"></li>'));
             }
             $('#group-remove').append(selector);
+        }
+        //}); .each
 
-        });
-
-        $.each(state.scenes, function(key, value) {
+        //$.each(state.scenes, function (key, value) {
+        for(i in state.scenes) {
+          key = i;
+          value = state.scenes[i];
+        
             log('Scenes: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
 
             if (value.name.endsWith(' on 0'))
             {
               var normalName = value.name.substring(0,value.name.length - ' on 0'.length);
               if ($('#scenes button:contains("' + normalName + '")').length === 0) {
-                var btn = $('<button type="button" class="savedscene"></button>').text(normalName).attr('id', key);
-                btn.click(function(){
-                  hueCommander.command('scene:' + key);
-                  // update ui
-                  activatedScene(key);
-                });
+                btn = $('<button type="button" class="savedscene"></button>').text(normalName).attr('id', key);
+                btn.click(activateSceneClick);
                 $('#scenes').append(btn);
               }
             } 
-        });
+        }
         log('Config: ' + state.config.name +
             ', version: ' + state.config.swversion +
             ', ip: ' + state.config.ipaddress +
             ', portal: ' + state.config.portalconnection +
             ', zigbeechannel:' + state.config.zigbeechannel);
+
+
+        //if (Object.keys(state.groups).length === 0 || 
+        if (findGroupIdByName(state.groups, 'All') === null) {
+          log('cannot find all group, creating');
+          if (triedCreateGroup === false) {
+            triedCreateGroup = true;
+            // creating default group, All
+            var lampIds = $.map(state.lights, function(lamp, key) {
+              return key;
+            });
+            hue.createGroup('All', lampIds);
+            hue.heartbeat();
+            setTimeout(fillSettings, 1000); // reset UI
+            return;
+          }
+        }
 
         var groupAll = findGroupIdByName(state.groups, 'All');
         if (groupAll === null) {
@@ -726,9 +755,9 @@ $('.scene').each(function(index, sceneElement) {
 
     var e = $('<div class="scene-name"></div>');
     e.text(sceneName);
-    
-    sceneElement.append(e);
+
     sceneElement.append(colorsElement);    
+    sceneElement.append(e);
   } 
 });
 
@@ -774,56 +803,8 @@ function placeImage(picker, imgsrc){
   };
 }
 
-$(window).on( 'orientationchange', function(e){
-  $('#orien').text(window.orientation);
-  log('orientation: ' + window.orientation);
-}); 
-window.ondeviceorientation = function(e) {
-  if (e.beta === null) {
-    $('.north-enabled').hide();
-    return; // windows has beta null.
-  }
-  $('#orienA').text(round(e.alpha || 0));
-  $('#orienB').text(round(e.beta));
-  $('#orienG').text(round(e.gamma));
-  var north = e.webkitCompassHeading || 0;
-  $('#north').text(north);
-  gravity.a = e.alpha;
-  gravity.b = e.beta;
-  gravity.g = e.gamma;
-  gravity.north = north;
-};
 
-window.ondevicemotion = function(event){
-  if (event.accelerationIncludingGravity.x === null) {
-    $('.ground-enabled').hide();
-    return; // windows has beta null.
-  }
-  var accelerationX = event.accelerationIncludingGravity.x;
-  var accelerationY = event.accelerationIncludingGravity.y;
-  var accelerationZ = event.accelerationIncludingGravity.z;
-  var deg = window.orientation;
-  if (deg === 90) {
-    // x is -9
-    var y = accelerationY;
-    accelerationY = accelerationX;
-    accelerationX = -y;
-  } else if (deg === -90) {
-    // x is +9
-    var te = accelerationY;
-    accelerationY = -accelerationX;
-    accelerationX = te;
-  }
-  // y is usually -9
-  $('#varx').text(round(accelerationX));
-  $('#vary').text(round(accelerationY));
-  $('#varz').text(round(accelerationZ));
-
-  gravity.x = accelerationX;
-  gravity.y = accelerationY;
-  gravity.z = accelerationZ;
-};
-
+/* gravity */
 function round(n){
   var num = n.toFixed(2);
   if (n >= 0) {
@@ -850,6 +831,7 @@ var gravity = {
 };
 
 $('.north-enabled').hide();
+$('.ground-enabled').hide();
 
 $('#toggle-gravity').click(function(e){
   var active = $('#toggle-gravity').is(':checked');
@@ -866,6 +848,72 @@ $('#toggle-north').click(function(e){
   var active = $('#toggle-north').is(':checked');
   gravity.northhue = active;
 });
+
+
+$(window).on( 'orientationchange', function(e){
+  $('#orien').text(window.orientation);
+  log('orientation: ' + window.orientation);
+}); 
+
+function enableGravity(on) {
+  if (on) {
+    window.ondeviceorientation = onDeviceOrientation;
+    window.ondevicemotion = onDeviceMotion;
+  } else {
+    window.ondeviceorientation = null;
+    window.ondevicemotion = null;
+  }
+}
+
+function onDeviceOrientation(e) {
+  if (e.beta === null) {
+    $('.north-enabled').hide();
+    return; // windows has beta null.
+  }
+  $('#orienA').text(round(e.alpha || 0));
+  $('#orienB').text(round(e.beta));
+  $('#orienG').text(round(e.gamma));
+  var north = e.webkitCompassHeading || 0;
+  $('#north').text(north);
+  gravity.a = e.alpha;
+  gravity.b = e.beta;
+  gravity.g = e.gamma;
+  gravity.north = north;
+}
+
+function onDeviceMotion (event){
+  if (event.accelerationIncludingGravity.x === null) {
+    $('.ground-enabled').hide();
+    return; // windows has beta null.
+  } else {
+    $('.ground-enabled').show();
+  }
+
+  var accelerationX = event.accelerationIncludingGravity.x;
+  var accelerationY = event.accelerationIncludingGravity.y;
+  var accelerationZ = event.accelerationIncludingGravity.z;
+  var deg = window.orientation;
+  if (deg === 90) {
+    // x is -9
+    var y = accelerationY;
+    accelerationY = accelerationX;
+    accelerationX = -y;
+  } else if (deg === -90) {
+    // x is +9
+    var te = accelerationY;
+    accelerationY = -accelerationX;
+    accelerationX = te;
+  }
+  // y is usually -9
+  $('#varx').text(round(accelerationX));
+  $('#vary').text(round(accelerationY));
+  $('#varz').text(round(accelerationZ));
+
+  gravity.x = accelerationX;
+  gravity.y = accelerationY;
+  gravity.z = accelerationZ;
+
+}
 
 function gravityUpdate(){
   if (gravity.active) {
@@ -908,15 +956,13 @@ function gravityUpdate(){
       bri: gravity.bri
     };
 
-  $('#hue').text(round(gravity.hue));
-  $('#sat').text(round(gravity.sat));
-  $('#bri').text(round(gravity.bri));
+    $('#hue').text(round(gravity.hue));
+    $('#sat').text(round(gravity.sat));
+    $('#bri').text(round(gravity.bri));
 
     var cmd = JSON.stringify(json);
     log('Setting gravity:  ' + cmd);
     window.hueCommander.command(cmd);
-
-
 
     var color = 'hsl('+
       Math.round(360 * (json.hue / 65535)) +', '+
@@ -1014,8 +1060,10 @@ function getColor(e){
 /* ambient eye tab on show */
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+  
   circle.hide();
   log('in tab: ' + e.target.hash);
+  
   trackEvent('click', 'tab', e.target.hash);
 
 	if (e.target.hash === '#eye')
@@ -1029,6 +1077,8 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
   {
     initSearch();
   }
+
+  enableGravity(e.target.hash === '#colors');
 
 });
 

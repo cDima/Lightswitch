@@ -153,17 +153,28 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             var lampIds = hue.getLampIds(actors);
             var state = window.hue.getState();
             var actorStates= [];
+            var actorStatesjQuery= [];
             if (state.lights !== null) {
-                $.each(state.lights, function(key, lamp) {
+                for(var i in state.lights) {
+                    var lamp = state.lights[i];
+                    lamp.key = i;
+                    actorStates.push(lamp);
+                }
+                // each fails sometimes on ios safari
+                $.each(state.lights, function (key, lamp) {
                     if (lampIds.indexOf(key) !== -1) {
-                        log('Lights: ' + key  + 
-                            ', name: ' + lamp.name + 
-                            ', reachable: ' + lamp.state.reachable + 
-                            ', on: ' + lamp.state.on);
                         lamp.key = key;
-                        actorStates.push(lamp);
+                        actorStatesjQuery.push(lamp);
                     }
                 });
+                // print perhaps fails?
+                $.each(state.lights, function (key, lamp) {
+                    log('Lights: ' + key  + 
+                        ', name: ' + lamp.name + 
+                        ', reachable: ' + lamp.state.reachable + 
+                        ', on: ' + lamp.state.on);
+                });
+                log('ios safari actor count - js ' + actorStates.length + ' jq:' + actorStatesjQuery.length);
             } 
             return actorStates;
         },

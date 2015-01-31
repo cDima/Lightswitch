@@ -101,13 +101,15 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         parseJson = function(cmd){
             try {
-                return JSON.parse(cmd);
+                if (cmd.startsWith('{')) {
+                    return JSON.parse(cmd);
+                }
             }
             catch(ex)
             {
                 log('Bad command:' + cmd + ' ex:' + ex.message);
-                return null;
             }
+            return null;
         },
         saveState = function(){
             if (stateCache === null) {

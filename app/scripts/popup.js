@@ -96,6 +96,8 @@ log('client: binding to status change.');
 
 window.hue.onStatusChange(onStatus);
 window.hueCommander.setLogger(log);
+window.sceneCmd.setLogger(log);
+
 
 // copyright
 $('footer time').text(new Date().getFullYear());

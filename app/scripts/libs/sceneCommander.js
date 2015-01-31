@@ -54,6 +54,7 @@ var sceneCommander = function ($, hue) {
                     var time = state.transitionTime; 
                     if (state.color !== undefined) {
                     	var co = state.color.color !== undefined ? state.color.color : state.color;
+                        log('setting color: ' + state.lamp + ' = ' + co);
                         hue.setColor(state.lamp, co.substring(1), time, state.bri);
                     } else if (state.bri !== undefined) {
                         hue.brighten(state.lamp, state.bri, time);

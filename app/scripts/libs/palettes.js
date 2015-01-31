@@ -121,4 +121,14 @@ var Palettes = {
         '#FFFFFF',
         '#FFFE99',
     ],
+    'SuperbowlPatriots': [
+        '#0D254C',
+        '#D6D6D6',
+        '#C80815'
+    ],
+    'SuperbowlSeahawks': [
+        '#06192E',
+        '#4EAE47',
+        '#ACB6BC'
+    ],
 };

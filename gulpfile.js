@@ -10,6 +10,8 @@ var zip = require('gulp-zip');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
 var rename = require("gulp-rename");
+var argv = require('yargs').argv;
+var gulpif = require('gulp-if');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -102,7 +104,8 @@ gulp.task('html', function() {
     .pipe(assets)
     // Concatenate And Minify JavaScript
     /////////////////////////////////////////////////////////////////////////////////////////////
-    .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+    .pipe(gulpif(argv.prod, $.if('*.js', $.uglify({preserveComments: 'some'}))))
+    //.pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
     /////////////////////////////////////////////////////////////////////////////////////////////
 	// Remove Any Unused CSS
     // Note: If not using the Style Guide, you can delete it from

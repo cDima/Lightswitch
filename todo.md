@@ -1,15 +1,11 @@
 Todo:
 
 - mixpanel w/ tabs, setup info
-- ambieye
+- ambient eye
 	- timing of ambieye
  	- settings, limits, max brightness
-- improve icons
-- color lovers pagination and totals.
-- integrate with meethue portal  http://www2.meethue.com/en-us/
-
-Future:
+- improve icon
+- color lovers: pagination and totals.
+- webview: integrate with meethue portal  http://www2.meethue.com/en-us/
 - yandex metrika (cant login, skip)
-
-done: 
-- add social buttons
+- issue with height when online then offline then online

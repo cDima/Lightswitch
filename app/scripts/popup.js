@@ -126,23 +126,10 @@ function initGlobals(){
         sceneCmd = background.sceneCmd;
         ambieye = background.Ambient;
 
-        /*
-        manifest: 
-          "optional_permissions": [ 
-            "activeTab",
-            "<all_urls>"
-          ],
-        */
-
-        background.hasAllUrlAccess(function(granted){
-          $('#ambieyepermissions').toggle(!granted);
-          if (granted) {
-            tryEnableEye();
-          } 
-        });
+        tryEnableEye();
 
         $('#ambieyepermissions').click(function(){
-          background.requestAmbientPermission(function(granted) {
+          requestAmbientPermissionOnClient(function(granted) {
             if (granted) {
               tryEnableEye();
             } 
@@ -408,7 +395,9 @@ function onStatus(status) {
         } else {
           setHeight(160, 400);
         }
-        $('.switch').fadeOut(600);
+        $('.switch').fadeOut(600, function() {
+            $('#connectStatus').fadeIn(600);
+        });
         hideControls();
 
         window.hue.findBridge();
@@ -592,6 +581,11 @@ function fillSettings() {
         value = null,
         btn = null, 
         selector = null;
+
+    if (state === null) {
+      setTimeout(fillSettings, 1000); // reset UI in a bit.
+      return;
+    }
 
     if (state.lights !== null) {
 
@@ -1145,19 +1139,41 @@ function tryEnableEye(){
   // check permissions for access to <all_tabs> 
   if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
     log('loading as chrome extention popup');
-    var background = chrome.extension.getBackgroundPage();
-    background.hasAllUrlAccess(function() {
-      ambieye.updateImage = true;
+    hasAllUrlAccess(function(granted) {
+      ambieye.updateImage = granted;
+      $('#ambieyepermissions').toggle(!granted);
       $('#toggle-ambientweb').prop('checked', ambieye.on);
+      $('#toggle-ambientweb').attr('disabled', !granted);   
       var alreadyOn = ambieye.on;
       if (!alreadyOn) {
         alreadyOn = ambieye.run();
-        $('#toggle-ambientweb').attr('disabled', !alreadyOn);   
       }
     });
   }
 }
 
+
+function hasAllUrlAccess(success, mayRequest){
+  chrome.permissions.contains({
+        permissions: ['tabs'],
+        origins: ['<all_urls>']
+      }, success);
+}
+
+function requestAmbientPermissionOnClient(callback){
+    // Permissions must be requested from inside a user gesture, like a button's click handler.
+    chrome.permissions.request({
+      permissions: ['tabs'],
+      origins: ['<all_urls>']
+    }, function(granted){
+      if (granted) {
+        callback(granted);
+      } else {
+        callback(granted);
+      }
+
+    });
+}
 
 function updatePreviewColors(colors, image){
   $('.preview-box').each(function(index, value) {

@@ -350,6 +350,10 @@ p {margin: 0 0 5px;}
 .tab-content h2 {
   font-size: 11px;
 }
+.app .tab-content>.active {
+  height: 225px;
+  overflow-y: scroll;
+}
 
 .actor, 
 .actor:hover,

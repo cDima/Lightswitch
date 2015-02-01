@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "Lightswitch Pro for Philips Hue",
+  "name": "Lightswitch Web for Philips Hue",
   "short_name": "Lightswitch",
   "description": "Lightswitch — a chrome extension for Philips Hue lights",
-  "version": "1.7.1",
+  "version": "1.7.0",
 
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { "16": "images/lightswitch.logo.on.16.png",
@@ -17,8 +17,7 @@
   ],
   "optional_permissions": [ 
     "activeTab",
-    "<all_urls>",
-    "tabs"
+    "<all_urls>"
   ],
   "background": {
     "scripts": [

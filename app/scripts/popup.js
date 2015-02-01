@@ -159,16 +159,19 @@ function initGlobals(){
     $('#controls').hide();
     $('.successsubscribe').hide();
 
+    setInitialHeight();
+}
+
+function setInitialHeight() {
+
     if (config.app === 'web') {
       // do nothing
     } else if (config.app === 'app') {
-      setHeight(130, 0);
+      setHeight(160, 0);
     } else {
       setHeight(150, 0);
-    }
-
+    }  
 }
-
 
 function initSlider(){
 
@@ -380,28 +383,30 @@ function startHeartbeat() {
   heartbeat = setInterval(window.hue.heartbeat, heartbeatInterval);
 }
 
+function showManualBridge(){
+    $('#manualbridgeip').addClass('fade3').show();
+    if (config.app === 'web') {
+      // do nothing
+    } else if (config.app === 'light' || config.app === 'app') {
+      setHeight(170, 400);
+    } else {
+      setHeight(160, 400);
+    }
+    $('.switch').fadeOut(600, function() {
+        $('#connectStatus').fadeIn(600);
+    });
+    hideControls();
+
+    window.hue.findBridge();
+}
+
 function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
       $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
       bruteForceIPs();
-      manualIpInputAnimation = setTimeout(function(){
-        $('#manualbridgeip').addClass('fade3').show();
-        if (config.app === 'web') {
-          // do nothing
-        } else if (config.app === 'light') {
-          setHeight(170, 400);
-        } else {
-          setHeight(160, 400);
-        }
-        $('.switch').fadeOut(600, function() {
-            $('#connectStatus').fadeIn(600);
-        });
-        hideControls();
-
-        window.hue.findBridge();
-      }, 2000);
+      manualIpInputAnimation = setTimeout(showManualBridge, 2000);
       stopHeartbeat();
       
       return;
@@ -423,23 +428,12 @@ function onStatus(status) {
         log('Tracking event OK');
         ga('send', 'timing', 'status-ok', 'Ping hub', timeSpent, 'Philips Hue Hub');
 
-        $('#connectStatus').fadeOut(600, function() {
-          if (config.tabs === true) {
-            if (config.app === 'web') {
-              // do nothing
-            } else {
-              setHeight(435, 400);
-            }
-          }
-          $('.switch').fadeIn(600, showControls);
-            
-          //$('body').addClass('on');
-          fillSettings();
-        });
+        $('#connectStatus').fadeOut(600, onSuccessfulInit);
         $('#lightswitch').prop('checked', status.data);
 
         stopHeartbeat();
         startHeartbeat();
+
     } else {
         stopHeartbeat();
         
@@ -451,13 +445,7 @@ function onStatus(status) {
         //$('body').removeClass('on');
         $('#controls').fadeOut(600);
         $('.tab-content').hide();
-        if (config.app === 'web') {
-          // do nothing
-        } else if (config.app === 'app') {
-          setHeight(130, 0);
-        } else {
-          setHeight(150, 0);
-        }
+        setInitialHeight();
 
         $('.switch').fadeOut(600, function() {
             $('#connectStatus').fadeIn(600);
@@ -465,6 +453,34 @@ function onStatus(status) {
     }
 
     //updateStatus('BridgeNotFount', 'Philip Hue lights not found.');
+}
+
+function onSuccessfulInit(){
+  if (config.tabs === true) {
+    if (config.app === 'web') {
+      // do nothing
+    } if (config.app === 'app') {
+      setHeight(445, 400);
+    } else {
+      setHeight(435, 400);
+    }
+  }
+  $('.switch').fadeIn(600, showControls);
+    
+  //$('body').addClass('on');
+  fillSettings();
+
+  // successfully started, unless All group was not set correctly, then no actors are set.
+  //var autostartScene = $.QueryString.autostartscene;
+
+  var lochash    = location.hash.substr(1),
+      autostartScene = lochash.substr(lochash.indexOf('autostartscene='))
+                    .split('&')[0]
+                    .split('=')[1];
+  if (autostartScene && scenes[autostartScene] !== undefined) {
+    $('.nav-tabs a[href="#moods"]').tab('show');
+    activateSceneByKey(autostartScene);
+  }
 }
 
 function setHeight(height, transitionTime) {
@@ -561,6 +577,10 @@ function findGroupIdByName(groups, name) {
 
 function activateSceneClick(){
   var key = event.target.id;
+  activateSceneByKey(key);
+}
+
+function activateSceneByKey(key){
   hueCommander.command('scene:' + key);
   // update ui
   activatedScene(key);
@@ -1157,7 +1177,9 @@ function hasAllUrlAccess(success, mayRequest){
   chrome.permissions.contains({
         permissions: ['tabs'],
         origins: ['<all_urls>']
-      }, success);
+      }, function(granted) {
+        success(granted);
+      });
 }
 
 function requestAmbientPermissionOnClient(callback){

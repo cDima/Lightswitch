@@ -1,15 +1,15 @@
 {
   "manifest_version": 2,
 
-  "name": "Ambieye for Philips Hue",
-  "short_name": "Ambieye",
-  "description": "Ambieye — ambient lighting for the web with Philips Hue lights",
-  "version": "1.6.9",
+  "name": "Ambience for Philips Hue",
+  "short_name": "Ambience",
+  "description": "Ambience for Philips Hue — Netflix, Youtube, Hulu, Vimeo, websites. Let the web shine.",
+  "version": "1.7.2",
 
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { "128": "images/ambieye-ico-on.png" },
   "permissions": [
-    "activeTab",
+    "tabs",
     "<all_urls>",
     "https://www.meethue.com/"
   ],

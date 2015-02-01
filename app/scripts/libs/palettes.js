@@ -122,13 +122,14 @@ var Palettes = {
         '#FFFE99',
     ],
     'SuperbowlPatriots': [
-        '#0D254C',
-        '#D6D6D6',
-        '#C80815'
+        { name: 'Nautical Blue', color: '#0D254C'},
+        { name: 'Red', color: '#C80815'},
+        { name: 'New Century Silver', color: '#D6D6D6'},
+        { name: 'White', color: '#FFFFFF'}
     ],
     'SuperbowlSeahawks': [
-        '#06192E',
-        '#4EAE47',
-        '#ACB6BC'
+        { name: 'Bright green', color: '#4EAE47'},
+        { name: 'Silver', color: '#ACB6BC'},
+        { name: 'Blue', color: '#06192E'}
     ],
 };

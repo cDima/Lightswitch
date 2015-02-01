@@ -367,7 +367,7 @@ function onStatus(status) {
             if (config.app === 'web') {
               // do nothing
             } else {
-              setHeight(400, 400);
+              setHeight(435, 400);
             }
           }
           $('.switch').fadeIn(600, showControls);
@@ -681,6 +681,7 @@ function hideControls(){
 }
 
 function showControls(){
+    $('#connectStatus').hide(0);
     $('.tab-content').hide(0);
     if (config.tabs === true) {
       $('#controls').fadeIn(600, showTabContent);
@@ -752,6 +753,7 @@ $('.scene').each(function(index, sceneElement) {
       var ec = $('<div class="color"></div>');
       var color = typeof co === 'string' ? co : co.color;
       $(ec).css({backgroundColor: color});
+      $(ec).attr('title', typeof co.name === 'undefined' ? color : co.name);
       colorsElement.append(ec);
     });
 

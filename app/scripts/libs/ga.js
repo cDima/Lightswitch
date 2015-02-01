@@ -193,7 +193,8 @@ switch(config.app) {
 	  mixpanel.init("339e511cfff7fdcd146d3a4dd60f03a8");
 	  break;
   case 'web':
-	  ga('create', 'UA-55863666-2', 'auto');
+	  ga('create', 'UA-58183317-1', 'auto');
+	  mixpanel.init("339e511cfff7fdcd146d3a4dd60f03a8");
 	  break;
   case 'app':
 	  ga('create', 'UA-55863666-8', 'auto');

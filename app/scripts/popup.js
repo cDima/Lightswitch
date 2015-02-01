@@ -20,140 +20,211 @@
 		      config:false
 */
 
-$('body').addClass(config.app);
- //config.ambieye
-$('.config-moods').toggle(config.scenes);
-$('.config-colors').toggle(config.scenes);
-$('.config-search').toggle(config.search);
-$('.config-ambieye').toggle(config.ambieye);
-$('.config-feedback').toggle(config.feedback);
+var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
-if(config.app !== 'app') {
-  /* jshint ignore:start */
-  // Set colors
-  UserVoice.push(['set', {
-    target : '#uservoice',
-    accent_color: '#448dd6',
-    trigger_color: 'white',
-    trigger_background_color: 'rgba(46, 49, 51, 0.6)',
-    strings: {
-      post_suggestion_body: ''
-      //post_suggestion_title: '',
-      //post_suggestion_details_title: ''
-
-    }
-  }]);
-  /* jshint ignore:end */
-}
 
 var sceneCmd = null;
 var ambieye = null;
 var heartbeatInterval = 2000;
 
-if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
-    log('loading as chrome extention popup');
-    var background = chrome.extension.getBackgroundPage();
-    window.hue = background.hue;
-    sceneCmd = background.sceneCmd;
-    ambieye = background.Ambient;
-
-    /*
-    manifest: 
-      "optional_permissions": [ 
-        "activeTab",
-        "<all_urls>"
-      ],
-    */
-
-    background.hasAllUrlAccess(function(granted){
-      $('#ambieyepermissions').toggle(!granted);
-      if (granted) {
-        tryEnableEye();
-      } 
-    });
-
-    $('#ambieyepermissions').click(function(){
-      background.requestAmbientPermission(function(granted) {
-        if (granted) {
-          tryEnableEye();
-        } 
-      });
-    });
-
-
-} else {
-    log('loading as no chrome, running standalone');
-    window.hue = hue(window.jQuery, window.colors);
-    window.hue.findBridge();
-    sceneCmd = sceneCommander(window.jQuery, window.hue);
-    ambieye = window.Ambient;
-}
-
-ambieye.onUpdate(updatePreviewColors);
-window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
-
-log('client: binding to status change.');
-
-window.hue.onStatusChange(onStatus);
-window.hueCommander.setLogger(log);
-window.sceneCmd.setLogger(log);
-
-
-// copyright
-$('footer time').text(new Date().getFullYear());
-
 var hubStartTime = new Date().getTime();
 
 
-//$('#brightness-control').rangepicker().on('slideStop', function(slideEvt){
-$('#brightness-control').slider().on('slideStop', function(slideEvt){
-  var val = slideEvt.value;
-  log('new brightness: ' + val);
-  window.hueCommander.command('bri:' + val);
+/* search */
+var clPalettes = null;
+var skip = 0;
+
+var manualIpInputAnimation = null;
+
+var gravity = {
+  active: false,
+  a: 0,
+  b: 0,
+  g: 0,
+  x: 0,
+  y: 0,
+  z: 0,
+  hue: 0,
+  bri: 0, 
+  sat: 255,
+  north: 0,
+  northhue: false,
+  timer: null,
+  delaySend: null
+};
+
+
+var hideCircleTimer = null;
+
+var delayedSend = null;
+
+var circle = $('#picker-circle');
+
+$(document).ready(function(){
+
+    initGlobals();
+
+
+    // copyright
+    $('footer time').text(new Date().getFullYear());
+
+
+    initSlider();
+    initSubscribe();
+    initSearch();
+    initManualBridge();
+    initGroupCreation();
+
+    if (window.hue.status === 'OK') {
+      $('#lightswitch').prop('checked', window.hue.status.data);
+    }
+
+
+    initLightswitch();
+    initPalettes();
+    initPickers();
+    initGravity();
+
+    initAmbientEye();
+    initCloseMinimize();
 });
+
+
+function initGlobals(){
+
+
+    $('body').addClass(config.app);
+     //config.ambieye
+    $('.config-moods').toggle(config.scenes);
+    $('.config-colors').toggle(config.scenes);
+    $('.config-search').toggle(config.search);
+    $('.config-ambieye').toggle(config.ambieye);
+    $('.config-feedback').toggle(config.feedback);
+
+    if(config.app !== 'app') {
+      /* jshint ignore:start */
+      // Set colors
+      UserVoice.push(['set', {
+        target : '#uservoice',
+        accent_color: '#448dd6',
+        trigger_color: 'white',
+        trigger_background_color: 'rgba(46, 49, 51, 0.6)',
+        strings: {
+          post_suggestion_body: ''
+          //post_suggestion_title: '',
+          //post_suggestion_details_title: ''
+
+        }
+      }]);
+      /* jshint ignore:end */
+    }
+
+    if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
+        log('loading as chrome extention popup');
+        var background = chrome.extension.getBackgroundPage();
+        window.hue = background.hue;
+        sceneCmd = background.sceneCmd;
+        ambieye = background.Ambient;
+
+        /*
+        manifest: 
+          "optional_permissions": [ 
+            "activeTab",
+            "<all_urls>"
+          ],
+        */
+
+        background.hasAllUrlAccess(function(granted){
+          $('#ambieyepermissions').toggle(!granted);
+          if (granted) {
+            tryEnableEye();
+          } 
+        });
+
+        $('#ambieyepermissions').click(function(){
+          background.requestAmbientPermission(function(granted) {
+            if (granted) {
+              tryEnableEye();
+            } 
+          });
+        });
+
+
+    } else {
+        log('loading as no chrome, running standalone');
+        window.hue = hue(window.jQuery, window.colors);
+        window.hue.findBridge();
+        sceneCmd = sceneCommander(window.jQuery, window.hue);
+        ambieye = window.Ambient;
+    }
+
+    ambieye.onUpdate(updatePreviewColors);
+    window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+
+    log('client: binding to status change.');
+
+    window.hue.onStatusChange(onStatus);
+    window.hueCommander.setLogger(log);
+    window.sceneCmd.setLogger(log);
+
+
+    $('.switch').hide();
+    $('#controls').hide();
+    $('.successsubscribe').hide();
+
+    if (config.app === 'web') {
+      // do nothing
+    } else if (config.app === 'app') {
+      setHeight(130, 0);
+    } else {
+      setHeight(150, 0);
+    }
+
+}
+
+
+function initSlider(){
+
+    //$('#brightness-control').rangepicker().on('slideStop', function(slideEvt){
+    $('#brightness-control').slider().on('slideStop', function(slideEvt){
+      var val = slideEvt.value;
+      log('new brightness: ' + val);
+      window.hueCommander.command('bri:' + val);
+    });
+}
 
 function disableBrightness(on){
     $('#toggle-ambientweb').attr('disabled', on);
 }
 
-$('.switch').hide();
-$('#controls').hide();
-$('.successsubscribe').hide();
-
-if (config.app === 'web') {
-  // do nothing
-} else if (config.app === 'app') {
-  setHeight(130, 0);
-} else {
-  setHeight(150, 0);
-}
-
-/* email subscribe form */
-$('.subscribe-form').submit(function(e) {
-  var $this = $(this);
-  $.ajax({
-      type: 'POST', // GET & url for json slightly different
-      url: 'https://APIStarter.us9.list-manage.com/subscribe/post-json?u=83c6f205a4379f5136e187d52&amp;id=cad0da3b8a&c=?',
-      data: $this.serialize(),
-      dataType: 'jsonp',
-      contentType: 'application/json; charset=utf-8',
-      error: function(){
-        errorShake('.subscribe-form');
-      },
-      success: function(data) {
-          if (data.result !== 'success') {
-              errorShake('.subscribe-form');
-          } else {
-              // It worked, so hide form and display thank-you message.
-              $('.subscribe-form').removeClass('error'); 
-              $('.subscribe-form').addClass('ok'); 
-              $('.successsubscribe').show(); 
-              $('.subscribe-form').hide();               
+function initSubscribe(){
+    /* email subscribe form */
+    $('.subscribe-form').submit(function(e) {
+      var $this = $(this);
+      $.ajax({
+          type: 'POST', // GET & url for json slightly different
+          url: 'https://APIStarter.us9.list-manage.com/subscribe/post-json?u=83c6f205a4379f5136e187d52&amp;id=cad0da3b8a&c=?',
+          data: $this.serialize(),
+          dataType: 'jsonp',
+          contentType: 'application/json; charset=utf-8',
+          error: function(){
+            errorShake('.subscribe-form');
+          },
+          success: function(data) {
+              if (data.result !== 'success') {
+                  errorShake('.subscribe-form');
+              } else {
+                  // It worked, so hide form and display thank-you message.
+                  $('.subscribe-form').removeClass('error'); 
+                  $('.subscribe-form').addClass('ok'); 
+                  $('.successsubscribe').show(); 
+                  $('.subscribe-form').hide();               
+              }
           }
-      }
-  });
-  return false;
-});
+      });
+      return false;
+    });
+}
 
 function errorShake(id){
   $(id).addClass('error'); 
@@ -164,33 +235,31 @@ function errorShake(id){
 }
  
 /* search */
-var clPalettes = null;
-var skip = 0;
+function initSearch() {
+    $('#colorsearch').keyup(function(e){
+        if(e.keyCode === 13) {
+          skip = 0;
+          initSearch('top');
+        }
+    });
 
-$('#colorsearch').keyup(function(e){
-    if(e.keyCode === 13) {
+    $('button#search').click(function() {
       skip = 0;
       initSearch('top');
-    }
-});
+    });
 
-$('button#search').click(function() {
-  skip = 0;
-  initSearch('top');
-});
+    $('a[href="#search?top"]').click(function(){
+      initSearch('top');
+    });
 
-$('a[href="#search?top"]').click(function(){
-  initSearch('top');
-});
+    $('a[href$="#search?new"]').click(function(){
+      initSearch('new');
+    });
 
-$('a[href$="#search?new"]').click(function(){
-  initSearch('new');
-});
-
-$('a[href$="#search?random"]').click(function(){
-  initSearch('random');
-});
-
+    $('a[href$="#search?random"]').click(function(){
+      initSearch('random');
+    });
+}
 
 function initSearch(type){
     $('#search-loading').show();
@@ -253,14 +322,20 @@ function log(text) {
             
 
 /* bridge ip */
+function initManualBridge(){
+    $('#manualbridgeip .input').keyup(function(e){
+        if(e.keyCode === 13) {
+          tryBridge();
+        }
+    });
 
-$('#manualbridgeip .input').keyup(function(e){
-    if(e.keyCode === 13) {
-      tryBridge();
-    }
-});
+    $('#manualbridgeip button').click(tryBridge);
 
-$('#manualbridgeip button').click(tryBridge);
+    $('#manualbridgeip').hide();
+
+}
+
+
 
 function tryBridge(){
   var ip = $('#manualbridgeip input').val();
@@ -305,9 +380,6 @@ function tryIP(ip, error){
   }
 }
 
-$('#manualbridgeip').hide();
-
-var manualIpInputAnimation = null;
 
 function stopHeartbeat(){
   if (heartbeat !== null) {
@@ -442,31 +514,32 @@ function updateUIForActors(){
   disableBrightness(on);
 }
 
-
-$('#create-group').hide();
-$('#make-group').click(function(){
-  $('#create-group').slideToggle();
-});
-$('#add-group').click(function(){
-  var name = $('#group-name input').val();
-  if (name === '') {
-    errorShake('#group-name');
-    return;
-  }
-  $('#group-name').removeClass('error');
-  var lampIds = $('#group-add-lamps .lamp-select.active').map(function() {
-        return this.id;
-    }).get();
-  if (lampIds.length === 0) {
-    errorShake('#group-add-lamps');
-    return;
-  }
-  $('#group-add-lamps').removeClass('error');
-  // add group
-  hue.createGroup(name, lampIds);
-  // reset
-  setTimeout(fillSettings, 2000);
-});
+function initGroupCreation() {
+    $('#create-group').hide();
+    $('#make-group').click(function(){
+      $('#create-group').slideToggle();
+    });
+    $('#add-group').click(function(){
+      var name = $('#group-name input').val();
+      if (name === '') {
+        errorShake('#group-name');
+        return;
+      }
+      $('#group-name').removeClass('error');
+      var lampIds = $('#group-add-lamps .lamp-select.active').map(function() {
+            return this.id;
+        }).get();
+      if (lampIds.length === 0) {
+        errorShake('#group-add-lamps');
+        return;
+      }
+      $('#group-add-lamps').removeClass('error');
+      // add group
+      hue.createGroup(name, lampIds);
+      // reset
+      setTimeout(fillSettings, 2000);
+    });
+}
 
 function createActorBtn(key,name){
   var btn = $('<button type="button" class="actor"></button>').text(name).attr('id', key);
@@ -662,12 +735,6 @@ function activatedScene(key){
   $('#scenes button[id="' + key + '"]').addClass('active');
   $('.scene[data-scene="' + key + '"]').addClass('active');
 }
-//function activateGroup(key){
-//  $('#groups button').removeClass('active');
-//  $('#lamps button').removeClass('active');
-//  $('#groups button[id=' + key + ']').addClass('active');
-//  hueCommander.setActor('group:' + key);
-//}
 
 if (typeof String.prototype.endsWith !== 'function') {
     String.prototype.endsWith = function(suffix) {
@@ -691,93 +758,87 @@ function showTabContent() {
     $('.tab-content').fadeIn(600);
 }
 
-if (window.hue.status === 'OK') {
-  $('#lightswitch').prop('checked', window.hue.status.data);
+function initLightswitch() {
+    $('#lightswitch').click(function(e){
+        var turnOn = $('#lightswitch').is(':checked');
+        disableBrightness(turnOn);
+        if (turnOn) {
+          window.hueCommander.command('on');
+        } else {
+          window.hueCommander.command('off');
+        }
+
+        trackEvent(e.target.id, 'clicked');
+    });
 }
-var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
-// if no hearbeat, then activate the fail button.
-/*if ($('#linkButton').length === 0) {
-    $('#connectStatus') // Replace this selector with one suitable for you
-        .append('<input type="button" id="linkButton" value="Push link button">') // Create the element
-        .click(function(){ 
-            addUser();
-    }); // Add a click handler
-}*/
+function initPalettes() {
+    $('#solid-palette div ').each(function(name, colorsElement) {
+      colorsElement = $(colorsElement);
+      var paletteName = colorsElement.data('palette');
+      if (Palettes[paletteName] !== null) {
+        colorsElement.addClass('palette');
+        colorsElement.append($('<div class="colors"> \
+                        </div> \
+                        <div class="colors-name"></div>  \
+                    </div>'));
+        $('.colors-name', colorsElement).text(paletteName);
+        Palettes[paletteName].forEach(function(co) {
+          var ec = $('<a href="" class="color"></a>');
 
-$('#lightswitch').click(function(e){
-    var turnOn = $('#lightswitch').is(':checked');
-    disableBrightness(turnOn);
-    if (turnOn) {
-      window.hueCommander.command('on');
-    } else {
-      window.hueCommander.command('off');
-    }
+          var color = typeof co === 'string' ? co : co.color;
 
-    trackEvent(e.target.id, 'clicked');
-});
+          $(ec).attr('href', color);
+          $(ec).attr('title', typeof co.name === 'undefined' ? color : co.name);
+          $(ec).css({backgroundColor: color});
+          $(ec).click(executeCommand);
 
-$('#solid-palette div ').each(function(name, colorsElement) {
-  colorsElement = $(colorsElement);
-  var paletteName = colorsElement.data('palette');
-  if (Palettes[paletteName] !== null) {
-    colorsElement.addClass('palette');
-    colorsElement.append($('<div class="colors"> \
-                    </div> \
-                    <div class="colors-name"></div>  \
-                </div>'));
-    $('.colors-name', colorsElement).text(paletteName);
-    Palettes[paletteName].forEach(function(co) {
-      var ec = $('<a href="" class="color"></a>');
-
-      var color = typeof co === 'string' ? co : co.color;
-
-      $(ec).attr('href', color);
-      $(ec).attr('title', typeof co.name === 'undefined' ? color : co.name);
-      $(ec).css({backgroundColor: color});
-      $(ec).click(executeCommand);
-
-      $('.colors', colorsElement).append(ec);
-    });
-  }
-});
-
-$('.scene').each(function(index, sceneElement) {
-  sceneElement = $(sceneElement);
-  var sceneName = sceneElement.data('scene');
-  if (scenes[sceneName] !== undefined) {
-
-    var colorsElement = $('<div class="colors"></div>');
-    var colors = scenes[sceneName].Palette;
-    colors.forEach(function(co) {
-      var ec = $('<div class="color"></div>');
-      var color = typeof co === 'string' ? co : co.color;
-      $(ec).css({backgroundColor: color});
-      $(ec).attr('title', typeof co.name === 'undefined' ? color : co.name);
-      colorsElement.append(ec);
+          $('.colors', colorsElement).append(ec);
+        });
+      }
     });
 
-    var e = $('<div class="scene-name"></div>');
-    e.text(sceneName);
+    $('.scene').each(function(index, sceneElement) {
+      sceneElement = $(sceneElement);
+      var sceneName = sceneElement.data('scene');
+      if (scenes[sceneName] !== undefined) {
 
-    sceneElement.append(colorsElement);    
-    sceneElement.append(e);
-  } 
-});
+        var colorsElement = $('<div class="colors"></div>');
+        var colors = scenes[sceneName].Palette;
+        colors.forEach(function(co) {
+          var ec = $('<div class="color"></div>');
+          var color = typeof co === 'string' ? co : co.color;
+          $(ec).css({backgroundColor: color});
+          $(ec).attr('title', typeof co.name === 'undefined' ? color : co.name);
+          colorsElement.append(ec);
+        });
 
-$('.scene').click(function(element){
-  var key = $(this).data('scene');
-  if (!$(this).hasClass('active')) {
-    window.hueCommander.command('scene:' + key);
-    activatedScene(key);
-  } else {
-    // deactivate all
-    window.hueCommander.command('scene:stop');
-    activatedScene('stop');
-  }
-  return false;
-});
+        var e = $('<div class="scene-name"></div>');
+        e.text(sceneName);
 
+        sceneElement.append(colorsElement);    
+        sceneElement.append(e);
+      } 
+    });
+
+    $('.scene').click(function(element){
+      var key = $(this).data('scene');
+      if (!$(this).hasClass('active')) {
+        window.hueCommander.command('scene:' + key);
+        activatedScene(key);
+      } else {
+        // deactivate all
+        window.hueCommander.command('scene:stop');
+        activatedScene('stop');
+      }
+      return false;
+    });
+
+
+    $('.command').click(executeCommand); // buttons
+    //$('a.color').click(executeCommand);
+
+}
 
 function executeCommand() {
   /*jshint validthis:true */
@@ -786,9 +847,6 @@ function executeCommand() {
   activatedScene('stop');
   return false; 
 }
-
-$('.command').click(executeCommand); // buttons
-//$('a.color').click(executeCommand);
 
 
 // color wheel:
@@ -817,47 +875,32 @@ function round(n){
   return num;
 }
 
-var gravity = {
-  active: false,
-  a: 0,
-  b: 0,
-  g: 0,
-  x: 0,
-  y: 0,
-  z: 0,
-  hue: 0,
-  bri: 0, 
-  sat: 255,
-  north: 0,
-  northhue: false,
-  timer: null,
-  delaySend: null
-};
+function initGravity() {
+    $('.north-enabled').hide();
+    $('.ground-enabled').hide();
 
-$('.north-enabled').hide();
-$('.ground-enabled').hide();
-
-$('#toggle-gravity').click(function(e){
-  var active = $('#toggle-gravity').is(':checked');
-  gravity.active = active;
-  $('.north-enabled').toggle(active);
-  if (!active || gravity.timer !== null) {
-    clearInterval(gravity.timer);
-    gravity.timer = null;
-  } else {    
-    gravity.timer = setInterval(gravityUpdate, 300);
-  }
-});
-$('#toggle-north').click(function(e){
-  var active = $('#toggle-north').is(':checked');
-  gravity.northhue = active;
-});
+    $('#toggle-gravity').click(function(e){
+      var active = $('#toggle-gravity').is(':checked');
+      gravity.active = active;
+      $('.north-enabled').toggle(active);
+      if (!active || gravity.timer !== null) {
+        clearInterval(gravity.timer);
+        gravity.timer = null;
+      } else {    
+        gravity.timer = setInterval(gravityUpdate, 300);
+      }
+    });
+    $('#toggle-north').click(function(e){
+      var active = $('#toggle-north').is(':checked');
+      gravity.northhue = active;
+    });
 
 
-$(window).on( 'orientationchange', function(e){
-  $('#orien').text(window.orientation);
-  log('orientation: ' + window.orientation);
-}); 
+    $(window).on( 'orientationchange', function(e){
+      $('#orien').text(window.orientation);
+      log('orientation: ' + window.orientation);
+    }); 
+}
 
 function enableGravity(on) {
   if (on) {
@@ -978,25 +1021,24 @@ function gravityUpdate(){
   }
 }
 
-placeImage('picker', 'images/colorbox-100.png');
-placeImage('picker2', 'images/colorwheel-100.png');
-//placeImage('#picker', 'img/colorwhell2.png');
+function initPickers() {
 
-//$('#picker').click(function(e) { // click event handler
-$('#picker, #picker2, #picker3').on({
-  'touchmove': throttleCmd,
-  'mousemove': getColor,
-  //'mouseover': getColor,
-  'touchstart': getColor
-});
-$('#picker, #picker2, #picker3').click(throttleCmd);
+    placeImage('picker', 'images/colorbox-100.png');
+    placeImage('picker2', 'images/colorwheel-100.png');
+    //placeImage('#picker', 'img/colorwhell2.png');
 
-var circle = $('#picker-circle');
+    //$('#picker').click(function(e) { // click event handler
+    $('#picker, #picker2, #picker3').on({
+      'touchmove': throttleCmd,
+      'mousemove': getColor,
+      //'mouseover': getColor,
+      'touchstart': getColor
+    });
+    $('#picker, #picker2, #picker3').click(throttleCmd);
 
-circle.hide();
-var hideCircleTimer = null;
+    circle.hide();
+}
 
-var delayedSend = null;
 function throttleCmd(e){ 
     var hex = getColor(e);
     if (delayedSend !== null) {
@@ -1063,28 +1105,41 @@ function getColor(e){
 
 /* ambient eye tab on show */
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  
-  circle.hide();
-  log('in tab: ' + e.target.hash);
-  
-  trackEvent('click', 'tab', e.target.hash);
+function initAmbientEye() {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+      
+      circle.hide();
+      log('in tab: ' + e.target.hash);
+      
+      trackEvent('click', 'tab', e.target.hash);
 
-	if (e.target.hash === '#eye')
-	{
-    tryEnableEye();
-	} else {
-		ambieye.updateImage = false;
-	}
+    	if (e.target.hash === '#eye')
+    	{
+        tryEnableEye();
+    	} else {
+    		ambieye.updateImage = false;
+    	}
 
-  if (e.target.hash === '#search' && clPalettes === null)
-  {
-    initSearch();
-  }
+      if (e.target.hash === '#search' && clPalettes === null)
+      {
+        initSearch();
+      }
 
-  enableGravity(e.target.hash === '#colors');
+      enableGravity(e.target.hash === '#colors');
 
-});
+    });
+
+    $('#toggle-ambientweb').click(function(e){
+      var active = $('#toggle-ambientweb').is(':checked');
+      ambieye.on = active;
+      if (active) {
+        window.hueCommander.command('scene:Ambient');
+      } else {
+        window.hueCommander.command('scene:none');
+      }
+    });
+
+}
 
 function tryEnableEye(){
   // check permissions for access to <all_tabs> 
@@ -1112,21 +1167,12 @@ function updatePreviewColors(colors, image){
   $('#ambientpreview').attr('src', image);
 }
 
-$('#toggle-ambientweb').click(function(e){
-  var active = $('#toggle-ambientweb').is(':checked');
-	ambieye.on = active;
-  if (active) {
-    window.hueCommander.command('scene:Ambient');
-  } else {
-    window.hueCommander.command('scene:none');
-  }
-});
+function initCloseMinimize() {
+    $('#close-app').click(function(){
+      window.close();
+    });
 
-
-$('#close-app').click(function(){
-  window.close();
-});
-
-$('#minimize-app').click(function(){
-  chrome.app.window.current().minimize();
-});
+    $('#minimize-app').click(function(){
+      chrome.app.window.current().minimize();
+    });
+}

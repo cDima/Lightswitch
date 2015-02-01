@@ -479,7 +479,12 @@ a.hightlight {
   border-bottom-left-radius: 3px;
 }
 
-
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified>li {
+    display: inline-block;
+    width: 141px;
+  }
+}
 .nav-tabs.nav-justified>.active>a, 
 .nav-tabs.nav-justified>.active>a:hover, 
 .nav-tabs.nav-justified>.active>a:focus {
@@ -499,6 +504,7 @@ a.hightlight {
   border-top: #ccc solid 1px;
   padding: 0 15px;
   height: 30px;
+  text-align: center;
 }
 .nav>li>a {
   position: relative;

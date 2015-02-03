@@ -17,7 +17,8 @@
           colorUtil:false,
           ga:false
           Ambient:false,
-		      config:false
+		      config:false,
+          socialLikeButtons: false
 */
 
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
@@ -87,6 +88,8 @@ $(document).ready(function(){
 
     initAmbientEye();
     initCloseMinimize();
+
+    socialLikeButtons();
 });
 
 

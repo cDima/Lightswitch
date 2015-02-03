@@ -388,7 +388,7 @@ var hue = function ($, colors) {
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
                 timeoutAuthCounter++;
-                if (timeoutAuthCounter > 3) {
+                if (timeoutAuthCounter >= 3) {
                     timeoutAuthCounter = 0;
                     log('too many timeouts with IP ' + baseUrl);
                     updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');

@@ -141,7 +141,7 @@ function socialLikeButtons() {
 						cb: function(number) {
 
 							if (artificialSweetner) {
-								options._.resolve(200 + number);
+								options._.resolve(200 + Number(number));
 								return;
 							}
 							options._.resolve(number);

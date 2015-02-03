@@ -1,0 +1,27 @@
+2015-02-03 10:57:41.480 Shine[5057:293610] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Data/Application/659B2230-E9DC-4911-B790-6125DB0D9718/Library/Cookies/Cookies.binarycookies
+2015-02-03 10:57:41.794 Shine[5057:293610] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-03 10:57:41.795 Shine[5057:293610] Multi-tasking -> Device: YES, App: YES
+2015-02-03 10:57:41.811 Shine[5057:293610] Unlimited access to network resources
+2015-02-03 10:57:41.824 Shine[5057:293610] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-03 10:57:43.277 Shine[5057:293610] Resetting plugins due to page load.
+2015-02-03 10:57:46.645 Shine[5057:293610] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/0CA9C466-BE28-4D51-8B0E-B9575A4A27F1/Shine.app/www/index.html
+2015-02-03 11:08:12.882 Shine[5446:297831] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-03 11:08:12.884 Shine[5446:297831] Multi-tasking -> Device: YES, App: YES
+2015-02-03 11:08:12.886 Shine[5446:297831] Unlimited access to network resources
+2015-02-03 11:08:12.888 Shine[5446:297831] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-03 11:08:13.121 Shine[5446:297831] Resetting plugins due to page load.
+2015-02-03 11:08:14.802 Shine[5446:297831] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/2B7229C0-773E-4FD1-A4B5-83F0169CAF03/Shine.app/www/index.html

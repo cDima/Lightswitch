@@ -414,7 +414,7 @@ var hue = function ($, colors) {
                      if (response[0].hasOwnProperty('error'))
                      {
                         if (response[0].error.description === 'link button not pressed') {
-                            updateStatus('Authenticating', 'Bridge found. Press link button.');
+                            updateStatus('Authenticating', 'Bridge found. Press the bridge button...');
                             setTimeout(addUser, 2000);
                         } else  {
                             log('Error: ' + response[0].error.description);

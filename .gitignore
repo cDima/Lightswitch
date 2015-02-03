@@ -4,5 +4,5 @@ node_modules
 
 dist.zip
 
-shine/platforms/ios/www
-shine/www/
+#shine/platforms/ios/www
+#shine/www/

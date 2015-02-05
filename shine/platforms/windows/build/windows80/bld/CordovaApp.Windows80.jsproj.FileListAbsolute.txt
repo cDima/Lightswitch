@@ -1,0 +1,15 @@
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\debug\anycpu\resources.pri
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\debug\anycpu\AppxManifest.xml
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\debug\anycpu\CordovaApp.Windows80.build.appxrecipe
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\priconfig.xml
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\priconfig.xml.intermediate
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\layout.resfiles
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\layout.resfiles.intermediate
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\resources.resfiles
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\resources.resfiles.intermediate
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\pri.resfiles
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\pri.resfiles.intermediate
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\qualifiers.txt
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\qualifiers.txt.intermediate
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\MultipleQualifiersPerDimensionFound.txt
+c:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\ProjectArchitectures.txt

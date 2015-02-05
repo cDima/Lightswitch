@@ -11,6 +11,7 @@
     <access origin="*" />
 	<icon src="www/apple-touch-icon-precomposed.png" />
 	<platform name="android">
+    	<hook type="before_build" src="hooks/ioscopywww.cmd" />
 	    <!-- you can use any density that exists in the Android project -->
 	    <splash src="res/screen/android/splash-land-hdpi.png" density="land-hdpi"/>
 	    <splash src="res/screen/android/splash-land-ldpi.png" density="land-ldpi"/>
@@ -24,6 +25,7 @@
 	</platform>
 
 	<platform name="ios">
+    	<hook type="before_build" src="hooks/ioscopywww.sh" />
 	    <!-- images are determined by width and height. The following are supported -->
 	    <splash src="res/screen/ios/Default~iphone.png" width="320" height="480"/>
 	    <splash src="res/screen/ios/Default@2x~iphone.png" width="640" height="960"/>

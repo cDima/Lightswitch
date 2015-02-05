@@ -1047,35 +1047,80 @@ function initPickers() {
     //$('#picker').click(function(e) { // click event handler
     $('#picker, #picker2, #picker3').on({
       'touchmove': throttleCmd,
-      'mousemove': getColor,
+      'mousemove': touchStart,
       //'mouseover': getColor,
-      'touchstart': getColor
+      'touchstart': touchStart
     });
     $('#picker, #picker2, #picker3').click(throttleCmd);
 
     circle.hide();
 }
 
+var currentHex = null;
 function throttleCmd(e){ 
-    var hex = getColor(e);
+    currentHex = getColor(e);
     if (delayedSend !== null) {
       clearTimeout(delayedSend);
     }
-    delayedSend = setTimeout(function(){
-      window.hueCommander.command(hex);
-      activatedScene('stop');
-    }, 100);
+    if (hideCircleTimer !== null) {
+      clearTimeout(hideCircleTimer); 
+    }
+    delayedSend = setTimeout(onDelaySend, 100);
 }
+
+function onDelaySend(){
+  window.hueCommander.command(currentHex);
+  activatedScene('stop');
+
+  if (hideCircleTimer !== null) {
+    clearTimeout(hideCircleTimer); 
+  }
+  hideCircleTimer = setTimeout(hideCircle, 2000);
+}
+
+function hideCircle() {
+  circle.fadeOut();
+}
+
+function touchStart(e){
+  circle.show();
+  circle.fadeIn();
+  getColor(e);
+}
+
 function getColor(e){
 
     e.preventDefault();
     // get coordinates of current position
     var canvasOffset = $(e.target).offset();
+
     if (e.pageX === undefined) { 
       e = e.originalEvent; 
     }
-    var canvasX = Math.floor(e.pageX - canvasOffset.left);
-    var canvasY = Math.floor(e.pageY - canvasOffset.top);
+
+    var touches = e.changedTouches;
+    if(touches === undefined) {
+      touches = e.targetTouches;
+    }
+
+    if (e.pageX === undefined) { 
+      e = e.originalEvent; 
+    }
+    log('touch event e.pageX:' + e.pageX);
+    log('touch event touches:' + touches);
+
+    var x = e.pageX;
+    var y = e.pageY;
+
+    if (touches !== undefined && touches.length > 0) {
+      x = touches[0].pageX;
+      y = touches[0].pageY;
+      log('touches[0]:' + touches[0]);
+    }
+
+
+    var canvasX = Math.floor(x - canvasOffset.left);
+    var canvasY = Math.floor(y - canvasOffset.top);
     var pixel = null;
     
     var ctx = document.getElementById(e.target.id).getContext('2d');
@@ -1094,19 +1139,12 @@ function getColor(e){
 
     circle.css({ 
           backgroundColor: pixelColor, 
-          top: e.pageY - 50,
-          left: e.pageX -10
+          //top: e.pageY - 50,
+          //left: e.pageX -10
+          top: y - 50,
+          left: x -10
         });
 
-    circle.show();
-    circle.fadeIn();
-    if (hideCircleTimer !== null) {
-      clearTimeout(hideCircleTimer); 
-    }
-    hideCircleTimer = setTimeout(function(){
-      circle.fadeOut();
-    }, 2000);
-    
     // update controls
     //$('#rVal').val(pixel[0]);
     //$('#gVal').val(pixel[1]);

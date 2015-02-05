@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>WIN10</Machine>
+    <WindowsUser>Dmitri</WindowsUser>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>com.ambieye.shine</PackageIdentityName>
+    <IntermediateOutputPath>C:\Projects\Lightswitch\shine\platforms\windows\build\windows80\bld\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>B9D554F0658FD3D6B089B8E2A7A62D09936E6CDB006F11BE79A0D5C76F872BF1</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>com.ambieye.shine_0.0.1.0_neutral__54dbk1tt7zbhy</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>com.ambieye.shine_54dbk1tt7zbhy!com.ambieye.shine</RegisteredUserModeAppID>
+    <RegisteredPackageID>com.ambieye.shine</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Apache Cordova Temp Cert</RegisteredPackagePublisher>
+    <RegisteredVersion>0.0.1.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Projects\Lightswitch\shine\platforms\windows\build\windows80\Debug\AnyCPU\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-02-03T18:26:41.430</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\SplashScreen.scale-100.png">
+      <PackagePath>images\SplashScreen.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-02-03T18:18:45.438</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\Square150x150Logo.scale-100.png">
+      <PackagePath>images\Square150x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-02-03T18:18:45.441</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\Square30x30Logo.scale-100.png">
+      <PackagePath>images\Square30x30Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-02-03T18:18:45.443</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\Square310x310Logo.scale-100.png">
+      <PackagePath>images\Square310x310Logo.scale-100.png</PackagePath>
+      <Modified>2015-02-03T18:18:45.445</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\Square70x70Logo.scale-100.png">
+      <PackagePath>images\Square70x70Logo.scale-100.png</PackagePath>
+      <Modified>2015-02-03T18:18:45.448</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\StoreLogo.scale-100.png">
+      <PackagePath>images\StoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-02-03T18:18:45.451</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\images\Wide310x150Logo.scale-100.png">
+      <PackagePath>images\Wide310x150Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2015-02-03T18:18:45.455</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\apple-touch-icon-precomposed.png">
+      <PackagePath>www\apple-touch-icon-precomposed.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.015</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye-beta.png">
+      <PackagePath>www\images\ambieye-beta.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.595</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye-beta1.png">
+      <PackagePath>www\images\ambieye-beta1.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.597</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye-ico-on.png">
+      <PackagePath>www\images\ambieye-ico-on.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.599</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye-ico.png">
+      <PackagePath>www\images\ambieye-ico.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.604</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye-logo.128.png">
+      <PackagePath>www\images\ambieye-logo.128.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.606</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye-off.png">
+      <PackagePath>www\images\ambieye-off.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.608</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye.on.png">
+      <PackagePath>www\images\ambieye.on.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.610</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ambieye.png">
+      <PackagePath>www\images\ambieye.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.612</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\apistarter.png">
+      <PackagePath>www\images\apistarter.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.614</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\colorbox-100.png">
+      <PackagePath>www\images\colorbox-100.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.617</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\colorbox.png">
+      <PackagePath>www\images\colorbox.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.618</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\colorwheel-100.png">
+      <PackagePath>www\images\colorwheel-100.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.620</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\colorwheel.png">
+      <PackagePath>www\images\colorwheel.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.622</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\colorwhell2.png">
+      <PackagePath>www\images\colorwhell2.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.625</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\eye-large.png">
+      <PackagePath>www\images\eye-large.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.627</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\eye-m.png">
+      <PackagePath>www\images\eye-m.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.629</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\eye-small.png">
+      <PackagePath>www\images\eye-small.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.631</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\placeholder--medium.png">
+      <PackagePath>www\images\icons\placeholder--medium.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.661</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\placeholder--small.png">
+      <PackagePath>www\images\icons\placeholder--small.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.663</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\placeholder--wide.png">
+      <PackagePath>www\images\icons\placeholder--wide.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.666</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\light.png">
+      <PackagePath>www\images\light.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.668</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.grey.png">
+      <PackagePath>www\images\lightswitch.grey.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.671</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.128.png">
+      <PackagePath>www\images\lightswitch.logo.128.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.674</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.16.png">
+      <PackagePath>www\images\lightswitch.logo.16.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.680</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.32.png">
+      <PackagePath>www\images\lightswitch.logo.32.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.683</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.48.png">
+      <PackagePath>www\images\lightswitch.logo.48.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.686</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.on.128.png">
+      <PackagePath>www\images\lightswitch.logo.on.128.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.689</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.on.128.v2.png">
+      <PackagePath>www\images\lightswitch.logo.on.128.v2.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.692</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.on.16.png">
+      <PackagePath>www\images\lightswitch.logo.on.16.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.694</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.on.32.png">
+      <PackagePath>www\images\lightswitch.logo.on.32.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.719</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.logo.on.48.png">
+      <PackagePath>www\images\lightswitch.logo.on.48.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.721</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.white.bold.png">
+      <PackagePath>www\images\lightswitch.white.bold.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.725</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\lightswitch.white.png">
+      <PackagePath>www\images\lightswitch.white.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.727</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\apistarterlogo-wh.png">
+      <PackagePath>www\images\ls\apistarterlogo-wh.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.731</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\apistarterlogo.png">
+      <PackagePath>www\images\ls\apistarterlogo.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.734</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\demo1.png">
+      <PackagePath>www\images\ls\demo1.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.736</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\demo2.png">
+      <PackagePath>www\images\ls\demo2.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.739</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\demo3.png">
+      <PackagePath>www\images\ls\demo3.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.743</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\Logo-header.png">
+      <PackagePath>www\images\ls\Logo-header.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.744</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\Logo-LS.png">
+      <PackagePath>www\images\ls\Logo-LS.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.747</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\Logo-transparent.png">
+      <PackagePath>www\images\ls\Logo-transparent.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.750</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\Logo.png">
+      <PackagePath>www\images\ls\Logo.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.753</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls-1.png">
+      <PackagePath>www\images\ls\ls-1.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.755</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls-2.png">
+      <PackagePath>www\images\ls\ls-2.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.757</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls-3.png">
+      <PackagePath>www\images\ls\ls-3.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.759</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls-4.png">
+      <PackagePath>www\images\ls\ls-4.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.761</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls1.png">
+      <PackagePath>www\images\ls\ls1.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.762</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls2.png">
+      <PackagePath>www\images\ls\ls2.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.764</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls3.png">
+      <PackagePath>www\images\ls\ls3.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.767</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\ls\ls4.png">
+      <PackagePath>www\images\ls\ls4.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.769</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\pro.png">
+      <PackagePath>www\images\pro.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.770</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\shine-logo128.png">
+      <PackagePath>www\images\shine-logo128.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.772</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\shine.logo.v1.png">
+      <PackagePath>www\images\shine.logo.v1.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.775</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\shine.png">
+      <PackagePath>www\images\shine.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.776</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\touch\chrome-touch-icon-192x192.png">
+      <PackagePath>www\images\touch\chrome-touch-icon-192x192.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.779</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\touch\icon-128x128.png">
+      <PackagePath>www\images\touch\icon-128x128.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.781</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\touch\ms-touch-icon-144x144-precomposed.png">
+      <PackagePath>www\images\touch\ms-touch-icon-144x144-precomposed.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.783</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\promo.png">
+      <PackagePath>www\promo.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.797</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\promofb.png">
+      <PackagePath>www\promofb.png</PackagePath>
+      <Modified>2015-02-03T18:23:36.799</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\background.html">
+      <PackagePath>www\background.html</PackagePath>
+      <Modified>2015-02-03T18:23:37.955</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\basic.html">
+      <PackagePath>www\basic.html</PackagePath>
+      <Modified>2015-02-03T18:23:37.957</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\bootstrap-range\index.html">
+      <PackagePath>www\bower_components\bootstrap-range\index.html</PackagePath>
+      <Modified>2015-02-03T18:23:37.972</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\jquery-bridget\test\index.html">
+      <PackagePath>www\bower_components\jquery-bridget\test\index.html</PackagePath>
+      <Modified>2015-02-03T18:23:37.973</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\basic.html">
+      <PackagePath>www\bower_components\modernizr\test\basic.html</PackagePath>
+      <Modified>2015-02-03T18:23:37.980</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\caniuse.html">
+      <PackagePath>www\bower_components\modernizr\test\caniuse.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.167</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\caniuse_files\form_validation.html">
+      <PackagePath>www\bower_components\modernizr\test\caniuse_files\form_validation.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.169</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\caniuse_files\hashchange.html">
+      <PackagePath>www\bower_components\modernizr\test\caniuse_files\hashchange.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.171</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\caniuse_files\mathml.html">
+      <PackagePath>www\bower_components\modernizr\test\caniuse_files\mathml.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.176</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\caniuse_files\pushstate.html">
+      <PackagePath>www\bower_components\modernizr\test\caniuse_files\pushstate.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.177</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\caniuse_files\xhtml.html">
+      <PackagePath>www\bower_components\modernizr\test\caniuse_files\xhtml.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.183</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\index.html">
+      <PackagePath>www\bower_components\modernizr\test\index.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.193</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\modernizr\test\js\basic.html">
+      <PackagePath>www\bower_components\modernizr\test\js\basic.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.194</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\social-likes\contrib\github.html">
+      <PackagePath>www\bower_components\social-likes\contrib\github.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.195</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\social-likes\contrib\linkedin.html">
+      <PackagePath>www\bower_components\social-likes\contrib\linkedin.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.196</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\social-likes\contrib\livejournal.html">
+      <PackagePath>www\bower_components\social-likes\contrib\livejournal.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.198</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\bower_components\social-likes\specs\specs.html">
+      <PackagePath>www\bower_components\social-likes\specs\specs.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.230</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\index.html">
+      <PackagePath>www\index.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.240</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\lightswitch.html">
+      <PackagePath>www\lightswitch.html</PackagePath>
+      <Modified>2015-02-03T18:23:38.245</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\CNAME">
+      <PackagePath>www\CNAME</PackagePath>
+      <Modified>2015-02-03T18:23:36.339</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\cordova.js">
+      <PackagePath>www\cordova.js</PackagePath>
+      <Modified>2015-02-03T18:23:37.063</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\cordova_plugins.js">
+      <PackagePath>www\cordova_plugins.js</PackagePath>
+      <Modified>2015-02-03T18:23:38.232</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\scripts\background.min.js">
+      <PackagePath>www\scripts\background.min.js</PackagePath>
+      <Modified>2015-02-03T18:23:38.306</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\scripts\main201502021.js">
+      <PackagePath>www\scripts\main201502021.js</PackagePath>
+      <Modified>2015-02-03T18:23:38.389</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\scripts\modernizr.min.js">
+      <PackagePath>www\scripts\modernizr.min.js</PackagePath>
+      <Modified>2015-02-03T18:23:38.402</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\favicon.ico">
+      <PackagePath>www\favicon.ico</PackagePath>
+      <Modified>2015-02-03T18:23:36.342</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\fontawesome-webfont.eot">
+      <PackagePath>www\fonts\fontawesome-webfont.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.370</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\glyphicons-halflings-regular.eot">
+      <PackagePath>www\fonts\glyphicons-halflings-regular.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.419</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Bold.eot">
+      <PackagePath>www\fonts\RobotoCondensed-Bold.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.457</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-BoldItalic.eot">
+      <PackagePath>www\fonts\RobotoCondensed-BoldItalic.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.476</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Italic.eot">
+      <PackagePath>www\fonts\RobotoCondensed-Italic.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.504</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Light.eot">
+      <PackagePath>www\fonts\RobotoCondensed-Light.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.528</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-LightItalic.eot">
+      <PackagePath>www\fonts\RobotoCondensed-LightItalic.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.557</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Regular.eot">
+      <PackagePath>www\fonts\RobotoCondensed-Regular.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.581</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\icons.eot">
+      <PackagePath>www\images\icons\icons.eot</PackagePath>
+      <Modified>2015-02-03T18:23:36.646</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\fontawesome-webfont.svg">
+      <PackagePath>www\fonts\fontawesome-webfont.svg</PackagePath>
+      <Modified>2015-02-03T18:23:36.390</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\glyphicons-halflings-regular.svg">
+      <PackagePath>www\fonts\glyphicons-halflings-regular.svg</PackagePath>
+      <Modified>2015-02-03T18:23:36.425</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\hamburger.svg">
+      <PackagePath>www\images\hamburger.svg</PackagePath>
+      <Modified>2015-02-03T18:23:36.639</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\icons.svg">
+      <PackagePath>www\images\icons\icons.svg</PackagePath>
+      <Modified>2015-02-03T18:23:36.649</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\fontawesome-webfont.ttf">
+      <PackagePath>www\fonts\fontawesome-webfont.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.397</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\glyphicons-halflings-regular.ttf">
+      <PackagePath>www\fonts\glyphicons-halflings-regular.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.429</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Bold.ttf">
+      <PackagePath>www\fonts\RobotoCondensed-Bold.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.461</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-BoldItalic.ttf">
+      <PackagePath>www\fonts\RobotoCondensed-BoldItalic.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.480</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Italic.ttf">
+      <PackagePath>www\fonts\RobotoCondensed-Italic.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.510</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Light.ttf">
+      <PackagePath>www\fonts\RobotoCondensed-Light.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.534</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-LightItalic.ttf">
+      <PackagePath>www\fonts\RobotoCondensed-LightItalic.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.564</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Regular.ttf">
+      <PackagePath>www\fonts\RobotoCondensed-Regular.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.585</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\icons-hinted.ttf">
+      <PackagePath>www\images\icons\icons-hinted.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.643</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\icons.ttf">
+      <PackagePath>www\images\icons\icons.ttf</PackagePath>
+      <Modified>2015-02-03T18:23:36.651</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\fontawesome-webfont.woff">
+      <PackagePath>www\fonts\fontawesome-webfont.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.402</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\glyphicons-halflings-regular.woff">
+      <PackagePath>www\fonts\glyphicons-halflings-regular.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.433</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Bold.woff">
+      <PackagePath>www\fonts\RobotoCondensed-Bold.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.464</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-BoldItalic.woff">
+      <PackagePath>www\fonts\RobotoCondensed-BoldItalic.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.484</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Italic.woff">
+      <PackagePath>www\fonts\RobotoCondensed-Italic.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.514</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Light.woff">
+      <PackagePath>www\fonts\RobotoCondensed-Light.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.540</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-LightItalic.woff">
+      <PackagePath>www\fonts\RobotoCondensed-LightItalic.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.568</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\RobotoCondensed-Regular.woff">
+      <PackagePath>www\fonts\RobotoCondensed-Regular.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.590</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\icons.woff">
+      <PackagePath>www\images\icons\icons.woff</PackagePath>
+      <Modified>2015-02-03T18:23:36.655</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\FontAwesome.otf">
+      <PackagePath>www\fonts\FontAwesome.otf</PackagePath>
+      <Modified>2015-02-03T18:23:36.407</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\montserrat.woff2">
+      <PackagePath>www\fonts\montserrat.woff2</PackagePath>
+      <Modified>2015-02-03T18:23:36.438</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\fonts\montserrat2.woff2">
+      <PackagePath>www\fonts\montserrat2.woff2</PackagePath>
+      <Modified>2015-02-03T18:23:36.444</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\icons\icons.woff2">
+      <PackagePath>www\images\icons\icons.woff2</PackagePath>
+      <Modified>2015-02-03T18:23:36.657</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\images\Google-Chrome-Flat-Browser.jpg">
+      <PackagePath>www\images\Google-Chrome-Flat-Browser.jpg</PackagePath>
+      <Modified>2015-02-03T18:23:36.638</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\ln.htm">
+      <PackagePath>www\ln.htm</PackagePath>
+      <Modified>2015-02-03T18:23:36.792</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\router.htm">
+      <PackagePath>www\router.htm</PackagePath>
+      <Modified>2015-02-03T18:23:36.803</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\manifest.json">
+      <PackagePath>www\manifest.json</PackagePath>
+      <Modified>2015-02-03T18:23:38.247</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\robots.txt">
+      <PackagePath>www\robots.txt</PackagePath>
+      <Modified>2015-02-03T18:23:36.801</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\bootstrap.min.css">
+      <PackagePath>www\styles\bootstrap.min.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.409</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\components.css">
+      <PackagePath>www\styles\components.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.418</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\font-awesome.min.css">
+      <PackagePath>www\styles\font-awesome.min.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.425</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\font-montserrat.min.css">
+      <PackagePath>www\styles\font-montserrat.min.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.426</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\ls.css">
+      <PackagePath>www\styles\ls.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.428</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\main.css">
+      <PackagePath>www\styles\main.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.437</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\popup.css">
+      <PackagePath>www\styles\popup.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.442</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\shine.css">
+      <PackagePath>www\styles\shine.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.444</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\slider.css">
+      <PackagePath>www\styles\slider.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.445</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\slider1.css">
+      <PackagePath>www\styles\slider1.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.446</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\social-likes_flat.css">
+      <PackagePath>www\styles\social-likes_flat.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.451</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\switch.css">
+      <PackagePath>www\styles\switch.css</PackagePath>
+      <Modified>2015-02-03T18:23:38.452</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\bootstrap.min.css.map">
+      <PackagePath>www\styles\bootstrap.min.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:36.960</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\components.css.map">
+      <PackagePath>www\styles\components.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:36.970</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\font-awesome.min.css.map">
+      <PackagePath>www\styles\font-awesome.min.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:36.984</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\font-montserrat.min.css.map">
+      <PackagePath>www\styles\font-montserrat.min.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:36.988</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\ls.css.map">
+      <PackagePath>www\styles\ls.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:36.992</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\main.css.map">
+      <PackagePath>www\styles\main.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.005</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\popup.css.map">
+      <PackagePath>www\styles\popup.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.018</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\shine.css.map">
+      <PackagePath>www\styles\shine.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.022</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\slider.css.map">
+      <PackagePath>www\styles\slider.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.027</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\slider1.css.map">
+      <PackagePath>www\styles\slider1.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.032</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\social-likes_flat.css.map">
+      <PackagePath>www\styles\social-likes_flat.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.038</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\www\styles\switch.css.map">
+      <PackagePath>www\styles\switch.css.map</PackagePath>
+      <Modified>2015-02-03T18:23:37.044</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\config.xml">
+      <PackagePath>config.xml</PackagePath>
+      <Modified>2015-02-03T18:23:37.867</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Projects\Lightswitch\shine\platforms\windows\build\windows80\Debug\AnyCPU\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2015-02-03T18:26:41.034</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows\v8.0\ExtensionSDKs\Microsoft.WinJS.1.0\1.0\">
+      <Name>Microsoft.WinJS.1.0</Name>
+      <Version>1.0.9200.20512</Version>
+      <Architecture>Neutral</Architecture>
+      <FrameworkIdentity>Name=Microsoft.WinJS.1.0, MinVersion=1.0.9200.20512</FrameworkIdentity>
+      <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows\v8.0\ExtensionSDKs\Microsoft.WinJS.1.0\1.0\Microsoft.WinJS.1.0.appx</AppxLocation>
+      <MoreInfo>
+      </MoreInfo>
+    </ResolvedSDKReference>
+  </ItemGroup>
+</Project>

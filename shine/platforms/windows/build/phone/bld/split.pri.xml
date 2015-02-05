@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PriInfo>
+	<ResourceMap name="com.ambieye.shine" version="1.0" primary="true">
+		<Qualifiers>
+			<Scale>240</Scale>
+		</Qualifiers>
+		<ResourceMapSubtree name="Files">
+			<NamedResource name="config.xml" uri="ms-resource://com.ambieye.shine/Files/config.xml">
+				<Candidate type="Path">
+					<Value>config.xml</Value>
+				</Candidate>
+			</NamedResource>
+			<ResourceMapSubtree name="images">
+				<NamedResource name="SplashScreen.png" uri="ms-resource://com.ambieye.shine/Files/images/SplashScreen.png"/>
+				<NamedResource name="SplashScreenPhone.png" uri="ms-resource://com.ambieye.shine/Files/images/SplashScreenPhone.png">
+					<Candidate qualifiers="Scale-240" isDefault="true" type="Path">
+						<Value>images\SplashScreenPhone.scale-240.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square150x150Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Square150x150Logo.png">
+					<Candidate qualifiers="Scale-240" isDefault="true" type="Path">
+						<Value>images\Square150x150Logo.scale-240.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square30x30Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Square30x30Logo.png"/>
+				<NamedResource name="Square310x310Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Square310x310Logo.png"/>
+				<NamedResource name="Square44x44Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Square44x44Logo.png">
+					<Candidate qualifiers="Scale-240" isDefault="true" type="Path">
+						<Value>images\Square44x44Logo.scale-240.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Square70x70Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Square70x70Logo.png"/>
+				<NamedResource name="Square71x71Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Square71x71Logo.png">
+					<Candidate qualifiers="Scale-240" isDefault="true" type="Path">
+						<Value>images\Square71x71Logo.scale-240.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="StoreLogo.png" uri="ms-resource://com.ambieye.shine/Files/images/StoreLogo.png">
+					<Candidate qualifiers="Scale-240" isDefault="true" type="Path">
+						<Value>images\StoreLogo.scale-240.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="Wide310x150Logo.png" uri="ms-resource://com.ambieye.shine/Files/images/Wide310x150Logo.png">
+					<Candidate qualifiers="Scale-240" isDefault="true" type="Path">
+						<Value>images\Wide310x150Logo.scale-240.png</Value>
+					</Candidate>
+				</NamedResource>
+			</ResourceMapSubtree>
+			<ResourceMapSubtree name="www">
+				<NamedResource name="apple-touch-icon-precomposed.png" uri="ms-resource://com.ambieye.shine/Files/www/apple-touch-icon-precomposed.png">
+					<Candidate type="Path">
+						<Value>www\apple-touch-icon-precomposed.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="background.html" uri="ms-resource://com.ambieye.shine/Files/www/background.html">
+					<Candidate type="Path">
+						<Value>www\background.html</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="basic.html" uri="ms-resource://com.ambieye.shine/Files/www/basic.html">
+					<Candidate type="Path">
+						<Value>www\basic.html</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="CNAME" uri="ms-resource://com.ambieye.shine/Files/www/CNAME">
+					<Candidate type="Path">
+						<Value>www\CNAME</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="cordova.js" uri="ms-resource://com.ambieye.shine/Files/www/cordova.js">
+					<Candidate type="Path">
+						<Value>www\cordova.js</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="cordova_plugins.js" uri="ms-resource://com.ambieye.shine/Files/www/cordova_plugins.js">
+					<Candidate type="Path">
+						<Value>www\cordova_plugins.js</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="favicon.ico" uri="ms-resource://com.ambieye.shine/Files/www/favicon.ico">
+					<Candidate type="Path">
+						<Value>www\favicon.ico</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="index.html" uri="ms-resource://com.ambieye.shine/Files/www/index.html">
+					<Candidate type="Path">
+						<Value>www\index.html</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="lightswitch.html" uri="ms-resource://com.ambieye.shine/Files/www/lightswitch.html">
+					<Candidate type="Path">
+						<Value>www\lightswitch.html</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="ln.htm" uri="ms-resource://com.ambieye.shine/Files/www/ln.htm">
+					<Candidate type="Path">
+						<Value>www\ln.htm</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="manifest.json" uri="ms-resource://com.ambieye.shine/Files/www/manifest.json">
+					<Candidate type="Path">
+						<Value>www\manifest.json</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="promo.png" uri="ms-resource://com.ambieye.shine/Files/www/promo.png">
+					<Candidate type="Path">
+						<Value>www\promo.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="promofb.png" uri="ms-resource://com.ambieye.shine/Files/www/promofb.png">
+					<Candidate type="Path">
+						<Value>www\promofb.png</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="robots.txt" uri="ms-resource://com.ambieye.shine/Files/www/robots.txt">
+					<Candidate type="Path">
+						<Value>www\robots.txt</Value>
+					</Candidate>
+				</NamedResource>
+				<NamedResource name="router.htm" uri="ms-resource://com.ambieye.shine/Files/www/router.htm">
+					<Candidate type="Path">
+						<Value>www\router.htm</Value>
+					</Candidate>
+				</NamedResource>
+				<ResourceMapSubtree name="bower_components">
+					<ResourceMapSubtree name="bootstrap-range">
+						<NamedResource name="index.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/bootstrap-range/index.html">
+							<Candidate type="Path">
+								<Value>www\bower_components\bootstrap-range\index.html</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="jquery-bridget">
+						<ResourceMapSubtree name="test">
+							<NamedResource name="index.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/jquery-bridget/test/index.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\jquery-bridget\test\index.html</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="modernizr">
+						<ResourceMapSubtree name="test">
+							<NamedResource name="basic.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/basic.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\modernizr\test\basic.html</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="caniuse.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/caniuse.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\modernizr\test\caniuse.html</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="index.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/index.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\modernizr\test\index.html</Value>
+								</Candidate>
+							</NamedResource>
+							<ResourceMapSubtree name="caniuse_files">
+								<NamedResource name="form_validation.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/caniuse_files/form_validation.html">
+									<Candidate type="Path">
+										<Value>www\bower_components\modernizr\test\caniuse_files\form_validation.html</Value>
+									</Candidate>
+								</NamedResource>
+								<NamedResource name="hashchange.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/caniuse_files/hashchange.html">
+									<Candidate type="Path">
+										<Value>www\bower_components\modernizr\test\caniuse_files\hashchange.html</Value>
+									</Candidate>
+								</NamedResource>
+								<NamedResource name="mathml.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/caniuse_files/mathml.html">
+									<Candidate type="Path">
+										<Value>www\bower_components\modernizr\test\caniuse_files\mathml.html</Value>
+									</Candidate>
+								</NamedResource>
+								<NamedResource name="pushstate.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/caniuse_files/pushstate.html">
+									<Candidate type="Path">
+										<Value>www\bower_components\modernizr\test\caniuse_files\pushstate.html</Value>
+									</Candidate>
+								</NamedResource>
+								<NamedResource name="xhtml.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/caniuse_files/xhtml.html">
+									<Candidate type="Path">
+										<Value>www\bower_components\modernizr\test\caniuse_files\xhtml.html</Value>
+									</Candidate>
+								</NamedResource>
+							</ResourceMapSubtree>
+							<ResourceMapSubtree name="js">
+								<NamedResource name="basic.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/modernizr/test/js/basic.html">
+									<Candidate type="Path">
+										<Value>www\bower_components\modernizr\test\js\basic.html</Value>
+									</Candidate>
+								</NamedResource>
+							</ResourceMapSubtree>
+						</ResourceMapSubtree>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="social-likes">
+						<ResourceMapSubtree name="contrib">
+							<NamedResource name="github.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/social-likes/contrib/github.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\social-likes\contrib\github.html</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="linkedin.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/social-likes/contrib/linkedin.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\social-likes\contrib\linkedin.html</Value>
+								</Candidate>
+							</NamedResource>
+							<NamedResource name="livejournal.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/social-likes/contrib/livejournal.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\social-likes\contrib\livejournal.html</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+						<ResourceMapSubtree name="specs">
+							<NamedResource name="specs.html" uri="ms-resource://com.ambieye.shine/Files/www/bower_components/social-likes/specs/specs.html">
+								<Candidate type="Path">
+									<Value>www\bower_components\social-likes\specs\specs.html</Value>
+								</Candidate>
+							</NamedResource>
+						</ResourceMapSubtree>
+					</ResourceMapSubtree>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="fonts">
+					<NamedResource name="fontawesome-webfont.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/fontawesome-webfont.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\fontawesome-webfont.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="fontawesome-webfont.svg" uri="ms-resource://com.ambieye.shine/Files/www/fonts/fontawesome-webfont.svg">
+						<Candidate type="Path">
+							<Value>www\fonts\fontawesome-webfont.svg</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="fontawesome-webfont.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/fontawesome-webfont.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\fontawesome-webfont.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="fontawesome-webfont.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/fontawesome-webfont.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\fontawesome-webfont.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="FontAwesome.otf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/FontAwesome.otf">
+						<Candidate type="Path">
+							<Value>www\fonts\FontAwesome.otf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="glyphicons-halflings-regular.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/glyphicons-halflings-regular.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\glyphicons-halflings-regular.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="glyphicons-halflings-regular.svg" uri="ms-resource://com.ambieye.shine/Files/www/fonts/glyphicons-halflings-regular.svg">
+						<Candidate type="Path">
+							<Value>www\fonts\glyphicons-halflings-regular.svg</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="glyphicons-halflings-regular.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/glyphicons-halflings-regular.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\glyphicons-halflings-regular.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="glyphicons-halflings-regular.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/glyphicons-halflings-regular.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\glyphicons-halflings-regular.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="montserrat.woff2" uri="ms-resource://com.ambieye.shine/Files/www/fonts/montserrat.woff2">
+						<Candidate type="Path">
+							<Value>www\fonts\montserrat.woff2</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="montserrat2.woff2" uri="ms-resource://com.ambieye.shine/Files/www/fonts/montserrat2.woff2">
+						<Candidate type="Path">
+							<Value>www\fonts\montserrat2.woff2</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Bold.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Bold.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Bold.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Bold.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Bold.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Bold.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Bold.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Bold.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Bold.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-BoldItalic.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-BoldItalic.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-BoldItalic.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-BoldItalic.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-BoldItalic.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-BoldItalic.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-BoldItalic.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-BoldItalic.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-BoldItalic.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Italic.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Italic.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Italic.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Italic.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Italic.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Italic.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Italic.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Italic.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Italic.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Light.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Light.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Light.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Light.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Light.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Light.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Light.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Light.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Light.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-LightItalic.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-LightItalic.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-LightItalic.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-LightItalic.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-LightItalic.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-LightItalic.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-LightItalic.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-LightItalic.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-LightItalic.woff</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Regular.eot" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Regular.eot">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Regular.eot</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Regular.ttf" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Regular.ttf">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Regular.ttf</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="RobotoCondensed-Regular.woff" uri="ms-resource://com.ambieye.shine/Files/www/fonts/RobotoCondensed-Regular.woff">
+						<Candidate type="Path">
+							<Value>www\fonts\RobotoCondensed-Regular.woff</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="images">
+					<NamedResource name="ambieye-beta.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye-beta.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye-beta.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye-beta1.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye-beta1.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye-beta1.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye-ico-on.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye-ico-on.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye-ico-on.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye-ico.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye-ico.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye-ico.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye-logo.128.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye-logo.128.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye-logo.128.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye-off.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye-off.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye-off.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye.on.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye.on.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye.on.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ambieye.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ambieye.png">
+						<Candidate type="Path">
+							<Value>www\images\ambieye.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="apistarter.png" uri="ms-resource://com.ambieye.shine/Files/www/images/apistarter.png">
+						<Candidate type="Path">
+							<Value>www\images\apistarter.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="colorbox-100.png" uri="ms-resource://com.ambieye.shine/Files/www/images/colorbox-100.png">
+						<Candidate type="Path">
+							<Value>www\images\colorbox-100.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="colorbox.png" uri="ms-resource://com.ambieye.shine/Files/www/images/colorbox.png">
+						<Candidate type="Path">
+							<Value>www\images\colorbox.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="colorwheel-100.png" uri="ms-resource://com.ambieye.shine/Files/www/images/colorwheel-100.png">
+						<Candidate type="Path">
+							<Value>www\images\colorwheel-100.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="colorwheel.png" uri="ms-resource://com.ambieye.shine/Files/www/images/colorwheel.png">
+						<Candidate type="Path">
+							<Value>www\images\colorwheel.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="colorwhell2.png" uri="ms-resource://com.ambieye.shine/Files/www/images/colorwhell2.png">
+						<Candidate type="Path">
+							<Value>www\images\colorwhell2.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="eye-large.png" uri="ms-resource://com.ambieye.shine/Files/www/images/eye-large.png">
+						<Candidate type="Path">
+							<Value>www\images\eye-large.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="eye-m.png" uri="ms-resource://com.ambieye.shine/Files/www/images/eye-m.png">
+						<Candidate type="Path">
+							<Value>www\images\eye-m.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="eye-small.png" uri="ms-resource://com.ambieye.shine/Files/www/images/eye-small.png">
+						<Candidate type="Path">
+							<Value>www\images\eye-small.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="Google-Chrome-Flat-Browser.jpg" uri="ms-resource://com.ambieye.shine/Files/www/images/Google-Chrome-Flat-Browser.jpg">
+						<Candidate type="Path">
+							<Value>www\images\Google-Chrome-Flat-Browser.jpg</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="hamburger.svg" uri="ms-resource://com.ambieye.shine/Files/www/images/hamburger.svg">
+						<Candidate type="Path">
+							<Value>www\images\hamburger.svg</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="light.png" uri="ms-resource://com.ambieye.shine/Files/www/images/light.png">
+						<Candidate type="Path">
+							<Value>www\images\light.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.grey.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.grey.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.grey.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.128.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.128.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.128.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.16.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.16.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.16.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.32.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.32.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.32.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.48.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.48.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.48.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.on.128.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.on.128.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.on.128.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.on.128.v2.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.on.128.v2.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.on.128.v2.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.on.16.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.on.16.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.on.16.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.on.32.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.on.32.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.on.32.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.logo.on.48.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.logo.on.48.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.logo.on.48.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.white.bold.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.white.bold.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.white.bold.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="lightswitch.white.png" uri="ms-resource://com.ambieye.shine/Files/www/images/lightswitch.white.png">
+						<Candidate type="Path">
+							<Value>www\images\lightswitch.white.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="pro.png" uri="ms-resource://com.ambieye.shine/Files/www/images/pro.png">
+						<Candidate type="Path">
+							<Value>www\images\pro.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="shine-logo128.png" uri="ms-resource://com.ambieye.shine/Files/www/images/shine-logo128.png">
+						<Candidate type="Path">
+							<Value>www\images\shine-logo128.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="shine.logo.v1.png" uri="ms-resource://com.ambieye.shine/Files/www/images/shine.logo.v1.png">
+						<Candidate type="Path">
+							<Value>www\images\shine.logo.v1.png</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="shine.png" uri="ms-resource://com.ambieye.shine/Files/www/images/shine.png">
+						<Candidate type="Path">
+							<Value>www\images\shine.png</Value>
+						</Candidate>
+					</NamedResource>
+					<ResourceMapSubtree name="icons">
+						<NamedResource name="icons-hinted.ttf" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/icons-hinted.ttf">
+							<Candidate type="Path">
+								<Value>www\images\icons\icons-hinted.ttf</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="icons.eot" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/icons.eot">
+							<Candidate type="Path">
+								<Value>www\images\icons\icons.eot</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="icons.svg" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/icons.svg">
+							<Candidate type="Path">
+								<Value>www\images\icons\icons.svg</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="icons.ttf" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/icons.ttf">
+							<Candidate type="Path">
+								<Value>www\images\icons\icons.ttf</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="icons.woff" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/icons.woff">
+							<Candidate type="Path">
+								<Value>www\images\icons\icons.woff</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="icons.woff2" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/icons.woff2">
+							<Candidate type="Path">
+								<Value>www\images\icons\icons.woff2</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="placeholder--medium.png" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/placeholder--medium.png">
+							<Candidate type="Path">
+								<Value>www\images\icons\placeholder--medium.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="placeholder--small.png" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/placeholder--small.png">
+							<Candidate type="Path">
+								<Value>www\images\icons\placeholder--small.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="placeholder--wide.png" uri="ms-resource://com.ambieye.shine/Files/www/images/icons/placeholder--wide.png">
+							<Candidate type="Path">
+								<Value>www\images\icons\placeholder--wide.png</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="ls">
+						<NamedResource name="apistarterlogo-wh.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/apistarterlogo-wh.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\apistarterlogo-wh.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="apistarterlogo.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/apistarterlogo.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\apistarterlogo.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="demo1.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/demo1.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\demo1.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="demo2.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/demo2.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\demo2.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="demo3.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/demo3.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\demo3.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="Logo-header.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/Logo-header.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\Logo-header.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="Logo-LS.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/Logo-LS.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\Logo-LS.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="Logo-transparent.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/Logo-transparent.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\Logo-transparent.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="Logo.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/Logo.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\Logo.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls-1.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls-1.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls-1.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls-2.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls-2.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls-2.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls-3.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls-3.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls-3.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls-4.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls-4.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls-4.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls1.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls1.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls1.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls2.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls2.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls2.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls3.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls3.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls3.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ls4.png" uri="ms-resource://com.ambieye.shine/Files/www/images/ls/ls4.png">
+							<Candidate type="Path">
+								<Value>www\images\ls\ls4.png</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
+					<ResourceMapSubtree name="touch">
+						<NamedResource name="chrome-touch-icon-192x192.png" uri="ms-resource://com.ambieye.shine/Files/www/images/touch/chrome-touch-icon-192x192.png">
+							<Candidate type="Path">
+								<Value>www\images\touch\chrome-touch-icon-192x192.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="icon-128x128.png" uri="ms-resource://com.ambieye.shine/Files/www/images/touch/icon-128x128.png">
+							<Candidate type="Path">
+								<Value>www\images\touch\icon-128x128.png</Value>
+							</Candidate>
+						</NamedResource>
+						<NamedResource name="ms-touch-icon-144x144-precomposed.png" uri="ms-resource://com.ambieye.shine/Files/www/images/touch/ms-touch-icon-144x144-precomposed.png">
+							<Candidate type="Path">
+								<Value>www\images\touch\ms-touch-icon-144x144-precomposed.png</Value>
+							</Candidate>
+						</NamedResource>
+					</ResourceMapSubtree>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="scripts">
+					<NamedResource name="background.min.js" uri="ms-resource://com.ambieye.shine/Files/www/scripts/background.min.js">
+						<Candidate type="Path">
+							<Value>www\scripts\background.min.js</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="main201502021.js" uri="ms-resource://com.ambieye.shine/Files/www/scripts/main201502021.js">
+						<Candidate type="Path">
+							<Value>www\scripts\main201502021.js</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="modernizr.min.js" uri="ms-resource://com.ambieye.shine/Files/www/scripts/modernizr.min.js">
+						<Candidate type="Path">
+							<Value>www\scripts\modernizr.min.js</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+				<ResourceMapSubtree name="styles">
+					<NamedResource name="bootstrap.min.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/bootstrap.min.css">
+						<Candidate type="Path">
+							<Value>www\styles\bootstrap.min.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="bootstrap.min.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/bootstrap.min.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\bootstrap.min.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="components.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/components.css">
+						<Candidate type="Path">
+							<Value>www\styles\components.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="components.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/components.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\components.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="font-awesome.min.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/font-awesome.min.css">
+						<Candidate type="Path">
+							<Value>www\styles\font-awesome.min.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="font-awesome.min.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/font-awesome.min.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\font-awesome.min.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="font-montserrat.min.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/font-montserrat.min.css">
+						<Candidate type="Path">
+							<Value>www\styles\font-montserrat.min.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="font-montserrat.min.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/font-montserrat.min.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\font-montserrat.min.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ls.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/ls.css">
+						<Candidate type="Path">
+							<Value>www\styles\ls.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="ls.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/ls.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\ls.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="main.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/main.css">
+						<Candidate type="Path">
+							<Value>www\styles\main.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="main.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/main.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\main.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="popup.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/popup.css">
+						<Candidate type="Path">
+							<Value>www\styles\popup.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="popup.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/popup.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\popup.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="shine.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/shine.css">
+						<Candidate type="Path">
+							<Value>www\styles\shine.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="shine.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/shine.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\shine.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="slider.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/slider.css">
+						<Candidate type="Path">
+							<Value>www\styles\slider.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="slider.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/slider.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\slider.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="slider1.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/slider1.css">
+						<Candidate type="Path">
+							<Value>www\styles\slider1.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="slider1.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/slider1.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\slider1.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="social-likes_flat.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/social-likes_flat.css">
+						<Candidate type="Path">
+							<Value>www\styles\social-likes_flat.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="social-likes_flat.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/social-likes_flat.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\social-likes_flat.css.map</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="switch.css" uri="ms-resource://com.ambieye.shine/Files/www/styles/switch.css">
+						<Candidate type="Path">
+							<Value>www\styles\switch.css</Value>
+						</Candidate>
+					</NamedResource>
+					<NamedResource name="switch.css.map" uri="ms-resource://com.ambieye.shine/Files/www/styles/switch.css.map">
+						<Candidate type="Path">
+							<Value>www\styles\switch.css.map</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+	</ResourceMap>
+</PriInfo>

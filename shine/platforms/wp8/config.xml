@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ambieye.shine" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Shine</name>
+    <description>
+        Control your lights with Shine for Philips Hue.
+    </description>
+    <author email="apistarter@gmail.com" href="http://apistarter.com">
+        Dmitry Sadakov
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <icon src="www/apple-touch-icon-precomposed.png" />
+</widget>

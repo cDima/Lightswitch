@@ -31,7 +31,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         executeCommand = function(command) {
             log('executing command: ' + command + ' on actors: ' + actors);
             trackEvent('huecommander', 'command', command);
-
+            if (command === undefined) {
+                return;
+            }
             if (command === '#brighten') {
                 hue.brightenAll(Math.floor(255 / 3));
             }
@@ -141,6 +143,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             });
         },
         detectBrigthness = function(command){
+            if (command === undefined) {
+                return null;
+            }
             if (command.startsWith('bri:')) {
                 return command.substring('bri:'.length);
             }

@@ -610,7 +610,7 @@ function fillSettings() {
       return;
     }
 
-    if (state.lights !== null) {
+    if (state.lights !== null && state.lights !== undefined) {
 
         trackEvent('settings', 'init', 'version', state.config.swversion);
         trackEvent('settings', 'init', 'ip', state.config.ipaddress);
@@ -631,8 +631,15 @@ function fillSettings() {
         for(i in state.lights) {
             key = i;
             value = state.lights[i];
-        
-            log('Lights: ' + key  + ', name: ' + value.name + ', reachable: ' + value.state.reachable + ', on: ' + value.state.on);
+          
+            if (value.state === undefined) {
+              continue;
+            }
+
+            log('Lights: ' + key  + ', name: ' + 
+              value.name + ', reachable: ' + 
+              value.state.reachable + 
+              ', on: ' + value.state.on);
             btn = createActorBtn(key, value.name);
             btn.click(actorClick);
             $('#lamps').append(btn);
@@ -652,6 +659,9 @@ function fillSettings() {
             key = i;
             value = state.lights[i];
         //$.each(state.lights, function(key, value){
+            if (value.state === undefined) {
+              continue;
+            }
             if (value.state.reachable) {
                 lightsReachable.push(value);
             }

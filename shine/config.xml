@@ -9,33 +9,39 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-	<icon src="www/apple-touch-icon-precomposed.png" />
+    <icon src="www/apple-touch-icon-precomposed.png" />
+
+	<preference name="SplashScreenDelay" value="10000" />
+    <preference name="SplashScreen" value="app/www/images/splash.png" />
+	<preference name="SplashScreenDelay" value="10000" />
+	<splash src="app/www/images/splash.png" />
 	<platform name="android">
     	<hook type="before_build" src="hooks/ioscopywww.cmd" />
 	    <!-- you can use any density that exists in the Android project -->
-	    <splash src="res/screen/android/splash-land-hdpi.png" density="land-hdpi"/>
-	    <splash src="res/screen/android/splash-land-ldpi.png" density="land-ldpi"/>
-	    <splash src="res/screen/android/splash-land-mdpi.png" density="land-mdpi"/>
-	    <splash src="res/screen/android/splash-land-xhdpi.png" density="land-xhdpi"/>
-
-	    <splash src="res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
-	    <splash src="res/screen/android/splash-port-ldpi.png" density="port-ldpi"/>
-	    <splash src="res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
-	    <splash src="res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+	
+	    <splash src="app/www/images/splash.png" density="land-hdpi"/>
+	    <splash src="app/www/images/splash.png" density="land-ldpi"/>
+	    <splash src="app/www/images/splash.png" density="land-mdpi"/>
+	    <splash src="app/www/images/splash.png" density="land-xhdpi"/>
+app/
+	    <splash src="app/www/images/splash.png" density="port-hdpi"/>
+	    <splash src="app/www/images/splash.png" density="port-ldpi"/>
+	    <splash src="app/www/images/splash.png" density="port-mdpi"/>
+	    <splash src="app/www/images/splash.png" density="port-xhdpi"/>
 	</platform>
 
 	<platform name="ios">
     	<hook type="before_build" src="hooks/ioscopywww.sh" />
 	    <!-- images are determined by width and height. The following are supported -->
-	    <splash src="res/screen/ios/Default~iphone.png" width="320" height="480"/>
-	    <splash src="res/screen/ios/Default@2x~iphone.png" width="640" height="960"/>
-	    <splash src="res/screen/ios/Default-Portrait~ipad.png" width="768" height="1024"/>
-	    <splash src="res/screen/ios/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
-	    <splash src="res/screen/ios/Default-Landscape~ipad.png" width="1024" height="768"/>
-	    <splash src="res/screen/ios/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
-	    <splash src="res/screen/ios/Default-568h@2x~iphone.png" width="640" height="1136"/>
-	    <splash src="res/screen/ios/Default-667h.png" width="750" height="1334"/>
-	    <splash src="res/screen/ios/Default-736h.png" width="1242" height="2208"/>
-	    <splash src="res/screen/ios/Default-Landscape-736h.png" width="2208" height="1242"/>
+	    <splash src="app/www/images/splash.png" width="320" height="480"/>
+	    <splash src="app/www/images/splash.png" width="640" height="960"/>
+	    <splash src="app/www/images/splash.png" width="768" height="1024"/>
+	    <splash src="app/www/images/splash.png" width="1536" height="2048"/>
+	    <splash src="app/www/images/splash.png" width="1024" height="768"/>
+	    <splash src="app/www/images/splash.png" width="2048" height="1536"/>
+	    <splash src="app/www/images/splash.png" width="640" height="1136"/>
+	    <splash src="app/www/images/splash.png" width="750" height="1334"/>
+	    <splash src="app/www/images/splash.png" width="1242" height="2208"/>
+	    <splash src="app/www/images/splash.png" width="2208" height="1242"/>
 	</platform>
 </widget>

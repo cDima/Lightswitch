@@ -2,14 +2,14 @@
 <widget id="com.ambieye.shine" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <hook src="hooks/ioscopywww.cmd" type="before_build" />
-    <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
-    <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
-    <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
-    <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
-    <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
-    <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
-    <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
-    <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
+    <splash density="land-hdpi" src="app/www/images/splash.png" />
+    <splash density="land-ldpi" src="app/www/images/splash.png" />
+    <splash density="land-mdpi" src="app/www/images/splash.png" />
+    <splash density="land-xhdpi" src="app/www/images/splash.png" />
+    <splash density="port-hdpi" src="app/www/images/splash.png" />
+    <splash density="port-ldpi" src="app/www/images/splash.png" />
+    <splash density="port-mdpi" src="app/www/images/splash.png" />
+    <splash density="port-xhdpi" src="app/www/images/splash.png" />
     <name>Shine</name>
     <description>
         Control your lights with Shine for Philips Hue.
@@ -20,4 +20,6 @@
     <content src="index.html" />
     <access origin="*" />
     <icon src="www/apple-touch-icon-precomposed.png" />
+    <preference name="SplashScreen" value="app/www/images/splash.png" />
+    <preference name="SplashScreenDelay" value="10000" />
 </widget>

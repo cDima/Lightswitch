@@ -19,12 +19,14 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\index.html \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\lightswitch.html \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\ln.htm \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\manifest.json \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\privacy-statement.htm \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\promo.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\promofb.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\robots.txt \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\router.htm \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\terms-of-use.htm \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\bower_components\bootstrap-range \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\bower_components\jquery-bridget \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\bower_components\modernizr \
@@ -113,6 +115,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\lightswitch.lo
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\lightswitch.white.bold.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\lightswitch.white.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ls \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\material-icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\pro.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\shine-logo128.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\shine.logo.v1.png \
@@ -148,7 +151,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch\chrome-t
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch\icon-128x128.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch\ms-touch-icon-144x144-precomposed.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\background.min.js \
-c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\main201502021.js \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\main20150207.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\modernizr.min.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\bootstrap.min.css \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\bootstrap.min.css.map \

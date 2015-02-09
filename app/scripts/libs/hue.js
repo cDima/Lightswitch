@@ -512,10 +512,16 @@ var hue = function ($, colors) {
         setColor: function(lampIndex /* Number */, color /* String */, transitiontime, brightness) {
             var xy = colors.getCIEColor(color);
             if (typeof(brightness) === 'number') {
-                var bri = colorUtil().getBrightness(color);
-                adjustBrightness(lampIndex, bri, function(bri){
-                    setXYState(lampIndex, xy, transitiontime, bri);
-                });
+                if (brightness < 0) { // min
+                    // adjust it:
+                    var bri = colorUtil().getBrightness(color);
+                    adjustBrightness(lampIndex, bri, function(bri){
+                        setXYState(lampIndex, xy, transitiontime, bri);
+                    });
+                    return;
+                }
+                setXYState(lampIndex, xy, transitiontime, brightness);
+                
             } else {
                 setXYState(lampIndex, xy, transitiontime, null);
             }

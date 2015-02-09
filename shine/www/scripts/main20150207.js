@@ -3333,15 +3333,17 @@ function socialLikeButtons() {
 			click: function(e) {
 				var options = this.options;
 				var process = true;
-				if ($.isFunction(options.click)) {
-					process = options.click.call(this, e);
-				}
-				if (process) {
-					var url = makeUrl(options.popupUrl, {
+				var url = makeUrl(options.popupUrl, {
 						url: options.url,
 						title: options.title
 					});
 					url = this.addAdditionalParamsToUrl(url);
+
+				if ($.isFunction(options.click)) {
+					e.shareUrl = url;
+					process = options.click.call(this, e);
+				}
+				if (process) {
 					this.openPopup(url, {
 						width: options.popupWidth,
 						height: options.popupHeight
@@ -4731,8 +4733,10 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
           ga:false
           Ambient:false,
 		      config:false,
-          socialLikeButtons: false
+          socialLikeButtons: true
 */
+
+/* exported socialLikesButtons */
 
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
@@ -4803,8 +4807,44 @@ $(document).ready(function(){
     initCloseMinimize();
 
     socialLikeButtons();
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener('deviceready', onDeviceReady, false);
 });
 
+
+var socialLikesButtons = {
+    plusone: {
+       click: nativeUrl
+    },
+    facebook: {
+       click: nativeUrl
+    },
+    twitter: {
+       click: nativeUrl
+    },
+    pinterest: {
+       click: nativeUrl
+    },
+    isDevice: false
+};
+
+// device APIs are available
+//
+function onDeviceReady() {
+  //var ref = window.open('http://apache.org', '_blank', 'location=yes');
+  socialLikesButtons.isDevice = true;
+}
+
+function nativeUrl(e) {
+  if (socialLikesButtons.isDevice) {
+    window.open(e.shareUrl, '_system');
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function initGlobals(){
 
@@ -5203,7 +5243,7 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (typeof(chrome) !== 'undefined' && chrome.app.window !== undefined) {
+  if (typeof(chrome) !== 'undefined' && chrome.app !== undefined && chrome.app.window !== undefined) {
     setTimeout(function(){
       var wind = chrome.app.window.current();
       wind.innerBounds.height = height;
@@ -5660,12 +5700,23 @@ function onDeviceOrientation(e) {
   $('#orienA').text(round(e.alpha || 0));
   $('#orienB').text(round(e.beta));
   $('#orienG').text(round(e.gamma));
-  var north = e.webkitCompassHeading || 0;
-  $('#north').text(north);
+
+  gravity.north = e.webkitCompassHeading || e.alpha || 0;
+  /*if (e.webkitCompassHeading !== undefined) {
+    //var n = e.webkitCompassHeading - 180;
+    //if (n < 0) {
+    //  n += 360;
+    //}
+    gravity.north = e.webkitCompassHeading; 
+  } else {
+    gravity.north = e.alpha || 0;
+  }*/
+  
+  $('#north').text(gravity.north);
   gravity.a = e.alpha;
   gravity.b = e.beta;
   gravity.g = e.gamma;
-  gravity.north = north;
+  
 }
 
 function onDeviceMotion (event){
@@ -5722,11 +5773,7 @@ function gravityUpdate(){
       gravity.bri = 255; // max 
     } else {
       gravity.sat = Math.round((yCoef / 10) * 255);
-      var n = gravity.north - 180;
-      if (n < 0) {
-        n += 360;
-      }
-      gravity.hue = Math.round((n / 360) * 65535);
+      gravity.hue = Math.round((gravity.north / 360) * 65535);
       gravity.bri = 255;//Math.round((xCoef / 10) * 255);
     }  
     while (gravity.hue < 0) {

@@ -40,7 +40,7 @@ html, body {
     transition: background .5s ease-out; 
 }
 .footer-padding {
-  padding-bottom: 45px;
+  padding-bottom: 55px;
 }
 
 #wrapper  {
@@ -85,7 +85,7 @@ html, body {
   }
 
   .social-name {
-    display:none;
+    /*display:none;*/
   }
   body {
     padding: 0px;
@@ -100,7 +100,7 @@ html, body {
 
 footer {
   position: absolute;
-  height: 40px;
+  height: 50px;
   bottom: 0;
   left: 0;
   margin: 0 auto;
@@ -210,6 +210,7 @@ a:focus {outline:0;}
 
 .logo {
   background-image: url(../images/lightswitch.grey.png);
+  background-image: url(../images/ambieye-beta.png);
 }
 body.light .logo {
   background-image: url(../images/lightswitch.grey.png);
@@ -222,11 +223,44 @@ body.app .logo {
 body.pro .logo {
   background-image: url(../images/lightswitch.grey.png);
 }
-body.ambieye .logo {
-  background-image: url(../images/ambieye.png);
+body.eye .logo {
+  background-image: url(../images/ambience.png);
 }
 body.web .logo {
   background-image: url(../images/ambieye-beta.png);
+}
+
+.chromewebstore {
+  width: 20px;
+  height: 20px;
+  background-image: url('../images/chromewebstore.png');
+  background-clip: content-box;
+  display: inline-flex;
+  background-size: cover;
+  margin: 0px 5px;
+}
+
+.store-buttons a{
+  position: relative;
+  vertical-align: middle;
+}
+
+input.store-button {
+  background-image: url(../images/chromewebstore.png); /* 16px x 16px */
+  background-color: transparent; /* make the button transparent */
+  background-repeat: no-repeat;  /* make the background image appear only once */
+  background-position: 0px 0px;  /* equivalent to 'top left' */
+  border: none;           /* assuming we don't want any borders */
+  cursor: pointer;        /* make the cursor like hovering over an <a> element */
+  height: 16px;           /* make this the size of your image */
+  padding-left: 20px;     /* make text start to the right of the image */
+  vertical-align: middle; /* align the text vertically centered */
+  background-size: contain;
+  color: #428bca;
+}
+
+input.store-button:hover {
+   color: #2A6496; 
 }
 
 
@@ -730,10 +764,17 @@ footer time {
 /* eye */
 .eye-switch, 
 .ground-switch,
-.north-switch {
+.north-switch,
+.option
+ {
 	float:right;
 }
-
+.toggle{
+  margin: 5px;
+}
+.eye-options {
+  margin: 10px 0;
+}
 .eye-preview {
 	width: 200px;
 	height: 150px;

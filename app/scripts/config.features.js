@@ -36,7 +36,7 @@ switch(config.app) {
       config.tabs = true;
       config.feedback = false;
       break;
-  case 'ambieye':
+  case 'eye':
       config.ambieye = true;
       config.scenes = false;
       config.search = false;

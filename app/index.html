@@ -197,18 +197,43 @@
                             <div id="groups"></div>
                             <h5>Lamps</h5>
                             <div id="lamps"></div>
-                            <h5>Links</h5>
+                            <h5>Keep in touch</h5>
                             <div class="pane-body">
-                              <a href="https://www.facebook.com/virtual.lightswitch" target="_blank">
+                              <a href="https://www.facebook.com/ambieye" target="_blank">
                                 <i class="fa fa-facebook"></i> facebook  » 
                               </a>  &nbsp;
-                              <a href="https://twitter.com/huelightswitch" target="_blank">
+                              <a href="https://twitter.com/ambieye" target="_blank">
                                 <i class="fa fa-twitter"></i> twitter » 
                               </a>  &nbsp;
+                              <a href="http://redd.it/2ud8ow" target="_blank">
+                                <i class="fa fa-reddit"></i> reddit »
+                              </a> 
+                              <!--
                               <a href="http://bit.ly/lightswitchhue" target="_blank">
                                 <i class="fa fa-shopping-cart"></i> Philips Hue  »
-                              </a> 
+                              </a>--> 
+
                             </div>
+                            <h5>Products</h5>
+                            <div class="">
+                              <input type="button" value="Lightswitch »" class="store-button"
+                                    onclick="window.open('http://bit.ly/lightpro','_blank');" />
+                              <input type="button" value="Shine »" class="store-button"
+                              onclick="window.open('http://bit.ly/shinehue','_blank');" />
+                              <input type="button" value="Ambience »" class="store-button" 
+                              onclick="window.open('http://bit.ly/ambieye','_blank');"/>
+                              <!--<span class="store-buttons">
+                                 <a href="http://bit.ly/lightpro" target="_blank">
+                                  <span class="chromewebstore"></span>
+                                  <i class="fa fa-toggle-on"></i> Lightswitch Pro »
+                                </a> &nbsp;
+                                <a href="http://bit.ly/shinehue" target="_blank">
+                                  <span class="chromewebstore"></span>
+                                  <i class="fa fa-lightbulb-o"></i> Shine »
+                                </a> 
+                              </span>-->
+                            </div>
+                            <!--
                             <div class="pane-body applinks only-pro">
                               <a href="https://chrome.google.com/webstore/detail/lightswitch-for-philips-h/ahcbfmbmpojngalhbkkggbfamgmkneoo/reviews" target="_blank">
                                 <i class="fa fa-toggle-on"></i> Reviews »
@@ -232,6 +257,7 @@
                                 <i class="fa fa-life-bouy"></i> Help »
                               </a>                       
                             </div>
+                            -->
                         </div>
                       </div>
                       <div role="tabpanel" class="tab-pane fade in" id="moods">
@@ -395,15 +421,58 @@
                             </div>
               							<div class="web-preview">
               								<div class="eye-preview">
-              									<img id="ambientpreview"></img>
+              									<img id="ambientpreview" />
               								</div>
               								<div class="preview-box"></div>
               								<div class="preview-box"></div>
               								<div class="preview-box"></div>
               							</div>
-                          </div>
+
+                            <div class="eyeoptions">
+                              
+                              <div class="btn-group btn-group-xs eye-options" 
+                                   role="group" 
+                                   aria-label="Update speed" 
+                                   id="eye-mode-group"
+                                   data-toggle="buttons">
+                                <button type="button" id="eye-ambient" class="btn btn-primary ">
+                                  <i class="fa fa-glass"></i> Ambience
+                                </button>
+                                <button type="button" id="eye-work" class="btn btn-primary ">
+                                  <i class="fa fa-laptop"></i> Work
+                                </button>
+                                <button type="button" id="eye-movie" class="btn btn-primary ">
+                                  <i class="fa fa-video-camera"></i> Movie
+                                  
+                                </button>
+                                <button type="button" id="eye-gaming" class="btn btn-primary ">
+                                  <i class="fa fa-gamepad"></i> Gaming
+                                </button>
+                              </div>
+
+                              <div class="toggle">
+                                <div class="toggle-eye-brightness option" id="toggle-eye-brightness-wrapper">
+                                  <input id="toggle-eye-brightness" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                                  <label for="toggle-eye-brightness"></label>
+                                </div>
+                                <label for="toggle-eye-brightness">
+                                  Enable brightness adjusements
+                                </label>
+                              </div>
+                              <div class="toggle">
+                                <div class="toggle-eye-primary option" id="toggle-eye-primary-wrapper">
+                                  <input id="toggle-eye-primary" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                                  <label for="toggle-eye-primary"></label>
+                                </div>
+                                <label for="toggle-eye-primary">
+                                  Enable primary color only
+                                </label>
+                              </div>
+
+                            </div>
+                          </div> <!-- eye div -->
                         </div>
-                      </div>
+                      </div> <!-- eye tab -->
                     </div>
                 </div>
             </div>
@@ -421,29 +490,40 @@
           <p class="intro-text">
           <!--
            — <a href="http://sadakov.com"  target="_blank">Dmitry Sadakov</a>
+
+              <a href="http://bit.ly/ambieye" target="_blank">
+                <i class="fa fa-eye"></i> Ambieye »
+              </a> 
           -->
             <div class="only-light hidden">
               <a href="http://bit.ly/lightpro" target="_blank">
                 <i class="fa fa-toggle-on"></i> Lightswitch Pro »
               </a> &nbsp;
-              <a href="http://bit.ly/ambieye" target="_blank">
-                <i class="fa fa-eye"></i> Ambieye »
+              <a href="http://bit.ly/shinehue" target="_blank">
+                <i class="fa fa-lightbulb-o"></i> Shine »
               </a> 
             </div>
             &copy; <time>2015</time> 
-            <span class="only-web">
-              <a href="http://ambieye.com"  target="_blank">Ambieye</a>
-               &nbsp; <a href="http://bit.ly/lightpro" target="_blank">
-                <i class="fa fa-toggle-on"></i> Lightswitch Pro »
+            <span class="footer-links">
+              <a href="http://ambieye.com"  target="_blank">Ambieye
+              </a> &nbsp;
+              <a href="http://ambieye.com/terms-of-use.htm" target="_blank">
+                terms
+              </a> &nbsp;
+              <a href="http://ambieye.com/privacy-statement.htm" target="_blank">
+                privacy
+              </a> 
+              &nbsp; 
+              <a href="http://bit.ly/lightpro" target="_blank">
+                <i class="fa fa-toggle-on"></i> Lightswitch »
               </a> &nbsp;
               <a href="http://bit.ly/shinehue" target="_blank">
                 <i class="fa fa-lightbulb-o"></i> Shine »
               </a> 
             </span>
-            <span class="not-web">
-              <!--<a href="http://apistarter.com"  target="_blank">API Starter</a>-->
+            <!--<span class="not-web">
               <a href="http://ambieye.com"  target="_blank">Ambieye</a>
-            </span>
+            </span>-->
           </p>
         </footer>
         

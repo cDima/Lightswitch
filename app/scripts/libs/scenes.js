@@ -147,8 +147,12 @@ var scenes = {
 
             var dominantColors = Ambient.getDominantColors();
             $.each(lampIds, function(index, val){            
-                var color = dominantColors[index];
-                lightStates.push({lamp: val, color: color, transitionTime: 10});
+                var c = dominantColors[index];
+                lightStates.push({
+                    lamp: val, 
+                    color: c.color, 
+                    bri: c.bri, 
+                    transitionTime: Ambient.getDelay()  * 10});
             });
             return lightStates;
         }

@@ -1,8 +1,22 @@
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\CordovaApp.ap_ \
  : c:\Projects\Lightswitch\shine\platforms\android\res\drawable\icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-mdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-mdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\values\strings.xml \
 c:\Projects\Lightswitch\shine\platforms\android\res\xml\config.xml \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable\icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-mdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-mdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www \
 c:\Projects\Lightswitch\shine\platforms\android\assets\_where-is-www.txt \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\apple-touch-icon-precomposed.png \
@@ -81,6 +95,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed-Regular.eot \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed-Regular.ttf \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed-Regular.woff \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambience.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye-beta.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye-beta1.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye-ico-on.png \
@@ -90,6 +105,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye-off.pn
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye.on.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\apistarter.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\chromewebstore.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\colorbox-100.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\colorbox.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\colorwheel-100.png \
@@ -100,6 +116,10 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\eye-m.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\eye-small.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\Google-Chrome-Flat-Browser.jpg \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\hamburger.svg \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\hue-kit.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\huekit.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\HueScript.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\hueweb.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\icons \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\light.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\lightswitch.grey.png \
@@ -120,6 +140,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\pro.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\shine-logo128.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\shine.logo.v1.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\shine.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\splash.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\icons\icons-hinted.ttf \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\icons\icons.eot \

@@ -44,6 +44,7 @@ var sceneCommander = function ($, hue) {
             clearInterval(sceneTimer);
             scene = null;
         },
+
         sceneUpdate = function(lampIds){
             log('Updating scenes');
             if(scene === null) {

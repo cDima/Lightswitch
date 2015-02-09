@@ -1,6 +1,20 @@
 c:\Projects\Lightswitch\shine\platforms\android\ant-gen\com\ambieye\shine\R.java \
  : c:\Projects\Lightswitch\shine\platforms\android\res\drawable\icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-mdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-mdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\values\strings.xml \
 c:\Projects\Lightswitch\shine\platforms\android\res\xml\config.xml \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable\icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-mdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-hdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-ldpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-mdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\AndroidManifest.xml \

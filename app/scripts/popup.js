@@ -18,8 +18,10 @@
           ga:false
           Ambient:false,
 		      config:false,
-          socialLikeButtons: false
+          initSocialButtons: true
 */
+
+/* exported socialLikesButtons */
 
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
@@ -89,9 +91,45 @@ $(document).ready(function(){
     initAmbientEye();
     initCloseMinimize();
 
-    socialLikeButtons();
+    initSocialButtons();
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener('deviceready', onDeviceReady, false);
 });
 
+
+var socialLikesButtons = {
+    plusone: {
+       click: nativeUrl
+    },
+    facebook: {
+       click: nativeUrl
+    },
+    twitter: {
+       click: nativeUrl
+    },
+    pinterest: {
+       click: nativeUrl
+    },
+    isDevice: false
+};
+
+// device APIs are available
+//
+function onDeviceReady() {
+  //var ref = window.open('http://apache.org', '_blank', 'location=yes');
+  socialLikesButtons.isDevice = true;
+}
+
+function nativeUrl(e) {
+  if (socialLikesButtons.isDevice) {
+    window.open(e.shareUrl, '_system');
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function initGlobals(){
 
@@ -186,8 +224,9 @@ function initSlider(){
     });
 }
 
-function disableBrightness(on){
-    $('#toggle-ambientweb').attr('disabled', on);
+function enableBrightness(on){
+    //$('#toggle-ambientweb').attr('disabled', !on);
+    //eyeEnabled(on);
 }
 
 function initSubscribe(){
@@ -490,7 +529,7 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (typeof(chrome) !== 'undefined' && chrome.app.window !== undefined) {
+  if (typeof(chrome) !== 'undefined' && chrome.app !== undefined && chrome.app.window !== undefined) {
     setTimeout(function(){
       var wind = chrome.app.window.current();
       wind.innerBounds.height = height;
@@ -519,7 +558,7 @@ function updateUIForActors(){
   $('#lightswitch').prop('checked', on);
   $('#brightness-control').val(bri);
   $('#brightness-control').change(); // update ui
-  disableBrightness(on);
+  enableBrightness(on);
 }
 
 function initGroupCreation() {
@@ -671,13 +710,13 @@ function fillSettings() {
         if (typeof(chrome) !== 'undefined'  && chrome.browserAction !== undefined) {
           var path = 'images/lightswitch.logo.on.128.png';
             if (allOn)  {
-                if (config.app === 'ambieye') {
+                if (config.app === 'eye') {
                   path ='images/ambieye-ico-on.png';
                 } else {
                   path ='images/lightswitch.logo.on.128.png';
                 }
             } else {
-                if (config.app === 'ambieye') {
+                if (config.app === 'eye') {
                   path ='images/ambieye-ico.png';
                 } else {
                   path ='images/lightswitch.logo.128.png';
@@ -788,7 +827,7 @@ function showTabContent() {
 function initLightswitch() {
     $('#lightswitch').click(function(e){
         var turnOn = $('#lightswitch').is(':checked');
-        disableBrightness(turnOn);
+        enableBrightness(turnOn);
         if (turnOn) {
           window.hueCommander.command('on');
         } else {
@@ -925,6 +964,9 @@ function initGravity() {
 
     $(window).on( 'orientationchange', function(e){
       $('#orien').text(window.orientation);
+      if (window.orientation === '') {
+        $('#orien').text('0');
+      }
       log('orientation: ' + window.orientation);
     }); 
 }
@@ -947,12 +989,23 @@ function onDeviceOrientation(e) {
   $('#orienA').text(round(e.alpha || 0));
   $('#orienB').text(round(e.beta));
   $('#orienG').text(round(e.gamma));
-  var north = e.webkitCompassHeading || 0;
-  $('#north').text(north);
+
+  gravity.north = e.webkitCompassHeading || e.alpha || 0;
+  /*if (e.webkitCompassHeading !== undefined) {
+    //var n = e.webkitCompassHeading - 180;
+    //if (n < 0) {
+    //  n += 360;
+    //}
+    gravity.north = e.webkitCompassHeading; 
+  } else {
+    gravity.north = e.alpha || 0;
+  }*/
+  
+  $('#north').text(gravity.north);
   gravity.a = e.alpha;
   gravity.b = e.beta;
   gravity.g = e.gamma;
-  gravity.north = north;
+  
 }
 
 function onDeviceMotion (event){
@@ -1009,11 +1062,7 @@ function gravityUpdate(){
       gravity.bri = 255; // max 
     } else {
       gravity.sat = Math.round((yCoef / 10) * 255);
-      var n = gravity.north - 180;
-      if (n < 0) {
-        n += 360;
-      }
-      gravity.hue = Math.round((n / 360) * 65535);
+      gravity.hue = Math.round((gravity.north / 360) * 65535);
       gravity.bri = 255;//Math.round((xCoef / 10) * 255);
     }  
     while (gravity.hue < 0) {
@@ -1194,16 +1243,40 @@ function initAmbientEye() {
 
     });
 
-    $('#toggle-ambientweb').click(function(e){
-      var active = $('#toggle-ambientweb').is(':checked');
-      ambieye.on = active;
-      if (active) {
-        window.hueCommander.command('scene:Ambient');
-      } else {
-        window.hueCommander.command('scene:none');
-      }
-    });
+    $('#toggle-ambientweb').click(toggleAmbience);
+    $('#toggle-eye-brightness').click(toggleEyeBrightness);
+    $('#toggle-eye-primary').click(toggleEyePrimary);
+    $('#eye-mode-group button').click(toggleEyeMode);
 
+    $('#eye-mode-group button').removeClass('active');
+    $('#eye-mode-group #' + ambieye.mode).addClass('active');
+}
+
+
+function toggleAmbience(e) {
+  var active = $('#toggle-ambientweb').is(':checked');
+  ambieye.on = active;
+  if (active) {
+    window.hueCommander.command('scene:Ambient');
+  } else {
+    window.hueCommander.command('scene:none');
+  }
+}
+
+function toggleEyeBrightness(e) {
+  var active = $('#toggle-eye-brightness').is(':checked');
+  ambieye.changeBrightness = active;
+}
+
+function toggleEyePrimary(e) {
+  var active = $('#toggle-eye-primary').is(':checked');
+  ambieye.enablePrimary = active;
+}
+
+function toggleEyeMode(e) {
+  ambieye.mode = e.currentTarget.id;
+  $('#eye-mode-group button').removeClass('active');
+  $('#eye-mode-group #' + ambieye.mode).addClass('active');
 }
 
 function tryEnableEye(){
@@ -1214,15 +1287,27 @@ function tryEnableEye(){
       ambieye.updateImage = granted;
       $('#ambieyepermissions').toggle(!granted);
       $('#toggle-ambientweb').prop('checked', ambieye.on);
-      $('#toggle-ambientweb').attr('disabled', !granted);   
+      eyeEnabled(granted);
       var alreadyOn = ambieye.on;
       if (!alreadyOn) {
         alreadyOn = ambieye.run();
       }
     });
+  } else {
+    $('#' + ambieye.mode).button('toggle');
+    eyeEnabled(false);
   }
 }
 
+function eyeEnabled(granted){
+  $('#toggle-ambientweb').attr('disabled', !granted);
+  $('#toggle-eye-brightness').attr('disabled', !granted);
+  $('#toggle-eye-primary').attr('disabled', !granted);
+  $('#eye-mode-group button').removeClass('active');
+  $('#eye-mode-group #' + ambieye.mode).addClass('active');
+  $('#toggle-eye-brightness').prop('checked', ambieye.changeBrightness);
+  $('#toggle-eye-primary').prop('checked', ambieye.enablePrimary);
+}
 
 function hasAllUrlAccess(success, mayRequest){
   chrome.permissions.contains({
@@ -1250,7 +1335,7 @@ function requestAmbientPermissionOnClient(callback){
 
 function updatePreviewColors(colors, image){
   $('.preview-box').each(function(index, value) {
-    $(value).css('background-color', colors[index]);
+    $(value).css('background-color', colors[index].color);
   });
 
   $('#ambientpreview').attr('src', image);

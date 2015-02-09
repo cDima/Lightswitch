@@ -12,7 +12,7 @@
 
 /*global define:false, socialLikesButtons:false */
 
-function socialLikeButtons() {
+function initSocialButtons() {
 	(function(factory) {  // Try to register as an anonymous AMD module
 		if (typeof define === 'function' && define.amd) {
 			define(['jquery'], factory);
@@ -540,15 +540,17 @@ function socialLikeButtons() {
 			click: function(e) {
 				var options = this.options;
 				var process = true;
-				if ($.isFunction(options.click)) {
-					process = options.click.call(this, e);
-				}
-				if (process) {
-					var url = makeUrl(options.popupUrl, {
+				var url = makeUrl(options.popupUrl, {
 						url: options.url,
 						title: options.title
 					});
 					url = this.addAdditionalParamsToUrl(url);
+
+				if ($.isFunction(options.click)) {
+					e.shareUrl = url;
+					process = options.click.call(this, e);
+				}
+				if (process) {
 					this.openPopup(url, {
 						width: options.popupWidth,
 						height: options.popupHeight

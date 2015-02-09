@@ -189,8 +189,8 @@ function replaceConfigAndManifest(projectName) {
 gulp.task('app', function() {
    replaceConfigAndManifest('app');
 });
-gulp.task('ambieye', function() {
-   replaceConfigAndManifest('ambieye');
+gulp.task('eye', function() {
+   replaceConfigAndManifest('eye');
 });
 gulp.task('light', function() {
    replaceConfigAndManifest('light');

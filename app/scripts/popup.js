@@ -93,11 +93,11 @@ $(document).ready(function(){
 
     initSocialButtons();
 
-    // Wait for device API libraries to load
-    //
-    document.addEventListener('deviceready', onDeviceReady, false);
+    
 });
 
+// Wait for device API libraries to load
+document.addEventListener('deviceready', onDeviceReady, false);
 
 var socialLikesButtons = {
     plusone: {
@@ -123,8 +123,10 @@ function onDeviceReady() {
 }
 
 function nativeUrl(e) {
+  window.open(e.shareUrl, '_system', 'location=yes');
+  return false;
   if (socialLikesButtons.isDevice) {
-    window.open(e.shareUrl, '_system');
+    window.open(e.shareUrl, '_system', 'location=yes');
     return false;
   } else {
     return true;

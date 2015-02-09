@@ -25,6 +25,13 @@ var scenes = {
 			return scenes.randomPallete(lampIds, this.Palette);
 		}
 	},
+    'Valentines': {
+        interval: 2000,
+        Palette: Palettes.Valentines,
+        update: function(lampIds) {
+            return scenes.randomPallete(lampIds, this.Palette);
+        }
+    },
     'Christmas': {
         interval: 5000,
         Palette: Palettes.Christmas,
@@ -43,7 +50,7 @@ var scenes = {
                     var color = Palettes.NewYears[Math.round(Math.random() * (Palettes.NewYears.length - 1))]; // random
                     lightStates.push({lamp: val, color:color, bri: 255, transitionTime: 0});
                 } else {
-                    var random = Math.floor((Math.random()*(15-6+1)+6)  / 10);
+                    var random = Math.floor((Math.random()*(15-6+1)+6) );
                     lightStates.push({lamp: val, bri: -255, transitionTime: random});
                 }
             });

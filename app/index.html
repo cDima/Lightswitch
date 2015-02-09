@@ -262,9 +262,6 @@
                       </div>
                       <div role="tabpanel" class="tab-pane fade in" id="moods">
                         <div class="panel-body">
-                          <h5>NFL Super Bowl XLIX 2015</h5>
-                          <div class="scene" data-scene="Patriots"></div>
-                          <div class="scene" data-scene="Seahawks"></div>
                           <h5>Dynamic scenes</h5>
                           <div class="scene" data-scene="Broadway"></div>
                           <div class="scene" data-scene="Sunrise"></div>
@@ -275,9 +272,13 @@
                           <div class="scene" data-scene="Romantic Red"></div>
                           <div class="scene" data-scene="Police"></div>
                           <h5>Holiday scenes</h5>
+                          <div class="scene" data-scene="Valentines"></div>
                           <div class="scene" data-scene="NewYears"></div>
                           <div class="scene" data-scene="Christmas"></div>
                           <div class="scene" data-scene="Thanksgiving"></div>
+                          <h5>NFL Super Bowl XLIX 2015</h5>
+                          <div class="scene" data-scene="Patriots"></div>
+                          <div class="scene" data-scene="Seahawks"></div>
                           <!--<div class="scene" data-scene="TurkeyFeast"></div>
                           <h5 class="colors-name">Morning</h5>
                           <h5 class="colors-name">Daytime</h5>
@@ -481,7 +482,7 @@
 
         <footer>
 
-          <div class="social-likes" data-url="http://ambieye.com">
+          <div class="social-likes not-light" data-url="http://ambieye.com">
             <div class="plusone" title="Share link on Google+"><span class="service-name">Google+</span></div>
             <div class="facebook" title="Share link on Facebook"><span class="service-name">Facebook</span></div>
             <div class="twitter" title="Share link on Twitter"><span class="service-name">Twitter</span></div>
@@ -494,7 +495,6 @@
               <a href="http://bit.ly/ambieye" target="_blank">
                 <i class="fa fa-eye"></i> Ambieye »
               </a> 
-          -->
             <div class="only-light hidden">
               <a href="http://bit.ly/lightpro" target="_blank">
                 <i class="fa fa-toggle-on"></i> Lightswitch Pro »
@@ -503,6 +503,18 @@
                 <i class="fa fa-lightbulb-o"></i> Shine »
               </a> 
             </div>
+          -->
+
+            <div class="only-light">
+              <input type="button" value="Lightswitch »" class="store-button"
+                    onclick="window.open('http://bit.ly/lightpro','_blank');" />
+              <input type="button" value="Shine »" class="store-button"
+              onclick="window.open('http://bit.ly/shinehue','_blank');" />
+              <input type="button" value="Ambience »" class="store-button" 
+              onclick="window.open('http://bit.ly/ambieye','_blank');"/>
+            </div>
+
+            
             &copy; <time>2015</time> 
             <span class="footer-links">
               <a href="http://ambieye.com"  target="_blank">Ambieye
@@ -514,10 +526,10 @@
                 privacy
               </a> 
               &nbsp; 
-              <a href="http://bit.ly/lightpro" target="_blank">
+              <a href="http://bit.ly/lightpro" class="not-light" target="_blank">
                 <i class="fa fa-toggle-on"></i> Lightswitch »
               </a> &nbsp;
-              <a href="http://bit.ly/shinehue" target="_blank">
+              <a href="http://bit.ly/shinehue" class="not-light"  target="_blank">
                 <i class="fa fa-lightbulb-o"></i> Shine »
               </a> 
             </span>

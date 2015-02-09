@@ -110,6 +110,10 @@ footer {
   font-size: 0.7em;
 }
 
+body.light footer {
+  height: auto;
+}
+
 h5 {
   font-size: 12px;
   line-height: 0.8em;
@@ -857,9 +861,11 @@ h5 a, h5 a:hover  {
 .web .not-web,
 .app .not-app,
 .pro .not-pro,
+.light .not-light,
 .only-app, 
 .only-pro,
-.only-web {
+.only-web,
+.only-light {
   display:none;
 }
 

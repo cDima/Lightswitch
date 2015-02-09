@@ -24,6 +24,14 @@ var Palettes = {
         { name: 'Grow Light Fluorescent', color: '#FFEFF7'},
         { name: 'Pink Fluorescent', color: '#ffc0cb'}
     ],
+    'Valentines': [
+        { name: 'February 14', color: '#820081'},
+        { name: 'Feelings', color: '#FE59C2'},
+        { name: 'Joy', color: '#FE40B9'},
+        { name: 'Hearts', color: '#FE1CAC'},
+        { name: 'Attitude', color: '#390039'},
+        { name: 'Pink Fluorescent', color: '#ffc0cb'}
+    ],
     'Rainbow': [
         '#3400E5',
         '#7200E2',

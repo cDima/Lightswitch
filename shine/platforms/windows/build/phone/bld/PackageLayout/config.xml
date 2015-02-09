@@ -12,4 +12,6 @@
     <content src="index.html" />
     <access origin="*" />
     <icon src="www/apple-touch-icon-precomposed.png" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreen" value="screen" />
 </widget>

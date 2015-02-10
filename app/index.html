@@ -199,13 +199,14 @@
                             <div id="lamps"></div>
                             <h5>Keep in touch</h5>
                             <div class="pane-body">
-                              <a href="https://www.facebook.com/ambieye" target="_blank">
+                              <a href="https://www.facebook.com/ambieye"
+                                class="nativeclick" target="_blank">
                                 <i class="fa fa-facebook"></i> facebook  » 
                               </a>  &nbsp;
-                              <a href="https://twitter.com/ambieye" target="_blank">
+                              <a href="https://twitter.com/ambieye" target="_blank" class="nativeclick">
                                 <i class="fa fa-twitter"></i> twitter » 
                               </a>  &nbsp;
-                              <a href="http://redd.it/2ud8ow" target="_blank">
+                              <a href="http://redd.it/2ud8ow" target="_blank" class="nativeclick">
                                 <i class="fa fa-reddit"></i> reddit »
                               </a> 
                               <!--
@@ -216,12 +217,17 @@
                             </div>
                             <h5>Products</h5>
                             <div class="">
-                              <input type="button" value="Lightswitch »" class="store-button"
-                                    onclick="window.open('http://bit.ly/lightpro','_blank');" />
-                              <input type="button" value="Shine »" class="store-button"
-                              onclick="window.open('http://bit.ly/shinehue','_blank');" />
-                              <input type="button" value="Ambience »" class="store-button" 
-                              onclick="window.open('http://bit.ly/ambieye','_blank');"/>
+                              <input type="button" 
+                                value="Lightswitch »" 
+                                class="store-button nativeclick" 
+                                href="http://bit.ly/lightpro" />
+                              <input 
+                                type="button" 
+                                value="Shine »" 
+                                class="store-button nativeclick"
+                                href="http://bit.ly/shinehue" />
+                              <input type="button" value="Ambience »" class="store-button"
+                              href="http://bit.ly/ambieye" />
                               <!--<span class="store-buttons">
                                  <a href="http://bit.ly/lightpro" target="_blank">
                                   <span class="chromewebstore"></span>
@@ -366,7 +372,7 @@
                                 <div class="successsubscribe">Thanks for subscribing, we will be in touch</div>
                             </div>
                             <div class="pane-body">
-                              You can <a href="mailto:apistarter@gmail.com" target="_blank">email privately</a>, and <a href="https://apistarter.uservoice.com/" target="_blank">publically</a>.
+                              You can <a href="mailto:apistarter@gmail.com" target="_blank">email privately</a>, and <a href="https://apistarter.uservoice.com/" class="nativeclick" target="_blank">publically</a>.
                             </div>
                             <div class="">
                               <div class="not-app">
@@ -589,6 +595,11 @@
         <script src="scripts/libs/hueCommander.js"></script>
         <script src="scripts/popup.js"></script>  
         <!-- endbuild -->
+
+        <!-- cordova -->
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+
     </div><!-- wrapper -->
   </body>
 </html>

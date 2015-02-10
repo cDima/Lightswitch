@@ -4922,7 +4922,9 @@ $(document).ready(function(){
 
     initSocialButtons();
 
-    
+    $('footer a').click(handleSystemLink);
+    $('.nativeclick').click(handleSystemLink);
+
 });
 
 // Wait for device API libraries to load
@@ -4930,16 +4932,16 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 var socialLikesButtons = {
     plusone: {
-       click: nativeUrl
+       click: nativeShareUrl
     },
     facebook: {
-       click: nativeUrl
+       click: nativeShareUrl
     },
     twitter: {
-       click: nativeUrl
+       click: nativeShareUrl
     },
     pinterest: {
-       click: nativeUrl
+       click: nativeShareUrl
     },
     isDevice: false
 };
@@ -4949,16 +4951,30 @@ var socialLikesButtons = {
 function onDeviceReady() {
   //var ref = window.open('http://apache.org', '_blank', 'location=yes');
   socialLikesButtons.isDevice = true;
+  // onclick="window.open('http://bit.ly/lightpro','_blank');"
 }
 
-function nativeUrl(e) {
-  window.open(e.shareUrl, '_system', 'location=yes');
+
+function handleSystemLink(a) {  
+  var url = a.target.href;
+  if (a.target.href === undefined) {
+    url = $(a.target).attr('href');
+  }
+
+  if (socialLikesButtons.isDevice) {
+    window.open(url, '_system', 'location=yes');
+  } else {  
+    window.open(url, '_blank', 'location=yes');
+  }
+  return false;
+}
+
+function nativeShareUrl(e) {  
   if (socialLikesButtons.isDevice) {
     window.open(e.shareUrl, '_system', 'location=yes');
     return false;
-  } else {
-    return true;
-  }
+  } 
+  return true;
 }
 
 function initGlobals(){

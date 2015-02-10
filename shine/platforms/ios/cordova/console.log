@@ -39,3 +39,145 @@ To disable web storage backup to iCloud, set the BackupWebStorage preference to 
 2015-02-03 11:44:30.583 Shine[5864:307670] Resetting plugins due to page load.
 2015-02-03 11:44:32.324 Shine[5864:307670] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/0C4FCDB1-FFE9-47A9-BD65-FBC2BB5FCFD9/Shine.app/www/index.html
 2015-02-03 11:44:36.835 Shine[5864:307696] Terminating since there is no system app.
+2015-02-09 18:55:41.465 Shine[3328:477135] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 18:55:41.467 Shine[3328:477135] Multi-tasking -> Device: YES, App: YES
+2015-02-09 18:55:41.484 Shine[3328:477135] Unlimited access to network resources
+2015-02-09 18:55:41.497 Shine[3328:477135] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 18:55:42.284 Shine[3328:477135] Resetting plugins due to page load.
+2015-02-09 18:55:49.258 Shine[3328:477135] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/51897529-CA1B-444E-833F-7FA8D8BD2E7C/Shine.app/www/index.html
+2015-02-09 18:56:15.164 Shine[3328:477135] Resetting plugins due to page load.
+2015-02-09 18:56:15.169 Shine[3328:477135] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-02-09 18:56:15.170 Shine[3328:477135] Resetting plugins due to page load.
+2015-02-09 18:56:16.622 Shine[3328:477135] Finished load of: https://m.facebook.com/login.php?next=https%3A%2F%2Fm.facebook.com%2Fsharer.php%3Fu%3Dhttp%253A%252F%252Fambieye.com%26sid%3D0%26referrer%3Dsocial_plugin%26refsrc%3Dhttps%253A%252F%252Fwww.facebook.com%252Fsharer%252Fsharer.php&refsrc=https%3A%2F%2Fwww.facebook.com%2Fsharer%2Fsharer.php&_rdr
+2015-02-09 19:02:00.936 Shine[3854:479973] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 19:02:00.937 Shine[3854:479973] Multi-tasking -> Device: YES, App: YES
+2015-02-09 19:02:00.938 Shine[3854:479973] Unlimited access to network resources
+2015-02-09 19:02:00.940 Shine[3854:479973] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 19:02:01.215 Shine[3854:479973] Resetting plugins due to page load.
+2015-02-09 19:02:03.147 Shine[3854:479973] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/0B32EB3F-AF42-42F4-90C6-5E326DC1D420/Shine.app/www/index.html
+2015-02-09 19:02:05.139 Shine[3854:479973] Resetting plugins due to page load.
+2015-02-09 19:02:05.144 Shine[3854:479973] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-02-09 19:02:05.144 Shine[3854:479973] Resetting plugins due to page load.
+2015-02-09 19:02:05.683 Shine[3854:479973] Finished load of: https://accounts.google.com/ServiceLogin?service=oz&passive=1209600&continue=https://plus.google.com/share?url%3Dhttp://ambieye.com%26%26gpsrc%3Dframeless&btmpl=mobile_tier2&ltmpl=tier2gplus
+2015-02-09 19:03:11.707 Shine[3854:480454] Terminating since there is no system app.
+2015-02-09 19:08:38.785 Shine[4404:483535] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 19:08:38.786 Shine[4404:483535] Multi-tasking -> Device: YES, App: YES
+2015-02-09 19:08:38.788 Shine[4404:483535] Unlimited access to network resources
+2015-02-09 19:08:38.789 Shine[4404:483535] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 19:08:39.042 Shine[4404:483535] Resetting plugins due to page load.
+2015-02-09 19:08:40.564 Shine[4404:483535] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/BDA6EB53-3B2C-431C-B8C9-42C408DBAEE9/Shine.app/www/index.html
+2015-02-09 19:08:45.032 Shine[4404:483535] THREAD WARNING: ['InAppBrowser'] took '63.275879' ms. Plugin should use a background thread.
+2015-02-09 19:08:55.047 Shine[4404:483535] THREAD WARNING: ['InAppBrowser'] took '10004.714111' ms. Plugin should use a background thread.
+2015-02-09 19:08:55.048 Shine[4404:483563] void SendDelegateMessage(NSInvocation *): delegate (webView:decidePolicyForNavigationAction:request:frame:decisionListener:) failed to return after waiting 10 seconds. main run loop mode: kCFRunLoopDefaultMode
+2015-02-09 19:09:01.341 Shine[4404:483557] Terminating since there is no system app.
+2015-02-09 19:09:36.720 Shine[4701:484829] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 19:09:36.721 Shine[4701:484829] Multi-tasking -> Device: YES, App: YES
+2015-02-09 19:09:36.723 Shine[4701:484829] Unlimited access to network resources
+2015-02-09 19:09:36.725 Shine[4701:484829] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 19:09:37.074 Shine[4701:484829] Resetting plugins due to page load.
+2015-02-09 19:09:39.416 Shine[4701:484829] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/5344E27A-C6A9-4B77-9AEF-46D0A4126812/Shine.app/www/index.html
+2015-02-09 19:13:44.687 Shine[4701:484829] CDVWebViewDelegate: Navigation started when state=1
+2015-02-09 19:13:44.687 Shine[4701:484829] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-09 19:13:44.688 Shine[4701:484829] CDVWebViewDelegate: Navigation started when state=1
+2015-02-09 19:13:44.688 Shine[4701:484829] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-09 19:13:44.689 Shine[4701:484829] Resetting plugins due to page load.
+2015-02-09 19:13:46.581 Shine[4701:484829] Finished load of: http://ambieye.com/
+2015-02-09 19:13:49.107 Shine[4701:484829] CDVWebViewDelegate: Navigation started when state=1
+2015-02-09 19:13:49.107 Shine[4701:484829] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-09 19:13:49.107 Shine[4701:484829] Resetting plugins due to page load.
+2015-02-09 19:13:49.193 Shine[4701:484829] Finished load of: http://ambieye.com/terms-of-use.htm
+2015-02-09 19:48:02.166 Shine[5729:497028] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 19:48:02.168 Shine[5729:497028] Multi-tasking -> Device: YES, App: YES
+2015-02-09 19:48:02.181 Shine[5729:497028] Unlimited access to network resources
+2015-02-09 19:48:02.190 Shine[5729:497028] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 19:48:02.836 Shine[5729:497028] Resetting plugins due to page load.
+2015-02-09 19:48:06.685 Shine[5729:497028] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/A2FF951F-11C8-4039-8507-E360712BCAD9/Shine.app/www/index.html
+2015-02-09 19:49:06.641 Shine[5729:497028] THREAD WARNING: ['InAppBrowser'] took '108.229004' ms. Plugin should use a background thread.
+2015-02-09 19:49:33.366 Shine[5729:497028] THREAD WARNING: ['InAppBrowser'] took '230.043701' ms. Plugin should use a background thread.
+2015-02-09 19:49:42.039 Shine[5729:497028] THREAD WARNING: ['InAppBrowser'] took '125.619873' ms. Plugin should use a background thread.
+2015-02-09 21:22:24.250 Shine[6883:512322] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 21:22:24.253 Shine[6883:512322] Multi-tasking -> Device: YES, App: YES
+2015-02-09 21:22:24.271 Shine[6883:512322] Unlimited access to network resources
+2015-02-09 21:22:24.282 Shine[6883:512322] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 21:22:25.171 Shine[6883:512322] Resetting plugins due to page load.
+2015-02-09 21:22:28.406 Shine[6883:512322] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/060DDA2E-2168-453E-8B53-069667B5EDBA/Shine.app/www/index.html
+2015-02-09 21:22:32.041 Shine[6883:512322] THREAD WARNING: ['InAppBrowser'] took '73.496094' ms. Plugin should use a background thread.
+2015-02-09 23:44:24.549 Shine[6883:512322] THREAD WARNING: ['InAppBrowser'] took '17.104004' ms. Plugin should use a background thread.
+2015-02-09 23:47:19.153 Shine[7632:518771] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-09 23:47:19.154 Shine[7632:518771] Multi-tasking -> Device: YES, App: YES
+2015-02-09 23:47:19.156 Shine[7632:518771] Unlimited access to network resources
+2015-02-09 23:47:19.158 Shine[7632:518771] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-09 23:47:19.501 Shine[7632:518771] Resetting plugins due to page load.
+2015-02-09 23:47:21.902 Shine[7632:518771] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/C01AF9FC-4C90-4979-857B-C4C5D8DB1B30/Shine.app/www/index.html
+2015-02-09 23:47:25.084 Shine[7632:518771] THREAD WARNING: ['InAppBrowser'] took '16.206055' ms. Plugin should use a background thread.
+2015-02-10 07:53:12.960 Shine[8268:534557] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-10 07:53:12.961 Shine[8268:534557] Multi-tasking -> Device: YES, App: YES
+2015-02-10 07:53:12.962 Shine[8268:534557] Unlimited access to network resources
+2015-02-10 07:53:12.965 Shine[8268:534557] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-10 07:53:13.426 Shine[8268:534557] Resetting plugins due to page load.
+2015-02-10 07:53:14.886 Shine[8268:534557] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/514A6BA5-D08C-4B74-96BF-B3F50C3C2895/data/Containers/Bundle/Application/493421FB-F7C4-4AE9-8346-981A032DB832/Shine.app/www/index.html
+2015-02-10 07:53:19.008 Shine[8268:534557] CDVWebViewDelegate: Navigation started when state=1
+2015-02-10 07:53:19.008 Shine[8268:534557] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-10 07:53:19.009 Shine[8268:534557] Failed to load webpage with error: The URL can’t be shown
+2015-02-10 07:53:23.733 Shine[8268:534557] CDVWebViewDelegate: Navigation started when state=1
+2015-02-10 07:53:23.733 Shine[8268:534557] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-10 07:53:23.734 Shine[8268:534557] Failed to load webpage with error: The URL can’t be shown
+2015-02-10 07:53:25.118 Shine[8268:534557] THREAD WARNING: ['InAppBrowser'] took '42.184082' ms. Plugin should use a background thread.
+2015-02-10 07:53:52.266 Shine[8268:534557] Snapshotting a view that has not been rendered results in an empty snapshot. Ensure your view has been rendered at least once before snapshotting or snapshot after screen updates.
+2015-02-10 07:53:56.911 Shine[8268:534623] Terminating since there is no system app.

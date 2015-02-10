@@ -13,4 +13,7 @@
     <icon src="www/apple-touch-icon-precomposed.png" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="SplashScreen" value="screen" />
+    <feature name="InAppBrowser">
+        <param name="wp-package" value="InAppBrowser" />
+    </feature>
 </widget>

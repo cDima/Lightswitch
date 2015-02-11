@@ -18,7 +18,8 @@
           ga:false
           Ambient:false,
 		      config:false,
-          initSocialButtons: true
+          initSocialButtons: true,
+          winapp: true
 */
 
 /* exported socialLikesButtons */
@@ -130,6 +131,11 @@ function handleSystemLink(a) {
   var url = a.target.href;
   if (a.target.href === undefined) {
     url = $(a.target).attr('href');
+  }
+
+  if (winapp !== undefined){
+    winapp.handleUrl(url);
+    return false;
   }
 
   if (socialLikesButtons.isDevice) {

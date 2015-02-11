@@ -1,6 +1,6 @@
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\CordovaApp.ap_ \
  : c:\Projects\Lightswitch\shine\platforms\android\res\drawable\icon.png \
-c:\Projects\Lightswitch\shine\platforms\android\res\drawable\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-hdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-hdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-hdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-hdpi\ic_action_remove.png \
@@ -10,6 +10,8 @@ c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-mdpi\screen.pn
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-xhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-xxhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-land-xxxhdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-ldpi\icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-mdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-mdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-mdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-mdpi\ic_action_remove.png \
@@ -19,16 +21,19 @@ c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-mdpi\screen.pn
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-xhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-xxhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-port-xxxhdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xhdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xhdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xhdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xhdpi\ic_action_remove.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xxhdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xxhdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xxhdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xxhdpi\ic_action_remove.png \
+c:\Projects\Lightswitch\shine\platforms\android\res\drawable-xxxhdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\res\values\strings.xml \
 c:\Projects\Lightswitch\shine\platforms\android\res\xml\config.xml \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable\icon.png \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-hdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-hdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-hdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-hdpi\ic_action_remove.png \
@@ -38,6 +43,8 @@ c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-mdpi
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-xhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-xxhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-land-xxxhdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-ldpi\icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-mdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-mdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-mdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-mdpi\ic_action_remove.png \
@@ -47,12 +54,15 @@ c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-mdpi
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-xhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-xxhdpi\screen.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-port-xxxhdpi\screen.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xhdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xhdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xhdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xhdpi\ic_action_remove.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xxhdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xxhdpi\ic_action_next_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xxhdpi\ic_action_previous_item.png \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xxhdpi\ic_action_remove.png \
+c:\Projects\Lightswitch\shine\platforms\android\ant-build\res\drawable-xxxhdpi\icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www \
 c:\Projects\Lightswitch\shine\platforms\android\assets\_where-is-www.txt \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\apple-touch-icon-precomposed.png \

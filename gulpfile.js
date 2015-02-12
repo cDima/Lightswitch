@@ -12,6 +12,7 @@ var reload = browserSync.reload;
 var rename = require("gulp-rename");
 var argv = require('yargs').argv;
 var gulpif = require('gulp-if');
+var mainBowerFiles = require('main-bower-files');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -55,11 +56,40 @@ gulp.task('images', function() {
     .pipe($.size({title: 'images'}));
 });
 
+gulp.task('bower', function() {
+  /*return gulp.src(mainBowerFiles({
+      //debugging: true, 
+      //paths: './app'
+      paths: {
+        bowerDirectory: 'app/bower_components',
+        bowerrc: 'app/.bowerrc',
+        bowerJson: 'app/bower.json'
+      }
+    }), {
+      base: './app/bower_components'
+    })
+    .pipe(gulp.dest('dist/bower_components'));
+  */
+  // polymer main files don't include their components afaik, top fails.
+  // will copy everything:
+  /*return gulp.src([
+    'app/bower_components/polymer/**',
+    'app/bower_components/webcomponentsjs/**',
+    'app/bower_components/voice-elements/dist/**'
+  ], {
+    dot: true,
+    base: './app/bower_components'  
+  }).pipe(gulp.dest('dist/bower_components'))
+    .pipe($.size({title: 'bower'}));
+    */
+});
+
 // Copy All Files At The Root Level (app)
 gulp.task('copy', function() {
   return gulp.src([
     'app/*',
-    '!app/*.html'
+    '!app/*.html',
+    '!app/bower_components/**'
   ], {
     dot: true
   }).pipe(gulp.dest('dist'))
@@ -100,7 +130,10 @@ gulp.task('styles', function() {
 gulp.task('html', function() {
   var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
-  return gulp.src('app/**/*.html')
+  return gulp.src([
+    'app/**/*.html',
+    '!app/bower_components/**'
+    ])
     .pipe(assets)
     // Concatenate And Minify JavaScript
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,7 +173,7 @@ gulp.task('html', function() {
 });
 
 // Clean Output Directory
-gulp.task('clean', del.bind(null, ['.tmp', 'dist/**/*', 'lightswitch.zip', '!dist/.git']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist/**/*', 'dist.zip', '!dist/.git']));
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['styles'], function() {
@@ -204,9 +237,9 @@ gulp.task('web', function() {
 
 // Build Production Files, the Default Task
 gulp.task('default', ['clean'], function(cb) {
-  runSequence('styles',
+  runSequence('styles', 
     [
-    'jshint', 'html', 'images', 'fonts', 'copy' 
+    'jshint', 'html', 'images', 'fonts', 'copy', 'bower'
     ]
     , 'zip', cb);
 });

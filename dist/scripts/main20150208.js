@@ -4847,7 +4847,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
           ga:false
           Ambient:false,
 		      config:false,
-          initSocialButtons: true
+          initSocialButtons: true,
+          winapp: true,
+          SpeechSynthesisUtterance: false
 */
 
 /* exported socialLikesButtons */
@@ -4959,6 +4961,11 @@ function handleSystemLink(a) {
   var url = a.target.href;
   if (a.target.href === undefined) {
     url = $(a.target).attr('href');
+  }
+
+  if (winapp !== undefined){
+    winapp.handleUrl(url);
+    return false;
   }
 
   if (socialLikesButtons.isDevice) {
@@ -6196,3 +6203,13 @@ function initCloseMinimize() {
       chrome.app.window.current().minimize();
     });
 }
+
+$('#play-voice').click(function () {
+  //<div id="voice-player" data-autoplay="true" data-text="Welcome to the jungle! hahaha just kidding!"></div>
+  if ('speechSynthesis' in window) {
+      var speech = new SpeechSynthesisUtterance();
+      speech.lang = 'en-US';
+      speech.text = 'You are awesome';
+      window.speechSynthesis.speak(speech);
+  }
+});

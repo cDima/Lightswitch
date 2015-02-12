@@ -19,7 +19,8 @@
           Ambient:false,
 		      config:false,
           initSocialButtons: true,
-          winapp: true
+          winapp: true,
+          SpeechSynthesisUtterance: false
 */
 
 /* exported socialLikesButtons */
@@ -1373,3 +1374,13 @@ function initCloseMinimize() {
       chrome.app.window.current().minimize();
     });
 }
+
+$('#play-voice').click(function () {
+  //<div id="voice-player" data-autoplay="true" data-text="Welcome to the jungle! hahaha just kidding!"></div>
+  if ('speechSynthesis' in window) {
+      var speech = new SpeechSynthesisUtterance();
+      speech.lang = 'en-US';
+      speech.text = 'You are awesome';
+      window.speechSynthesis.speak(speech);
+  }
+});

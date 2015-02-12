@@ -46,9 +46,15 @@
     <!-- #FFFEA5 -->
 
     <!-- SEO: If your mobile URL is different from the desktop URL, a canonical link -->
-    <!--
     <link rel="canonical" href="http://ambieye.com/">
-    -->
+
+    <!-- applinks.org
+    <meta property="al:android:url" content="hue://?" />
+    <meta property="al:android:app_name" content="App Links" />
+    <meta property="al:android:package" content="org.applinks" />
+    <meta property="al:web:url"
+          content="http://applinks.org/documentation" />
+ -->
 
     <!-- Bootstrap Core CSS -->
     <link href="styles/bootstrap.min.css" rel="stylesheet">
@@ -63,6 +69,11 @@
     <script src="scripts/libs/modernizr.custom.min.js"></script>
     <!-- endbuild -->
 
+    <!-- web components - not allowed by chrome unsafe-inline CSP 
+    <script src="bower_components/Webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="bower_components/voice-elements/dist/voice-player.html">
+    <link rel="import" href="bower_components/voice-elements/dist/voice-recognition.html">
+    -->
   </head>
 
 
@@ -78,6 +89,11 @@
           <div class="close-icon only-app no-drag">
             <a href="#close" id="close-app" alt='close'>
               <i class="fa fa-close"></i>
+            </a>
+          </div>
+          <div class="voice-control no-drag">
+            <a href="#voice" id="voice-control" alt='voice'>
+              <i class="fa fa-microphone" id="play-voice"></i>
             </a>
           </div>
             <div class="intro-body">

@@ -20,7 +20,7 @@
 		      config:false,
           initSocialButtons: true,
           winapp: true,
-          SpeechSynthesisUtterance: false
+          voice: false
 */
 
 /* exported socialLikesButtons */
@@ -1375,12 +1375,8 @@ function initCloseMinimize() {
     });
 }
 
+
 $('#play-voice').click(function () {
   //<div id="voice-player" data-autoplay="true" data-text="Welcome to the jungle! hahaha just kidding!"></div>
-  if ('speechSynthesis' in window) {
-      var speech = new SpeechSynthesisUtterance();
-      speech.lang = 'en-US';
-      speech.text = 'You are awesome';
-      window.speechSynthesis.speak(speech);
-  }
+  voice.speak('You are awesome');
 });

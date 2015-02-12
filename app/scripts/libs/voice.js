@@ -3,12 +3,71 @@
           SpeechSynthesisUtterance: false
 */
 
-/*exported voice */
-var voice = function ($, hue, colorUtil, sceneCmd) { 
+/*exported voice , lightCmdParser*/
+'use strict';
+
+var Reaction = function() {
+	var items = [];
+    var otherwise = null;
+
+    function on(regex, func){
+    	items.push([regex, func]);
+    }
+
+    function setDefault(func) {
+    	otherwise = func;
+    }
+
+    function react(text) {
+	    for (var item in items) {
+	        if (item[0].test(text)) {
+		        var args = item[0].exec(text);
+		        args.unshift(text);
+		        var func = item[1];
+		        func.apply(null, args);
+		        return;
+		    }
+	    }
+
+	    if (otherwise) {
+	      otherwise.apply(null, [text]);
+	    }
+	}
+
+    return {
+    	on: function(text) {
+    		on(text);
+    	},
+    	react: function(text) {
+    		react(text);
+    	},
+    	setDefault: function(text) {
+    		setDefault(text);
+    	}
+    };
+};
+ 
+function lightCmdParser() {
+	var cmds = new Reaction();
+	cmds.on(/\d+/, function(text, match) {
+	    console.log(match);
+	});
+	cmds.on(/(to me)|(my issues)|(issues for me)/, function(text, match) {
+	    console.log(match);
+	});
+	cmds.on(/criticals?/, function(text, match) {
+	    console.log(match);
+	});
+	cmds.setDefault(function (text) {
+	    console.log('not-found/#{text}');
+	});
+	return cmds;
+}
+  	
+
+var voice = function () { 
     
-    'use strict';
-	
-	var recognition = null;
+ 	var recognition = null;
 	var callback = null;
 
 	function speak(text){
@@ -19,7 +78,6 @@ var voice = function ($, hue, colorUtil, sceneCmd) {
 	      window.speechSynthesis.speak(speech);
 	  }
 	}
-
 	
 	function recognize(continuous, callbackFunc) { 
 		callback = callbackFunc;

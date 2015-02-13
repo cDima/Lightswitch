@@ -34,11 +34,17 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (command === undefined) {
                 return;
             }
-            if (command === '#brighten') {
-                hue.brightenAll(Math.floor(255 / 3));
+            if (command === 'brighten' || command === 'up') {
+                //hue.brightenAll(Math.floor(255 / 3));
+                executeOnActors(function(bulb){
+                    hue.brighten(bulb, Math.floor(255 / 3));
+                });            
             }
-            if (command === '#darken') {
-                hue.brightenAll(Math.floor(-255 / 3));
+            if (command === 'darken' || command === 'dim' || command === 'dim down' || command === 'down') {
+                //hue.brightenAll(Math.floor(-255 / 3));
+                executeOnActors(function(bulb){
+                    hue.dim(bulb, Math.floor(255 / 3));
+                });
             }
             if (command === 'on') {
                 executeOnActors(function(bulb){
@@ -71,7 +77,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 //    hue.setColor(color.substring(1));
                 //}
             }
-            var bri = detectBrigthness(command);
+            var bri = detectBrightness(command);
             if (bri !== null) {
                 executeOnActors(function(bulb){
                     hue.setBrightness(bulb, bri);
@@ -142,7 +148,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 func(val, index);
             });
         },
-        detectBrigthness = function(command){
+        detectBrightness = function(command){
             if (command === undefined) {
                 return null;
             }

@@ -3542,15 +3542,20 @@ function initSocialButtons() {
           SpeechSynthesisUtterance: false
 */
 
-/*exported voice , Reaction */
+/*exported voice , lightCmdParser */
 'use strict';
 
-var Reaction = function() {
+var reaction = function() {
 	var items = [];
+    var filters = [];
     var otherwise = null;
 
     function on(regex, func){
     	items.push([regex, func]);
+    }
+
+    function filterAdd(func){
+        filters.add(func);
     }
 
     function setDefault(func) {
@@ -3558,6 +3563,9 @@ var Reaction = function() {
     }
 
     function react(text) {
+        for (var filter in filters) {
+            text = filter(text);
+        }
 	    for (var item in items) {
 	        if (items[item][0].test(text)) {
 		        var args = items[item][0].exec(text);
@@ -3582,7 +3590,10 @@ var Reaction = function() {
     	},
     	setDefault: function(text) {
     		setDefault(text);
-    	}
+    	},
+        filter: function(func) {
+            filterAdd(func);
+        }
     };
 };
 
@@ -3590,6 +3601,8 @@ var voice = function () {
     
  	var recognition = null;
 	var callback = null;
+    var errfunc = null;
+    var endfunc = null;
 
 	function speak(text){
 		if ('speechSynthesis' in window) {
@@ -3609,28 +3622,59 @@ var voice = function () {
         return SpeechRecognition;
     }
 	
-	function recognize(callbackFunc) { 
+	function recognize(callbackFunc, err, onend) { 
 		callback = callbackFunc;
+        errfunc = err;
+        endfunc = onend;
 
 		var SpeechRecognition = available();
 	    if (SpeechRecognition !== undefined) {
-	        recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = false;
-            recognition.addEventListener('result', onSpeachResult);
-            return recognition;
-	    }
+            if (recognition === null) {
+	            recognition = new SpeechRecognition();
+           } else {
+                return recognition;
+           }
+        }
 	    else {
 	        console.error('Your browser does not support the Web Speech API');
 	        return null;
 	    }
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.onresult = onSpeechResult;
+        recognition.onstart = onStarted;
+        recognition.onerror = onErrored;
+        recognition.onend = onEnd;
+        return recognition;
     }
 
-    function onSpeachResult(e) {
+    function onStarted(){
+        console.log('voice started');
+    }
+
+    function onErrored(err){
+        console.log('voice error: ' + err);
+        if (errfunc) {
+            errfunc(err);
+        }
+    }
+
+    function onEnd(){
+        console.log('voice end');
+        //recognition.start();
+        if (endfunc) {
+            endfunc();
+        }
+    }
+
+    function onSpeechResult(e) {
     	var text = '';
         for (var i = e.resultIndex; i < e.results.length; ++i) {
             text += e.results[i][0].transcript;
         }
+
+        console.log('voice:' + text);
+
         if (callback) {
         	callback(text);
         }   
@@ -3658,8 +3702,8 @@ var voice = function () {
         speak: function(text) {
             return speak(text);
         },
-        recognize: function(func) {
-            return recognize(func);
+        recognize: function(func, errfunc, endfunc) {
+            return recognize(func, errfunc, endfunc);
         },
         start: function() {
             return start();
@@ -3676,6 +3720,24 @@ var voice = function () {
     };
 };
 
+
+function lightCmdParser(voiceCmd, sceneCmd, toggleSceneCmd, setValCmd, feedback) {
+    var cmds = new reaction();
+    //cmds.on(/.+/, voiceCmd);
+    cmds.filter(/the /, function(text) {
+      return text.replace(/the /g, '');
+    });
+    cmds.on(/(?:turn )?(?:lights )?(on|off|up|down)/, voiceCmd);
+    cmds.on(/(?:turn )(dim down|dim|on|off|lighten|down|up|brighten)?(([a-z ]+)*?) light(?:s)?/, voiceCmd);
+    //cmds.on(/turn (up|down|on|off) ([a-z]+)*?) light(?:s)?/, voiceCmd);
+    cmds.on(/set(?: the )?([a-z ]*?) light(?:s)? to ([a-z0-9% ]*)(?: brightness| percent)*?/, setValCmd);//|state, entity|
+    cmds.on(/make it look like (?:a )?(.+)/, sceneCmd);
+    cmds.on(/(start|stop) (?:dynamic |light )? (scene|theme|animation)/, toggleSceneCmd);
+    cmds.setDefault(function (text) {
+        feedback(text);
+    });
+    return cmds;
+}
 
 /**
  * Dmitry Sadakov's Philips Hue api wrapper, exposed as an AMD module.
@@ -3962,7 +4024,10 @@ var hue = function ($, colors) {
         getBrightness = function(lampIndex /* Number */, success) {
             get(buildLampQueryURL(lampIndex), function(data) {
                 // success
-                //data = null;
+                if (data.state === undefined) {
+                    // fail
+                    return;
+                }
                 success(data.state.bri);
             }, function(err){
                 err = null;
@@ -4771,11 +4836,17 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (command === undefined) {
                 return;
             }
-            if (command === '#brighten') {
-                hue.brightenAll(Math.floor(255 / 3));
+            if (command === 'brighten' || command === 'up') {
+                //hue.brightenAll(Math.floor(255 / 3));
+                executeOnActors(function(bulb){
+                    hue.brighten(bulb, Math.floor(255 / 3));
+                });            
             }
-            if (command === '#darken') {
-                hue.brightenAll(Math.floor(-255 / 3));
+            if (command === 'darken' || command === 'dim' || command === 'dim down' || command === 'down') {
+                //hue.brightenAll(Math.floor(-255 / 3));
+                executeOnActors(function(bulb){
+                    hue.dim(bulb, Math.floor(255 / 3));
+                });
             }
             if (command === 'on') {
                 executeOnActors(function(bulb){
@@ -4808,7 +4879,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 //    hue.setColor(color.substring(1));
                 //}
             }
-            var bri = detectBrigthness(command);
+            var bri = detectBrightness(command);
             if (bri !== null) {
                 executeOnActors(function(bulb){
                     hue.setBrightness(bulb, bri);
@@ -4879,7 +4950,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 func(val, index);
             });
         },
-        detectBrigthness = function(command){
+        detectBrightness = function(command){
             if (command === undefined) {
                 return null;
             }
@@ -4989,8 +5060,8 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
 		      config:false,
           initSocialButtons: true,
           winapp: true,
-          voice: false, 
-          Reaction
+          voice: true, 
+          lightCmdParser
 */
 
 /* exported socialLikesButtons */
@@ -5160,6 +5231,7 @@ function initGlobals(){
         window.hue = background.hue;
         sceneCmd = background.sceneCmd;
         ambieye = background.Ambient;
+        huevoice = background.voice();
 
         tryEnableEye();
 
@@ -5214,8 +5286,9 @@ function initSlider(){
     $('#brightness-control').slider().on('slideStop', function(slideEvt){
       var val = slideEvt.value;
       log('new brightness: ' + val);
-      window.hueCommander.command('bri:' + val);
+      executeBrightness(val);
     });
+
 }
 
 function enableBrightness(on){
@@ -5629,6 +5702,11 @@ function activateSceneByKey(key){
   hueCommander.command('scene:' + key);
   // update ui
   activatedScene(key);
+}
+
+
+function executeBrightness(val){
+  window.hueCommander.command('bri:' + val);   
 }
 
 function executeHrefCommand() {
@@ -6366,20 +6444,34 @@ function initCloseMinimize() {
 var huevoice = null;
 
 function initVoice() {
-  huevoice = voice();
+  if (huevoice === null) {
+    huevoice = voice();
+  }
   if (huevoice.available()) {
-    $('#play-voice').hide();
+    $('#voice-control').hide();
   }
 
-  $('#play-voice').click(toggleVoice);
+  $('#voice-mic').click(toggleVoice);
+}
+
+function voiceError(err){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.error(err);
+}
+
+function voiceEnd(){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.log('voice end');
 }
 
 function toggleVoice() {
-  var mic = $('#play-voice');
+  var mic = $('#voice-mic');
   mic.toggleClass('active');
-  var parser = lightCmdParser();
+  var parser = lightCmdParser(voiceCmd, voiceScene, voiceToggleScene, voiceBrightnessCmd, voiceFeedback);
   if (mic.hasClass('active')) {
-    if (huevoice.recognize(parser.react)) {
+    if (huevoice.recognize(parser.react, voiceError, voiceEnd)) {
       huevoice.speak('Enabling voice commands');
       huevoice.start();
     }
@@ -6389,35 +6481,22 @@ function toggleVoice() {
   }
 }
 
-function lightCmdParser() {
-    var cmds = new Reaction();
-    cmds.on(/\d+/, voiceCmd);
-    cmds.on(/(?:turn )?(?:the )?(?:lights )?(on|off|up|down)/, voiceCmd);
-    cmds.on(/(dim down|dim|on|off|light up|down|up|brighten)?((?: the )?([a-z ]+)*?)(?: the)? light(?:s)?/, voiceCmd);
-    cmds.on(/turn (up|down|on|off) ((?:the )?[a-z]+)*?(?: the)? light(?:s)?/, voiceCmd);
-    //cmds.on(/turn (on|off)(?: the)? ([a-z ]??*)(?: the)? light(?:s)?/, voiceCmd);//|state, entity|
-    
-    cmds.setDefault(function (text) {
-        console.log('not-found/#{text}');
-    });
-    return cmds;
+function voiceToggleScene(text, match, action) {
+  voiceCmd(text, match, 'scene:' + action);
 }
-/*
-  # Relative brightness
-  listen_for %r/turn (up|down)(?: the)? ([a-z ]??*)(?: the)? light(?:s)?/i do |change, entity|
-    checkRegistration
-    matchedEntity = ensureMatchedEntity(entity)
-    setRelativeBrightness(change, matchedEntity)
-  end
 
-  # Absolute brightness/color change
-  #   Numbers (0-254) and percentages (0-100) are treated as brightness values
-  #   Single words are used as a color query to lookup HSV values
-  listen_for %r/set(?: the)? ([a-z ]??*)(?: the)? light(?:s)? to ([a-z0-9% ]*)/i do |entity, value|
-    checkRegistration
-    matchedEntity = ensureMatchedEntity(entity)
-    setAbsoluteBrightness(value, matchedEntity)
-  end
+function voiceBrightnessCmd(text, match, actor, action) {
+  //if (action.endsWith('brightness'))
+  voiceCmd(text, match, action, actor);
+}
+
+function voiceScene(text, match, action, actor) {
+  voiceCmd(text, match, 'scene:' + action, actor);
+}
+
+
+/*
+https://regex101.com/r/pM6wE0/3
 
   # TODO Scenes
   listen_for %r/make it look like a (.+)/i do |scene|
@@ -6428,10 +6507,16 @@ function lightCmdParser() {
   end
   */
 
-function voiceCmd(text, match, action, actor) {
-    console.log(text,match);
+function voiceFeedback(text) {
+  $('#voice-feedback').html('');
+  $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
+}
 
-    if(haveActor(actor)) {
+function voiceCmd(text, match, action, actor) {
+  try{
+    voiceFeedback(text,match, action, actor);
+
+    if(actor !== 'the' && haveActor(actor)) {
        setActor(actor);
     }
 
@@ -6439,7 +6524,14 @@ function voiceCmd(text, match, action, actor) {
       executeToggle(true);
     } else if (action === 'off') {
       executeToggle(false);
+    } 
+    if ($.inArray(action, ['dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
+      executeCommand(action);
     }
+  } catch (err){
+    console.log(err);
+    // nothing
+  }
 }
 
 

@@ -274,7 +274,7 @@ input.store-button:hover {
   position: absolute;
 }
 .switch {
-    animation: fadeout 2s;
+    animation: fadein 2s;
 }
 #connectStatus {
   font-size: 0.7em;
@@ -345,10 +345,10 @@ p {margin: 0 0 5px;}
 }
 @keyframes fadeout {
     from {
-        opacity:0;
+        opacity:1;
     }
     to {
-        opacity:1;
+        opacity:0;
     }
 }
 @-webkit-keyframes fadein {
@@ -361,10 +361,10 @@ p {margin: 0 0 5px;}
 }
 @-webkit-keyframes fadeout {
     from {
-        opacity:0;
+        opacity:1;
     }
     to {
-        opacity:1;
+        opacity:0;
     }
 }
 
@@ -909,7 +909,20 @@ h5 a, h5 a:hover  {
 }
 
 /* voice */
-#play-voice {
+
+.voice-fade {
+    animation: fadeout 2s;
+    opacity: 0;
+}
+.voice-control {
   float: left;
   padding: 10px 15px;
+  position: absolute;
+}
+#voice-mic {
+  color: #ccc;  
+}
+
+#voice-mic.active, #voice-mic:hover {
+  color: #428BCA;
 }

@@ -283,7 +283,10 @@ var hue = function ($, colors) {
         getBrightness = function(lampIndex /* Number */, success) {
             get(buildLampQueryURL(lampIndex), function(data) {
                 // success
-                //data = null;
+                if (data.state === undefined) {
+                    // fail
+                    return;
+                }
                 success(data.state.bri);
             }, function(err){
                 err = null;

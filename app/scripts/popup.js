@@ -20,8 +20,8 @@
 		      config:false,
           initSocialButtons: true,
           winapp: true,
-          voice: false, 
-          Reaction
+          voice: true, 
+          lightCmdParser
 */
 
 /* exported socialLikesButtons */
@@ -191,6 +191,7 @@ function initGlobals(){
         window.hue = background.hue;
         sceneCmd = background.sceneCmd;
         ambieye = background.Ambient;
+        huevoice = background.voice();
 
         tryEnableEye();
 
@@ -245,8 +246,9 @@ function initSlider(){
     $('#brightness-control').slider().on('slideStop', function(slideEvt){
       var val = slideEvt.value;
       log('new brightness: ' + val);
-      window.hueCommander.command('bri:' + val);
+      executeBrightness(val);
     });
+
 }
 
 function enableBrightness(on){
@@ -660,6 +662,11 @@ function activateSceneByKey(key){
   hueCommander.command('scene:' + key);
   // update ui
   activatedScene(key);
+}
+
+
+function executeBrightness(val){
+  window.hueCommander.command('bri:' + val);   
 }
 
 function executeHrefCommand() {
@@ -1397,20 +1404,34 @@ function initCloseMinimize() {
 var huevoice = null;
 
 function initVoice() {
-  huevoice = voice();
+  if (huevoice === null) {
+    huevoice = voice();
+  }
   if (huevoice.available()) {
-    $('#play-voice').hide();
+    $('#voice-control').hide();
   }
 
-  $('#play-voice').click(toggleVoice);
+  $('#voice-mic').click(toggleVoice);
+}
+
+function voiceError(err){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.error(err);
+}
+
+function voiceEnd(){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.log('voice end');
 }
 
 function toggleVoice() {
-  var mic = $('#play-voice');
+  var mic = $('#voice-mic');
   mic.toggleClass('active');
-  var parser = lightCmdParser();
+  var parser = lightCmdParser(voiceCmd, voiceScene, voiceToggleScene, voiceBrightnessCmd, voiceFeedback);
   if (mic.hasClass('active')) {
-    if (huevoice.recognize(parser.react)) {
+    if (huevoice.recognize(parser.react, voiceError, voiceEnd)) {
       huevoice.speak('Enabling voice commands');
       huevoice.start();
     }
@@ -1420,35 +1441,22 @@ function toggleVoice() {
   }
 }
 
-function lightCmdParser() {
-    var cmds = new Reaction();
-    cmds.on(/\d+/, voiceCmd);
-    cmds.on(/(?:turn )?(?:the )?(?:lights )?(on|off|up|down)/, voiceCmd);
-    cmds.on(/(dim down|dim|on|off|light up|down|up|brighten)?((?: the )?([a-z ]+)*?)(?: the)? light(?:s)?/, voiceCmd);
-    cmds.on(/turn (up|down|on|off) ((?:the )?[a-z]+)*?(?: the)? light(?:s)?/, voiceCmd);
-    //cmds.on(/turn (on|off)(?: the)? ([a-z ]??*)(?: the)? light(?:s)?/, voiceCmd);//|state, entity|
-    
-    cmds.setDefault(function (text) {
-        console.log('not-found/#{text}');
-    });
-    return cmds;
+function voiceToggleScene(text, match, action) {
+  voiceCmd(text, match, 'scene:' + action);
 }
-/*
-  # Relative brightness
-  listen_for %r/turn (up|down)(?: the)? ([a-z ]??*)(?: the)? light(?:s)?/i do |change, entity|
-    checkRegistration
-    matchedEntity = ensureMatchedEntity(entity)
-    setRelativeBrightness(change, matchedEntity)
-  end
 
-  # Absolute brightness/color change
-  #   Numbers (0-254) and percentages (0-100) are treated as brightness values
-  #   Single words are used as a color query to lookup HSV values
-  listen_for %r/set(?: the)? ([a-z ]??*)(?: the)? light(?:s)? to ([a-z0-9% ]*)/i do |entity, value|
-    checkRegistration
-    matchedEntity = ensureMatchedEntity(entity)
-    setAbsoluteBrightness(value, matchedEntity)
-  end
+function voiceBrightnessCmd(text, match, actor, action) {
+  //if (action.endsWith('brightness'))
+  voiceCmd(text, match, action, actor);
+}
+
+function voiceScene(text, match, action, actor) {
+  voiceCmd(text, match, 'scene:' + action, actor);
+}
+
+
+/*
+https://regex101.com/r/pM6wE0/3
 
   # TODO Scenes
   listen_for %r/make it look like a (.+)/i do |scene|
@@ -1459,10 +1467,16 @@ function lightCmdParser() {
   end
   */
 
-function voiceCmd(text, match, action, actor) {
-    console.log(text,match);
+function voiceFeedback(text) {
+  $('#voice-feedback').html('');
+  $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
+}
 
-    if(haveActor(actor)) {
+function voiceCmd(text, match, action, actor) {
+  try{
+    voiceFeedback(text,match, action, actor);
+
+    if(actor !== 'the' && haveActor(actor)) {
        setActor(actor);
     }
 
@@ -1470,7 +1484,14 @@ function voiceCmd(text, match, action, actor) {
       executeToggle(true);
     } else if (action === 'off') {
       executeToggle(false);
+    } 
+    if ($.inArray(action, ['dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
+      executeCommand(action);
     }
+  } catch (err){
+    console.log(err);
+    // nothing
+  }
 }
 
 

@@ -12,7 +12,7 @@ var reload = browserSync.reload;
 var rename = require("gulp-rename");
 var argv = require('yargs').argv;
 var gulpif = require('gulp-if');
-var mainBowerFiles = require('main-bower-files');
+//var mainBowerFiles = require('main-bower-files');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',

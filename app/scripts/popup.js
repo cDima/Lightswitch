@@ -20,7 +20,8 @@
 		      config:false,
           initSocialButtons: true,
           winapp: true,
-          voice: false
+          voice: false, 
+          Reaction
 */
 
 /* exported socialLikesButtons */
@@ -355,7 +356,7 @@ function showPalettes(palettes){
         .addClass('color')
         .attr('href', '#' + co)
         .css({backgroundColor: '#' + co})
-        .click(executeCommand));
+        .click(executeHrefCommand));
     });
 
     $('.palette-name', result).text(v.title);
@@ -621,9 +622,18 @@ function actorClick(event){
   var key = event.target.id;
   $('button').removeClass('active');
   $('button[id=' + key + ']').addClass('active');
+  setActor(key);
+}
+
+function haveActor(key) {
+  return $('button[id=' + key + ']').length !== 0;
+}
+
+function setActor(key) {
   hueCommander.setActor(key); 
   updateUIForActors();
 }
+
 function removeGroupClick(){
   var key = event.target.id;
   hue.removeGroup(key);
@@ -651,6 +661,27 @@ function activateSceneByKey(key){
   // update ui
   activatedScene(key);
 }
+
+function executeHrefCommand() {
+  /*jshint validthis:true */
+  var command = $(this).attr('href');
+  executeCommand(command);
+}
+
+function executeCommand(command) {
+  window.hueCommander.command(command);
+  activatedScene('stop');
+  return false; 
+}
+
+function executeToggle(turnOn) {
+  if (turnOn) {
+    window.hueCommander.command('on');
+  } else {
+    window.hueCommander.command('off');
+  }
+}
+
 
 function toggleActiveClick(){
   $(event.target).toggleClass('active');
@@ -852,11 +883,7 @@ function initLightswitch() {
     $('#lightswitch').click(function(e){
         var turnOn = $('#lightswitch').is(':checked');
         enableBrightness(turnOn);
-        if (turnOn) {
-          window.hueCommander.command('on');
-        } else {
-          window.hueCommander.command('off');
-        }
+        executeToggle(turnOn);
 
         trackEvent(e.target.id, 'clicked');
     });
@@ -881,7 +908,7 @@ function initPalettes() {
           $(ec).attr('href', color);
           $(ec).attr('title', typeof co.name === 'undefined' ? color : co.name);
           $(ec).css({backgroundColor: color});
-          $(ec).click(executeCommand);
+          $(ec).click(executeHrefCommand);
 
           $('.colors', colorsElement).append(ec);
         });
@@ -925,18 +952,10 @@ function initPalettes() {
     });
 
 
-    $('.command').click(executeCommand); // buttons
-    //$('a.color').click(executeCommand);
+    $('.command').click(executeHrefCommand); // buttons
 
 }
 
-function executeCommand() {
-  /*jshint validthis:true */
-  var command = $(this).attr('href');
-  window.hueCommander.command(command);
-  activatedScene('stop');
-  return false; 
-}
 
 
 // color wheel:
@@ -1375,8 +1394,86 @@ function initCloseMinimize() {
     });
 }
 
+var huevoice = null;
 
-$('#play-voice').click(function () {
-  //<div id="voice-player" data-autoplay="true" data-text="Welcome to the jungle! hahaha just kidding!"></div>
-  voice.speak('You are awesome');
-});
+function initVoice() {
+  huevoice = voice();
+  if (huevoice.available()) {
+    $('#play-voice').hide();
+  }
+
+  $('#play-voice').click(toggleVoice);
+}
+
+function toggleVoice() {
+  var mic = $('#play-voice');
+  mic.toggleClass('active');
+  var parser = lightCmdParser();
+  if (mic.hasClass('active')) {
+    if (huevoice.recognize(parser.react)) {
+      huevoice.speak('Enabling voice commands');
+      huevoice.start();
+    }
+  } else {
+    huevoice.speak('Voice commands disabled');
+    huevoice.stop();
+  }
+}
+
+function lightCmdParser() {
+    var cmds = new Reaction();
+    cmds.on(/\d+/, voiceCmd);
+    cmds.on(/(?:turn )?(?:the )?(?:lights )?(on|off|up|down)/, voiceCmd);
+    cmds.on(/(dim down|dim|on|off|light up|down|up|brighten)?((?: the )?([a-z ]+)*?)(?: the)? light(?:s)?/, voiceCmd);
+    cmds.on(/turn (up|down|on|off) ((?:the )?[a-z]+)*?(?: the)? light(?:s)?/, voiceCmd);
+    //cmds.on(/turn (on|off)(?: the)? ([a-z ]??*)(?: the)? light(?:s)?/, voiceCmd);//|state, entity|
+    
+    cmds.setDefault(function (text) {
+        console.log('not-found/#{text}');
+    });
+    return cmds;
+}
+/*
+  # Relative brightness
+  listen_for %r/turn (up|down)(?: the)? ([a-z ]??*)(?: the)? light(?:s)?/i do |change, entity|
+    checkRegistration
+    matchedEntity = ensureMatchedEntity(entity)
+    setRelativeBrightness(change, matchedEntity)
+  end
+
+  # Absolute brightness/color change
+  #   Numbers (0-254) and percentages (0-100) are treated as brightness values
+  #   Single words are used as a color query to lookup HSV values
+  listen_for %r/set(?: the)? ([a-z ]??*)(?: the)? light(?:s)? to ([a-z0-9% ]*)/i do |entity, value|
+    checkRegistration
+    matchedEntity = ensureMatchedEntity(entity)
+    setAbsoluteBrightness(value, matchedEntity)
+  end
+
+  # TODO Scenes
+  listen_for %r/make it look like a (.+)/i do |scene|
+    checkRegistration
+    # pull n colors, where n is the number of lights
+    # set each light to color[i]
+    request_completed
+  end
+  */
+
+function voiceCmd(text, match, action, actor) {
+    console.log(text,match);
+
+    if(haveActor(actor)) {
+       setActor(actor);
+    }
+
+    if (action === 'on') {
+      executeToggle(true);
+    } else if (action === 'off') {
+      executeToggle(false);
+    }
+}
+
+
+initVoice();
+
+

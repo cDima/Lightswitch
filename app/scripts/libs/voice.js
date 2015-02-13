@@ -3,7 +3,7 @@
           SpeechSynthesisUtterance: false
 */
 
-/*exported voice , lightCmdParser*/
+/*exported voice , Reaction */
 'use strict';
 
 var Reaction = function() {
@@ -20,10 +20,10 @@ var Reaction = function() {
 
     function react(text) {
 	    for (var item in items) {
-	        if (item[0].test(text)) {
-		        var args = item[0].exec(text);
+	        if (items[item][0].test(text)) {
+		        var args = items[item][0].exec(text);
 		        args.unshift(text);
-		        var func = item[1];
+		        var func = items[item][1];
 		        func.apply(null, args);
 		        return;
 		    }
@@ -35,9 +35,9 @@ var Reaction = function() {
 	}
 
     return {
-    	on: function(text) {
-    		on(text);
-    	},
+        on: function(text, func) {
+            on(text, func);
+        },
     	react: function(text) {
     		react(text);
     	},
@@ -46,24 +46,6 @@ var Reaction = function() {
     	}
     };
 };
- 
-function lightCmdParser() {
-	var cmds = new Reaction();
-	cmds.on(/\d+/, function(text, match) {
-	    console.log(match);
-	});
-	cmds.on(/(to me)|(my issues)|(issues for me)/, function(text, match) {
-	    console.log(match);
-	});
-	cmds.on(/criticals?/, function(text, match) {
-	    console.log(match);
-	});
-	cmds.setDefault(function (text) {
-	    console.log('not-found/#{text}');
-	});
-	return cmds;
-}
-  	
 
 var voice = function () { 
     
@@ -78,27 +60,31 @@ var voice = function () {
 	      window.speechSynthesis.speak(speech);
 	  }
 	}
-	
-	function recognize(continuous, callbackFunc) { 
-		callback = callbackFunc;
-	    recognition.continuous = continuous;
-	    recognition.interimResults = false;
 
-		var SpeechRecognition = window.SpeechRecognition ||
+    function available() {
+        var SpeechRecognition = window.SpeechRecognition ||
                             window.webkitSpeechRecognition ||
                             window.mozSpeechRecognition ||
                             window.msSpeechRecognition ||
                             window.oSpeechRecognition;
+        return SpeechRecognition;
+    }
+	
+	function recognize(callbackFunc) { 
+		callback = callbackFunc;
 
+		var SpeechRecognition = available();
 	    if (SpeechRecognition !== undefined) {
 	        recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = false;
+            recognition.addEventListener('result', onSpeachResult);
+            return recognition;
 	    }
 	    else {
 	        console.error('Your browser does not support the Web Speech API');
 	        return null;
 	    }
-
-        recognition.addEventListener('result', onSpeachResult);
     }
 
     function onSpeachResult(e) {
@@ -129,13 +115,12 @@ var voice = function () {
     	}
     }
 
-
     return {
         speak: function(text) {
             return speak(text);
         },
-        recognize: function() {
-            return recognize();
+        recognize: function(func) {
+            return recognize(func);
         },
         start: function() {
             return start();
@@ -145,6 +130,10 @@ var voice = function () {
         },
         abort: function() {
             return abort();
+        }, 
+        available: function () {
+            return available() === undefined;
         }
     };
 };
+

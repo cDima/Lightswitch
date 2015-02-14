@@ -654,7 +654,7 @@ var hue = function ($, colors) {
          */
         dim: function(lampIndex /* Number */, decrement /* Number */, transitiontime) {
             decrement = decrement || -10; // default to 10 if decrement not provided.
-            adjustBrightness(decrement, function(newBrightness) {
+            adjustBrightness(lampIndex, decrement, function(newBrightness) {
                 return put(lampIndex, buildBrightnessState(newBrightness, transitiontime));
             });
         },

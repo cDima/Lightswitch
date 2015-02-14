@@ -627,8 +627,12 @@ function actorClick(event){
   setActor(key);
 }
 
-function haveActor(key) {
-  return $('button[id=' + key + ']').length !== 0;
+function findActors(key) {
+  var state =window.hue.getState();
+  if (state !== null) {
+    return findGroupIdByName(state.groups, key);
+  }
+  return null;//$('button:contains("' + key + '")').length !== 0;
 }
 
 function setActor(key) {
@@ -1461,10 +1465,16 @@ function voiceCmd(text, match, action, actor) {
     $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
     //voiceFeedback(text,match, action, actor);
 
-    if(actor !== 'the' && haveActor(actor)) {
-       setActor(actor);
+    if (actor !== undefined) {
+      var actorId = findActors(actor);
+      if(actorId !== null) {
+        setActor(actorId);
+      } else {
+        huevoice.speak('Cannot find the ' + actor + ' lights');
+        return;
+      }
     }
-
+    
     if (action === 'on') {
       executeToggle(true);
     } else if (action === 'off') {

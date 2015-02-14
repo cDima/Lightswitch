@@ -43,7 +43,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (command === 'darken' || command === 'dim' || command === 'dim down' || command === 'down') {
                 //hue.brightenAll(Math.floor(-255 / 3));
                 executeOnActors(function(bulb){
-                    hue.dim(bulb, Math.floor(255 / 3));
+                    hue.dim(bulb, -Math.floor(255 / 3));
                 });
             }
             if (command === 'on') {

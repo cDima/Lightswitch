@@ -4451,7 +4451,7 @@ var hue = function ($, colors) {
          */
         dim: function(lampIndex /* Number */, decrement /* Number */, transitiontime) {
             decrement = decrement || -10; // default to 10 if decrement not provided.
-            adjustBrightness(decrement, function(newBrightness) {
+            adjustBrightness(lampIndex, decrement, function(newBrightness) {
                 return put(lampIndex, buildBrightnessState(newBrightness, transitiontime));
             });
         },
@@ -4901,7 +4901,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             if (command === 'darken' || command === 'dim' || command === 'dim down' || command === 'down') {
                 //hue.brightenAll(Math.floor(-255 / 3));
                 executeOnActors(function(bulb){
-                    hue.dim(bulb, Math.floor(255 / 3));
+                    hue.dim(bulb, -Math.floor(255 / 3));
                 });
             }
             if (command === 'on') {
@@ -5723,8 +5723,12 @@ function actorClick(event){
   setActor(key);
 }
 
-function haveActor(key) {
-  return $('button[id=' + key + ']').length !== 0;
+function findActors(key) {
+  var state =window.hue.getState();
+  if (state !== null) {
+    return findGroupIdByName(state.groups, key);
+  }
+  return null;//$('button:contains("' + key + '")').length !== 0;
 }
 
 function setActor(key) {
@@ -6557,10 +6561,16 @@ function voiceCmd(text, match, action, actor) {
     $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
     //voiceFeedback(text,match, action, actor);
 
-    if(actor !== 'the' && haveActor(actor)) {
-       setActor(actor);
+    if (actor !== undefined) {
+      var actorId = findActors(actor);
+      if(actorId !== null) {
+        setActor(actorId);
+      } else {
+        huevoice.speak('Cannot find the ' + actor + ' lights');
+        return;
+      }
     }
-
+    
     if (action === 'on') {
       executeToggle(true);
     } else if (action === 'off') {

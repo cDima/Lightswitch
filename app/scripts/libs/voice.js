@@ -237,9 +237,9 @@ var voiceCommander = function (voiceFunc) {
         }
     }
     
-    function inverseSceneCmd(text, match, actor, action) {
-      voiceCmd(text, match, 'scene:' + action, actor);
-    }
+    //function inverseSceneCmd(text, match, actor, action) {
+    //  voiceCmd(text, match, 'scene:' + action, actor);
+    //}
 
     function toggleSceneCmd(text, match, action, actor) {
       voiceCmd(text, match, 'scene:' + action, actor);
@@ -254,4 +254,4 @@ var voiceCommander = function (voiceFunc) {
     }
 
     return lightCmdParser();
-}
+};

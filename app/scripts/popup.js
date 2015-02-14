@@ -1459,7 +1459,7 @@ function voiceCmd(text, match, action, actor) {
   try{
     $('#voice-feedback').html('');
     $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
-    voiceFeedback(text,match, action, actor);
+    //voiceFeedback(text,match, action, actor);
 
     if(actor !== 'the' && haveActor(actor)) {
        setActor(actor);

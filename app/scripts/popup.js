@@ -21,7 +21,7 @@
           initSocialButtons: true,
           winapp: true,
           voice: true, 
-          lightCmdParser
+          voiceCommander
 */
 
 /* exported socialLikesButtons */
@@ -1401,6 +1401,8 @@ function initCloseMinimize() {
     });
 }
 
+
+/*   voice commands */
 var huevoice = null;
 
 function initVoice() {
@@ -1429,7 +1431,7 @@ function voiceEnd(){
 function toggleVoice() {
   var mic = $('#voice-mic');
   mic.toggleClass('active');
-  var parser = lightCmdParser(voiceCmd, voiceScene, voiceToggleScene, voiceBrightnessCmd, voiceFeedback);
+  var parser = voiceCommander(voiceCmd);
   if (mic.hasClass('active')) {
     if (huevoice.recognize(parser.react, voiceError, voiceEnd)) {
       huevoice.speak('Enabling voice commands');
@@ -1441,22 +1443,8 @@ function toggleVoice() {
   }
 }
 
-function voiceToggleScene(text, match, action) {
-  voiceCmd(text, match, 'scene:' + action);
-}
-
-function voiceBrightnessCmd(text, match, actor, action) {
-  //if (action.endsWith('brightness'))
-  voiceCmd(text, match, action, actor);
-}
-
-function voiceScene(text, match, action, actor) {
-  voiceCmd(text, match, 'scene:' + action, actor);
-}
-
-
 /*
-https://regex101.com/r/pM6wE0/3
+https://regex101.com/r/pM6wE0/4
 
   # TODO Scenes
   listen_for %r/make it look like a (.+)/i do |scene|
@@ -1467,13 +1455,10 @@ https://regex101.com/r/pM6wE0/3
   end
   */
 
-function voiceFeedback(text) {
-  $('#voice-feedback').html('');
-  $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
-}
-
 function voiceCmd(text, match, action, actor) {
   try{
+    $('#voice-feedback').html('');
+    $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
     voiceFeedback(text,match, action, actor);
 
     if(actor !== 'the' && haveActor(actor)) {

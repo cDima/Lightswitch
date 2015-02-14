@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget 
   id="com.ambieye.shine" 
-   version="0.0.1"
+   version="0.0.2"
    xmlns="http://www.w3.org/ns/widgets" 
    xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Shine</name>
+  <name>Ambieye</name>
   <description>
-        Control your lights with Shine for Philips Hue.
+        Control your lights with Ambieye for Philips Hue.
     </description>
   <author email="apistarter@gmail.com" href="http://apistarter.com">
         Dmitry Sadakov

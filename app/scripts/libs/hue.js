@@ -9,8 +9,9 @@
 
 'use strict';
 
-/*globals colorUtil:false */ /*trackEvent*/
-/*exported hue */
+/*globals colorUtil:false */ 
+/*trackEvent*/
+/*exported hue, findActors,  findGroupIdByName */
 
 var hue = function ($, colors) { 
     
@@ -806,3 +807,20 @@ var hue = function ($, colors) {
         } 
     };
 };
+
+
+function findActors(key) {
+  return findGroupIdByName(key);
+}
+
+function findGroupIdByName(name) {
+  var state = window.hue.getState();
+  if (state !== null) {
+      for(var group in state.groups) {
+        if (state.groups[group].name === name) {
+          return group;
+        }
+      }
+    }
+  return null;
+}

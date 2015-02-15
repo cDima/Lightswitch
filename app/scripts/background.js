@@ -4,15 +4,30 @@
  */
 'use strict';
 
-/*global hue:false, sceneCommander:false, config:false */
+/*global 
+	$, 
+	hue:false,
+ 	sceneCommander:false, 
+ 	config:false, 
+ 	voiceCmd, 
+ 	findActors, 
+ 	setActor, 
+ 	huevoice, 
+ 	executeCommand,
+ 	hueCommander,
+ 	colorUtil, 
+ 	sceneCmd
+ */
 
-/*exported hasAllUrlAccess, requestAmbientPermission,  */
+/*exported hasAllUrlAccess, requestAmbientPermission, voiceCmdFunc */
 
 
 //$(document).ready(function(){
 window.hue = hue(window.jQuery, window.colors);
 window.hue.findBridge();
 window.sceneCmd = sceneCommander(window.jQuery, window.hue);
+window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+
 if (config.app === 'app') {
 	/* global chrome */
 	if (chrome.app.runtime.onLaunched !== undefined) {
@@ -30,3 +45,45 @@ if (config.app === 'app') {
 	}
 }
 //});
+
+
+// listen to external voices
+chrome.runtime.onMessageExternal.addListener(onExternal);
+
+function onExternal(request, sender, sendResponse) {
+  if (request.voiceCmd) {
+    console.log(request.voiceCmd.text + ',' +
+      request.voiceCmd.match + ',' +
+      request.voiceCmd.action + ',' +
+      request.voiceCmd.actor
+      );
+    voiceCmd(request.voiceCmd.text,
+      request.voiceCmd.match,
+      request.voiceCmd.action,
+      request.voiceCmd.actor);
+  }
+}
+
+
+
+function voiceCmdFunc(text, match, action, actor) {
+  try {
+    
+    if (actor !== undefined) {
+      var actorId = findActors(actor);
+      if(actorId !== null) {
+        setActor(actorId);
+      } else {
+        huevoice.speak('Cannot find the ' + actor + ' lights');
+        return;
+      }
+    }
+    
+    if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
+      executeCommand(action);
+    }
+  } catch (err){
+    console.log(err);
+    // nothing
+  }
+}

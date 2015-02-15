@@ -1086,9 +1086,9 @@ var MMCQ = (function() {
  var config = {
   //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
-  //app: 'pro',
+  app: 'pro',
   //app: 'app',
-  app: 'web',
+  //app: 'web',
  };
 
 /* (C) 2014 Dmitry Sadakov */
@@ -3537,264 +3537,6 @@ function initSocialButtons() {
 	}));
 
 }
-// Dmitry Sadakov 2015 Voice module
-/*globals 
-          SpeechSynthesisUtterance: false
-*/
-
-/*exported voice, voiceCommander */
-'use strict';
-
-var voice = function () { 
-    
- 	var recognition = null;
-	var callback = null;
-    var errfunc = null;
-    var endfunc = null;
-
-	function speak(text){
-		if ('speechSynthesis' in window) {
-	      var speech = new SpeechSynthesisUtterance();
-	      speech.lang = 'en-US';
-	      speech.text = text;
-	      window.speechSynthesis.speak(speech);
-	  }
-	}
-
-    function available() {
-        var SpeechRecognition = window.SpeechRecognition ||
-                            window.webkitSpeechRecognition ||
-                            window.mozSpeechRecognition ||
-                            window.msSpeechRecognition ||
-                            window.oSpeechRecognition;
-        return SpeechRecognition;
-    }
-	
-	function recognize(callbackFunc, err, onend) { 
-		callback = callbackFunc;
-        errfunc = err;
-        endfunc = onend;
-
-		var SpeechRecognition = available();
-	    if (SpeechRecognition !== undefined) {
-            if (recognition === null) {
-	            recognition = new SpeechRecognition();
-           } else {
-                return recognition;
-           }
-        }
-	    else {
-	        console.error('Your browser does not support the Web Speech API');
-	        return null;
-	    }
-        recognition.continuous = true;
-        recognition.interimResults = false;
-        recognition.onresult = onSpeechResult;
-        recognition.onstart = onStarted;
-        recognition.onerror = onErrored;
-        recognition.onend = onEnd;
-        return recognition;
-    }
-
-    function onStarted(){
-        console.log('voice started');
-    }
-
-    function onErrored(err){
-        console.log('voice error: ' + err);
-        if (errfunc) {
-            errfunc(err);
-        }
-    }
-
-    function onEnd(){
-        console.log('voice end');
-        //recognition.start();
-        if (endfunc) {
-            endfunc();
-        }
-    }
-
-    function onSpeechResult(e) {
-    	var text = '';
-        for (var i = e.resultIndex; i < e.results.length; ++i) {
-            text += e.results[i][0].transcript;
-        }
-
-        console.log('voice:' + text);
-
-        if (callback) {
-        	callback(text);
-        }   
-    }
-
-    function start() {
-    	if (recognition) {
-        	recognition.start();
-    	}
-    }
-
-    function stop() {
-    	if (recognition) {
-        	recognition.stop();
-    	}
-    }
-
-    function abort() {
-    	if (recognition) {
-        	recognition.abort();
-    	}
-    }
-
-    return {
-        speak: function(text) {
-            return speak(text);
-        },
-        recognize: function(func, errfunc, endfunc) {
-            return recognize(func, errfunc, endfunc);
-        },
-        start: function() {
-            return start();
-        },
-        stop: function() {
-            return stop();
-        },
-        abort: function() {
-            return abort();
-        }, 
-        available: function () {
-            return available() === undefined;
-        }
-    };
-};
-
-
-var reaction = function() {
-    var items = [];
-    var filters = [];
-    var otherwise = null;
-
-    function on(regex, func){
-        items.push([regex, func]);
-    }
-
-    function filterAdd(func){
-        filters.push(func);
-    }
-
-    function setDefault(func) {
-        otherwise = func;
-    }
-
-    function react(text) {
-        var textIn = text;
-        for (var index in filters) {
-            text = filters[index](text);
-        }
-        
-        for (var item in items) {
-            if (items[item][0].test(text)) {
-                console.log('filtered text: "' + textIn + '" -> "' + text +'" matched: ' + items[item][0]);
-                var args = items[item][0].exec(text);
-                args.unshift(text);
-                var func = items[item][1];
-                func.apply(null, args);
-                return;
-            }
-        }
-        console.log('filtered text: "' + textIn + '" -> "' + text +'", no match');
-        if (otherwise) {
-          otherwise.apply(null, [text]);
-        }
-    }
-
-    return {
-        on: function(text, func) {
-            on(text, func);
-        },
-        react: function(text) {
-            react(text);
-        },
-        setDefault: function(text) {
-            setDefault(text);
-        },
-        filter: function(func) {
-            filterAdd(func);
-        }
-    };
-};
-
-var voiceCommander = function (voiceFunc) {
-    var voiceCallback = voiceFunc;
-
-    function lightCmdParser() {
-        var cmds = new reaction();
-        cmds.filter(removeDeterminers);
-        cmds.filter(replaceLightSynonyms);
-        cmds.filter(replaceSceneSynonyms);
-        cmds.filter(replaceCommandSynonyms);
-
-        cmds.on(/make it look like (?:a )?(.+)/, sceneCmd);
-        cmds.on(/(?:start |stop )(?:dynamic )?([a-z ]+)(?: scene| lights)?(?: in )([a-z ]+)/, toggleSceneCmd);
-        cmds.on(/(start|stop)(?: dynamic)?(?: scene| lights)?/, toggleSceneCmd);
-        cmds.on(/(?:set|up|dim) ([a-z ]+) to ([a-z0-9%]*)(?: brightness)?/, inverseCmd);
-        cmds.on(/(?:set|up|dim) to ([a-z0-9%]*)(?: brightness)?/, voiceCmd);
-        cmds.on(/(on|off|up|dim)+? ([a-z]+)+/, inverseCmd);
-        cmds.on(/([a-z0-9% ]*) brightness/, inverseCmd);
-        cmds.on(/([a-z]+) (on|off|up|brighten|dim|dimmer)+?/, inverseCmd);
-        cmds.on(/(on|off|up|down|brighten|dim|lower|higher)/, voiceCmd);
-        cmds.setDefault(function (text) {
-            voiceCallback(text);
-        });
-        return cmds;
-    }
-
-    function removeDeterminers(text) {
-      return text.replace(/the |all /g, '');
-    }
-
-    function replaceLightSynonyms(text) {
-      return text.replace(/bulbs |lamps |lights | lights?/g, '');
-    }
-
-    function replaceCommandSynonyms(text) {
-      text = text.replace(/ percent/g, '%');
-      text = text.replace(/turn /g, '');
-      text = text.replace(/dim down|down|dimmer/g, 'dim');
-      text = text.replace(/animate|continue/g, 'start');
-      text = text.replace(/brighten|lighten/g, 'up');
-      return text;
-    }
-
-    function replaceSceneSynonyms(text) {
-      return text.replace(/animation|theme/g, 'scene');
-    }
-
-    function voiceCmd(text, match, action, actor) {
-        if (voiceCallback) {
-            voiceCallback(text, match, action, actor);
-        }
-    }
-    
-    //function inverseSceneCmd(text, match, actor, action) {
-    //  voiceCmd(text, match, 'scene:' + action, actor);
-    //}
-
-    function toggleSceneCmd(text, match, action, actor) {
-      voiceCmd(text, match, 'scene:' + action, actor);
-    }
-
-    function inverseCmd(text, match, actor, action) {
-      voiceCmd(text, match, action, actor);
-    }
-
-    function sceneCmd(text, match, action, actor) {
-      voiceCmd(text, match, 'scene:' + action, actor);
-    }
-
-    return lightCmdParser();
-};
-
 /**
  * Dmitry Sadakov's Philips Hue api wrapper, exposed as an AMD module.
  * Dependencies:
@@ -3806,8 +3548,9 @@ var voiceCommander = function (voiceFunc) {
 
 'use strict';
 
-/*globals colorUtil:false */ /*trackEvent*/
-/*exported hue */
+/*globals colorUtil:false */ 
+/*trackEvent*/
+/*exported hue, findActors,  findGroupIdByName */
 
 var hue = function ($, colors) { 
     
@@ -4603,6 +4346,23 @@ var hue = function ($, colors) {
         } 
     };
 };
+
+
+function findActors(key) {
+  return findGroupIdByName(key);
+}
+
+function findGroupIdByName(name) {
+  var state = window.hue.getState();
+  if (state !== null) {
+      for(var group in state.groups) {
+        if (state.groups[group].name === name) {
+          return group;
+        }
+      }
+    }
+  return null;
+}
 /**
  * Dmitry Sadakov's Color Util
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved. */
@@ -4863,14 +4623,20 @@ var colorUtil = function() {
  *    - colors.js (packaged alongside this file)
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved. */
 
-/*globals trackEvent*/
-/*exported hueCommander */
+/*globals trackEvent, $, findActors */
+/*exported 
+    hueCommander,
+    executeBrightness,
+    executeHrefCommand,
+    executeHrefCommand,
+    executeCommand,
+    executeToggle,
+    activatedScene
+ */
  
-var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
-    
-    'use strict';
-    
+'use strict';
 
+var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
     if (typeof String.prototype.endsWith !== 'function') {
         String.prototype.endsWith = function(suffix) {
             return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -4889,6 +4655,17 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         executeCommand = function(command) {
             log('executing command: ' + command + ' on actors: ' + actors);
             trackEvent('huecommander', 'command', command);
+
+            if (actors === null) {
+                // by default set all group
+                var groupAll = findActors('All');
+                if (groupAll === null) {
+                  actors = 'group-1';
+                } else {
+                  actors = 'group-' + groupAll;
+                }
+            }
+
             if (command === undefined) {
                 return;
             }
@@ -5094,6 +4871,312 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
     };
 };
 
+function executeBrightness(val){
+  window.hueCommander.command('bri:' + val);   
+}
+
+function executeHrefCommand() {
+  /*jshint validthis:true */
+  var command = $(this).attr('href');
+  executeCommand(command);
+}
+
+function executeCommand(command) {
+  window.hueCommander.command(command);
+  //activatedScene('stop');
+  return false; 
+}
+
+function activatedScene(key){
+  $('#scenes button').removeClass('active');
+  $('.scene').removeClass('active');
+  $('#scenes button[id="' + key + '"]').addClass('active');
+  $('.scene[data-scene="' + key + '"]').addClass('active');
+}
+// Dmitry Sadakov 2015 Voice module
+/*globals 
+    SpeechSynthesisUtterance: false
+
+*/
+
+
+/*exported voice, voiceCommander, huevoice, voiceCmd */
+'use strict';
+
+var voice = function () { 
+    
+ 	var recognition = null;
+	var callback = null;
+    var errfunc = null;
+    var endfunc = null;
+
+	function speak(text){
+		if ('speechSynthesis' in window) {
+	      var speech = new SpeechSynthesisUtterance();
+	      speech.lang = 'en-US';
+	      speech.text = text;
+	      window.speechSynthesis.speak(speech);
+	  }
+	}
+
+    function available() {
+        var SpeechRecognition = window.SpeechRecognition ||
+                            window.webkitSpeechRecognition ||
+                            window.mozSpeechRecognition ||
+                            window.msSpeechRecognition ||
+                            window.oSpeechRecognition;
+        return SpeechRecognition;
+    }
+	
+	function recognize(callbackFunc, err, onend) { 
+		callback = callbackFunc;
+        errfunc = err;
+        endfunc = onend;
+
+		var SpeechRecognition = available();
+	    if (SpeechRecognition !== undefined) {
+            if (recognition === null) {
+	            recognition = new SpeechRecognition();
+           } else {
+                return recognition;
+           }
+        }
+	    else {
+	        console.error('Your browser does not support the Web Speech API');
+	        return null;
+	    }
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.onresult = onSpeechResult;
+        recognition.onstart = onStarted;
+        recognition.onerror = onErrored;
+        recognition.onend = onEnd;
+        return recognition;
+    }
+
+    function onStarted(){
+        console.log('voice started');
+    }
+
+    function onErrored(err){
+        console.log('voice error: ' + err);
+        if (errfunc) {
+            errfunc(err);
+        }
+    }
+
+    function onEnd(){
+        console.log('voice end');
+        //recognition.start();
+        if (endfunc) {
+            endfunc();
+        }
+    }
+
+    function onSpeechResult(e) {
+    	var text = '';
+        for (var i = e.resultIndex; i < e.results.length; ++i) {
+            text += e.results[i][0].transcript;
+        }
+
+        console.log('voice:' + text);
+
+        if (callback) {
+        	callback(text);
+        }   
+    }
+
+    function start() {
+    	if (recognition) {
+        	recognition.start();
+    	}
+    }
+
+    function stop() {
+    	if (recognition) {
+        	recognition.stop();
+    	}
+    }
+
+    function abort() {
+    	if (recognition) {
+        	recognition.abort();
+    	}
+    }
+
+    return {
+        speak: function(text) {
+            return speak(text);
+        },
+        recognize: function(func, errfunc, endfunc) {
+            return recognize(func, errfunc, endfunc);
+        },
+        start: function() {
+            return start();
+        },
+        stop: function() {
+            return stop();
+        },
+        abort: function() {
+            return abort();
+        }, 
+        available: function () {
+            return available() === undefined;
+        }
+    };
+};
+
+
+var reaction = function() {
+    var items = [];
+    var filters = [];
+    var otherwise = null;
+
+    function on(regex, func){
+        items.push([regex, func]);
+    }
+
+    function filterAdd(func){
+        filters.push(func);
+    }
+
+    function setDefault(func) {
+        otherwise = func;
+    }
+
+    function react(text) {
+        var textIn = text;
+        for (var index in filters) {
+            text = filters[index](text);
+        }
+        
+        for (var item in items) {
+            if (items[item][0].test(text)) {
+                console.log('filtered text: "' + textIn + '" -> "' + text +'" matched: ' + items[item][0]);
+                var args = items[item][0].exec(text);
+                args.unshift(text);
+                var func = items[item][1];
+                func.apply(null, args);
+                return;
+            }
+        }
+        console.log('filtered text: "' + textIn + '" -> "' + text +'", no match');
+        if (otherwise) {
+          otherwise.apply(null, [text]);
+        }
+    }
+
+    return {
+        on: function(text, func) {
+            on(text, func);
+        },
+        react: function(text) {
+            react(text);
+        },
+        setDefault: function(text) {
+            setDefault(text);
+        },
+        filter: function(func) {
+            filterAdd(func);
+        }
+    };
+};
+
+var voiceCommander = function (voiceFunc) {
+    var voiceCallback = voiceFunc;
+
+    function lightCmdParser() {
+        var cmds = new reaction();
+        cmds.filter(removeDeterminers);
+        cmds.filter(replaceLightSynonyms);
+        cmds.filter(replaceSceneSynonyms);
+        cmds.filter(replaceCommandSynonyms);
+
+        cmds.on(/make it look like (?:a )?(.+)/, sceneCmd);
+        cmds.on(/(?:start |stop )(?:dynamic )?([a-z ]+)(?: scene| lights)?(?: in )([a-z ]+)/, toggleSceneCmd);
+        cmds.on(/(start|stop)(?: dynamic)?(?: scene| lights)?/, toggleSceneCmd);
+        cmds.on(/(?:set|up|dim) ([a-z ]+) to ([a-z0-9%]*)(?: brightness)?/, inverseCmd);
+        cmds.on(/(?:set|up|dim) to ([a-z0-9%]*)(?: brightness)?/, voiceCmd);
+        cmds.on(/(on|off|up|dim)+? ([a-z]+)+/, inverseCmd);
+        cmds.on(/([a-z0-9% ]*) brightness/, inverseCmd);
+        cmds.on(/([a-z]+) (on|off|up|brighten|dim|dimmer)+?/, inverseCmd);
+        cmds.on(/(on|off|up|down|brighten|dim|lower|higher)/, voiceCmd);
+        cmds.setDefault(function (text) {
+            voiceCallback(text);
+        });
+        return cmds;
+    }
+
+    function removeDeterminers(text) {
+      return text.replace(/the |all /g, '');
+    }
+
+    function replaceLightSynonyms(text) {
+      return text.replace(/bulbs |lamps |lights | lights?/g, '');
+    }
+
+    function replaceCommandSynonyms(text) {
+      text = text.replace(/ percent/g, '%');
+      text = text.replace(/turn /g, '');
+      text = text.replace(/dim down|down|dimmer/g, 'dim');
+      text = text.replace(/animate|continue/g, 'start');
+      text = text.replace(/brighten|lighten/g, 'up');
+      return text;
+    }
+
+    function replaceSceneSynonyms(text) {
+      return text.replace(/animation|theme/g, 'scene');
+    }
+
+    function voiceCmd(text, match, action, actor) {
+        if (voiceCallback) {
+            voiceCallback(text, match, action, actor);
+        }
+    }
+    
+    //function inverseSceneCmd(text, match, actor, action) {
+    //  voiceCmd(text, match, 'scene:' + action, actor);
+    //}
+
+    function toggleSceneCmd(text, match, action, actor) {
+      voiceCmd(text, match, 'scene:' + action, actor);
+    }
+
+    function inverseCmd(text, match, actor, action) {
+      voiceCmd(text, match, action, actor);
+    }
+
+    function sceneCmd(text, match, action, actor) {
+      voiceCmd(text, match, 'scene:' + action, actor);
+    }
+
+    return lightCmdParser();
+};
+
+
+
+/*   voice commands */
+var huevoice = null;
+
+/*
+function voiceError(err){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.error(err);
+}
+
+function voiceEnd(){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.log('voice end');
+}*/
+
+
+function voiceCmd(text, match, action, actor) {
+    if (window.voiceCmdFunc) {
+        window.voiceCmdFunc(text, match, action, actor);
+    }
+}
 /**
  * Dmitry Sadakov"s Philips Hue api wrapper popup page
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved.
@@ -5104,7 +5187,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
 
 /*globals $:false, 
           chrome:false, 
-          hueCommander:false, 
+          hueCommander:true, 
           hue:false, 
           sceneCommander:false, 
           Palettes:false, 
@@ -5117,10 +5200,18 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
           initSocialButtons: true,
           winapp: true,
           voice: true, 
+          huevoice: true,
+          findActors,
+          activatedScene,
+          executeBrightness,
+          executeHrefCommand,
+          executeToggle,
+          executeBrightness,
+          executeCommand,
           voiceCommander
 */
 
-/* exported socialLikesButtons */
+/* exported socialLikesButtons, voiceCmdFunc */
 
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
@@ -5252,6 +5343,10 @@ function nativeShareUrl(e) {
   return true;
 }
 
+function amExtension(){
+  return typeof(chrome) !== 'undefined'  && chrome.extension !== undefined;
+}
+
 function initGlobals(){
 
 
@@ -5281,24 +5376,23 @@ function initGlobals(){
       /* jshint ignore:end */
     }
 
-    if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
-        log('loading as chrome extention popup');
-        var background = chrome.extension.getBackgroundPage();
-        window.hue = background.hue;
-        sceneCmd = background.sceneCmd;
-        ambieye = background.Ambient;
-        huevoice = background.voice();
+    var background = null;
+    if (window.externalBackground !== undefined) {
+      log('loading as page with external background reference');
+      background = window.externalhuebk;
+    } else if (amExtension()) {
+      log('loading as chrome extention popup');
+      background = chrome.extension.getBackgroundPage();
+    }
 
-        tryEnableEye();
-
-        $('#ambieyepermissions').click(function(){
-          requestAmbientPermissionOnClient(function(granted) {
-            if (granted) {
-              tryEnableEye();
-            } 
-          });
-        });
-
+    if (background !== null) {
+      window.hue = background.hue;
+      sceneCmd = background.sceneCmd;
+      ambieye = background.Ambient;
+      huevoice = background.voice();
+      hueCommander = background.hueCommander;
+      tryEnableEye();
+      $('#ambieyepermissions').click(initRequestEye);
 
     } else {
         log('loading as no chrome, running standalone');
@@ -5306,10 +5400,10 @@ function initGlobals(){
         window.hue.findBridge();
         sceneCmd = sceneCommander(window.jQuery, window.hue);
         ambieye = window.Ambient;
+        window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
     }
 
     ambieye.onUpdate(updatePreviewColors);
-    window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
 
     log('client: binding to status change.');
 
@@ -5323,6 +5417,14 @@ function initGlobals(){
     $('.successsubscribe').hide();
 
     setInitialHeight();
+}
+
+function initRequestEye(){
+  requestAmbientPermissionOnClient(function(granted) {
+    if (granted) {
+      tryEnableEye();
+    } 
+  });
 }
 
 function setInitialHeight() {
@@ -5652,7 +5754,7 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (typeof(chrome) !== 'undefined' && chrome.app !== undefined && chrome.app.window !== undefined) {
+  if (amExtension() && chrome.app.window !== undefined) {
     setTimeout(function(){
       var wind = chrome.app.window.current();
       wind.innerBounds.height = height;
@@ -5723,14 +5825,6 @@ function actorClick(event){
   setActor(key);
 }
 
-function findActors(key) {
-  var state =window.hue.getState();
-  if (state !== null) {
-    return findGroupIdByName(state.groups, key);
-  }
-  return null;//$('button:contains("' + key + '")').length !== 0;
-}
-
 function setActor(key) {
   hueCommander.setActor(key); 
   updateUIForActors();
@@ -5744,15 +5838,6 @@ function removeGroupClick(){
   $(event.target).hide('slow');
 }
 
-function findGroupIdByName(groups, name) {
-  for(var group in groups) {
-    if (groups[group].name === name) {
-      return group;
-    }
-  }
-  return null;
-}
-
 function activateSceneClick(){
   var key = event.target.id;
   activateSceneByKey(key);
@@ -5762,31 +5847,6 @@ function activateSceneByKey(key){
   hueCommander.command('scene:' + key);
   // update ui
   activatedScene(key);
-}
-
-
-function executeBrightness(val){
-  window.hueCommander.command('bri:' + val);   
-}
-
-function executeHrefCommand() {
-  /*jshint validthis:true */
-  var command = $(this).attr('href');
-  executeCommand(command);
-}
-
-function executeCommand(command) {
-  window.hueCommander.command(command);
-  activatedScene('stop');
-  return false; 
-}
-
-function executeToggle(turnOn) {
-  if (turnOn) {
-    window.hueCommander.command('on');
-  } else {
-    window.hueCommander.command('off');
-  }
 }
 
 
@@ -5931,7 +5991,7 @@ function fillSettings() {
 
 
         //if (Object.keys(state.groups).length === 0 || 
-        if (findGroupIdByName(state.groups, 'All') === null) {
+        if (findActors('All') === null) {
           log('cannot find all group, creating');
           if (triedCreateGroup === false) {
             triedCreateGroup = true;
@@ -5946,7 +6006,7 @@ function fillSettings() {
           }
         }
 
-        var groupAll = findGroupIdByName(state.groups, 'All');
+        var groupAll = findActors('All');
         if (groupAll === null) {
           hueCommander.setActor('group-1');
         } else {
@@ -5957,12 +6017,6 @@ function fillSettings() {
     }
 }
 
-function activatedScene(key){
-  $('#scenes button').removeClass('active');
-  $('.scene').removeClass('active');
-  $('#scenes button[id="' + key + '"]').addClass('active');
-  $('.scene[data-scene="' + key + '"]').addClass('active');
-}
 
 if (typeof String.prototype.endsWith !== 'function') {
     String.prototype.endsWith = function(suffix) {
@@ -6431,7 +6485,7 @@ function toggleEyeMode(e) {
 
 function tryEnableEye(){
   // check permissions for access to <all_tabs> 
-  if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
+  if (amExtension()) {
     log('loading as chrome extention popup');
     hasAllUrlAccess(function(granted) {
       ambieye.updateImage = granted;
@@ -6502,12 +6556,9 @@ function initCloseMinimize() {
 }
 
 
-/*   voice commands */
-var huevoice = null;
-
 function initVoice() {
   if (huevoice === null) {
-    huevoice = voice();
+    huevoice = voice(hue);
   }
   if (huevoice.available()) {
     $('#voice-control').hide();
@@ -6516,22 +6567,11 @@ function initVoice() {
   $('#voice-mic').click(toggleVoice);
 }
 
-function voiceError(err){
-  var mic = $('#voice-mic');
-  mic.removeClass('active');
-  console.error(err);
-}
 
-function voiceEnd(){
-  var mic = $('#voice-mic');
-  mic.removeClass('active');
-  console.log('voice end');
-}
-
-function toggleVoice() {
+function toggleVoiceOnWebpage() {
   var mic = $('#voice-mic');
   mic.toggleClass('active');
-  var parser = voiceCommander(voiceCmd);
+  var parser = voiceCommander(voiceCmdFunc);
   if (mic.hasClass('active')) {
     if (huevoice.recognize(parser.react, voiceError, voiceEnd)) {
       huevoice.speak('Enabling voice commands');
@@ -6543,20 +6583,39 @@ function toggleVoice() {
   }
 }
 
-/*
-https://regex101.com/r/pM6wE0/4
+function voiceError(err){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.error(err);
+  //sendToMothership({voiceErr: err});
+}
 
-  # TODO Scenes
-  listen_for %r/make it look like a (.+)/i do |scene|
-    checkRegistration
-    # pull n colors, where n is the number of lights
-    # set each light to color[i]
-    request_completed
-  end
-  */
+function voiceEnd(){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.log('voice end');
+  //sendToMothership({voiceEnd: true});
+}
 
-function voiceCmd(text, match, action, actor) {
-  try{
+function toggleVoice() {
+  if (amExtension()) {
+      //launch window if not launched
+    chrome.tabs.create({
+      url: 'https://ambieye.com/voice.html'
+    }, function (tab){
+      // tab id
+    });
+    return;
+  } else {
+    // from page, same page.
+    toggleVoiceOnWebpage();
+  }
+}
+
+initVoice();
+    
+function voiceCmdFunc(text, match, action, actor) {
+  try {
     $('#voice-feedback').html('');
     $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
     //voiceFeedback(text,match, action, actor);
@@ -6571,12 +6630,7 @@ function voiceCmd(text, match, action, actor) {
       }
     }
     
-    if (action === 'on') {
-      executeToggle(true);
-    } else if (action === 'off') {
-      executeToggle(false);
-    } 
-    if ($.inArray(action, ['dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
+    if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
       executeCommand(action);
     }
   } catch (err){
@@ -6584,8 +6638,5 @@ function voiceCmd(text, match, action, actor) {
     // nothing
   }
 }
-
-
-initVoice();
 
 

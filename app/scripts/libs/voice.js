@@ -1,9 +1,11 @@
 // Dmitry Sadakov 2015 Voice module
 /*globals 
-          SpeechSynthesisUtterance: false
+    SpeechSynthesisUtterance: false
+
 */
 
-/*exported voice, voiceCommander */
+
+/*exported voice, voiceCommander, huevoice, voiceCmd */
 'use strict';
 
 var voice = function () { 
@@ -255,3 +257,28 @@ var voiceCommander = function (voiceFunc) {
 
     return lightCmdParser();
 };
+
+
+
+/*   voice commands */
+var huevoice = null;
+
+/*
+function voiceError(err){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.error(err);
+}
+
+function voiceEnd(){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.log('voice end');
+}*/
+
+
+function voiceCmd(text, match, action, actor) {
+    if (window.voiceCmdFunc) {
+        window.voiceCmdFunc(text, match, action, actor);
+    }
+}

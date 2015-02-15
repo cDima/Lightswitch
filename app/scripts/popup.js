@@ -8,7 +8,7 @@
 
 /*globals $:false, 
           chrome:false, 
-          hueCommander:false, 
+          hueCommander:true, 
           hue:false, 
           sceneCommander:false, 
           Palettes:false, 
@@ -21,10 +21,18 @@
           initSocialButtons: true,
           winapp: true,
           voice: true, 
+          huevoice: true,
+          findActors,
+          activatedScene,
+          executeBrightness,
+          executeHrefCommand,
+          executeToggle,
+          executeBrightness,
+          executeCommand,
           voiceCommander
 */
 
-/* exported socialLikesButtons */
+/* exported socialLikesButtons, voiceCmdFunc */
 
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
@@ -156,6 +164,10 @@ function nativeShareUrl(e) {
   return true;
 }
 
+function amExtension(){
+  return typeof(chrome) !== 'undefined'  && chrome.extension !== undefined;
+}
+
 function initGlobals(){
 
 
@@ -185,24 +197,23 @@ function initGlobals(){
       /* jshint ignore:end */
     }
 
-    if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
-        log('loading as chrome extention popup');
-        var background = chrome.extension.getBackgroundPage();
-        window.hue = background.hue;
-        sceneCmd = background.sceneCmd;
-        ambieye = background.Ambient;
-        huevoice = background.voice();
+    var background = null;
+    if (window.externalBackground !== undefined) {
+      log('loading as page with external background reference');
+      background = window.externalhuebk;
+    } else if (amExtension()) {
+      log('loading as chrome extention popup');
+      background = chrome.extension.getBackgroundPage();
+    }
 
-        tryEnableEye();
-
-        $('#ambieyepermissions').click(function(){
-          requestAmbientPermissionOnClient(function(granted) {
-            if (granted) {
-              tryEnableEye();
-            } 
-          });
-        });
-
+    if (background !== null) {
+      window.hue = background.hue;
+      sceneCmd = background.sceneCmd;
+      ambieye = background.Ambient;
+      huevoice = background.voice();
+      hueCommander = background.hueCommander;
+      tryEnableEye();
+      $('#ambieyepermissions').click(initRequestEye);
 
     } else {
         log('loading as no chrome, running standalone');
@@ -210,10 +221,10 @@ function initGlobals(){
         window.hue.findBridge();
         sceneCmd = sceneCommander(window.jQuery, window.hue);
         ambieye = window.Ambient;
+        window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
     }
 
     ambieye.onUpdate(updatePreviewColors);
-    window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
 
     log('client: binding to status change.');
 
@@ -227,6 +238,14 @@ function initGlobals(){
     $('.successsubscribe').hide();
 
     setInitialHeight();
+}
+
+function initRequestEye(){
+  requestAmbientPermissionOnClient(function(granted) {
+    if (granted) {
+      tryEnableEye();
+    } 
+  });
 }
 
 function setInitialHeight() {
@@ -556,7 +575,7 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (typeof(chrome) !== 'undefined' && chrome.app !== undefined && chrome.app.window !== undefined) {
+  if (amExtension() && chrome.app.window !== undefined) {
     setTimeout(function(){
       var wind = chrome.app.window.current();
       wind.innerBounds.height = height;
@@ -627,14 +646,6 @@ function actorClick(event){
   setActor(key);
 }
 
-function findActors(key) {
-  var state =window.hue.getState();
-  if (state !== null) {
-    return findGroupIdByName(state.groups, key);
-  }
-  return null;//$('button:contains("' + key + '")').length !== 0;
-}
-
 function setActor(key) {
   hueCommander.setActor(key); 
   updateUIForActors();
@@ -648,15 +659,6 @@ function removeGroupClick(){
   $(event.target).hide('slow');
 }
 
-function findGroupIdByName(groups, name) {
-  for(var group in groups) {
-    if (groups[group].name === name) {
-      return group;
-    }
-  }
-  return null;
-}
-
 function activateSceneClick(){
   var key = event.target.id;
   activateSceneByKey(key);
@@ -666,31 +668,6 @@ function activateSceneByKey(key){
   hueCommander.command('scene:' + key);
   // update ui
   activatedScene(key);
-}
-
-
-function executeBrightness(val){
-  window.hueCommander.command('bri:' + val);   
-}
-
-function executeHrefCommand() {
-  /*jshint validthis:true */
-  var command = $(this).attr('href');
-  executeCommand(command);
-}
-
-function executeCommand(command) {
-  window.hueCommander.command(command);
-  activatedScene('stop');
-  return false; 
-}
-
-function executeToggle(turnOn) {
-  if (turnOn) {
-    window.hueCommander.command('on');
-  } else {
-    window.hueCommander.command('off');
-  }
 }
 
 
@@ -835,7 +812,7 @@ function fillSettings() {
 
 
         //if (Object.keys(state.groups).length === 0 || 
-        if (findGroupIdByName(state.groups, 'All') === null) {
+        if (findActors('All') === null) {
           log('cannot find all group, creating');
           if (triedCreateGroup === false) {
             triedCreateGroup = true;
@@ -850,7 +827,7 @@ function fillSettings() {
           }
         }
 
-        var groupAll = findGroupIdByName(state.groups, 'All');
+        var groupAll = findActors('All');
         if (groupAll === null) {
           hueCommander.setActor('group-1');
         } else {
@@ -861,12 +838,6 @@ function fillSettings() {
     }
 }
 
-function activatedScene(key){
-  $('#scenes button').removeClass('active');
-  $('.scene').removeClass('active');
-  $('#scenes button[id="' + key + '"]').addClass('active');
-  $('.scene[data-scene="' + key + '"]').addClass('active');
-}
 
 if (typeof String.prototype.endsWith !== 'function') {
     String.prototype.endsWith = function(suffix) {
@@ -1335,7 +1306,7 @@ function toggleEyeMode(e) {
 
 function tryEnableEye(){
   // check permissions for access to <all_tabs> 
-  if (typeof(chrome) !== 'undefined'  && chrome.extension !== undefined) {
+  if (amExtension()) {
     log('loading as chrome extention popup');
     hasAllUrlAccess(function(granted) {
       ambieye.updateImage = granted;
@@ -1406,12 +1377,9 @@ function initCloseMinimize() {
 }
 
 
-/*   voice commands */
-var huevoice = null;
-
 function initVoice() {
   if (huevoice === null) {
-    huevoice = voice();
+    huevoice = voice(hue);
   }
   if (huevoice.available()) {
     $('#voice-control').hide();
@@ -1420,22 +1388,11 @@ function initVoice() {
   $('#voice-mic').click(toggleVoice);
 }
 
-function voiceError(err){
-  var mic = $('#voice-mic');
-  mic.removeClass('active');
-  console.error(err);
-}
 
-function voiceEnd(){
-  var mic = $('#voice-mic');
-  mic.removeClass('active');
-  console.log('voice end');
-}
-
-function toggleVoice() {
+function toggleVoiceOnWebpage() {
   var mic = $('#voice-mic');
   mic.toggleClass('active');
-  var parser = voiceCommander(voiceCmd);
+  var parser = voiceCommander(voiceCmdFunc);
   if (mic.hasClass('active')) {
     if (huevoice.recognize(parser.react, voiceError, voiceEnd)) {
       huevoice.speak('Enabling voice commands');
@@ -1447,20 +1404,39 @@ function toggleVoice() {
   }
 }
 
-/*
-https://regex101.com/r/pM6wE0/4
+function voiceError(err){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.error(err);
+  //sendToMothership({voiceErr: err});
+}
 
-  # TODO Scenes
-  listen_for %r/make it look like a (.+)/i do |scene|
-    checkRegistration
-    # pull n colors, where n is the number of lights
-    # set each light to color[i]
-    request_completed
-  end
-  */
+function voiceEnd(){
+  var mic = $('#voice-mic');
+  mic.removeClass('active');
+  console.log('voice end');
+  //sendToMothership({voiceEnd: true});
+}
 
-function voiceCmd(text, match, action, actor) {
-  try{
+function toggleVoice() {
+  if (amExtension()) {
+      //launch window if not launched
+    chrome.tabs.create({
+      url: 'https://ambieye.com/voice.html'
+    }, function (tab){
+      // tab id
+    });
+    return;
+  } else {
+    // from page, same page.
+    toggleVoiceOnWebpage();
+  }
+}
+
+initVoice();
+    
+function voiceCmdFunc(text, match, action, actor) {
+  try {
     $('#voice-feedback').html('');
     $('#voice-feedback').html('<i class="voice-fade ">' + text + '</i>');
     //voiceFeedback(text,match, action, actor);
@@ -1475,12 +1451,7 @@ function voiceCmd(text, match, action, actor) {
       }
     }
     
-    if (action === 'on') {
-      executeToggle(true);
-    } else if (action === 'off') {
-      executeToggle(false);
-    } 
-    if ($.inArray(action, ['dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
+    if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
       executeCommand(action);
     }
   } catch (err){
@@ -1488,8 +1459,5 @@ function voiceCmd(text, match, action, actor) {
     // nothing
   }
 }
-
-
-initVoice();
 
 

@@ -13,13 +13,22 @@
             "128": "images/lightswitch.logo.on.128.png" },
   "permissions": [
     "https://www.meethue.com/",
-    "https://colorlovers.herokuapp.com/"
+    "https://colorlovers.herokuapp.com/",
+    "https://ambieye.com/",
+    "*://localhost/*",
+    "storage"
   ],
   "optional_permissions": [ 
     "activeTab",
     "<all_urls>",
     "tabs"
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://ambieye.com/voice.html*", 
+      "*://localhost/*"
+    ]
+  },
   "background": {
     "scripts": [
 		"scripts/background.min.js"

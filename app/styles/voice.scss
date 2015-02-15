@@ -233,9 +233,6 @@ body.eye .logo {
 body.web .logo {
   background-image: url(../images/ambieye-beta.png);
 }
-body.voice .logo {
-  background-image: url(../images/ambieye-beta.png);
-}
 
 .chromewebstore {
   width: 20px;
@@ -914,7 +911,7 @@ h5 a, h5 a:hover  {
 /* voice */
 
 .voice-fade {
-    animation: fadeout 5s;
+    animation: fadeout 2s;
     opacity: 0;
 }
 .voice-control {
@@ -922,31 +919,10 @@ h5 a, h5 a:hover  {
   padding: 10px 15px;
   position: absolute;
 }
-.voice-control-large {
-  clear: both;
-  font-size: 70px;
-  margin: 10px auto;
-  text-align: center;
-}
-
 #voice-mic {
   color: #ccc;  
 }
 
 #voice-mic.active, #voice-mic:hover {
   color: #428BCA;
-}
-
-body.voice .intro { 
-  height: auto;
-}
-body.voice .container{
-  padding-bottom: 0px;
-} 
-body.voice footer {
-  position: relative; 
-}
-
-body.voice #voice-feedback {
-  font-size: 20px;
 }

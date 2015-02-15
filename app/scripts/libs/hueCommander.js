@@ -5,14 +5,20 @@
  *    - colors.js (packaged alongside this file)
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved. */
 
-/*globals trackEvent*/
-/*exported hueCommander */
+/*globals trackEvent, $, findActors */
+/*exported 
+    hueCommander,
+    executeBrightness,
+    executeHrefCommand,
+    executeHrefCommand,
+    executeCommand,
+    executeToggle,
+    activatedScene
+ */
  
-var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
-    
-    'use strict';
-    
+'use strict';
 
+var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
     if (typeof String.prototype.endsWith !== 'function') {
         String.prototype.endsWith = function(suffix) {
             return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -31,6 +37,17 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         executeCommand = function(command) {
             log('executing command: ' + command + ' on actors: ' + actors);
             trackEvent('huecommander', 'command', command);
+
+            if (actors === null) {
+                // by default set all group
+                var groupAll = findActors('All');
+                if (groupAll === null) {
+                  actors = 'group-1';
+                } else {
+                  actors = 'group-' + groupAll;
+                }
+            }
+
             if (command === undefined) {
                 return;
             }
@@ -235,3 +252,26 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         }
     };
 };
+
+function executeBrightness(val){
+  window.hueCommander.command('bri:' + val);   
+}
+
+function executeHrefCommand() {
+  /*jshint validthis:true */
+  var command = $(this).attr('href');
+  executeCommand(command);
+}
+
+function executeCommand(command) {
+  window.hueCommander.command(command);
+  //activatedScene('stop');
+  return false; 
+}
+
+function activatedScene(key){
+  $('#scenes button').removeClass('active');
+  $('.scene').removeClass('active');
+  $('#scenes button[id="' + key + '"]').addClass('active');
+  $('.scene[data-scene="' + key + '"]').addClass('active');
+}

@@ -1381,8 +1381,8 @@ function initVoice() {
   if (huevoice === null) {
     huevoice = voice(hue);
   }
-  if (huevoice.available()) {
-    $('#voice-control').hide();
+  if (huevoice.notAvailable()) {
+    $('.voice-control').hide();
   }
 
   $('#voice-mic').click(toggleVoice);

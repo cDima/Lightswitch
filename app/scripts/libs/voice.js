@@ -3,8 +3,6 @@
     SpeechSynthesisUtterance: false
 
 */
-
-
 /*exported voice, voiceCommander, huevoice, voiceCmd */
 'use strict';
 
@@ -48,7 +46,8 @@ var voice = function () {
         }
 	    else {
 	        console.error('Your browser does not support the Web Speech API');
-	        return null;
+            speak('Voice not supported');
+            return null;
 	    }
         recognition.continuous = true;
         recognition.interimResults = false;
@@ -67,7 +66,7 @@ var voice = function () {
         console.log('voice error: ' + err);
         if (errfunc) {
             errfunc(err);
-        }
+        }    
     }
 
     function onEnd(){
@@ -125,7 +124,7 @@ var voice = function () {
         abort: function() {
             return abort();
         }, 
-        available: function () {
+        notAvailable: function () {
             return available() === undefined;
         }
     };

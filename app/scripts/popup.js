@@ -1426,11 +1426,12 @@ function toggleVoice() {
     }, function (tab){
       // tab id
     });
-    return;
+    return false;
   } else {
     // from page, same page.
     toggleVoiceOnWebpage();
   }
+  return false;
 }
 
 initVoice();

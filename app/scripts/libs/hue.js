@@ -39,7 +39,12 @@ var hue = function ($, colors) {
         transitionTime = null,
         timeoutAuthCounter = 0,
         retryAuthCounter = 0,
+        errorCounter = 0,
         
+        onLampError = function(err){
+            // do nothing for now.
+            errorCounter++;
+        },
         /**
          * Reconstruct the baseUrl and baseApiUrl members when configuration is updated.
          */
@@ -74,7 +79,7 @@ var hue = function ($, colors) {
                 type: 'PUT',
                 url: url,
                 success: callback,
-                error: error,
+                error: error || onLampError,
                 dataType: 'json',
                 contentType: 'application/json',
                 data: JSON.stringify(data)
@@ -89,7 +94,7 @@ var hue = function ($, colors) {
                 type: 'POST',
                 url: url,
                 success: callback,
-                error: error,
+                error: error || onLampError,
                 dataType: 'json',
                 contentType: 'application/json',
                 data: JSON.stringify(data)
@@ -104,7 +109,7 @@ var hue = function ($, colors) {
                 type: 'DELETE',
                 url: url,
                 success: callback,
-                error: error
+                error: error || onLampError
             };
             $.ajax(options);
             log(JSON.stringify(options));

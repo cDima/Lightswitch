@@ -917,6 +917,9 @@ h5 a, h5 a:hover  {
     animation: fadeout 5s;
     opacity: 0;
 }
+
+.top-icon,
+.portal-control,
 .voice-control {
   float: left;
   padding: 10px 15px;
@@ -929,11 +932,18 @@ h5 a, h5 a:hover  {
   text-align: center;
 }
 
+.top-icon .ico,
+#portal-ico,
 #voice-mic {
   color: #ccc;  
 }
 
-#voice-mic.active, #voice-mic:hover {
+.top-icon .ico.active,
+.top-icon .ico:hover,
+#portal-ico.active,
+#portal-ico:hover,
+#voice-mic.active, 
+#voice-mic:hover {
   color: #428BCA;
 }
 

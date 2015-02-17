@@ -35,10 +35,10 @@ describe("Voice commands", function() {
     shouldHandle("lights off", undefined, 'off');
     shouldHandle("turn the lights on", undefined, 'on');
 
-    shouldHandle("turn off all the lights", undefined, 'off');
-    shouldHandle("all lights on", undefined, 'on');
+    shouldHandle("turn off all the lights", 'all', 'off');
+    shouldHandle("all lights on", 'all', 'on');
     shouldHandle("lights off", undefined, 'off');
-    shouldHandle("turn all the lights on", undefined, 'on');
+    shouldHandle("turn all the lights on", 'all', 'on');
 
   });  
 
@@ -63,7 +63,7 @@ describe("Voice commands", function() {
     shouldHandle("set lights to 55", undefined, '55');
     shouldHandle("dim the kitchen to 55%", 'kitchen', '55%');
     shouldHandle("set the bedroom lights to 50%", 'bedroom', '50%');
-    shouldHandle("set all the lights to 20% brightness", undefined, '20%');
+    shouldHandle("set all the lights to 20% brightness", 'all', '20%');
   });
 
   describe("should handle scenes", function() {

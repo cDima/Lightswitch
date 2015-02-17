@@ -201,10 +201,11 @@ var voiceCommander = function (voiceFunc) {
         cmds.on(/(start|stop)(?: dynamic)?(?: scene| lights)?/, toggleSceneCmd);
         cmds.on(/(?:set|up|dim) ([a-z ]+) to ([a-z0-9%]*)(?: brightness)?/, inverseCmd);
         cmds.on(/(?:set|up|dim) to ([a-z0-9%]*)(?: brightness)?/, voiceCmd);
-        cmds.on(/(on|off|up|dim)+? ([a-z]+)+/, inverseCmd);
+        cmds.on(/(on|off|up|dim)+? ([a-z]+)+/, voiceCmd);
         cmds.on(/([a-z0-9% ]*) brightness/, inverseCmd);
-        cmds.on(/([a-z]+) (on|off|up|brighten|dim|dimmer)+?/, inverseCmd);
-        cmds.on(/(on|off|up|down|brighten|dim|lower|higher)/, voiceCmd);
+        cmds.on(/([a-z]+) (on|off|up|dim|dimmer)+?/, inverseCmd);
+        cmds.on(/(on|off|up|dim|dimmer)+ ([a-z]+)/, voiceCmd);
+        cmds.on(/(on|off|up|down|dim|lower|higher)/, voiceCmd);
         cmds.setDefault(function (text) {
             voiceCallback(text);
         });
@@ -212,7 +213,7 @@ var voiceCommander = function (voiceFunc) {
     }
 
     function removeDeterminers(text) {
-      return text.replace(/the |all /g, '');
+      return text.replace(/the |my /g, '');
     }
 
     function replaceLightSynonyms(text) {

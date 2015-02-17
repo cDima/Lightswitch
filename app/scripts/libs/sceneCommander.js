@@ -18,14 +18,15 @@ var sceneCommander = function ($, hue) {
         {
         	sceneStop(); 
             log('Starting scene ' + sceneName);
-            scene = scenes[sceneName];
-            if (scene === undefined) {
+            var sceneKey = scenes.findScene(sceneName);
+            if (sceneKey === null) {
                 // might be programmed into the bridge already:
                 var state = hue.getState();
                 if (state.scenes[sceneName] !== undefined) {
                     hue.startScene(sceneName);
                 }
             } else {
+                scene = scenes[sceneKey];
                 if (scene.interval === 0) {
                 	// one time hit
                 	setTimeout(sceneUpdate, 10);

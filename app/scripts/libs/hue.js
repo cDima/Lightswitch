@@ -817,7 +817,7 @@ function findGroupIdByName(name) {
   var state = window.hue.getState();
   if (state !== null) {
       for(var group in state.groups) {
-        if (state.groups[group].name === name) {
+        if (state.groups[group].name.toLowerCase() === name.toLowerCase()) {
           return group;
         }
       }

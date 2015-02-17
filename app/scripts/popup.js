@@ -1445,14 +1445,14 @@ function voiceCmdFunc(text, match, action, actor) {
     if (actor !== undefined) {
       var actorId = findActors(actor);
       if(actorId !== null) {
-        setActor(actorId);
+        setActor('group-' + actorId);
       } else {
         huevoice.speak('Cannot find the ' + actor + ' lights');
         return;
-      }
+      } 
     }
-    
-    if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0) {
+    // canExecute(action)
+    if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0 || action.match('^scene:')) {
       executeCommand(action);
     }
   } catch (err){

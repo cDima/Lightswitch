@@ -219,5 +219,13 @@ var scenes = {
         });
         
 		return lightStates;
-	}
+	},
+    findScene: function(name){
+        for( var key in scenes) {
+            if(key.toLowerCase() === name.toLowerCase()){
+                return key;
+            }
+        }
+        return null;
+    }
 };

@@ -222,6 +222,8 @@ var voiceCommander = function (voiceFunc) {
 
     function replaceCommandSynonyms(text) {
       text = text.replace(/ percent/g, '%');
+      text = text.replace(/maximum/g, '100%');
+      text = text.replace(/minimum/g, '1%');
       text = text.replace(/turn /g, '');
       text = text.replace(/dim down|down|dimmer/g, 'dim');
       text = text.replace(/animate|continue/g, 'start');

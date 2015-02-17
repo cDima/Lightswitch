@@ -19,7 +19,6 @@
           Ambient:false,
 		      config:false,
           initSocialButtons: true,
-          winapp: true,
           voice: true, 
           huevoice: true,
           findActors,
@@ -143,8 +142,8 @@ function handleSystemLink(a) {
     url = $(a.target).attr('href');
   }
 
-  if (winapp !== undefined){
-    winapp.handleUrl(url);
+  if (window.winapp !== undefined){
+    window.winapp.handleUrl(url);
     return false;
   }
 

@@ -257,6 +257,10 @@ function executeBrightness(val){
   window.hueCommander.command('bri:' + val);   
 }
 
+function executeToggle(on){
+  window.hueCommander.command(on ? 'on' : 'off');   
+}
+
 function executeHrefCommand() {
   /*jshint validthis:true */
   var command = $(this).attr('href');

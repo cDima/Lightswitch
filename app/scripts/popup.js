@@ -630,7 +630,7 @@ function initGroupCreation() {
       hue.createGroup(name, lampIds);
       // reset
       hue.refresh();
-      setTimeout(fillSettings, 2000);
+      setTimeout(fillSettings, 4000);
     });
 }
 

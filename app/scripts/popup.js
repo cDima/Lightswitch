@@ -629,6 +629,7 @@ function initGroupCreation() {
       // add group
       hue.createGroup(name, lampIds);
       // reset
+      hue.refresh();
       setTimeout(fillSettings, 2000);
     });
 }
@@ -643,6 +644,13 @@ function actorClick(event){
   $('button').removeClass('active');
   $('button[id=' + key + ']').addClass('active');
   setActor(key);
+  return false;
+}
+
+function flashLamp(){
+  var key = event.target.id;
+  hue.flash(key);
+  return false;
 }
 
 function setActor(key) {
@@ -653,7 +661,7 @@ function setActor(key) {
 function removeGroupClick(){
   var key = event.target.id;
   hue.removeGroup(key);
-  hue.heartbeat();
+  hue.refresh();
   setTimeout(fillSettings, 2000);
   $(event.target).hide('slow');
 }
@@ -673,8 +681,6 @@ function activateSceneByKey(key){
 function toggleActiveClick(){
   $(event.target).toggleClass('active');
 }
-
-var triedCreateGroup = false;
 
 function fillSettings() {
     var state =window.hue.getState();
@@ -723,11 +729,12 @@ function fillSettings() {
               ', on: ' + value.state.on);
             btn = createActorBtn(key, value.name);
             btn.click(actorClick);
+            btn.click(flashLamp);
             $('#lamps').append(btn);
             
             selector = createActorBtn(key, value.name);
             selector.addClass('lamp-select');
-
+            selector.click(flashLamp);
             selector.click(toggleActiveClick);
             $('#group-add-lamps').append(selector);
         }
@@ -739,7 +746,6 @@ function fillSettings() {
         for(i in state.lights) {
             key = i;
             value = state.lights[i];
-        //$.each(state.lights, function(key, value){
             if (value.state === undefined) {
               continue;
             }
@@ -767,26 +773,13 @@ function fillSettings() {
             chrome.browserAction.setIcon({path:path});
         }
 
-        //$.each(state.groups, function (key, value) {
         for(i in state.groups) {
           key = i;
           value = state.groups[i];
-            log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
-            btn = createActorBtn('group-' + key, value.name);
-            btn.click(actorClick);
-            $('#groups').append(btn);
-
-            selector = createActorBtn(key, value.name);
-            selector.click(removeGroupClick);
-            selector.append('&nbsp;');
-            if (key !== '1') {
-              selector.append($('<li class="fa fa-remove"></li>'));
-            }
-            $('#group-remove').append(selector);
+          log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
+          displayGroup(key, value.name, key !== '0');
         }
-        //}); .each
 
-        //$.each(state.scenes, function (key, value) {
         for(i in state.scenes) {
           key = i;
           value = state.scenes[i];
@@ -810,33 +803,25 @@ function fillSettings() {
             ', zigbeechannel:' + state.config.zigbeechannel);
 
 
-        //if (Object.keys(state.groups).length === 0 || 
-        if (findActors('All') === null) {
-          log('cannot find all group, creating');
-          if (triedCreateGroup === false) {
-            triedCreateGroup = true;
-            // creating default group, All
-            var lampIds = $.map(state.lights, function(lamp, key) {
-              return key;
-            });
-            hue.createGroup('All', lampIds);
-            hue.heartbeat();
-            setTimeout(fillSettings, 1000); // reset UI
-            return;
-          }
-        }
-
-        var groupAll = findActors('All');
-        if (groupAll === null) {
-          hueCommander.setActor('group-1');
-        } else {
-          hueCommander.setActor('group-' + groupAll);
-        }
+        hueCommander.setActor('group-0');
         
         updateUIForActors();
     }
 }
 
+function displayGroup(key, name, removable) {
+  var btn = createActorBtn('group-' + key, name);
+  btn.click(actorClick);
+  $('#groups').append(btn);
+
+  if (removable) {
+    var selector = createActorBtn(key, name);
+    selector.click(removeGroupClick);
+    selector.append('&nbsp;');
+    selector.append($('<li class="fa fa-remove"></li>'));
+    $('#group-remove').append(selector);
+  }
+}
 
 if (typeof String.prototype.endsWith !== 'function') {
     String.prototype.endsWith = function(suffix) {

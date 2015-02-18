@@ -379,6 +379,17 @@ var hue = function ($, colors) {
 
             // cache state
             state = data;
+            // re-create virtual All group:
+            var lampIds = $.map(state.lights, function(lamp, key) {
+              return key;
+            });
+            state.groups['0'] = {
+                    name: 'All', 
+                    lights: lampIds, 
+                    type: 'LightGroup',
+                    action: {} 
+                };
+
             log('hue: saving state - ' + JSON.stringify(data));
 
             numberOfLamps = Object.keys(data.lights).length;
@@ -794,6 +805,9 @@ var hue = function ($, colors) {
         getState: function() {
             return state;
         },
+        refresh: function(){
+            getBridgeState();
+        },
         heartbeat: function(){
             getLightState();
         },
@@ -819,6 +833,9 @@ function findActors(key) {
 }
 
 function findGroupIdByName(name) {
+  if (name.toLowerCase() === 'all') {
+    return '0';// special case group-0 is all.
+  }
   var state = window.hue.getState();
   if (state !== null) {
       for(var group in state.groups) {

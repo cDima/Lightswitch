@@ -35,7 +35,7 @@ var sceneCommander = function ($, hue) {
                 	// counter
     	            sceneTimer = setInterval(function intervaledSceneUpdate() {
                         sceneUpdate(lampIds);
-                    }, scene.interval); 
+                    }, Math.round(scene.interval * lampIds.length / 3)); 
                     sceneUpdate(lampIds); // start now.
     	        }
             }

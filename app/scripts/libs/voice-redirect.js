@@ -11,7 +11,7 @@ function initVoice() {
   if (huevoice === null) {
     huevoice = voice();
   }
-  if (huevoice.available()) {
+  if (huevoice.notAvailable()) {
     $('#voice-control').hide();
   }
 

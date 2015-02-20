@@ -35,7 +35,6 @@
 
 var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed popup.
 
-
 var sceneCmd = null;
 var ambieye = null;
 var heartbeatInterval = 2000;
@@ -92,6 +91,7 @@ $(document).ready(function(){
       $('#lightswitch').prop('checked', window.hue.status.data);
     }
 
+    $('.voice-control').hide();
 
     initLightswitch();
     initPalettes();
@@ -217,7 +217,9 @@ function initGlobals(){
     } else {
         log('loading as no chrome, running standalone');
         window.hue = hue(window.jQuery, window.colors);
-        window.hue.findBridge();
+
+        hue.discover();
+
         sceneCmd = sceneCommander(window.jQuery, window.hue);
         ambieye = window.Ambient;
         window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
@@ -238,6 +240,7 @@ function initGlobals(){
 
     setInitialHeight();
 }
+ 
 
 function initRequestEye(){
   requestAmbientPermissionOnClient(function(granted) {
@@ -425,20 +428,6 @@ function tryBridge(){
   });
 }
 
-function bruteForceIPs(){
-  // try default ips for win and mac
-  var ips = [];
-  for(var i = 0; i < 21; i++) {
-    ips.push('10.0.1.' + i); // mac: 10.0.1.1-20
-    ips.push('192.168.0.' + i); // win: 192.168.0.1-20
-    ips.push('192.168.1.' + i); // win: 192.168.1.1-20
-    ips.push('192.168.0.' + (100+i)); // win: 192.168.1.100-120
-  }
-  for (var index = 0; index < ips.length; index++) {
-    tryIP(ips[index], function() { /* nothing */ });
-  }
-}
-
 function tryIP(ip, error){
   try{
     $.ajax({
@@ -458,18 +447,6 @@ function tryIP(ip, error){
 }
 
 
-function stopHeartbeat(){
-  if (heartbeat !== null) {
-    log('Clearing heartbeat');
-    clearInterval(heartbeat);
-  }
-}
-
-function startHeartbeat() {
-  log('Starting heartbeat');
-  heartbeat = setInterval(window.hue.heartbeat, heartbeatInterval);
-}
-
 function showManualBridge(){
     $('#manualbridgeip').addClass('fade3').show();
     if (config.app === 'web') {
@@ -484,17 +461,14 @@ function showManualBridge(){
     });
     hideControls();
 
-    window.hue.findBridge();
+    hue.discover();
 }
 
 function onStatus(status) {
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
-      $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
-      bruteForceIPs();
-      manualIpInputAnimation = setTimeout(showManualBridge, 2000);
-      stopHeartbeat();
+      onBridgeNotFound();
       
       return;
     } 
@@ -504,42 +478,73 @@ function onStatus(status) {
     }
 
     if (status.status === 'OK') {
-        $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
-        $('#manualbridgeip').hide();
-        $('#lightswitch').prop('disabled', false);
-
-        // time to screen
-        var hubEndTime = new Date().getTime();
-        var timeSpent = hubEndTime - hubStartTime;
-
-        log('Tracking event OK');
-        ga('send', 'timing', 'status-ok', 'Ping hub', timeSpent, 'Philips Hue Hub');
-
-        $('#connectStatus').fadeOut(600, onSuccessfulInit);
-        $('#lightswitch').prop('checked', status.data);
-
-        stopHeartbeat();
-        startHeartbeat();
-
+        onBridgeConnected(status);
+    } else if (status.status === 'init' || status.status === 'Authenticating') {
+      onBridgeInit(status);
     } else {
-        stopHeartbeat();
-        
-        log('Hiding elements, bridge not found');
-        $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
-        $('#lightswitch').prop('disabled', true);
-        $('#lightswitch').prop('checked', false);
-
-        //$('body').removeClass('on');
-        $('#controls').fadeOut(600);
-        $('.tab-content').hide();
-        setInitialHeight();
-
-        $('.switch').fadeOut(600, function() {
-            $('#connectStatus').fadeIn(600);
-        });
+      onBridgeDisconnected(status);
     }
+}
 
-    //updateStatus('BridgeNotFount', 'Philip Hue lights not found.');
+function stopHeartbeat(){
+  if (heartbeat !== null) {
+    log('Clearing heartbeat');
+    clearInterval(heartbeat);
+  }
+}
+
+function startHeartbeat() {
+  log('Starting heartbeat');
+  heartbeat = setInterval(window.hue.heartbeat, heartbeatInterval);
+}
+
+
+function onBridgeNotFound(status) {
+  $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
+  manualIpInputAnimation = setTimeout(showManualBridge, 2000);
+  stopHeartbeat();
+}
+
+function onBridgeConnected(status){
+
+  $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
+  $('#manualbridgeip').hide();
+  $('#lightswitch').prop('disabled', false);
+
+  // time to screen
+  var hubEndTime = new Date().getTime();
+  var timeSpent = hubEndTime - hubStartTime;
+
+  log('Tracking event OK');
+  ga('send', 'timing', 'status-ok', 'Ping hub', timeSpent, 'Philips Hue Hub');
+
+  $('#connectStatus').fadeOut(600, onSuccessfulInit);
+  $('#lightswitch').prop('checked', status.data);
+
+  stopHeartbeat();
+  startHeartbeat();
+}
+
+function onBridgeInit(status) {
+  $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
+}
+
+function onBridgeDisconnected(status){
+  stopHeartbeat();
+        
+  log('Hiding elements, bridge not found');
+  $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
+  $('#lightswitch').prop('disabled', true);
+  $('#lightswitch').prop('checked', false);
+
+  //$('body').removeClass('on');
+  $('#controls').fadeOut(600);
+  $('.tab-content').hide();
+  setInitialHeight();
+
+  $('.switch').fadeOut(600, function() {
+      $('#connectStatus').fadeIn(600);
+  });
 }
 
 function onSuccessfulInit(){
@@ -842,7 +847,7 @@ function showControls(){
     }
 }
 function showTabContent() {
-    $('.tab-content').fadeIn(600);
+    $('.tab-content').fadeIn(600, initVoice);
 }
 
 function initLightswitch() {
@@ -1367,6 +1372,8 @@ function initVoice() {
   }
   if (huevoice.notAvailable()) {
     $('.voice-control').hide();
+  } else {
+    $('.voice-control').fadeIn();
   }
 
   $('#voice-mic').click(toggleVoice);
@@ -1417,8 +1424,6 @@ function toggleVoice() {
   }
   return false;
 }
-
-initVoice();
     
 function voiceCmdFunc(text, match, action, actor) {
   try {

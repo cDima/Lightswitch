@@ -9,16 +9,24 @@
 
 'use strict';
 
-/*globals colorUtil:false */ 
+/*globals colorUtil:false,
+          hueDiscoverer
+*/ 
 /*trackEvent*/
-/*exported hue, findActors,  findGroupIdByName */
+/*exported  hue, 
+            findActors, 
+            findGroupIdByName 
+*/
+
 
 var hue = function ($, colors) { 
-    
+
+    var discover = null;
+    var discoverStatus = 'init';
 
     
     var bridgeIP = '', // Hue bridge's IP address 
-        apiKey = 'lightswitch-v4', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
+        apiKey = 'lightswitch-v5', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
         status = { status: 'init', text: 'Initializing...' }, // system status
         state = null, // bridge state
 
@@ -39,9 +47,36 @@ var hue = function ($, colors) {
         transitionTime = null,
         timeoutAuthCounter = 0,
         retryAuthCounter = 0,
-        errorCounter = 0,
-        
-        onLampError = function(err){
+        errorCounter = 0;
+
+    discover = hueDiscoverer(apiKey, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+
+        var statusInit = {status: 'init', text: 'Initializing...'};
+        var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};
+        var statusNoBridge = {status: 'BridgeNotFound', text: 'Philip Hue bridge not found.'};
+        //var statusReady = {status: 'OK', text: 'Lights found.'};
+
+        function onNeedAuthorization() {
+          onStatus(statusNeedAuth);
+          discoverStatus = 'auth';
+        }
+        function onIpAuthorized(ip, message, data){
+          //onStatus(statusReady);
+          discoverStatus = 'ok';
+          hue.setIp(ip);
+          onAuthorized(data);
+        }
+        function onError(){
+          //onStatus(statusNoBridge);
+        }
+
+        function onComplete(){
+          if (discoverStatus === 'init') {
+            onStatus(statusNoBridge);
+          }
+        }
+
+        var onLampError = function(err){
             // do nothing for now.
             errorCounter++;
         },
@@ -455,13 +490,15 @@ var hue = function ($, colors) {
          */
         updateStatus = function(inStatus, text, data) {
             var newStatus = { status: inStatus, text: text, data: data };
+            onStatus(newStatus);
+        }, 
+        onStatus = function(newStatus) {
             if (JSON.stringify(status) !== JSON.stringify(newStatus) ) {
                 console.log('hue: sending status change, ' + newStatus.status + ', text: ' + newStatus.text + ', data: ' + newStatus.data);
                 status = newStatus;
                 statusChange();
             }
-            
-        }, 
+        },
         log = function(text) {
             console.log('hue: ' + text);
             if (logHandler !== null) {
@@ -805,8 +842,13 @@ var hue = function ($, colors) {
         getState: function() {
             return state;
         },
-        refresh: function(){
-            getBridgeState();
+        refresh: function(data){
+            if (!data) {
+                getBridgeState();
+            } else {
+                onAuthorized(data);
+            }
+            
         },
         heartbeat: function(){
             getLightState();
@@ -823,7 +865,14 @@ var hue = function ($, colors) {
                 return state.groups[group].lights;
             }
             return [actors]; // lights: prefix not used, just return array of number.
-        } 
+        },
+        discover: function(){
+          //window.hue.findBridge(); 
+          discover.start();
+          updateStatus(statusInit.status,statusInit.text);
+          //discoverStatus = 'init';
+
+        }
     };
 };
 

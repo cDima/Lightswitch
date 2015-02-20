@@ -70,8 +70,6 @@ describe("HueDiscover", function() {
     });
 
     it("should brute 84 ips", function() {
-      jasmine.Ajax.stubRequest('https://www.meethue.com/api/nupnp').andReturn({data: [{'internalipaddress': '192.0.0.1'}]});
-
       discover.start();
       expect(discover.ips().length).toEqual(84);
     });
@@ -79,7 +77,7 @@ describe("HueDiscover", function() {
 
   describe("search for nupnp on launch", function() {
 
-    it("should catch response from nupnp ips", function() {
+    it("should handle single bridge from nupnp", function() {
 
       //jasmine.Ajax.stubRequest('https://www.meethue.com/api/nupnp').andReturn({data: [{'internalipaddress': '192.0.0.1'}]});
 
@@ -92,6 +90,23 @@ describe("HueDiscover", function() {
       });
 
       expect(discover.ips().length).toEqual(1);
+
+    });
+
+    it("should handle 2 bridges from nupnp", function() {
+
+      discover.start(undefined, false);
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 200,
+        "contentType": 'application/json',
+        "responseText": JSON.stringify([
+          {'internalipaddress': '192.0.0.1'}, 
+          {'internalipaddress': '192.0.0.2'}
+          ])
+      });
+
+      expect(discover.ips().length).toEqual(2);
 
     });
   });

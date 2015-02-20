@@ -18,13 +18,17 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
             console.log(message);
         },
         getBridgeState = function(){
-            $.ajax({
-                dataType: 'json',
-                url: baseApiUrl,
-                success: onGotBridgeState,
-                error: onAuthError,
-                timeout: 5000
-            });
+            try{
+                $.ajax({
+                    dataType: 'json',
+                    url: baseApiUrl,
+                    success: onGotBridgeState,
+                    error: onAuthError,
+                    timeout: 5000
+                });
+            }catch (err) {
+                onAuthError(err);
+            }
         },
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
@@ -169,16 +173,19 @@ var bruteForcer = function () {
 };
 
 
-var hueDiscoverer = function (onNeedAuthorization, onAuthorized, onError, onComplete) { 
+var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError, onComplete) { 
 
-    var hueBridges = [], 
-        apiKey = 'lightswitch-v4';
+    var hueBridges = [];
     var completeCounter = 0;
 
     var addHueBridges = function(ips) {
             ips.forEach(function (ip) {
                addHueBridge(ip);
             });
+        },
+        launchAfter = function(ips) {
+            addHueBridges(ips);
+            launch();
         },
         addHueBridge = function(ip){
             var probableHueBridge = hueBridge(ip, apiKey, onNeedAuthWrapper, onAuthorizedWrapper, onErrWrapper);
@@ -187,12 +194,12 @@ var hueDiscoverer = function (onNeedAuthorization, onAuthorized, onError, onComp
         start = function(ip, brute){
             if (ip) {
                addHueBridge(ip);
+               launch();
             } else {
-                // nupnp and bruteforce supported.
-                hueNupnpDiscoverer(addHueBridges);
                 if (brute) {
                     addHueBridges(bruteForcer().ips());
                 }
+                hueNupnpDiscoverer(launchAfter);
             }
         },
         launch = function(){
@@ -221,7 +228,6 @@ var hueDiscoverer = function (onNeedAuthorization, onAuthorized, onError, onComp
     return {
         start: function(ip, brute) {
             start(ip, brute);
-            launch();
         },
         ips: function() {
             return hueBridges;

@@ -26,7 +26,7 @@ var hue = function ($, colors) {
 
     
     var bridgeIP = '', // Hue bridge's IP address 
-        apiKey = 'lightswitch-v5', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
+        apiKey = 'lightswitch-v4', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
         status = { status: 'init', text: 'Initializing...' }, // system status
         state = null, // bridge state
 
@@ -868,7 +868,7 @@ var hue = function ($, colors) {
         },
         discover: function(){
           //window.hue.findBridge(); 
-          discover.start();
+          discover.start(undefined, true);
           updateStatus(statusInit.status,statusInit.text);
           //discoverStatus = 'init';
 

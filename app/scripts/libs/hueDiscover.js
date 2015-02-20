@@ -206,6 +206,9 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
             hueBridges.forEach(function(bridge) {
                 bridge.start();
             });
+            if(hueBridges.length === 0) {
+                completed();
+            }
         }, 
         onNeedAuthWrapper = function(ip, status, message) {
             onNeedAuthorization(ip, status, message);
@@ -221,7 +224,7 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
         }, 
         completed = function(){
             completeCounter++;
-            if (completeCounter === hueBridges.length && onComplete) {
+            if (completeCounter >= hueBridges.length && onComplete) {
                 onComplete(); // call when every IP was traversed
             }
         };

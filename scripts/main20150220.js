@@ -6672,9 +6672,11 @@ function initPickers() {
     //$('#picker').click(function(e) { // click event handler
     $('#picker, #picker2, #picker3').on({
       'touchmove': throttleCmd,
-      'mousemove': touchStart,
-      //'mouseover': getColor,
-      'touchstart': touchStart
+      'mousemove': touchMove,
+      'mouseover': touchStart,
+      'touchstart': touchStart,
+      'mouseout': touchOut
+      //'touchout': touchOut
     });
     $('#picker, #picker2, #picker3').click(throttleCmd);
 
@@ -6696,20 +6698,36 @@ function throttleCmd(e){
 function onDelaySend(){
   window.hueCommander.command(currentHex);
   activatedScene('stop');
+  hideCircleDelayed();
+}
 
+// hide circle delayed
+function hideCircleDelayed() {  
   if (hideCircleTimer !== null) {
     clearTimeout(hideCircleTimer); 
   }
-  hideCircleTimer = setTimeout(hideCircle, 2000);
+  hideCircleTimer = setTimeout(hideCircle, 1000);
 }
 
 function hideCircle() {
   circle.fadeOut();
 }
 
+function touchOut(e){
+  getColor(e);
+  hideCircleDelayed();
+  //hideCircleTimer = null;
+  //hideCircle();
+  console.log('touchout');
+}
+function touchMove(e){
+  getColor(e);
+}
 function touchStart(e){
-  circle.show();
-  circle.fadeIn();
+  if (!circle.is(':visible')) {
+    circle.show();
+    circle.fadeIn();
+  }
   getColor(e);
 }
 
@@ -6754,9 +6772,10 @@ function getColor(e){
 
     // show picker circle
     
-    // update preview color
+    // hide on white
     if (pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0) {
-      circle.fadeOut();
+      //circle.fadeOut();
+      //hideCircleDelayed();
       return;
     }
     var pixelColor = 'rgb('+pixel[0]+', '+pixel[1]+', '+pixel[2]+')';

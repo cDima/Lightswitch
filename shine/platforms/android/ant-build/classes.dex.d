@@ -1,11 +1,4 @@
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes.dex : \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\BuildConfig.class \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\CordovaApp.class \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\R$attr.class \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\R$drawable.class \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\R$string.class \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\R$xml.class \
-c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\android\R.class \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\shine\BuildConfig.class \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\shine\CordovaApp.class \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\classes\com\ambieye\shine\R$attr.class \

@@ -39,7 +39,7 @@ android {
     }
 
     compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    buildToolsVersion "19.0.0"
 
     if (multiarch || System.env.BUILD_MULTIPLE_APKS) {
         productFlavors {

@@ -9,6 +9,7 @@ config.scenes = true;
 config.search = true;
 config.tabs = true;
 config.feedback = true;
+config.voice = true;
 
 switch(config.app) {
   case 'light':
@@ -41,6 +42,13 @@ switch(config.app) {
       config.scenes = false;
       config.search = false;
       config.tabs = true;
+      break;
+  case 'win':
+      config.ambieye = false;
+      config.scenes = true;
+      config.search = true;
+      config.tabs = true;
+      config.voice = false;
       break;
  }
 

@@ -173,7 +173,9 @@ gulp.task('html', function() {
 });
 
 // Clean Output Directory
-gulp.task('clean', del.bind(null, ['.tmp', 'dist/**/*', 'dist.zip', '!dist/.git']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist/**/*', 'dist.zip', '!dist/.git'
+  //, '!dist/main*.js'
+  ]));
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['styles'], function() {
@@ -233,6 +235,9 @@ gulp.task('pro', function() {
 });
 gulp.task('web', function() {
    replaceConfigAndManifest('web');
+});
+gulp.task('win', function() {
+   replaceConfigAndManifest('win');
 });
 
 // Build Production Files, the Default Task

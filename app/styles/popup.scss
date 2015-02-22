@@ -2,6 +2,9 @@
 .intro {
     height: 115px;
 }
+body.win .intro {
+   height: 90px; 
+}
 .hidden {
   display: none;
 }
@@ -13,10 +16,15 @@ body {
    min-height: 100%;
    /*position: absolute; -- fixes popup scroll issues*/
 }
-body.web {
+body.web,
+body.win
+ {
    min-height: 100%;
    position: absolute;
 }
+
+
+
 html, body {
     width: 100%;
     min-width: 320px;
@@ -151,6 +159,10 @@ a:focus {outline:0;}
   width: 320px;
   margin: 0 auto;
 }
+body.win .intro-body {
+  padding-top: 0px;
+}
+
 .intro-body {
     animation: fadein 2s;
     -moz-animation: fadein 2s; /* Firefox */
@@ -230,7 +242,9 @@ body.pro .logo {
 body.eye .logo {
   background-image: url(../images/ambience.png);
 }
-body.web .logo {
+body.web .logo,
+body.win .logo
+ {
   background-image: url(../images/ambieye-beta.png);
 }
 body.voice .logo {
@@ -862,18 +876,21 @@ h5 a, h5 a:hover  {
 }
 
 .web .not-web,
+.win .not-win,
 .app .not-app,
 .pro .not-pro,
 .light .not-light,
 .only-app, 
 .only-pro,
 .only-web,
+.only-win,
 .only-light {
   display:none;
 }
 
 .light .only-light,
 .web .only-web,
+.win .only-win,
 .app .only-app,
 .pro .only-pro {
   display: block !important;
@@ -881,6 +898,7 @@ h5 a, h5 a:hover  {
 }
 .light span.only-light,
 .web span.only-web,
+.win span.only-win,
 .app span.only-app,
 .pro span.only-pro {
   display: inline-block !important;

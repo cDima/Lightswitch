@@ -461,7 +461,9 @@ function showManualBridge(){
     });
     hideControls();
 
-    hue.discover();
+    setTimeout(function(){
+      hue.discover();
+    }, 2000);
 }
 
 function onStatus(status) {
@@ -967,7 +969,8 @@ function initGravity() {
         clearInterval(gravity.timer);
         gravity.timer = null;
       } else {    
-        gravity.timer = setInterval(gravityUpdate, 300);
+        //gravity.timer = setInterval(gravityUpdate, 300);
+        gravity.timer = setTimeout(gravityUpdate, 300);
       }
     });
     $('#toggle-north').click(function(e){
@@ -1108,6 +1111,8 @@ function gravityUpdate(){
     $('#rgbVal').css({backgroundColor: color});
 
     activatedScene('stop');
+
+    setTimeout(gravityUpdate, 500);
   }
 }
 
@@ -1121,7 +1126,7 @@ function initPickers() {
     $('#picker, #picker2, #picker3').on({
       'touchmove': throttleCmd,
       'mousemove': touchMove,
-      'mouseover': touchStart,
+      'mouseover': mouseStart,
       'touchstart': touchStart,
       'mouseout': touchOut
       //'touchout': touchOut
@@ -1140,7 +1145,7 @@ function throttleCmd(e){
     if (hideCircleTimer !== null) {
       clearTimeout(hideCircleTimer); 
     }
-    delayedSend = setTimeout(onDelaySend, 100);
+    delayedSend = setTimeout(onDelaySend, 500);
 }
 
 function onDelaySend(){
@@ -1158,25 +1163,28 @@ function hideCircleDelayed() {
 }
 
 function hideCircle() {
-  circle.fadeOut();
+  circle.stop(true).fadeOut();
 }
 
 function touchOut(e){
   getColor(e);
-  hideCircleDelayed();
-  //hideCircleTimer = null;
-  //hideCircle();
+  //hideCircleDelayed();
+  hideCircleTimer = null;
+  hideCircle();
   console.log('touchout');
 }
 function touchMove(e){
   getColor(e);
 }
-function touchStart(e){
-  if (!circle.is(':visible')) {
-    circle.show();
-    circle.fadeIn();
+
+function mouseStart(e){
+  if (!circle.is(':visible') || circle.is(':animated')) {
+    circle.stop(true).show().fadeIn();
   }
-  getColor(e);
+}
+function touchStart(e){
+  mouseStart(e);
+  throttleCmd(e);
 }
 
 function getColor(e){
@@ -1389,7 +1397,7 @@ function initVoice() {
   if (huevoice === null) {
     huevoice = voice(hue);
   }
-  if (huevoice.notAvailable()) {
+  if (huevoice.notAvailable() || config.voice === false) {
     $('.voice-control').hide();
   } else {
     $('.voice-control').fadeIn();

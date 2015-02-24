@@ -73,7 +73,6 @@ var voice = function () {
 
     function onEnd(){
         console.log('voice end');
-        trackEvent('voice', 'end');
         //recognition.start();
         if (endfunc) {
             endfunc();

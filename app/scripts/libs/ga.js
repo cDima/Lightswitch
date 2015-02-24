@@ -250,11 +250,11 @@ function trackEvent(category, action, label, value, data) {
 		mixpanel.track(label, obj);
 	}
 
-	if (data !== null) {
+	if (data) {
 		trackState(category, obj)
 	}
 }
-
+/*
 window.addEventListener('error', function (err) {
     var lineAndColumnInfo = err.colno ? ' line:' + err.lineno +', column:'+ err.colno : ' line:' + e.lineno;
     ga(
@@ -299,7 +299,7 @@ $(document).ajaxError(function (event, request, settings) {
         true
     );
 });
-
+*/
 if (config.app === 'pro' || config.app === 'web') {
 	// script.fail
 	(function(_, __) { _._errs = []; var h = _.onerror; var f = function() { var a = arguments; _errs.push(a); h && h.apply(this, a)}; 

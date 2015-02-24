@@ -255,6 +255,51 @@ function trackEvent(category, action, label, value, data) {
 	}
 }
 
+window.addEventListener('error', function (err) {
+    var lineAndColumnInfo = err.colno ? ' line:' + err.lineno +', column:'+ err.colno : ' line:' + e.lineno;
+    ga(
+        'send',
+        'event',
+        'JavaScript Error',
+        err.message,
+        err.filename + lineAndColumnInfo + ' -> ' +  navigator.userAgent,
+        0,
+        true
+    );
+});
+
+// jQuery errors handler (jQuery API)
+$.error = function (message) {
+    ga(
+        'send',
+        'event',
+        'jQuery Error',
+        message,
+        navigator.userAgent,
+        0,
+        true
+    );
+}
+
+// jQuery AJAX errors handler (jQuery API)
+$(document).ajaxError(function (event, request, settings) {
+    ga(
+        'send',
+        'event',
+        'jQuery Ajax Error',
+        settings.url,
+        JSON.stringify({
+            result: event.result,
+            status: request.status,
+            statusText: request.statusText,
+            crossDomain: settings.crossDomain,
+            dataType: settings.dataType
+        }),
+        0,
+        true
+    );
+});
+
 if (config.app === 'pro' || config.app === 'web') {
 	// script.fail
 	(function(_, __) { _._errs = []; var h = _.onerror; var f = function() { var a = arguments; _errs.push(a); h && h.apply(this, a)}; 

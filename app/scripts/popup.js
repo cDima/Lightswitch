@@ -14,6 +14,7 @@
           Palettes:false, 
           scenes:false, 
           trackEvent:false,
+          trackState,
           colorUtil:false,
           ga:false
           Ambient:false,
@@ -692,6 +693,7 @@ function toggleActiveClick(){
 function fillSettings() {
     var state =window.hue.getState();
 
+    
     // safari ios compatibility issues:
     var i = 0,
         key = null, 
@@ -705,6 +707,7 @@ function fillSettings() {
     }
 
     if (state.lights !== null && state.lights !== undefined) {
+        trackState('config', state);
 
         trackEvent('settings', 'init', 'version', state.config.swversion);
         trackEvent('settings', 'init', 'ip', state.config.ipaddress);

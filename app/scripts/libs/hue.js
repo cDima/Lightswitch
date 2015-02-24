@@ -49,7 +49,7 @@ var hue = function ($, colors) {
         retryAuthCounter = 0,
         errorCounter = 0;
 
-    discover = hueDiscoverer(apiKey, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+        discover = hueDiscoverer(apiKey, onNeedAuthorization, onIpAuthorized, onError, onComplete);
 
         var statusInit = {status: 'init', text: 'Initializing...'};
         var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};

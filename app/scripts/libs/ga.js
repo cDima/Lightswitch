@@ -215,16 +215,44 @@ if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
 }
 /**/
 
-function trackEvent(category, action, label, value) {
-  ga('send', 'event', category, action, {
-  	'nonInteraction': 1, 
-  	'label': label, 
-  	'value': value
-  }); 
+function trackState(name, state) {
+	try{
+		$.ajax('http://huekit.elasticbeanstalk.com/api/track/' + name, {
+			data: JSON.stringify(state),
+			type: 'put',
+			processData: false,
+			contentType: 'application/json',
+			error: function(err) {
+				console.log(err);
+			}
+		});
+	} catch(ex){
+		// do nothing
+	}
+}
 
-  if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
-  	mixpanel.track(label, {'category': category, 'action': action, 'value': value});
-  }
+function trackEvent(category, action, label, value, data) {
+
+	ga('send', 'event', category, action, {
+		'nonInteraction': 1, 
+		'label': label, 
+		'value': value
+	}); 
+
+	var obj = {
+		'category': category, 
+		'action': action, 
+		'value': value,
+		'data': data
+	};
+
+	if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
+		mixpanel.track(label, obj);
+	}
+
+	if (data !== null) {
+		trackState(category, obj)
+	}
 }
 
 if (config.app === 'pro' || config.app === 'web') {

@@ -1,7 +1,7 @@
 // Dmitry Sadakov 2015 Voice module
 /*globals 
-    SpeechSynthesisUtterance: false
-
+    SpeechSynthesisUtterance: false,
+    trackEvent
 */
 /*exported voice, voiceCommander, huevoice, voiceCmd */
 'use strict';
@@ -60,6 +60,7 @@ var voice = function () {
 
     function onStarted(){
         console.log('voice started');
+        trackEvent('voice', 'started');
     }
 
     function onErrored(err){
@@ -67,10 +68,12 @@ var voice = function () {
         if (errfunc) {
             errfunc(err);
         }    
+        trackEvent('voice', 'error', err.message);
     }
 
     function onEnd(){
         console.log('voice end');
+        trackEvent('voice', 'end');
         //recognition.start();
         if (endfunc) {
             endfunc();
@@ -84,6 +87,7 @@ var voice = function () {
         }
 
         console.log('voice:' + text);
+        trackEvent('voice', 'speech', text);
 
         if (callback) {
         	callback(text);
@@ -154,9 +158,12 @@ var reaction = function() {
             text = filters[index](text);
         }
         
+        var obj = {'voice': true, 'text': textIn, 'text-reaction': text, match: false};
         for (var item in items) {
             if (items[item][0].test(text)) {
                 console.log('filtered text: "' + textIn + '" -> "' + text +'" matched: ' + items[item][0]);
+                obj.match = items[item][0];
+                trackEvent('voice', 'reaction', text, textIn, obj);
                 var args = items[item][0].exec(text);
                 args.unshift(text);
                 var func = items[item][1];
@@ -165,6 +172,7 @@ var reaction = function() {
             }
         }
         console.log('filtered text: "' + textIn + '" -> "' + text +'", no match');
+        trackEvent('voice', 'reaction', text, textIn, obj);
         if (otherwise) {
           otherwise.apply(null, [text]);
         }

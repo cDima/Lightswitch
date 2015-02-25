@@ -1,5 +1,5 @@
 // Dmitry Sadakov 2015 Voice standalone 
-/*globals  $, voiceCommander, voice, chrome */
+/*globals  $, voiceCommander, voice, sendToMothership */
 
 /*exported huevoice, voiceCmdFunc */
 'use strict';
@@ -35,8 +35,6 @@ function toggleVoice() {
 }
 
 
-var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
-var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
 
 function voiceCmdProxy(text, match, action, actor) {
 
@@ -55,10 +53,6 @@ function voiceCmdProxy(text, match, action, actor) {
     sendToMothership(obj);
 }
 
-function sendToMothership(obj){
-    chrome.runtime.sendMessage(editorExtensionId, obj);
-    chrome.runtime.sendMessage(editorExtensionIdProd, obj);
-}
 
 function voiceError(err){
   var mic = $('#voice-mic');

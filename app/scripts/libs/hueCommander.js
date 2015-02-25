@@ -225,7 +225,35 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 on = on || lamp.state.on;
             });
             return on;
-        };
+        }, 
+        discover = function(){
+            hue.discover();
+        }, 
+        onStatusChange = function(onStatus){
+            hue.onStatusChange(onStatus);
+        }, 
+        setIp = function(ip){
+            hue.setIp(ip);
+        }, 
+        heartbeat = function(){
+            hue.heartbeat();
+        },
+        createGroup = function(name, lampIds){
+            hue.createGroup(name, lampIds);
+        },
+        createGroup = function(key){
+            hue.removeGroup(key);
+        },
+        refresh =  function(){
+            hue.refresh();
+        },
+        flash = function(key){
+            hue.flash(key);
+        },
+        getState = function(){
+            return hue.getState();
+        }
+        ;
         
  
     return {
@@ -249,6 +277,36 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         setLogger: function(logHandler) {
             logger = logHandler;
+        }, 
+        parse: function(cmd, args){
+            return this[cmd](args);
+        },
+        discover: function() {
+            discover();
+        }, 
+        onStatusChange: function(onStatus){
+            onStatusChange(onStatus);
+        },
+        setIp: function(ip){
+            setIp(ip);
+        }, 
+        heartbeat: function(){
+            heartbeat();
+        },
+        createGroup: function(name, lampIds){
+            createGroup(name, lampIds);
+        },
+        removeGroup: function(key){
+            removeGroup(key);
+        },
+        refresh: function(){
+            refresh();
+        },
+        flash: function(key){
+            flash(key);
+        },
+        getState: function(){
+            return getState();
         }
     };
 };

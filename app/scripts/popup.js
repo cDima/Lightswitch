@@ -215,22 +215,26 @@ function initGlobals(){
       tryEnableEye();
       $('#ambieyepermissions').click(initRequestEye);
 
+    } else if (location.protocol === 'https:') {
+        // page is secure, hue commander needs to use proxy to LPS.
+        window.hueProxy = hueProxy();
+
     } else {
         log('loading as no chrome, running standalone');
         window.hue = hue(window.jQuery, window.colors);
-
-        hue.discover();
-
         sceneCmd = sceneCommander(window.jQuery, window.hue);
         ambieye = window.Ambient;
         window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+        window.hueProxy = hueProxy(window.hueCommander);
+
+        hueProxy.discover();
     }
 
     ambieye.onUpdate(updatePreviewColors);
 
     log('client: binding to status change.');
 
-    window.hue.onStatusChange(onStatus);
+    window.hueProxy.onStatusChange(onStatus);
     window.hueCommander.setLogger(log);
     window.sceneCmd.setLogger(log);
 
@@ -435,8 +439,8 @@ function tryIP(ip, error){
         dataType: 'json',
         url: 'http://' + ip + '/api/123-bogus',
         success: function(){
-          hue.setIp(ip);
-          hue.heartbeat();
+          hueProxy.setIp(ip);
+          hueProxy.heartbeat();
         },
         error: error,
         timeout: 2000
@@ -463,7 +467,7 @@ function showManualBridge(){
     hideControls();
 
     setTimeout(function(){
-      hue.discover();
+      hueProxy.discover();
     }, 2000);
 }
 
@@ -498,7 +502,7 @@ function stopHeartbeat(){
 
 function startHeartbeat() {
   log('Starting heartbeat');
-  heartbeat = setInterval(window.hue.heartbeat, heartbeatInterval);
+  heartbeat = setInterval(window.hueProxy.heartbeat, heartbeatInterval);
 }
 
 
@@ -635,9 +639,9 @@ function initGroupCreation() {
       }
       $('#group-add-lamps').removeClass('error');
       // add group
-      hue.createGroup(name, lampIds);
+      hueProxy.createGroup(name, lampIds);
       // reset
-      hue.refresh();
+      hueProxy.refresh();
       setTimeout(fillSettings, 4000);
     });
 }
@@ -657,7 +661,7 @@ function actorClick(event){
 
 function flashLamp(){
   var key = event.target.id;
-  hue.flash(key);
+  hueProxy.flash(key);
   return false;
 }
 
@@ -668,8 +672,8 @@ function setActor(key) {
 
 function removeGroupClick(){
   var key = event.target.id;
-  hue.removeGroup(key);
-  hue.refresh();
+  hueProxy.removeGroup(key);
+  hueProxy.refresh();
   setTimeout(fillSettings, 2000);
   $(event.target).hide('slow');
 }
@@ -691,7 +695,7 @@ function toggleActiveClick(){
 }
 
 function fillSettings() {
-    var state =window.hue.getState();
+    var state =window.hueProxy.getState();
 
     
     // safari ios compatibility issues:

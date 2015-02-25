@@ -62,6 +62,12 @@ function onExternal(request, sender, sendResponse) {
       request.voiceCmd.action,
       request.voiceCmd.actor);
   }
+  if (request.hueCommand) {
+    var result = hueCommander.parse(request.hueCommand.cmd, request.hueCommand.args);
+    if(sendResponse) {
+      sendResponse(result);
+    }
+  }
 }
 
 

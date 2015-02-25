@@ -118,7 +118,6 @@ var hueNupnpDiscoverer = function (onReady) {
             $.ajax({
                 url: 'https://www.meethue.com/api/nupnp',
                 dataType: 'json',
-                type: 'put',
                 timeout: 2000,
                 success: onNupnpResponse,
                 error: errorNupnp

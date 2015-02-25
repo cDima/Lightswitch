@@ -241,7 +241,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         createGroup = function(name, lampIds){
             hue.createGroup(name, lampIds);
         },
-        createGroup = function(key){
+        removeGroup = function(key){
             hue.removeGroup(key);
         },
         refresh =  function(){
@@ -252,6 +252,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         getState = function(){
             return hue.getState();
+        },
+        getStatus = function(){
+            return hue.getStatus();
         }
         ;
         
@@ -278,8 +281,8 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         setLogger: function(logHandler) {
             logger = logHandler;
         }, 
-        parse: function(cmd, args){
-            return this[cmd](args);
+        parse: function(cmd){
+            return this[cmd.hueCommand.command](cmd.hueCommand.args);
         },
         discover: function() {
             discover();
@@ -307,6 +310,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         getState: function(){
             return getState();
+        },
+        getStatus: function(){
+            return getStatus();
         }
     };
 };

@@ -8,12 +8,14 @@
 /*exported hueProxy
 */
 
-var hueproxy = function(hueCommander) {
+var hueProxy = function(hueCommander) {
 
-    function sendToMothership(obj, callback){
-
+    function sendToMothership(obj, args, callback){
         if (hueCommander) {
-            hueCommander.parse(obj, callback);
+            var result = hueCommander.parse(obj, args);
+            if (result && callback) {
+                callback(result);
+            }
         } else {
             var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
             var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
@@ -23,17 +25,22 @@ var hueproxy = function(hueCommander) {
     }
 
     function hueCommand(command, args, callback) {
+        if (typeof(args) === 'function') {
+            // reorder arguments if second is skipped
+            callback = args;
+            args = undefined;
+        }
         var obj = {
             hueCommand: {
                 command: command,
                 args: args
             }
         };
-        sendToMothership(obj, callback);
+        sendToMothership(obj, args, callback);
     }
 
     return {
-        hueCommand: hueCommand,
+        cmd: hueCommand,
         sendToMothership: sendToMothership
     };
-}
+};

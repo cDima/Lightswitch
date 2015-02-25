@@ -29,7 +29,8 @@
           executeToggle,
           executeBrightness,
           executeCommand,
-          voiceCommander
+          voiceCommander,
+          hueProxy
 */
 
 /* exported socialLikesButtons, voiceCmdFunc */
@@ -88,6 +89,7 @@ $(document).ready(function(){
     initManualBridge();
     initGroupCreation();
 
+    // todo: safe to remove?
     if (window.hue.status === 'OK') {
       $('#lightswitch').prop('checked', window.hue.status.data);
     }
@@ -227,17 +229,17 @@ function initGlobals(){
         window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
         window.hueProxy = hueProxy(window.hueCommander);
 
-        hueProxy.discover();
+        hueProxy.cmd('discover');
     }
 
     ambieye.onUpdate(updatePreviewColors);
 
     log('client: binding to status change.');
 
-    window.hueProxy.onStatusChange(onStatus);
     window.hueCommander.setLogger(log);
     window.sceneCmd.setLogger(log);
 
+    requestStatus();
 
     $('.switch').hide();
     $('#controls').hide();
@@ -246,6 +248,20 @@ function initGlobals(){
     setInitialHeight();
 }
  
+var hueStatusRequestInterval = null;
+
+function requestStatus(){
+  window.hueProxy.cmd('getStatus', onHueStatusUpdate);
+  if (!hueStatusRequestInterval) {
+    hueStatusRequestInterval = setInterval(requestStatus, 500); 
+  }
+}
+
+function onHueStatusUpdate(status) {
+  if (status) {
+    onStatus(status);
+  }
+}
 
 function initRequestEye(){
   requestAmbientPermissionOnClient(function(granted) {
@@ -439,8 +455,8 @@ function tryIP(ip, error){
         dataType: 'json',
         url: 'http://' + ip + '/api/123-bogus',
         success: function(){
-          hueProxy.setIp(ip);
-          hueProxy.heartbeat();
+          hueProxy.cmd('setIp', ip);
+          hueProxy.cmd('heartbeat');
         },
         error: error,
         timeout: 2000
@@ -467,11 +483,18 @@ function showManualBridge(){
     hideControls();
 
     setTimeout(function(){
-      hueProxy.discover();
+      hueProxy.cmd('discover');
     }, 2000);
 }
 
+var cachedStatus = null;
 function onStatus(status) {
+    if (JSON.stringify(status) !== JSON.stringify(cachedStatus) ) {
+        cachedStatus = status;
+    } else {
+      // same status, ignore onStatus call.
+      return;
+    }
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
@@ -502,9 +525,14 @@ function stopHeartbeat(){
 
 function startHeartbeat() {
   log('Starting heartbeat');
-  heartbeat = setInterval(window.hueProxy.heartbeat, heartbeatInterval);
+  heartbeat = setInterval(hueHeartbeat, heartbeatInterval);
 }
 
+function hueHeartbeat() {
+  hueProxy.cmd('heartbeat');
+  requestSettings();
+  //hueProxy.cmd('getState', null, fillSettings); // will get previous state
+}
 
 function onBridgeNotFound(status) {
   $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
@@ -567,7 +595,7 @@ function onSuccessfulInit(){
   $('.switch').fadeIn(600, showControls);
     
   //$('body').addClass('on');
-  fillSettings();
+  requestSettings();
 
   // successfully started, unless All group was not set correctly, then no actors are set.
   //var autostartScene = $.QueryString.autostartscene;
@@ -642,7 +670,7 @@ function initGroupCreation() {
       hueProxy.createGroup(name, lampIds);
       // reset
       hueProxy.refresh();
-      setTimeout(fillSettings, 4000);
+      setTimeout(requestSettings, 4000);
     });
 }
 
@@ -672,9 +700,9 @@ function setActor(key) {
 
 function removeGroupClick(){
   var key = event.target.id;
-  hueProxy.removeGroup(key);
-  hueProxy.refresh();
-  setTimeout(fillSettings, 2000);
+  hueProxy.cmd('removeGroup', key);
+  hueProxy.cmd('refresh');
+  setTimeout(requestSettings, 2000);
   $(event.target).hide('slow');
 }
 
@@ -694,10 +722,12 @@ function toggleActiveClick(){
   $(event.target).toggleClass('active');
 }
 
-function fillSettings() {
-    var state =window.hueProxy.getState();
+function requestSettings(){
+  hueProxy.cmd('getState', null, fillSettings); // will get previous state
+}
 
-    
+function fillSettings(state) {
+    //var state =window.hueProxy.getState();
     // safari ios compatibility issues:
     var i = 0,
         key = null, 
@@ -705,8 +735,8 @@ function fillSettings() {
         btn = null, 
         selector = null;
 
-    if (state === null) {
-      setTimeout(fillSettings, 1000); // reset UI in a bit.
+    if (state) {
+      setTimeout(requestSettings, 1000); // reset UI in a bit.
       return;
     }
 

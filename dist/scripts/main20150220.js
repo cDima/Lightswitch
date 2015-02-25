@@ -3794,7 +3794,6 @@ var hueNupnpDiscoverer = function (onReady) {
             $.ajax({
                 url: 'https://www.meethue.com/api/nupnp',
                 dataType: 'json',
-                type: 'put',
                 timeout: 2000,
                 success: onNupnpResponse,
                 error: errorNupnp
@@ -4757,6 +4756,9 @@ var hue = function ($, colors) {
         getState: function() {
             return state;
         },
+        getStatus: function() {
+            return status;
+        },
         refresh: function(data){
             if (!data) {
                 getBridgeState();
@@ -5290,7 +5292,38 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
                 on = on || lamp.state.on;
             });
             return on;
-        };
+        }, 
+        discover = function(){
+            hue.discover();
+        }, 
+        onStatusChange = function(onStatus){
+            hue.onStatusChange(onStatus);
+        }, 
+        setIp = function(ip){
+            hue.setIp(ip);
+        }, 
+        heartbeat = function(){
+            hue.heartbeat();
+        },
+        createGroup = function(name, lampIds){
+            hue.createGroup(name, lampIds);
+        },
+        removeGroup = function(key){
+            hue.removeGroup(key);
+        },
+        refresh =  function(){
+            hue.refresh();
+        },
+        flash = function(key){
+            hue.flash(key);
+        },
+        getState = function(){
+            return hue.getState();
+        },
+        getStatus = function(){
+            return hue.getStatus();
+        }
+        ;
         
  
     return {
@@ -5315,8 +5348,38 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         setLogger: function(logHandler) {
             logger = logHandler;
         }, 
-        parse: function(cmd, args){
-            return this[cmd](args);
+        parse: function(cmd){
+            return this[cmd.hueCommand.command](cmd.hueCommand.args);
+        },
+        discover: function() {
+            discover();
+        }, 
+        onStatusChange: function(onStatus){
+            onStatusChange(onStatus);
+        },
+        setIp: function(ip){
+            setIp(ip);
+        }, 
+        heartbeat: function(){
+            heartbeat();
+        },
+        createGroup: function(name, lampIds){
+            createGroup(name, lampIds);
+        },
+        removeGroup: function(key){
+            removeGroup(key);
+        },
+        refresh: function(){
+            refresh();
+        },
+        flash: function(key){
+            flash(key);
+        },
+        getState: function(){
+            return getState();
+        },
+        getStatus: function(){
+            return getStatus();
         }
     };
 };
@@ -5650,27 +5713,45 @@ function voiceCmd(text, match, action, actor) {
 'use strict';
 
 /* globals chrome */
-/*exported  sendToMothership, hueCommand
+/*exported hueProxy
 */
 
+var hueProxy = function(hueCommander) {
 
-
-function sendToMothership(obj, callback){
-  var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
-  var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
-  chrome.runtime.sendMessage(editorExtensionId, obj, callback);
-  chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
-}
-
-function hueCommand(command, args, callback) {
-    var obj = {
-        hueCommand: {
-            command: command,
-            args: args
+    function sendToMothership(obj, args, callback){
+        if (hueCommander) {
+            var result = hueCommander.parse(obj, args);
+            if (result && callback) {
+                callback(result);
+            }
+        } else {
+            var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
+            var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
+            chrome.runtime.sendMessage(editorExtensionId, obj, callback);
+            chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
         }
+    }
+
+    function hueCommand(command, args, callback) {
+        if (typeof(args) === 'function') {
+            // reorder arguments if second is skipped
+            callback = args;
+            args = undefined;
+        }
+        var obj = {
+            hueCommand: {
+                command: command,
+                args: args
+            }
+        };
+        sendToMothership(obj, args, callback);
+    }
+
+    return {
+        cmd: hueCommand,
+        sendToMothership: sendToMothership
     };
-    sendToMothership(obj, callback);
-}
+};
 /**
  * Dmitry Sadakov"s Philips Hue api wrapper popup page
  * Copyright (c) 2014 Dmitry Sadakov, All rights reserved.
@@ -5702,7 +5783,8 @@ function hueCommand(command, args, callback) {
           executeToggle,
           executeBrightness,
           executeCommand,
-          voiceCommander
+          voiceCommander,
+          hueProxy
 */
 
 /* exported socialLikesButtons, voiceCmdFunc */
@@ -5761,6 +5843,7 @@ $(document).ready(function(){
     initManualBridge();
     initGroupCreation();
 
+    // todo: safe to remove?
     if (window.hue.status === 'OK') {
       $('#lightswitch').prop('checked', window.hue.status.data);
     }
@@ -5888,25 +5971,29 @@ function initGlobals(){
       tryEnableEye();
       $('#ambieyepermissions').click(initRequestEye);
 
+    } else if (location.protocol === 'https:') {
+        // page is secure, hue commander needs to use proxy to LPS.
+        window.hueProxy = hueProxy();
+
     } else {
         log('loading as no chrome, running standalone');
         window.hue = hue(window.jQuery, window.colors);
-
-        hue.discover();
-
         sceneCmd = sceneCommander(window.jQuery, window.hue);
         ambieye = window.Ambient;
         window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+        window.hueProxy = hueProxy(window.hueCommander);
+
+        hueProxy.cmd('discover');
     }
 
     ambieye.onUpdate(updatePreviewColors);
 
     log('client: binding to status change.');
 
-    window.hue.onStatusChange(onStatus);
     window.hueCommander.setLogger(log);
     window.sceneCmd.setLogger(log);
 
+    requestStatus();
 
     $('.switch').hide();
     $('#controls').hide();
@@ -5915,6 +6002,20 @@ function initGlobals(){
     setInitialHeight();
 }
  
+var hueStatusRequestInterval = null;
+
+function requestStatus(){
+  window.hueProxy.cmd('getStatus', onHueStatusUpdate);
+  if (!hueStatusRequestInterval) {
+    hueStatusRequestInterval = setInterval(requestStatus, 500); 
+  }
+}
+
+function onHueStatusUpdate(status) {
+  if (status) {
+    onStatus(status);
+  }
+}
 
 function initRequestEye(){
   requestAmbientPermissionOnClient(function(granted) {
@@ -6108,8 +6209,8 @@ function tryIP(ip, error){
         dataType: 'json',
         url: 'http://' + ip + '/api/123-bogus',
         success: function(){
-          hue.setIp(ip);
-          hue.heartbeat();
+          hueProxy.cmd('setIp', ip);
+          hueProxy.cmd('heartbeat');
         },
         error: error,
         timeout: 2000
@@ -6136,11 +6237,18 @@ function showManualBridge(){
     hideControls();
 
     setTimeout(function(){
-      hue.discover();
+      hueProxy.cmd('discover');
     }, 2000);
 }
 
+var cachedStatus = null;
 function onStatus(status) {
+    if (JSON.stringify(status) !== JSON.stringify(cachedStatus) ) {
+        cachedStatus = status;
+    } else {
+      // same status, ignore onStatus call.
+      return;
+    }
     console.log('client: status changed - ' + status.status);
     
     if (status.status === 'BridgeNotFound') {
@@ -6171,9 +6279,14 @@ function stopHeartbeat(){
 
 function startHeartbeat() {
   log('Starting heartbeat');
-  heartbeat = setInterval(window.hue.heartbeat, heartbeatInterval);
+  heartbeat = setInterval(hueHeartbeat, heartbeatInterval);
 }
 
+function hueHeartbeat() {
+  hueProxy.cmd('heartbeat');
+  requestSettings();
+  //hueProxy.cmd('getState', null, fillSettings); // will get previous state
+}
 
 function onBridgeNotFound(status) {
   $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
@@ -6236,7 +6349,7 @@ function onSuccessfulInit(){
   $('.switch').fadeIn(600, showControls);
     
   //$('body').addClass('on');
-  fillSettings();
+  requestSettings();
 
   // successfully started, unless All group was not set correctly, then no actors are set.
   //var autostartScene = $.QueryString.autostartscene;
@@ -6308,10 +6421,10 @@ function initGroupCreation() {
       }
       $('#group-add-lamps').removeClass('error');
       // add group
-      hue.createGroup(name, lampIds);
+      hueProxy.createGroup(name, lampIds);
       // reset
-      hue.refresh();
-      setTimeout(fillSettings, 4000);
+      hueProxy.refresh();
+      setTimeout(requestSettings, 4000);
     });
 }
 
@@ -6330,7 +6443,7 @@ function actorClick(event){
 
 function flashLamp(){
   var key = event.target.id;
-  hue.flash(key);
+  hueProxy.flash(key);
   return false;
 }
 
@@ -6341,9 +6454,9 @@ function setActor(key) {
 
 function removeGroupClick(){
   var key = event.target.id;
-  hue.removeGroup(key);
-  hue.refresh();
-  setTimeout(fillSettings, 2000);
+  hueProxy.cmd('removeGroup', key);
+  hueProxy.cmd('refresh');
+  setTimeout(requestSettings, 2000);
   $(event.target).hide('slow');
 }
 
@@ -6363,10 +6476,12 @@ function toggleActiveClick(){
   $(event.target).toggleClass('active');
 }
 
-function fillSettings() {
-    var state =window.hue.getState();
+function requestSettings(){
+  hueProxy.cmd('getState', null, fillSettings); // will get previous state
+}
 
-    
+function fillSettings(state) {
+    //var state =window.hueProxy.getState();
     // safari ios compatibility issues:
     var i = 0,
         key = null, 
@@ -6374,8 +6489,8 @@ function fillSettings() {
         btn = null, 
         selector = null;
 
-    if (state === null) {
-      setTimeout(fillSettings, 1000); // reset UI in a bit.
+    if (state) {
+      setTimeout(requestSettings, 1000); // reset UI in a bit.
       return;
     }
 

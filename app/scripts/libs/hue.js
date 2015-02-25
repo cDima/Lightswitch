@@ -842,6 +842,9 @@ var hue = function ($, colors) {
         getState: function() {
             return state;
         },
+        getStatus: function() {
+            return status;
+        },
         refresh: function(data){
             if (!data) {
                 getBridgeState();

@@ -15,10 +15,16 @@
 }
 .slider.slider-horizontal {
   height: 20px;
-  width: 100%;
   width: 275px;
+  width: 100%;
 }
+
+body.pro .slider.slider-horizontal {
+  zoom: 1.25; /* chrome what are you doing to zoom reset? */
+}
+
 #brightness-control {
+  width: 275px;
 }
 #brightness-control .slider-selection {
 }
@@ -37,7 +43,7 @@
 }
 .slider.slider-horizontal .slider-handle {
   margin-left: -10px;
-  margin-top: -5px;
+  margin-top: -6px;
 }
 .slider.slider-horizontal .slider-handle.triangle {
   border-width: 0 10px 10px 10px;
@@ -119,9 +125,9 @@
   border-radius: 4px;
 }
 .slider-handle {
+  width: 16px;
+  height: 16px;
   position: absolute;
-  width: 20px;
-  height: 20px;
   background-color: #0e90d2;
   background-image: -moz-linear-gradient(top, #149bdf, #0480be);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
@@ -165,12 +171,12 @@
   background-color: #fff;
   border-radius: 100%;
   cursor: move;
-  height: 20px;
+  height: 16px;
+  width: 16px;
   left: 0;
   top: 0px;
   opacity: 1; 
   position: absolute;
-  width: 20px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   background-image: none;
@@ -183,7 +189,7 @@
 }
 
 .slider.slider-horizontal .slider-handle {
-margin-top: -8px;
+margin-top: -6px;
 }
 .slider.slider-horizontal .slider-track {
   height: 5px;

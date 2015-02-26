@@ -208,7 +208,19 @@ function initGlobals(){
       background = chrome.extension.getBackgroundPage();
     }
 
-    if (background !== null) {
+    if (location.protocol === 'https:') {
+        // page is secure, hue commander needs to use proxy to LPS.
+        window.hueProxy = hueProxy();
+
+        $('#https-proxy').show();
+
+        /* disfunctional probably: */
+        ambieye = window.Ambient;
+        window.hue = hue(window.jQuery, window.colors);
+        sceneCmd = sceneCommander(window.jQuery, window.hue);
+        window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+        
+    } else if (background !== null) {
       window.hue = background.hue;
       sceneCmd = background.sceneCmd;
       ambieye = background.Ambient;
@@ -216,11 +228,9 @@ function initGlobals(){
       hueCommander = background.hueCommander;
       window.hueProxy = hueProxy(window.hueCommander);
       tryEnableEye();
+      ambieye.onUpdate(updatePreviewColors);
       $('#ambieyepermissions').click(initRequestEye);
 
-    } else if (location.protocol === 'https:') {
-        // page is secure, hue commander needs to use proxy to LPS.
-        window.hueProxy = hueProxy();
     } else {
         log('loading as no chrome, running standalone');
         window.hue = hue(window.jQuery, window.colors);
@@ -228,11 +238,12 @@ function initGlobals(){
         ambieye = window.Ambient;
         window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
         window.hueProxy = hueProxy(window.hueCommander);
+        ambieye.onUpdate(updatePreviewColors);
 
         hueProxy.cmd('discover');
     }
 
-    ambieye.onUpdate(updatePreviewColors);
+    
 
     log('client: binding to status change.');
 
@@ -544,6 +555,8 @@ function onBridgeConnected(status){
 
   $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
   $('#manualbridgeip').hide();
+  $('#https-proxy').hide();
+
   $('#lightswitch').prop('disabled', false);
 
   // time to screen

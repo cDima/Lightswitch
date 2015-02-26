@@ -214,13 +214,13 @@ function initGlobals(){
       ambieye = background.Ambient;
       huevoice = background.voice();
       hueCommander = background.hueCommander;
+      window.hueProxy = hueProxy(window.hueCommander);
       tryEnableEye();
       $('#ambieyepermissions').click(initRequestEye);
 
     } else if (location.protocol === 'https:') {
         // page is secure, hue commander needs to use proxy to LPS.
         window.hueProxy = hueProxy();
-
     } else {
         log('loading as no chrome, running standalone');
         window.hue = hue(window.jQuery, window.colors);
@@ -236,8 +236,8 @@ function initGlobals(){
 
     log('client: binding to status change.');
 
-    window.hueCommander.setLogger(log);
-    window.sceneCmd.setLogger(log);
+    //window.hueCommander.setLogger(log);
+    //window.sceneCmd.setLogger(log);
 
     requestStatus();
 
@@ -407,7 +407,7 @@ function showPalettes(palettes){
 
     $(result).click(function(){
       scenes.RelaxedRandom.Palette = v.colors.map(function(n) { return '#' + n; });
-      hueCommander.command('scene:RelaxedRandom');
+      hueProxy.cmd('command', 'scene:RelaxedRandom');
       activatedScene('RelaxedRandom');
     });
 
@@ -530,7 +530,7 @@ function startHeartbeat() {
 
 function hueHeartbeat() {
   hueProxy.cmd('heartbeat');
-  requestSettings();
+  //requestSettings();
   //hueProxy.cmd('getState', null, fillSettings); // will get previous state
 }
 
@@ -623,15 +623,17 @@ function setHeight(height, transitionTime) {
   }
 }
 
-function updateUIForActors(){
-  var actors = window.hueCommander.getActorStates();
-  var actorKey = window.hueCommander.getActor();
- 
-  var on = false;
-  var bri = 0;
+function updateActorUI(actorId) {
   
   $('button').removeClass('active');
-  $('button[id=' + actorKey + ']').addClass('active');
+  $('button[id=' + actorId + ']').addClass('active');
+
+  hueProxy.cmd('getActorStates', updateActorControls);
+}
+
+function updateActorControls(actors) {
+  var on = false;
+  var bri = 0;
   
   $.each(actors, function(key, lamp){
     on = on || lamp.state.on;
@@ -641,9 +643,9 @@ function updateUIForActors(){
   });
  
   $('#lightswitch').prop('checked', on);
+  enableBrightness(on);
   $('#brightness-control').val(bri);
   $('#brightness-control').change(); // update ui
-  enableBrightness(on);
 }
 
 function initGroupCreation() {
@@ -667,9 +669,9 @@ function initGroupCreation() {
       }
       $('#group-add-lamps').removeClass('error');
       // add group
-      hueProxy.createGroup(name, lampIds);
+      hueProxy.cmd('createGroup', { name: name, lampIds: lampIds });
       // reset
-      hueProxy.refresh();
+      hueProxy.cmd('refresh');
       setTimeout(requestSettings, 4000);
     });
 }
@@ -689,13 +691,12 @@ function actorClick(event){
 
 function flashLamp(){
   var key = event.target.id;
-  hueProxy.flash(key);
+  hueProxy.cmd('flash', key);
   return false;
 }
 
 function setActor(key) {
-  hueCommander.setActor(key); 
-  updateUIForActors();
+  hueProxy.cmd('setActor', key, updateActorUI); 
 }
 
 function removeGroupClick(){
@@ -712,11 +713,8 @@ function activateSceneClick(){
 }
 
 function activateSceneByKey(key){
-  hueCommander.command('scene:' + key);
-  // update ui
-  activatedScene(key);
+  hueProxy.cmd('command', 'scene:' + key, activatedScene);
 }
-
 
 function toggleActiveClick(){
   $(event.target).toggleClass('active');
@@ -735,14 +733,14 @@ function fillSettings(state) {
         btn = null, 
         selector = null;
 
-    if (state) {
+    if (!state) {
       setTimeout(requestSettings, 1000); // reset UI in a bit.
       return;
     }
 
     if (state.lights !== null && state.lights !== undefined) {
         trackState('config', state);
-
+        /*
         trackEvent('settings', 'init', 'version', state.config.swversion);
         trackEvent('settings', 'init', 'ip', state.config.ipaddress);
         trackEvent('settings', 'init', 'portal', state.config.portalconnection);
@@ -750,7 +748,7 @@ function fillSettings(state) {
         trackEvent('settings', 'init', 'lightcount', state.lights.length);
         trackEvent('settings', 'init', 'groupcount', state.groups.length);
         trackEvent('settings', 'init', 'scenecount', state.scenes.length);
-    
+        */
 
         $('#lamps').empty();
         $('#group-add-lamps').empty();
@@ -847,9 +845,7 @@ function fillSettings(state) {
             ', zigbeechannel:' + state.config.zigbeechannel);
 
 
-        hueCommander.setActor('group-0');
-        
-        updateUIForActors();
+        hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI); 
     }
 }
 
@@ -951,12 +947,10 @@ function initPalettes() {
     $('.scene').click(function(element){
       var key = $(this).data('scene');
       if (!$(this).hasClass('active')) {
-        window.hueCommander.command('scene:' + key);
-        activatedScene(key);
+        hueProxy.cmd('command', 'scene:' + key, activatedScene);
       } else {
         // deactivate all
-        window.hueCommander.command('scene:stop');
-        activatedScene('stop');
+        hueProxy.cmd('command', 'scene:stop', activatedScene);
       }
       return false;
     });
@@ -1139,7 +1133,7 @@ function gravityUpdate(){
 
     var cmd = JSON.stringify(json);
     log('Setting gravity:  ' + cmd);
-    window.hueCommander.command(cmd);
+    hueProxy.cmd('command', cmd);
 
     var color = 'hsl('+
       Math.round(360 * (json.hue / 65535)) +', '+
@@ -1186,7 +1180,7 @@ function throttleCmd(e){
 }
 
 function onDelaySend(){
-  window.hueCommander.command(currentHex);
+  hueProxy.cmd('command', currentHex);
   activatedScene('stop');
   hideCircleDelayed();
 }
@@ -1335,9 +1329,9 @@ function toggleAmbience(e) {
   var active = $('#toggle-ambientweb').is(':checked');
   ambieye.on = active;
   if (active) {
-    window.hueCommander.command('scene:Ambient');
+    hueProxy.cmd('command', 'scene:Ambient', activatedScene);
   } else {
-    window.hueCommander.command('scene:none');
+    hueProxy.cmd('command', 'scene:none', activatedScene);
   }
 }
 

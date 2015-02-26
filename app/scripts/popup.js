@@ -208,6 +208,8 @@ function initGlobals(){
       background = chrome.extension.getBackgroundPage();
     }
 
+    $('#https-proxy').hide();
+    
     if (location.protocol === 'https:') {
         // page is secure, hue commander needs to use proxy to LPS.
         window.hueProxy = hueProxy();

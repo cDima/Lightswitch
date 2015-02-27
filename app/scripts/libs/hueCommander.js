@@ -8,7 +8,6 @@
 /*globals trackEvent, $, findActors */
 /*exported 
     hueCommander,
-    executeHrefCommand,
     executeCommand,
     activatedScene
  */
@@ -315,14 +314,14 @@ function executeToggle(on){
   window.hueCommander.command(on ? 'on' : 'off');   
   return false;
 }
-*/
-
 function executeHrefCommand() {
-  /*jshint validthis:true */
+  
   var command = $(this).attr('href');
   executeCommand(command);
   return false;
 }
+*/
+
 
 function executeCommand(command) {
   window.hueCommander.command(command);

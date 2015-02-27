@@ -24,7 +24,6 @@
           huevoice: true,
           findActors,
           activatedScene,
-          executeHrefCommand,
           voiceCommander,
           hueProxy
 */
@@ -392,6 +391,14 @@ function initSearch(type){
           initSearch('new', skip);
         });
     });
+}
+
+
+function executeHrefCommand() {
+  /*jshint validthis:true */
+  var command = $(this).attr('href');
+  window.hueProxy.cmd('command', command);
+  return false;
 }
 
 function showPalettes(palettes){

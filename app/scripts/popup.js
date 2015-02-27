@@ -210,7 +210,7 @@ function initGlobals(){
 
     $('#https-proxy').hide();
     
-    if (true || location.protocol === 'https:') {
+    if (location.protocol === 'https:') {
         // page is secure, hue commander needs to use proxy to LPS.
         window.hueProxy = hueProxy();
 
@@ -749,7 +749,7 @@ function fillSettings(state) {
         selector = null;
 
     if (!state) {
-      setTimeout(requestSettings, 1000); // reset UI in a bit.
+      //setTimeout(requestSettings, 1000); // reset UI in a bit.
       return;
     }
 

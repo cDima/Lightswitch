@@ -8,11 +8,8 @@
 /*globals trackEvent, $, findActors */
 /*exported 
     hueCommander,
-    executeBrightness,
-    executeHrefCommand,
     executeHrefCommand,
     executeCommand,
-    executeToggle,
     activatedScene
  */
  
@@ -308,6 +305,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
     };
 };
 
+/*
 function executeBrightness(val){
   window.hueCommander.command('bri:' + val);   
   return false;
@@ -317,6 +315,7 @@ function executeToggle(on){
   window.hueCommander.command(on ? 'on' : 'off');   
   return false;
 }
+*/
 
 function executeHrefCommand() {
   /*jshint validthis:true */

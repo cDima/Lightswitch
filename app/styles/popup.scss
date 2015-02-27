@@ -84,9 +84,12 @@ html, body {
   .tab-text {
     display: none;
   }
-
+  /*
   .social-name {
-    /*display:none;*/
+    display:none;
+  }*/
+  .social-likes_ready .social-likes__counter {
+    display:none;
   }
   body {
     padding: 0px;

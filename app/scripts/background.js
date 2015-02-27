@@ -51,6 +51,7 @@ if (config.app === 'app') {
 chrome.runtime.onMessageExternal.addListener(onExternal);
 
 function onExternal(request, sender, sendResponse) {
+  console.log('onExternal');
   if (request.voiceCmd) {
     console.log(request.voiceCmd.text + ',' +
       request.voiceCmd.match + ',' +
@@ -63,8 +64,11 @@ function onExternal(request, sender, sendResponse) {
       request.voiceCmd.actor);
   }
   if (request.hueCommand) {
+    console.log('onExternal:' + request.hueCommand.cmd + ',' + request.hueCommand.args);
+    
     var result = hueCommander.parse(request.hueCommand.cmd, request.hueCommand.args);
     if(sendResponse) {
+      console.log('sending response to onExternal');
       sendResponse(result);
     }
   }

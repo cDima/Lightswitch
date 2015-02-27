@@ -1,5 +1,51 @@
+/**
+ * Dmitry Sadakov's Philips Hue app
+ */
+
+'use strict';
+
+/* globals chrome */
+/*exported hueProxy
+*/
+
+var hueProxy = function(hueCommander) {
+
+    function sendToMothership(obj, args, callback){
+        if (hueCommander) {
+            var result = hueCommander.parse(obj, args);
+            if (result && callback) {
+                callback(result);
+            }
+        } else {
+            var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
+            var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
+            chrome.runtime.sendMessage(editorExtensionId, obj, callback);
+            chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
+        }
+    }
+
+    function hueCommand(command, args, callback) {
+        if (typeof(args) === 'function') {
+            // reorder arguments if second is skipped
+            callback = args;
+            args = undefined;
+        }
+        var obj = {
+            hueCommand: {
+                command: command,
+                args: args
+            }
+        };
+        sendToMothership(obj, args, callback);
+    }
+
+    return {
+        cmd: hueCommand,
+        sendToMothership: sendToMothership
+    };
+};
 // Dmitry Sadakov 2015 Voice standalone 
-/*globals  $, voiceCommander, voice, chrome */
+/*globals  $, voiceCommander, voice, sendToMothership */
 
 /*exported huevoice, voiceCmdFunc */
 'use strict';
@@ -35,8 +81,6 @@ function toggleVoice() {
 }
 
 
-var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
-var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
 
 function voiceCmdProxy(text, match, action, actor) {
 
@@ -55,10 +99,6 @@ function voiceCmdProxy(text, match, action, actor) {
     sendToMothership(obj);
 }
 
-function sendToMothership(obj){
-    chrome.runtime.sendMessage(editorExtensionId, obj);
-    chrome.runtime.sendMessage(editorExtensionIdProd, obj);
-}
 
 function voiceError(err){
   var mic = $('#voice-mic');

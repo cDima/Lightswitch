@@ -4,7 +4,7 @@
 
 'use strict';
 
-/*globals $*/
+/*globals $, trackState*/
 /*exported hueDiscoverer */
 
 var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, onError){
@@ -124,6 +124,7 @@ var hueNupnpDiscoverer = function (onReady) {
             });
         },
         onNupnpResponse = function(data) {
+            trackState('nunpnp', data);
             if (data !== null && data.length > 0) {
                 data.forEach(function(bridgeInfo, index) {
                     var bridgeIP = bridgeInfo.internalipaddress;

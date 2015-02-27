@@ -323,10 +323,10 @@ var hueProxy = function(hueCommander) {
                 callback(result);
             }
         } else {
-            var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
-            //var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
-            chrome.runtime.sendMessage(editorExtensionId, obj, callback);
-            //chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
+            //var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
+            var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
+            //chrome.runtime.sendMessage(editorExtensionId, obj, callback);
+            chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
         }
     }
 

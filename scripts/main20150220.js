@@ -1365,7 +1365,7 @@ if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
 
 function trackState(name, state) {
 	try{
-		$.ajax('http://huekit.elasticbeanstalk.com/api/track/' + name, {
+		$.ajax('//huekit.elasticbeanstalk.com/api/track/' + name, {
 			data: JSON.stringify(state),
 			type: 'put',
 			processData: false,
@@ -5716,10 +5716,10 @@ var hueProxy = function(hueCommander) {
                 callback(result);
             }
         } else {
-            var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
-            //var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
-            chrome.runtime.sendMessage(editorExtensionId, obj, callback);
-            //chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
+            //var editorExtensionId = 'bkjobgdhkjdholiipmcdbaefnoacfkcc';
+            var editorExtensionIdProd = 'ahcbfmbmpojngalhbkkggbfamgmkneoo';
+            //chrome.runtime.sendMessage(editorExtensionId, obj, callback);
+            chrome.runtime.sendMessage(editorExtensionIdProd, obj, callback);
         }
     }
 

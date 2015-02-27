@@ -5075,11 +5075,8 @@ var colorUtil = function() {
 /*globals trackEvent, $, findActors */
 /*exported 
     hueCommander,
-    executeBrightness,
-    executeHrefCommand,
     executeHrefCommand,
     executeCommand,
-    executeToggle,
     activatedScene
  */
  
@@ -5375,6 +5372,7 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
     };
 };
 
+/*
 function executeBrightness(val){
   window.hueCommander.command('bri:' + val);   
   return false;
@@ -5384,6 +5382,7 @@ function executeToggle(on){
   window.hueCommander.command(on ? 'on' : 'off');   
   return false;
 }
+*/
 
 function executeHrefCommand() {
   /*jshint validthis:true */
@@ -5769,11 +5768,7 @@ var hueProxy = function(hueCommander) {
           huevoice: true,
           findActors,
           activatedScene,
-          executeBrightness,
           executeHrefCommand,
-          executeToggle,
-          executeBrightness,
-          executeCommand,
           voiceCommander,
           hueProxy
 */
@@ -6046,7 +6041,7 @@ function initSlider(){
     $('#brightness-control').slider().on('slideStop', function(slideEvt){
       var val = slideEvt.value;
       log('new brightness: ' + val);
-      executeBrightness(val);
+      hueProxy.cmd('command', 'bri:' + val);
     });
 
 }
@@ -6649,8 +6644,7 @@ function initLightswitch() {
     $('#lightswitch').click(function(e){
         var turnOn = $('#lightswitch').is(':checked');
         enableBrightness(turnOn);
-        executeToggle(turnOn);
-
+        window.hueProxy.cmd('command', turnOn ? 'on' : 'off');
         trackEvent(e.target.id, 'clicked');
     });
 }
@@ -7260,7 +7254,7 @@ function voiceCmdFunc(text, match, action, actor) {
     }
     // canExecute(action)
     if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0 || action.match('^scene:')) {
-      executeCommand(action);
+      window.hueProxy.cmd('command', action);
     }
   } catch (err){
     console.log(err);

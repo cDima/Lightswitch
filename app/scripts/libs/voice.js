@@ -49,6 +49,7 @@ var voice = function () {
             speak('Voice not supported');
             return null;
 	    }
+        recognition.lang = 'en-US';
         recognition.continuous = true;
         recognition.interimResults = false;
         recognition.onresult = onSpeechResult;

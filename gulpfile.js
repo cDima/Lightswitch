@@ -97,13 +97,6 @@ gulp.task('copy', function() {
 });
 
 // Copy Web Fonts To Dist
-gulp.task('downloads', function() {
-  return gulp.src(['app/win/*.exe'])
-    .pipe(gulp.dest('dist/win'))
-    .pipe($.size({title: 'win'}));
-});
-
-// Copy Web Fonts To Dist
 gulp.task('fonts', function() {
   return gulp.src(['app/fonts/**'])
     .pipe(gulp.dest('dist/fonts'))
@@ -251,7 +244,7 @@ gulp.task('win', function() {
 gulp.task('default', ['clean'], function(cb) {
   runSequence('styles', 
     [
-    'jshint', 'html', 'images', 'fonts', 'copy', 'bower','downloads'
+    'jshint', 'html', 'images', 'fonts', 'copy', 'bower'
     ]
     , 'zip', cb);
 });

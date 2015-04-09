@@ -718,11 +718,12 @@ function setActor(key) {
 }
 
 function removeGroupClick(){
-  var key = event.target.id;
+  /*jshint validthis:true */
+  var key = this.id;
   hueProxy.cmd('removeGroup', key);
   hueProxy.cmd('refresh');
   setTimeout(requestSettings, 2000);
-  $(event.target).hide('slow');
+  $(this).hide('slow');
 }
 
 function activateSceneClick(){

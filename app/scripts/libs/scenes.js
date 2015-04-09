@@ -154,6 +154,9 @@ var scenes = {
 
             var dominantColors = Ambient.getDominantColors();
             $.each(lampIds, function(index, val){            
+                while (dominantColors.length <= index) {
+                    index -= dominantColors.length;
+                }
                 var c = dominantColors[index];
                 lightStates.push({
                     lamp: val, 

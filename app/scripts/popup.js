@@ -687,10 +687,10 @@ function initGroupCreation() {
       }
       $('#group-add-lamps').removeClass('error');
       // add group
+      $('#group-name input').val('');
       hueProxy.cmd('createGroup', { name: name, lampIds: lampIds });
       // reset
-      hueProxy.cmd('refresh');
-      setTimeout(requestSettings, 4000);
+      delayedRefresh();
     });
 }
 
@@ -717,12 +717,19 @@ function setActor(key) {
   hueProxy.cmd('setActor', key, updateActorUI); 
 }
 
+function delayedRefresh(){
+  setTimeout(function(){
+    hueProxy.cmd('refresh');
+    setTimeout(requestSettings, 2000);
+  }, 2000);
+}
+
 function removeGroupClick(){
   /*jshint validthis:true */
   var key = this.id;
   hueProxy.cmd('removeGroup', key);
-  hueProxy.cmd('refresh');
-  setTimeout(requestSettings, 2000);
+  delayedRefresh();
+  
   $(this).hide('slow');
 }
 

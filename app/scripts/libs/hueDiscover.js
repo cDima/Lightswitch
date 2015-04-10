@@ -4,7 +4,7 @@
 
 'use strict';
 
-/*globals $, trackState*/
+/*globals $, trackState, storageClass */
 /*exported hueDiscoverer */
 
 var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, onError){
@@ -12,6 +12,13 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
     var baseUrl = 'http://' + bridgeIP + '/api';
     var baseApiUrl = baseUrl + '/' + apiKey;
     var status = 'init'; // found, notauthorized, ready, error
+
+    var storage = storageClass();
+
+    function setLastBridgeIP(ip) {
+      storage.set('lastBridgeIp', ip);
+    }
+
         
     var log = function(text) {
             var message = 'hueBridge (' + bridgeIP + '): ' + text;
@@ -47,6 +54,9 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
                 data = dataArray[0]; // take first
             }
             
+            // save bridge ip to storage
+            setLastBridgeIP(bridgeIP);
+
             if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
             {
                 log('Bridge found at ' + bridgeIP);
@@ -115,8 +125,10 @@ var hueNupnpDiscoverer = function (onReady) {
     var ips = [];
     var findNupnpBridges = function() {
             console.log('Requesting meethue.com/api/nupnp.');
+            var nupnp = 'https://www.meethue.com/api/nupnp';
+            
             $.ajax({
-                url: 'https://www.meethue.com/api/nupnp',
+                url: nupnp,
                 dataType: 'json',
                 timeout: 2000,
                 success: onNupnpResponse,
@@ -179,6 +191,19 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
     var hueBridges = [];
     var completeCounter = 0;
 
+    var lastBridgeIp = null;
+    var storage = null;
+
+    function getLastBridgeIP() {
+      storage.get('lastBridgeIp', function (ip) {
+        lastBridgeIp = ip;
+      });
+    }
+
+    // constructor
+    storage = storageClass();
+    getLastBridgeIP();
+
     var addHueBridges = function(ips) {
             ips.forEach(function (ip) {
                addHueBridge(ip);
@@ -195,10 +220,12 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
         start = function(ip, brute){
             if (ip) {
                addHueBridge(ip);
-               launch();
             } else {
-                hueNupnpDiscoverer(launchAfter);
+               addHueBridge(lastBridgeIp);
             }
+            launch();
+
+            hueNupnpDiscoverer(launchAfter);
         },
         launch = function(){
             if(hueBridges.length === 0) {

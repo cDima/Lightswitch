@@ -14,7 +14,8 @@
   "permissions": [
     "tabs",
     "<all_urls>",
-    "https://www.meethue.com/"
+    "https://www.meethue.com/",
+    "storage"
   ],
   "background": {
     "scripts": [

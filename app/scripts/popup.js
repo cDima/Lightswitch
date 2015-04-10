@@ -204,7 +204,7 @@ function initGlobals(){
     }
 
     $('#https-proxy').hide();
-    
+
     if (location.protocol === 'https:') {
         // page is secure, hue commander needs to use proxy to LPS.
         window.hueProxy = hueProxy();
@@ -471,8 +471,9 @@ function tryIP(ip, error){
         dataType: 'json',
         url: 'http://' + ip + '/api/123-bogus',
         success: function(){
-          hueProxy.cmd('setIp', ip);
-          hueProxy.cmd('heartbeat');
+          hueProxy.cmd('discover', ip);
+          //hueProxy.cmd('setIp', ip);
+          //hueProxy.cmd('heartbeat');
         },
         error: error,
         timeout: 2000

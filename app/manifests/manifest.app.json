@@ -14,7 +14,8 @@
     "https://*.list-manage.com/",
     "https://*.uservoice.com/",
     "https://colorlovers.herokuapp.com/",
-    "https://www.google-analytics.com/"
+    "https://www.google-analytics.com/",
+    "storage"
   ],
   "app": {
     "background": {

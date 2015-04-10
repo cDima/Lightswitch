@@ -869,9 +869,9 @@ var hue = function ($, colors) {
             }
             return [actors]; // lights: prefix not used, just return array of number.
         },
-        discover: function(){
+        discover: function(ip){
           //window.hue.findBridge(); 
-          discover.start(undefined, true);
+          discover.start(ip, true);
           updateStatus(statusInit.status,statusInit.text);
           //discoverStatus = 'init';
 

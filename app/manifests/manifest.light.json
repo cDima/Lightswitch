@@ -13,7 +13,8 @@
             "128": "images/lightswitch.logo.128.png" },
 
   "permissions": [
-    "https://www.meethue.com/"
+    "https://www.meethue.com/",
+    "storage"
   ],
   "background": {
     "scripts": [

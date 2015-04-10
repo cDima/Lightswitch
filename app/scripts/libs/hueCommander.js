@@ -209,8 +209,8 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
             });
             return on;
         }, 
-        discover = function(){
-            hue.discover();
+        discover = function(ip){
+            hue.discover(ip);
         }, 
         onStatusChange = function(onStatus){
             hue.onStatusChange(onStatus);
@@ -270,8 +270,8 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         parse: function(cmd){
             return this[cmd.hueCommand.command](cmd.hueCommand.args);
         },
-        discover: function() {
-            discover();
+        discover: function(ip) {
+            discover(ip);
         }, 
         onStatusChange: function(onStatus){
             onStatusChange(onStatus);

@@ -15,12 +15,12 @@
 
 
   var handler = StripeCheckout.configure({
-    key: 'pk_live_hxCzs2PCEHKREFacQZ2lNkzw ',
+    key: 'pk_live_hxCzs2PCEHKREFacQZ2lNkzw', 
     image: '/images/win/material-icon-256.png',
     token: function(token) {
       // Use the token to create the charge with a server-side script.
       // You can access the token ID with `token.id`
-      alert('http://ambieye.com/win/download');
+      //alert('http://ambieye.com/win/download');
       window.location = 'http://ambieye.com/win/download';
     }
   });

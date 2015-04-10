@@ -13,7 +13,8 @@
             "128": "images/lightswitch.logo.on.128.png" },
   "permissions": [
     "https://www.meethue.com/",
-    "https://colorlovers.herokuapp.com/"
+    "https://colorlovers.herokuapp.com/",
+    "storage"
   ],
   "optional_permissions": [ 
     "activeTab",

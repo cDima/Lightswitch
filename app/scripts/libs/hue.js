@@ -373,7 +373,7 @@ var hue = function ($, colors) {
             /*jshint sub:true*/
             if (lights !== null && state !== null) {
                 state.lights = lights;
-                log('hue: saving light state - ' + JSON.stringify(lights));
+                //log('hue: saving light state - ' + JSON.stringify(lights));
                 timeoutAuthCounter = 0;
             }
         },
@@ -425,7 +425,7 @@ var hue = function ($, colors) {
                     action: {} 
                 };
 
-            log('hue: saving state - ' + JSON.stringify(data));
+            //log('hue: saving state - ' + JSON.stringify(data));
 
             numberOfLamps = Object.keys(data.lights).length;
             var message = 'No  lights found';

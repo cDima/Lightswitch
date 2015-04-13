@@ -90,6 +90,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\terms-of-use.htm \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\voice.html \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\win \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\fontawesome-webfont.eot \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\fontawesome-webfont.svg \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\fontawesome-webfont.ttf \
@@ -167,6 +168,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\shine.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\splash-off.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\splash.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\icons\icons-hinted.ttf \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\icons\icons.eot \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\icons\icons.svg \
@@ -196,6 +198,43 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ls\ls4.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch\chrome-touch-icon-192x192.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch\icon-128x128.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\touch\ms-touch-icon-144x144-precomposed.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\ambieye.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\appbar.lightbulb.hue.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\bg.jpg \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\blanck-.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\branch-popover@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\branches-bg@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\branches.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\check.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\colors.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\download-arrow.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\download.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\download@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\dynamic.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\favicon.ico \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\groups.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\light.appbar.lightbulb.hue.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo-dark.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo-white.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logos-ambieye.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\material-icon.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\repo-create@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\screen1.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\screen1@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\Screenshot 2015-02-11 00.40.52.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\Screenshot 2015-02-11 00.41.03.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\Screenshot 2015-02-11 00.41.05.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\screenshot-overview@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\section-shadow.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\sourcelist-bg@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\sync-bg@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\sync-controls@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\sync-spinner@2x.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\sync.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\windows-logo.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\windows-logo@2x.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\plugins\org.apache.cordova.inappbrowser \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\plugins\org.apache.cordova.inappbrowser\www \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js \
@@ -234,4 +273,9 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\switch.css \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\switch.css.map \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\voice.css \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\voice.css.map \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\win.css \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\win.css.map \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\win\download \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\win\index.html \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\win\download\index.html \
 c:\Projects\Lightswitch\shine\platforms\android\ant-build\AndroidManifest.xml \

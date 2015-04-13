@@ -127,6 +127,9 @@ var hueNupnpDiscoverer = function (onReady) {
             console.log('Requesting meethue.com/api/nupnp.');
             var nupnp = 'https://www.meethue.com/api/nupnp';
             
+            // debugging only!
+            //nupnp = 'https://debugging';
+
             $.ajax({
                 url: nupnp,
                 dataType: 'json',
@@ -196,7 +199,11 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
 
     function getLastBridgeIP() {
       storage.get('lastBridgeIp', function (ip) {
+        
         lastBridgeIp = ip;
+        // debugging only!
+        //lastBridgeIp = null;
+
       });
     }
 
@@ -220,7 +227,7 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
         start = function(ip, brute){
             if (ip) {
                addHueBridge(ip);
-            } else {
+            } else if (lastBridgeIp !== null) {
                addHueBridge(lastBridgeIp);
             }
             launch();

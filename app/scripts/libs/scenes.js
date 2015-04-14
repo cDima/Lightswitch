@@ -175,6 +175,9 @@ var scenes = {
     },
     one:  function(lampIds, palette, cycleIndex, transitionTime){
         lampIds = scenes.makeArray(lampIds);
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         var lightStates = [];
         $.each(lampIds, function(index, val){
             if (index === cycleIndex) {
@@ -190,6 +193,9 @@ var scenes = {
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
         var chain = cycleIndex;
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         $.each(lampIds, function(index, val){
             chain++;
             if (palette.length <= chain) {
@@ -205,7 +211,9 @@ var scenes = {
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
         var color = palette[cycleIndex]; 
-
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         $.each(lampIds, function(index, val){            
             lightStates.push({lamp: val, color: color, transitionTime: transitionTime * 10});
         });
@@ -214,7 +222,9 @@ var scenes = {
     },
 	randomPallete: function(lampIds, palette, transitionTime){
         lampIds = scenes.makeArray(lampIds);
-
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         var lightStates = [];
         $.each(lampIds, function(index, val){
             var color = palette[Math.round(Math.random() * (palette.length - 1))]; // random

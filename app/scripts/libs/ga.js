@@ -300,6 +300,19 @@ $(document).ajaxError(function (event, request, settings) {
     );
 });
 */
+
+
+var gOldOnError = window.onerror;
+// Override previous handler.
+window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+  if (gOldOnError)
+    // Call previous handler.
+    return gOldOnError(errorMsg, url, lineNumber);
+
+  // Just let default handler run.
+  return false;
+}
+
 if (config.app === 'pro' || config.app === 'web') {
 	// script.fail
 	(function(_, __) { _._errs = []; var h = _.onerror; var f = function() { var a = arguments; _errs.push(a); h && h.apply(this, a)}; 

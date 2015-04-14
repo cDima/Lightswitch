@@ -1453,6 +1453,19 @@ $(document).ajaxError(function (event, request, settings) {
     );
 });
 */
+
+
+var gOldOnError = window.onerror;
+// Override previous handler.
+window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+  if (gOldOnError)
+    // Call previous handler.
+    return gOldOnError(errorMsg, url, lineNumber);
+
+  // Just let default handler run.
+  return false;
+}
+
 if (config.app === 'pro' || config.app === 'web') {
 	// script.fail
 	(function(_, __) { _._errs = []; var h = _.onerror; var f = function() { var a = arguments; _errs.push(a); h && h.apply(this, a)}; 
@@ -2380,6 +2393,9 @@ var scenes = {
     },
     one:  function(lampIds, palette, cycleIndex, transitionTime){
         lampIds = scenes.makeArray(lampIds);
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         var lightStates = [];
         $.each(lampIds, function(index, val){
             if (index === cycleIndex) {
@@ -2395,6 +2411,9 @@ var scenes = {
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
         var chain = cycleIndex;
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         $.each(lampIds, function(index, val){
             chain++;
             if (palette.length <= chain) {
@@ -2410,7 +2429,9 @@ var scenes = {
         lampIds = scenes.makeArray(lampIds);
         var lightStates = [];
         var color = palette[cycleIndex]; 
-
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         $.each(lampIds, function(index, val){            
             lightStates.push({lamp: val, color: color, transitionTime: transitionTime * 10});
         });
@@ -2419,7 +2440,9 @@ var scenes = {
     },
 	randomPallete: function(lampIds, palette, transitionTime){
         lampIds = scenes.makeArray(lampIds);
-
+        if (transitionTime === undefined) {
+            transitionTime = 2;
+        }
         var lightStates = [];
         $.each(lampIds, function(index, val){
             var color = palette[Math.round(Math.random() * (palette.length - 1))]; // random
@@ -6202,30 +6225,33 @@ function initSearch() {
     $('#colorsearch').keyup(function(e){
         if(e.keyCode === 13) {
           skip = 0;
-          initSearch('top');
+          doSearch('top');
         }
     });
 
     $('button#search').click(function() {
       skip = 0;
-      initSearch('top');
+      doSearch('top');
     });
 
     $('a[href="#search?top"]').click(function(){
-      initSearch('top');
+      doSearch('top');
     });
 
     $('a[href$="#search?new"]').click(function(){
-      initSearch('new');
+      doSearch('new');
     });
 
     $('a[href$="#search?random"]').click(function(){
-      initSearch('random');
+      doSearch('random');
     });
 }
 
-function initSearch(type){
+function doSearch(type){
     $('#search-loading').show();
+    if (type === 'random') {
+      skip = 0;
+    }
     $.getJSON('https://colorlovers.herokuapp.com/api/palettes/' + type + '?jsonCallback=?', {
           keywords: $('#colorsearch').val(),
           resultOffset: skip,
@@ -6237,12 +6263,12 @@ function initSearch(type){
         $('a[href$="#search?back"]').off('click');
         $('a[href$="#search?back"]').click(function(){
           skip -= 7;
-          initSearch('new', skip);
+          doSearch(type, skip);
         });
         $('a[href$="#search?next"]').off('click');
         $('a[href$="#search?next"]').click(function(){
           skip += 7;
-          initSearch('new', skip);
+          doSearch(type, skip);
         });
     });
 }
@@ -6646,10 +6672,10 @@ function fillSettings(state) {
               continue;
             }
 
-            log('Lights: ' + key  + ', name: ' + 
-              value.name + ', reachable: ' + 
-              value.state.reachable + 
-              ', on: ' + value.state.on);
+            //log('Lights: ' + key  + ', name: ' + 
+            //  value.name + ', reachable: ' + 
+            //  value.state.reachable + 
+            //  ', on: ' + value.state.on);
             btn = createActorBtn(key, value.name);
             btn.click(actorClick);
             btn.click(flashLamp);
@@ -6699,7 +6725,7 @@ function fillSettings(state) {
         for(i in state.groups) {
           key = i;
           value = state.groups[i];
-          log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
+          //log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
           displayGroup(key, value.name, key !== '0');
         }
 
@@ -6707,7 +6733,7 @@ function fillSettings(state) {
           key = i;
           value = state.scenes[i];
         
-            log('Scenes: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
+            //log('Scenes: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
 
             if (value.name.endsWith(' on 0'))
             {
@@ -7188,7 +7214,7 @@ function initAmbientEye() {
 
       if (e.target.hash === '#search' && clPalettes === null)
       {
-        initSearch();
+        doSearch('new');
       }
 
       enableGravity(e.target.hash === '#colors');

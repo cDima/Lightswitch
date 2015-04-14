@@ -594,7 +594,9 @@ a.hightlight {
 }
 
 .search{
+  /* fix ie 
   display: table;
+  */
   width: 100%;
 }
 
@@ -648,7 +650,6 @@ a.hightlight {
   font-style: normal;
   height: 23px;
   /*width: 8rem;*/
-  line-height: 1rem;
   text-decoration: none;
   text-align: center;
   display: block;
@@ -663,7 +664,10 @@ a.hightlight {
   border: 1px solid #678389;
   color: rgb(255, 255, 255);
   background: #18BEEF;
+  /* fix ie 
+  line-height: 1rem;
   display: table-cell;
+  */
 }
 .subscribe-submit {
   

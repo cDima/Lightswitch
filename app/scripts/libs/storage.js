@@ -10,7 +10,7 @@
 var storageClass = function (){
 
 	function setSetting(name, val, callback){
-		if (canSave) {
+		try{
 		  	console.log('setting ' + name + ' = ' + val);
 		  	var obj = {};
 		  	obj[name] = val;
@@ -23,6 +23,8 @@ var storageClass = function (){
 					callback(name, val);// might be different from sync
 				}
 			}
+		} catch(error) {
+			// do nothing
 		}
 	}
 
@@ -44,16 +46,6 @@ var storageClass = function (){
 		return typeof(chrome) !== 'undefined'  && 
 						chrome.storage !== undefined && 
 						chrome.storage.sync !== undefined;
-	}
-
-	function canSave() {
-		// safari flags lie
-		try {
-			setSetting('canSave', true);
-		} catch(error) {
-			return false;
-		}
-		return true;
 	}
 
 	// public functions

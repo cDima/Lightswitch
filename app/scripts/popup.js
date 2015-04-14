@@ -426,6 +426,7 @@ function showPalettes(palettes){
 
     $(result).click(function(){
       scenes.RelaxedRandom.Palette = v.colors.map(function(n) { return '#' + n; });
+      hueProxy.cmd('palette', scenes.RelaxedRandom.Palette);
       hueProxy.cmd('command', 'scene:RelaxedRandom');
       activatedScene('RelaxedRandom');
     });

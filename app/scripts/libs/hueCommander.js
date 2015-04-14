@@ -240,6 +240,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         getStatus = function(){
             return hue.getStatus();
+        },
+        palette = function(colors){
+            return sceneCmd.palette(colors);
         }
         ;
         
@@ -266,9 +269,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         setLogger: function(logHandler) {
             logger = logHandler;
-        }, 
-        parse: function(cmd){
-            return this[cmd.hueCommand.command](cmd.hueCommand.args);
         },
         discover: function(ip) {
             discover(ip);
@@ -300,6 +300,12 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         getStatus: function(){
             return getStatus();
+        }, 
+        palette: function(colors) {
+           return palette(colors); 
+        },
+        parse: function(cmd){
+            return this[cmd.hueCommand.command](cmd.hueCommand.args);
         }
     };
 };

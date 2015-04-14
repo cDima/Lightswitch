@@ -1545,7 +1545,7 @@ l=new A(h._trackJs||h._trackJS||h._trackjs||{},function(a,b,c){return{attempt:fu
 var storageClass = function (){
 
 	function setSetting(name, val, callback){
-		if (canSave) {
+		try{
 		  	console.log('setting ' + name + ' = ' + val);
 		  	var obj = {};
 		  	obj[name] = val;
@@ -1558,6 +1558,8 @@ var storageClass = function (){
 					callback(name, val);// might be different from sync
 				}
 			}
+		} catch(error) {
+			// do nothing
 		}
 	}
 
@@ -1579,16 +1581,6 @@ var storageClass = function (){
 		return typeof(chrome) !== 'undefined'  && 
 						chrome.storage !== undefined && 
 						chrome.storage.sync !== undefined;
-	}
-
-	function canSave() {
-		// safari flags lie
-		try {
-			setSetting('canSave', true);
-		} catch(error) {
-			return false;
-		}
-		return true;
 	}
 
 	// public functions
@@ -2545,6 +2537,9 @@ var sceneCommander = function ($, hue) {
         },
         stop: function() {
 			sceneStop();
+        },
+        palette: function(colors) {
+            scenes.RelaxedRandom.Palette = colors;
         },
         setLogger: function(logHandler) {
             logger = logHandler;
@@ -5440,6 +5435,9 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         getStatus = function(){
             return hue.getStatus();
+        },
+        palette = function(colors){
+            return sceneCmd.palette(colors);
         }
         ;
         
@@ -5466,9 +5464,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         setLogger: function(logHandler) {
             logger = logHandler;
-        }, 
-        parse: function(cmd){
-            return this[cmd.hueCommand.command](cmd.hueCommand.args);
         },
         discover: function(ip) {
             discover(ip);
@@ -5500,6 +5495,12 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         getStatus: function(){
             return getStatus();
+        }, 
+        palette: function(colors) {
+           return palette(colors); 
+        },
+        parse: function(cmd){
+            return this[cmd.hueCommand.command](cmd.hueCommand.args);
         }
     };
 };
@@ -6303,6 +6304,7 @@ function showPalettes(palettes){
 
     $(result).click(function(){
       scenes.RelaxedRandom.Palette = v.colors.map(function(n) { return '#' + n; });
+      hueProxy.cmd('palette', scenes.RelaxedRandom.Palette);
       hueProxy.cmd('command', 'scene:RelaxedRandom');
       activatedScene('RelaxedRandom');
     });

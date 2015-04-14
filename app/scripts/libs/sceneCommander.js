@@ -84,6 +84,9 @@ var sceneCommander = function ($, hue) {
         stop: function() {
 			sceneStop();
         },
+        palette: function(colors) {
+            scenes.RelaxedRandom.Palette = colors;
+        },
         setLogger: function(logHandler) {
             logger = logHandler;
         }

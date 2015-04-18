@@ -1569,10 +1569,14 @@ var storageClass = function (){
 				console.log('got storage ' + name + ': ' + items[name]);
 				callback(items[name]);
 			});
-		} else {
+		} else if (localStorage) {
 			var result = localStorage.getItem(name);
 			if (callback) { 
 				callback(result);
+			}
+		} else {
+			if (callback) {
+				callback(null);
 			}
 		}
 	}
@@ -6616,7 +6620,7 @@ function removeGroupClick(){
   $(this).hide('slow');
 }
 
-function activateSceneClick(){
+function activateSceneClick(event){
   var key = event.target.id;
   activateSceneByKey(key);
 }

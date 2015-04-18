@@ -712,7 +712,7 @@ function actorClick(event){
   return false;
 }
 
-function flashLamp(){
+function flashLamp(event){
   var key = event.target.id;
   hueProxy.cmd('flash', key);
   return false;
@@ -738,7 +738,7 @@ function removeGroupClick(){
   $(this).hide('slow');
 }
 
-function activateSceneClick(){
+function activateSceneClick(event){
   var key = event.target.id;
   activateSceneByKey(key);
 }

@@ -6590,7 +6590,7 @@ function actorClick(event){
   return false;
 }
 
-function flashLamp(){
+function flashLamp(event){
   var key = event.target.id;
   hueProxy.cmd('flash', key);
   return false;

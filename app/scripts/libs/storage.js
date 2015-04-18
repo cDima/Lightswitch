@@ -34,10 +34,14 @@ var storageClass = function (){
 				console.log('got storage ' + name + ': ' + items[name]);
 				callback(items[name]);
 			});
-		} else {
+		} else if (localStorage) {
 			var result = localStorage.getItem(name);
 			if (callback) { 
 				callback(result);
+			}
+		} else {
+			if (callback) {
+				callback(null);
 			}
 		}
 	}

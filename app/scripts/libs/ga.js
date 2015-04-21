@@ -217,7 +217,11 @@ if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
 
 function trackState(name, state) {
 	try{
-		$.ajax('//huekit.elasticbeanstalk.com/api/track/' + name, {
+		var protocol = location.protocol;
+		if (protocol === 'chrome-extension:') {
+			protocol = 'http:';
+		}
+		$.ajax(protocol + '//huekit.elasticbeanstalk.com/api/track/' + name, {
 			data: JSON.stringify(state),
 			type: 'put',
 			processData: false,

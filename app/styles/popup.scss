@@ -17,13 +17,12 @@ body {
    /*position: absolute; -- fixes popup scroll issues*/
 }
 body.web,
-body.win
+body.win,
+body.app
  {
    min-height: 100%;
    position: absolute;
 }
-
-
 
 html, body {
     width: 100%;

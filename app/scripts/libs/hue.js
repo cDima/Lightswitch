@@ -865,6 +865,10 @@ var hue = function ($, colors) {
             if (actors.substring(0, 'group-'.length) === 'group-')
             {
                 var group = actors.substring('group-'.length);
+                if (state.groups[group] === undefined) {
+                    // error.
+                    return []; 
+                }
                 return state.groups[group].lights;
             }
             return [actors]; // lights: prefix not used, just return array of number.

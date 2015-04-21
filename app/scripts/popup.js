@@ -637,11 +637,13 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (amExtension() && chrome.app.window !== undefined) {
+  if (amExtension() || chrome.app.window !== undefined) {
     setTimeout(function(){
-      var wind = chrome.app.window.current();
-      wind.innerBounds.height = height;
-      wind.innerBounds.width = 320;
+      if (chrome.app.window !== undefined) {
+        var wind = chrome.app.window.current();
+        wind.innerBounds.height = height;
+        wind.innerBounds.width = 320;
+      }
     }, 500); // wait until animations are done.
   }
 }
@@ -659,8 +661,8 @@ function updateActorControls(actors) {
   var bri = 0;
   
   $.each(actors, function(key, lamp){
-    on = on || lamp.state.on;
-    if (lamp.state.bri > bri) {
+    on = on || (lamp && lamp.state && lamp.state.on);
+    if (lamp && lamp.state && (lamp.state.bri > bri)) {
       bri = lamp.state.bri;
     }
   });

@@ -1086,9 +1086,9 @@ var MMCQ = (function() {
  var config = {
   //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
-  //app: 'pro',
+  app: 'pro',
   //app: 'app',
-  app: 'web',
+  //app: 'web',
  };
 
 /* (C) 2014 Dmitry Sadakov */

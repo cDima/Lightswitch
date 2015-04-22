@@ -1086,9 +1086,9 @@ var MMCQ = (function() {
  var config = {
   //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
-  app: 'pro',
+  //app: 'pro',
   //app: 'app',
-  //app: 'web',
+  app: 'web',
  };
 
 /* (C) 2014 Dmitry Sadakov */
@@ -6527,7 +6527,7 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (amExtension() || chrome.app.window !== undefined) {
+  if (chrome && chrome.app && chrome.app.window) {
     setTimeout(function(){
       if (chrome.app.window !== undefined) {
         var wind = chrome.app.window.current();

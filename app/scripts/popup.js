@@ -637,7 +637,7 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (chrome && chrome.app && chrome.app.window) {
+  if (typeof chrome !== 'undefined' && chrome.app && chrome.app.window) {
     setTimeout(function(){
       if (chrome.app.window !== undefined) {
         var wind = chrome.app.window.current();

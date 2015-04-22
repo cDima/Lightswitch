@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
 
-  "name": "Lightswitch Web for Philips Hue",
+  "name": "Lightswitch Pro for Philips Hue",
   "short_name": "Lightswitch",
   "description": "Lightswitch — a chrome extension for Philips Hue lights",
-  "version": "1.7.8",
+  "version": "2.0.3",
 
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { "16": "images/lightswitch.logo.on.16.png",
@@ -14,12 +14,22 @@
   "permissions": [
     "https://www.meethue.com/",
     "https://colorlovers.herokuapp.com/",
+    "https://hueproxy.herokuapp.com/",
+    "https://ambieye.com/",
+    "*://localhost/*",
     "storage"
   ],
   "optional_permissions": [ 
     "activeTab",
-    "<all_urls>"
+    "<all_urls>",
+    "tabs"
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://ambieye.com/*",
+      "*://hueproxy.herokuapp.com/*"
+    ]
+  },
   "background": {
     "scripts": [
 		"scripts/background.min.js"

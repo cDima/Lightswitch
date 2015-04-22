@@ -1370,7 +1370,11 @@ if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
 
 function trackState(name, state) {
 	try{
-		$.ajax('//huekit.elasticbeanstalk.com/api/track/' + name, {
+		var protocol = location.protocol;
+		if (protocol === 'chrome-extension:') {
+			protocol = 'http:';
+		}
+		$.ajax(protocol + '//huekit.elasticbeanstalk.com/api/track/' + name, {
 			data: JSON.stringify(state),
 			type: 'put',
 			processData: false,
@@ -4911,6 +4915,10 @@ var hue = function ($, colors) {
             if (actors.substring(0, 'group-'.length) === 'group-')
             {
                 var group = actors.substring('group-'.length);
+                if (state.groups[group] === undefined) {
+                    // error.
+                    return []; 
+                }
                 return state.groups[group].lights;
             }
             return [actors]; // lights: prefix not used, just return array of number.
@@ -6519,11 +6527,13 @@ function setHeight(height, transitionTime) {
   //height = $('wrapper').height();
   $('html').animate({height: height}, transitionTime);
   $('body').animate({height: height}, transitionTime);
-  if (amExtension() && chrome.app.window !== undefined) {
+  if (amExtension() || chrome.app.window !== undefined) {
     setTimeout(function(){
-      var wind = chrome.app.window.current();
-      wind.innerBounds.height = height;
-      wind.innerBounds.width = 320;
+      if (chrome.app.window !== undefined) {
+        var wind = chrome.app.window.current();
+        wind.innerBounds.height = height;
+        wind.innerBounds.width = 320;
+      }
     }, 500); // wait until animations are done.
   }
 }
@@ -6541,8 +6551,8 @@ function updateActorControls(actors) {
   var bri = 0;
   
   $.each(actors, function(key, lamp){
-    on = on || lamp.state.on;
-    if (lamp.state.bri > bri) {
+    on = on || (lamp && lamp.state && lamp.state.on);
+    if (lamp && lamp.state && (lamp.state.bri > bri)) {
       bri = lamp.state.bri;
     }
   });

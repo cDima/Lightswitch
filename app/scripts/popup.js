@@ -135,10 +135,13 @@ function onDeviceReady() {
 
 
 function handleSystemLink(a) {  
-  var url = a.target.href;
-  if (a.target.href === undefined) {
-    url = $(a.target).attr('href');
-  }
+  /*jshint validthis:true */
+  
+  var url =  $(this).attr('href');
+  //var url = a.target.href;
+  //if (a.target.href === undefined) {
+  //  url = $(a.target).attr('href');
+  //}
 
   if (window.winapp !== undefined){
     window.winapp.handleUrl(url);
@@ -749,7 +752,7 @@ function activateSceneByKey(key){
   hueProxy.cmd('command', 'scene:' + key, activatedScene);
 }
 
-function toggleActiveClick(){
+function toggleActiveClick(event){
   $(event.target).toggleClass('active');
 }
 

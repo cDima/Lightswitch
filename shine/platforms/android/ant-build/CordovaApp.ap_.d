@@ -120,6 +120,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed-Regular.eot \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed-Regular.ttf \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\fonts\RobotoCondensed-Regular.woff \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\Ambience-10.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambience.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye-beta.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\ambieye-beta1.png \
@@ -219,6 +220,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo-white
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logo@2x.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\logos-ambieye.png \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\material-icon-256.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\material-icon.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\repo-create@2x.png \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\images\win\screen1.png \
@@ -241,7 +243,7 @@ c:\Projects\Lightswitch\shine\platforms\android\assets\www\plugins\org.apache.co
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\background.min.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\injecthue.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\lib \
-c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\main20150220.js \
+c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\main201504221.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\modernizr.min.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\modernizr2.min.js \
 c:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\voice-page.js \

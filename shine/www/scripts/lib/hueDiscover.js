@@ -1,1 +1,271 @@
-"use strict";var hueBridge=function(r,n,t,e,o){function u(r){c.set("lastBridgeIp",r)}var i="http://"+r+"/api",s=i+"/"+n,a="init",c=storageClass(),f=function(n){var t="hueBridge ("+r+"): "+n;console.log(t)},p=function(){try{$.ajax({dataType:"json",url:s,success:d,error:h,timeout:5e3})}catch(r){h(r)}},h=function(n){"timeout"===n.statusText?(f("Bridge error timeout: "+r),o(r,"Timeout","Too many timeouts on: "+i)):(f("error on auth: "+n.statusText),a="error",o(r,"Error","Unknown error"+n.statusText))},d=function(n){var t=n;$.isArray(t)&&(t=n[0]),u(r),t.hasOwnProperty("error")&&"unauthorized user"===t.error.description?(f("Bridge found at "+r),a="found",l()):t.hasOwnProperty("lights")&&(a="ready",f("Bridge ready "+r),e(r,"Ready",t))},l=function(){f("adding user...");var r=JSON.stringify({devicetype:n,username:n});f(r),$.ajax({url:i,type:"POST",data:r,success:g})},g=function(r){f(r),r[0].hasOwnProperty("error")?v(r):r[0].hasOwnProperty("success")&&(a="ready",y(r))},v=function(n){"link button not pressed"===n[0].error.description?(a="needauthorization",t(r,"NeedAuthorization","Bridge found. Press the bridge button..."),setTimeout(l,2e3)):(a="error",o(r,"Error","Error: "+n[0].error.description))},y=function(){f("Authorization successful"),p()};return{getStatus:function(){return a},start:function(){p()}}},hueNupnpDiscoverer=function(r){var n=[],t=function(){console.log("Requesting meethue.com/api/nupnp.");var r="https://www.meethue.com/api/nupnp";$.ajax({url:r,dataType:"json",timeout:2e3,success:e,error:o})},e=function(r){trackState("nunpnp",r),null!==r&&r.length>0?(r.forEach(function(r){var t=r.internalipaddress;"0.0.0.0"!==t&&n.push(t)}),u()):(console.log("meethue portal did not return"),u())},o=function(r){console.log(r),u()},u=function(){r(n)};return t(),{}},bruteForcer=function(){var r=function(){for(var r=[],n=0;21>n;n++)r.push("10.0.1."+n),r.push("192.168.0."+n),r.push("192.168.0."+(100+n)),r.push("192.168.1."+n);return r};return{ips:function(){return r()}}},hueDiscoverer=function(r,n,t,e,o){function u(){c.get("lastBridgeIp",function(r){a=r})}var i=[],s=0,a=null,c=null;c=storageClass(),u();var f=function(r){r.forEach(function(r){h(r)})},p=function(r){f(r),l()},h=function(n){var t=hueBridge(n,r,g,v,y);i.unshift(t)},d=function(r){r?h(r):h(a),l(),hueNupnpDiscoverer(p)},l=function(){0===i.length&&f(bruteForcer().ips()),i.forEach(function(r){r.start()})},g=function(r,t,e){n(r,t,e),m()},v=function(r,n,e){t(r,n,e),m()},y=function(r,n,t){e(r,n,t),m()},m=function(){s++,s>=i.length&&o&&o()};return{start:function(r,n){d(r,n)},ips:function(){return i}}};
+/**
+ * Philips Hue discoverer service
+ * Copyright (c) 2015 Dmitry Sadakov; All rights reserved */
+
+'use strict';
+
+/*globals $, trackState, storageClass */
+/*exported hueDiscoverer */
+
+var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, onError){
+    // defaults
+    var baseUrl = 'http://' + bridgeIP + '/api';
+    var baseApiUrl = baseUrl + '/' + apiKey;
+    var status = 'init'; // found, notauthorized, ready, error
+
+    var storage = storageClass();
+
+    function setLastBridgeIP(ip) {
+      storage.set('lastBridgeIp', ip);
+    }
+
+        
+    var log = function(text) {
+            var message = 'hueBridge (' + bridgeIP + '): ' + text;
+            console.log(message);
+        },
+        getBridgeState = function(){
+            try{
+                $.ajax({
+                    dataType: 'json',
+                    url: baseApiUrl,
+                    success: onGotBridgeState,
+                    error: onAuthError,
+                    timeout: 5000
+                });
+            }catch (err) {
+                onAuthError(err);
+            }
+        },
+        onAuthError = function(err){
+            if (err.statusText === 'timeout') {
+                log('Bridge error timeout: ' + bridgeIP);
+                onError(bridgeIP, 'Timeout', 'Too many timeouts on: ' + baseUrl);
+            } else { 
+                log('error on auth: ' + err.statusText);
+                // error
+                status = 'error';
+                onError(bridgeIP, 'Error', 'Unknown error' + err.statusText);
+            }
+        },
+        onGotBridgeState = function(dataArray) {
+            var data = dataArray;
+            if ($.isArray(data)) {
+                data = dataArray[0]; // take first
+            }
+            
+            // save bridge ip to storage
+            setLastBridgeIP(bridgeIP);
+
+            if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
+            {
+                log('Bridge found at ' + bridgeIP);
+                status = 'found';
+                addUser();
+            }
+            else if (data.hasOwnProperty('lights'))
+            {
+                status = 'ready';
+                log('Bridge ready ' + bridgeIP);
+                onAuthorized(bridgeIP, 'Ready', data);
+            }
+        },
+        addUser = function(){
+            log('adding user...');
+            var dataString = JSON.stringify({devicetype: apiKey, username: apiKey });
+            log(dataString);
+            $.ajax({
+                url: baseUrl,
+                type: 'POST',
+                data: dataString,
+                success: onAddUserResponse
+            });
+
+        }, 
+        onAddUserResponse = function(response) {
+             log(response);
+             if (response[0].hasOwnProperty('error'))
+             {
+                unauthorized(response);
+             }
+             else if (response[0].hasOwnProperty('success'))
+             {
+                status = 'ready';
+                bridgeSuccess(response);
+             }
+        },
+        unauthorized = function(response){
+            if (response[0].error.description === 'link button not pressed') {
+                status = 'needauthorization';
+                onNeedAuthorization(bridgeIP, 'NeedAuthorization', 'Bridge found. Press the bridge button...');
+                setTimeout(addUser, 2000);
+            } else  {
+                status = 'error';
+                onError(bridgeIP, 'Error', 'Error: ' + response[0].error.description);
+            }
+        },
+        bridgeSuccess = function(response) {
+            log('Authorization successful');
+            // request success message from actual bridge:
+            getBridgeState();
+        };
+    return {
+        getStatus: function(){
+            return status;
+        },
+        start: function(){
+            getBridgeState();
+        }
+    };
+};
+
+
+var hueNupnpDiscoverer = function (onReady) { 
+
+    var ips = [];
+    var findNupnpBridges = function() {
+            console.log('Requesting meethue.com/api/nupnp.');
+            var nupnp = 'https://www.meethue.com/api/nupnp';
+            
+            // debugging only!
+            //nupnp = 'https://debugging';
+
+            $.ajax({
+                url: nupnp,
+                dataType: 'json',
+                timeout: 2000,
+                success: onNupnpResponse,
+                error: errorNupnp
+            });
+        },
+        onNupnpResponse = function(data) {
+            trackState('nunpnp', data);
+            if (data !== null && data.length > 0) {
+                data.forEach(function(bridgeInfo, index) {
+                    var bridgeIP = bridgeInfo.internalipaddress;
+                    if (bridgeIP !== '0.0.0.0') {
+                        ips.push(bridgeIP);
+                    }
+                });
+                ready();
+            } else {
+                console.log('meethue portal did not return');
+                ready();
+            }
+        },
+        errorNupnp = function(err){
+            // error
+            console.log(err);
+            ready();
+        }, 
+        ready = function(){
+            onReady(ips);
+        };
+        
+        // auto launch
+        findNupnpBridges();
+
+        return {};
+    };
+
+
+var bruteForcer = function () { 
+    var getIps = function () {
+          // try default ips for win and mac, first 20 devices
+          var ips = [];
+          for(var i = 0; i < 21; i++) {
+            ips.push('10.0.1.' + i); // mac: 10.0.1.1-20
+            ips.push('192.168.0.' + i); // win: 192.168.0.1-20
+            ips.push('192.168.0.' + (100+i)); // win: 192.168.1.100-120
+            ips.push('192.168.1.' + i); // win: 192.168.1.1-20
+          }
+          return ips;
+        };
+    return {
+        ips: function(){
+            return getIps();
+        }
+    };
+};
+
+
+var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError, onComplete) { 
+
+    var hueBridges = [];
+    var completeCounter = 0;
+
+    var lastBridgeIp = null;
+    var storage = null;
+
+    function getLastBridgeIP() {
+      storage.get('lastBridgeIp', function (ip) {
+        
+        lastBridgeIp = ip;
+        // debugging only!
+        //lastBridgeIp = null;
+
+      });
+    }
+
+    // constructor
+    storage = storageClass();
+    getLastBridgeIP();
+
+    var addHueBridges = function(ips) {
+            ips.forEach(function (ip) {
+               addHueBridge(ip);
+            });
+        },
+        launchAfter = function(ips) {
+            addHueBridges(ips);
+            launch();
+        },
+        addHueBridge = function(ip){
+            var probableHueBridge = hueBridge(ip, apiKey, onNeedAuthWrapper, onAuthorizedWrapper, onErrWrapper);
+            hueBridges.unshift(probableHueBridge);
+        },
+        start = function(ip, brute){
+            if (ip) {
+               addHueBridge(ip);
+            } else if (lastBridgeIp !== null) {
+               addHueBridge(lastBridgeIp);
+            }
+            launch();
+
+            hueNupnpDiscoverer(launchAfter);
+        },
+        launch = function(){
+            if(hueBridges.length === 0) {
+                addHueBridges(bruteForcer().ips());
+            }
+            hueBridges.forEach(function(bridge) {
+                bridge.start();
+            });
+        }, 
+        onNeedAuthWrapper = function(ip, status, message) {
+            onNeedAuthorization(ip, status, message);
+            completed();
+        }, 
+        onAuthorizedWrapper = function(ip, status, message) {
+            onAuthorized(ip, status, message);
+            completed();
+        }, 
+        onErrWrapper = function(ip, status, message) {
+            onError(ip, status, message);
+            completed();
+        }, 
+        completed = function(){
+            completeCounter++;
+            if (completeCounter >= hueBridges.length && onComplete) {
+                onComplete(); // call when every IP was traversed
+            }
+        };
+    return {
+        start: function(ip, brute) {
+            start(ip, brute);
+        },
+        ips: function() {
+            return hueBridges;
+        }
+    };
+};

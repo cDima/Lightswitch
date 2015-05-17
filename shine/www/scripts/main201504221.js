@@ -1086,9 +1086,15 @@ var MMCQ = (function() {
  var config = {
   //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
+<<<<<<< Updated upstream
   app: 'pro',
   //app: 'app',
   //app: 'web',
+=======
+  //app: 'pro',
+  //app: 'app',
+  app: 'web',
+>>>>>>> Stashed changes
  };
 
 /* (C) 2014 Dmitry Sadakov */

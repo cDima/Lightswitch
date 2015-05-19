@@ -301,3 +301,60 @@ To disable web storage backup to iCloud, set the BackupWebStorage preference to 
 
 2015-05-01 07:41:32.584 Ambieye[8015:238302] Resetting plugins due to page load.
 2015-05-01 07:41:33.695 Ambieye[8015:238302] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/FEC59806-FB9C-40DD-9A79-8D882DB29094/data/Containers/Bundle/Application/65BB54FF-F2E3-4BF3-AECE-ED605EE3CCB5/Ambieye.app/www/index.html
+2015-05-17 16:55:13.347 Ambieye[17420:1477613] Apache Cordova native platform version 3.7.0 is starting.
+2015-05-17 16:55:13.351 Ambieye[17420:1477613] Multi-tasking -> Device: YES, App: YES
+2015-05-17 16:55:13.370 Ambieye[17420:1477613] Unlimited access to network resources
+2015-05-17 16:55:13.380 Ambieye[17420:1477613] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-17 16:55:14.070 Ambieye[17420:1477613] Resetting plugins due to page load.
+2015-05-17 16:55:15.761 Ambieye[17420:1477613] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/FEC59806-FB9C-40DD-9A79-8D882DB29094/data/Containers/Bundle/Application/3745DF68-0163-4942-A17E-4EC9490B017C/Ambieye.app/www/index.html
+2015-05-17 16:56:36.928 Ambieye[17420:1477613] CDVWebViewDelegate: Navigation started when state=1
+2015-05-17 16:56:36.928 Ambieye[17420:1477613] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-05-17 16:56:36.928 Ambieye[17420:1477613] Resetting plugins due to page load.
+2015-05-17 16:56:38.743 Ambieye[17420:1477613] Finished load of: https://plus.google.com/+ApistarterOnline
+2015-05-17 17:01:22.542 Ambieye[18015:1480712] Apache Cordova native platform version 3.7.0 is starting.
+2015-05-17 17:01:22.545 Ambieye[18015:1480712] Multi-tasking -> Device: YES, App: YES
+2015-05-17 17:01:22.566 Ambieye[18015:1480712] Unlimited access to network resources
+2015-05-17 17:01:22.574 Ambieye[18015:1480712] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-17 17:01:23.214 Ambieye[18015:1480712] Resetting plugins due to page load.
+2015-05-17 17:01:24.662 Ambieye[18015:1480712] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/FEC59806-FB9C-40DD-9A79-8D882DB29094/data/Containers/Bundle/Application/B5F9F775-DB83-4063-AD46-5FB0E1AB74F6/Ambieye.app/www/index.html
+2015-05-18 18:46:33.042 Ambieye[18932:1602241] Apache Cordova native platform version 3.7.0 is starting.
+2015-05-18 18:46:33.043 Ambieye[18932:1602241] Multi-tasking -> Device: YES, App: YES
+2015-05-18 18:46:33.058 Ambieye[18932:1602241] Unlimited access to network resources
+2015-05-18 18:46:33.067 Ambieye[18932:1602241] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 18:46:33.660 Ambieye[18932:1602241] Resetting plugins due to page load.
+2015-05-18 18:46:34.866 Ambieye[18932:1602241] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/FEC59806-FB9C-40DD-9A79-8D882DB29094/data/Containers/Bundle/Application/E90AA36E-5C1D-4AE6-B650-2D778F3C1A11/Ambieye.app/www/index.html
+2015-05-18 18:47:00.315 Ambieye[18932:1602241] THREAD WARNING: ['InAppBrowser'] took '32.456299' ms. Plugin should use a background thread.
+2015-05-18 19:09:34.808 Ambieye[19543:1616786] Apache Cordova native platform version 3.7.0 is starting.
+2015-05-18 19:09:34.810 Ambieye[19543:1616786] Multi-tasking -> Device: YES, App: YES
+2015-05-18 19:09:34.828 Ambieye[19543:1616786] Unlimited access to network resources
+2015-05-18 19:09:34.837 Ambieye[19543:1616786] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-05-18 19:09:35.448 Ambieye[19543:1616786] Resetting plugins due to page load.
+2015-05-18 19:09:36.661 Ambieye[19543:1616786] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/FEC59806-FB9C-40DD-9A79-8D882DB29094/data/Containers/Bundle/Application/FC6A265C-6D12-42E2-BE66-42A274C7303D/Ambieye.app/www/index.html

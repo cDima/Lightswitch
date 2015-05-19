@@ -30,8 +30,8 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
                     dataType: 'json',
                     url: baseApiUrl,
                     success: onGotBridgeState,
-                    error: onAuthError,
-                    timeout: 5000
+                    error: onAuthError//,
+                    //timeout: 5000
                 });
             }catch (err) {
                 onAuthError(err);
@@ -133,7 +133,7 @@ var hueNupnpDiscoverer = function (onReady) {
             $.ajax({
                 url: nupnp,
                 dataType: 'json',
-                timeout: 2000,
+                //timeout: 2000,
                 success: onNupnpResponse,
                 error: errorNupnp
             });

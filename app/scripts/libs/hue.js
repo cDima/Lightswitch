@@ -443,7 +443,7 @@ var hue = function ($, colors) {
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
                 timeoutAuthCounter++;
-                if (timeoutAuthCounter >= 2) {
+                if (timeoutAuthCounter >= 10) {
                     timeoutAuthCounter = 0;
                     log('too many timeouts with IP ' + baseUrl);
                     updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
@@ -788,7 +788,7 @@ var hue = function ($, colors) {
             $.ajax({
                 url: 'https://www.meethue.com/api/nupnp',
                 dataType: 'json',
-                timeout: 2000,
+                //timeout: 2000,
                 success: function(data) {
                     if (data !== null && data.length > 0) {
                         bridgeIP = data[0].internalipaddress;

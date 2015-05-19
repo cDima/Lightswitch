@@ -26,6 +26,7 @@
           activatedScene,
           voiceCommander,
           hueProxy
+          
 */
 
 /* exported socialLikesButtons, voiceCmdFunc */
@@ -559,7 +560,7 @@ function hueHeartbeat() {
 }
 
 function onBridgeNotFound(status) {
-  $('#connectStatus').html('<div class="intro-text"><a class="amazonlink" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
+  $('#connectStatus').html('<div class="intro-text"><a class="amazonlink nativeclick" href="http://bit.ly/lightswitchhue" target="_blank">Philips Hue bridge</a> not found.</div>');
   manualIpInputAnimation = setTimeout(showManualBridge, 2000);
   stopHeartbeat();
 }

@@ -1,0 +1,3 @@
+Change android/build.gradle version to:
+
+        classpath 'com.android.tools.build:gradle:1.0.+'

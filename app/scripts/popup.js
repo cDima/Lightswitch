@@ -35,7 +35,7 @@ var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed po
 
 var sceneCmd = null;
 var ambieye = null;
-var heartbeatInterval = 2000;
+var heartbeatInterval = 4000;
 
 var hubStartTime = new Date().getTime();
 
@@ -665,7 +665,7 @@ function updateActorControls(actors) {
   var bri = 0;
   
   $.each(actors, function(key, lamp){
-    on = on || (lamp && lamp.state && lamp.state.on);
+    on = on || (lamp && lamp.state && lamp.state.on && lamp.state.reachable);
     if (lamp && lamp.state && (lamp.state.bri > bri)) {
       bri = lamp.state.bri;
     }

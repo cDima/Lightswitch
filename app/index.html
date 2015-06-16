@@ -106,24 +106,24 @@
             <span id="voice-feedback"></span>
           </div>
 
-          <div class="intro-body">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-xs-10 offset">
-                          <div id="lamp"></div>
-                          <div class="switch no-drag" id="toggle-lights">
-                            <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
-                            <label for="lightswitch"></label>
-                          </div>
-                          <h1 class="brand-heading logo">
-                              Lightswitch
-                          </h1>
-                          <p id="connectStatus"></p>
-                          <div class="clear"></div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+            <div class="intro-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-10 offset">
+                            <div id="lamp"></div>
+                            <div class="switch no-drag" id="toggle-lights">
+                              <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
+                              <label for="lightswitch"></label>
+                            </div>
+                            <h1 class="brand-heading logo">
+                                Lightswitch
+                            </h1>
+                            <p id="connectStatus"></p>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
 
 <!--fa-toggle-off -->
@@ -160,27 +160,40 @@
                         <a href="#colors" role="tab" data-toggle="tab">
                       <!--Colors-->
                         <i class="fa fa-eyedropper"></i>
-                        <b class="tab-text not-pro">&nbsp;
-                        Colors
+                        <b class="tab-text not-pro">&nbsp; Colors
                         </b>
-                      </a></li>
+                      </a>
+                      </li>
+
+                      <li role="presentation" class="config-create">
+                        <a href="#create" role="tab" data-toggle="tab">
+                          <i class="fa fa-plus-circle"></i>
+                          <b class="tab-text not-pro">&nbsp; Create</b>
+                        </a>
+                      </li>
+                      
+                      <li role="presentation" class="config-schedule">
+                        <a href="#schedule" role="tab" data-toggle="tab">
+                          <i class="fa fa-clock-o"></i>
+                          <b class="tab-text not-pro">&nbsp; Schedule</b>
+                        </a>
+                      </li>
+
                       <li role="presentation" class="config-search">
                         <a href="#search" role="tab" data-toggle="tab">
                         <i class="fa fa-binoculars"></i>
-                        <b class="tab-text not-pro">&nbsp;
-                        Search
+                        <b class="tab-text not-pro">&nbsp; Search
                         </b>
                       </a></li>
                       <li role="presentation" class="config-ambieye">
                         <a href="#eye" role="tab" data-toggle="tab">
                         <i class="fa fa-eye"></i>
-                        <b class="tab-text not-pro">&nbsp;Ambience</b>
+                        <b class="tab-text not-pro">&nbsp; Ambience</b>
                       </a></li>
                       <li role="presentation" class="config-feedback">
                         <a href="#subscribe" role="tab" data-toggle="tab">
                           <i class="fa fa-paper-plane"></i> 
-                          <b class="tab-text not-pro">&nbsp;
-                          Feedback
+                          <b class="tab-text not-pro">&nbsp; Feedback
                           </b>
                         </a>
                       </li>
@@ -450,6 +463,28 @@
                             </div>
                         </div>
                       </div>
+
+                      <div role="tabpanel" class="tab-pane fade in" id="create">
+                        <div class="panel-body">
+                          <div class="create">
+                            <div class=" center">
+                              <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div role="tabpanel" class="tab-pane fade in" id="schedule">
+                        <div class="panel-body">
+                          <div class="schedule">
+                            <div class=" center">
+                              <i class="fa fa-circle-o-notch fa-spin"></i> Loading...
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
                       <div role="tabpanel" class="tab-pane fade in" id="search">
                         <div class="panel-body">
                           <div class="search">
@@ -672,6 +707,7 @@
         <script src="scripts/config.js"></script>
         <script src="scripts/config.features.js"></script>
         <script src="scripts/libs/ga.js"></script>
+        <script src="scripts/libs/rsvp.3.0.18.min.js"></script>
         <script src="scripts/libs/storage.js"></script>
         <script src="scripts/libs/uservoice.js"></script>
       	<script src="scripts/libs/colors.js"></script>

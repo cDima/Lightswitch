@@ -34,6 +34,9 @@ var huePortalModule = function(){
     getAuthorized();
 
     return {
+        init: function(){
+            return authorize();
+        },
         authorize: function(){
             return authorize();
         },

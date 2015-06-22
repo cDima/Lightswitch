@@ -25,8 +25,7 @@
           findActors,
           activatedScene,
           voiceCommander,
-          hueProxy,
-          huePortalModule
+          hueProxy
           
 */
 
@@ -40,7 +39,6 @@ var heartbeatInterval = 4000;
 
 var hubStartTime = new Date().getTime();
 
-var portal = huePortalModule();
 
 /* search */
 var clPalettes = null;
@@ -98,7 +96,7 @@ $(document).ready(function(){
     initPalettes();
     initPickers();
     initGravity();
-    initPortal();
+
     initAmbientEye();
     initCloseMinimize();
 
@@ -1362,6 +1360,7 @@ function initAmbientEye() {
     $('#eye-mode-group #' + ambieye.mode).addClass('active');
 }
 
+
 function toggleAmbience(e) {
   var active = $('#toggle-ambientweb').is(':checked');
   ambieye.on = active;
@@ -1460,18 +1459,6 @@ function initCloseMinimize() {
     });
 }
 
-function initPortal(){
-  var portalIco = $('#portal-control');
-  portalIco.click(function(){
-      togglePortal();
-    });
-
-  portalIco.toggleClass('active', portal.authorized());
-}
-
-function togglePortal() {
-  portal.authorize();
-}
 
 function initVoice() {
   if (huevoice === null) {

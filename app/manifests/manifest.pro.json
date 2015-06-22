@@ -19,19 +19,6 @@
     "*://localhost/*",
     "storage"
   ],
-  "content_scripts": [
-      {
-          "matches": [
-            "https://www.meethue.com/en-us/api/gettoken"
-          ],
-          "js": [
-            "scripts/libs/jquery-1.11.1.min.js",
-            "scripts/contentscripts/meethue.js"
-          ],
-          "all_frames": true,
-          "run_at": "document_end"
-      }
-  ],
   "optional_permissions": [ 
     "activeTab",
     "<all_urls>",

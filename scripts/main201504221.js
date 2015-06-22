@@ -3777,50 +3777,6 @@ function initSocialButtons() {
 
 }
 /**
- * Copyright (c) 2015 Dmitry Sadakov; All rights reserved */
-
-'use strict';
-
-/*globals storageClass */
-/*exported huePortalModule */
-
-var huePortalModule = function(){
-    // defaults
-    var storage = storageClass();
-    var huePortalCode = null;
-
-    function getAuthorized() {
-      storage.get('HuePortalCode', function (code) {
-        huePortalCode = code;
-      });
-    }
-
-    function authorized(code) {
-      if (code !== null) {
-          storage.set('HuePortalCode', code);
-          huePortalCode = code;
-      }
-      return huePortalCode;
-    }
-
-    function authorize() {
-        if (authorized() !== null) {
-
-        }
-    }
-
-    getAuthorized();
-
-    return {
-        authorize: function(){
-            return authorize();
-        },
-        authorized: function(code){
-            authorized(code);
-        }
-    };
-};
-/**
  * Philips Hue discoverer service
  * Copyright (c) 2015 Dmitry Sadakov; All rights reserved */
 
@@ -5959,8 +5915,7 @@ var hueProxy = function(hueCommander) {
           findActors,
           activatedScene,
           voiceCommander,
-          hueProxy,
-          huePortalModule
+          hueProxy
           
 */
 
@@ -5974,7 +5929,6 @@ var heartbeatInterval = 4000;
 
 var hubStartTime = new Date().getTime();
 
-var portal = huePortalModule();
 
 /* search */
 var clPalettes = null;
@@ -6032,7 +5986,7 @@ $(document).ready(function(){
     initPalettes();
     initPickers();
     initGravity();
-    initPortal();
+
     initAmbientEye();
     initCloseMinimize();
 
@@ -7296,6 +7250,7 @@ function initAmbientEye() {
     $('#eye-mode-group #' + ambieye.mode).addClass('active');
 }
 
+
 function toggleAmbience(e) {
   var active = $('#toggle-ambientweb').is(':checked');
   ambieye.on = active;
@@ -7394,18 +7349,6 @@ function initCloseMinimize() {
     });
 }
 
-function initPortal(){
-  var portalIco = $('#portal-control');
-  portalIco.click(function(){
-      togglePortal();
-    });
-
-  portalIco.toggleClass('active', portal.authorized());
-}
-
-function togglePortal() {
-  portal.authorize();
-}
 
 function initVoice() {
   if (huevoice === null) {

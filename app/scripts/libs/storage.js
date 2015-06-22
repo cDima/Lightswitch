@@ -11,14 +11,14 @@ var storageClass = function (){
 
 	function setSetting(name, val, callback){
 		try{
-		  	console.log('setting ' + name + ' = ' + JSON.stringify(val));
+		  	console.log('setting ' + name + ' = ' + val);
 		  	var obj = {};
 		  	obj[name] = val;
 
 		  	if (syncAvailable()) {
 				chrome.storage.sync.set(obj, callback);
 			} else {
-				localStorage.setItem(name, JSON.stringify(val));
+				localStorage.setItem(name, val);
 				if (callback) { 
 					callback(name, val);// might be different from sync
 				}

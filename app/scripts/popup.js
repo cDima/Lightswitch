@@ -1461,7 +1461,7 @@ function initCloseMinimize() {
 }
 
 function initPortal(){
-  var portalIco = $('#portal-ico');
+  var portalIco = $('#portal-control');
   portalIco.click(function(){
       togglePortal();
     });
@@ -1470,9 +1470,7 @@ function initPortal(){
 }
 
 function togglePortal() {
-  if (!portal.authorized() && portal.canConnect()) {
-     window.open(portal.connectUrl(), '_blank');
-  }
+  portal.authorize();
 }
 
 function initVoice() {

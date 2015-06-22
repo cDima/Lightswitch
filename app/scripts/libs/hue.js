@@ -26,7 +26,6 @@ var hue = function ($, colors) {
 
     
     var bridgeIP = '', // Hue bridge's IP address 
-        bridgeId = null,
         apiKey = 'lightswitch-v4', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
         status = { status: 'init', text: 'Initializing...' }, // system status
         state = null, // bridge state
@@ -61,11 +60,10 @@ var hue = function ($, colors) {
           onStatus(statusNeedAuth);
           discoverStatus = 'auth';
         }
-        function onIpAuthorized(ip, id, message, data){
+        function onIpAuthorized(ip, message, data){
           //onStatus(statusReady);
           discoverStatus = 'ok';
           hue.setIp(ip);
-          hue.setId(id);
           onAuthorized(data);
         }
         function onError(){
@@ -204,13 +202,6 @@ var hue = function ($, colors) {
             return baseApiUrl + '/groups';
         },
         
-        buildScheduleURL = function(key) {
-            if (key !== undefined) {
-                return baseApiUrl + '/schedules/' + key;
-            }
-            return baseApiUrl + '/schedules';
-        },
-        
         /**
          * Convenience function used to initiate an HTTP PUT request to modify 
          * state.
@@ -238,6 +229,7 @@ var hue = function ($, colors) {
             var error = log;
             return putJSON(buildGroupActionURL(groupIndex), callback, error, action);
         },
+        
         postGroup = function(name, lampIds) {
             var callback = apiSuccess;
             var error = log;
@@ -249,26 +241,6 @@ var hue = function ($, colors) {
             var error = log;
             return del(buildGroupURL(key), callback, error);
         },
-
-        getSchedules = function(callback, error) {
-            return get(buildScheduleURL(), callback, error);
-        },
-        putSchedule = function(index, schedule) {
-            var callback = apiSuccess;
-            var error = log;
-            return putJSON(buildScheduleURL(index), callback, error, schedule);
-        },
-        postSchedule = function(name, schedule) {
-            var callback = apiSuccess;
-            var error = log;
-            return postJSON(buildScheduleURL(), callback, error, schedule);
-        },
-        deleteSchedule = function(key) {
-            var callback = apiSuccess;
-            var error = log;
-            return del(buildScheduleURL(key), callback, error);
-        },
-
         /**
          * Convenience function used to initiate HTTP PUT requests to modify state
          * of all connected Hue lamps.
@@ -706,18 +678,6 @@ var hue = function ($, colors) {
             var state = buildBrightnessState(brightness, transitiontime);
             return put(lampIndex, state);
         },
-        getSchedules: function(success) {
-            return getSchedules(success);
-        },
-        putSchedule: function(index, schedule) {
-            return putSchedule(index, schedule);
-        },
-        postSchedule: function(name, schedule) {
-            return postSchedule(name, schedule);
-        },
-        deleteSchedule: function(key) {
-            return deleteSchedule(key);
-        },
         /**
          * Set the brightness of all connected lamps.
          *
@@ -820,8 +780,43 @@ var hue = function ($, colors) {
             bridgeIP = ip;
             updateURLs();
         },
-        setId: function(id) {
-            bridgeId = id;
+        /**
+         * Find bridges  findBridge() a upnp, then scan, then predefined typical ips. 
+         */
+        findBridge: function(onerror) {
+            log('Requesting meethue.com/api/nupnp.');
+            $.ajax({
+                url: 'https://www.meethue.com/api/nupnp',
+                dataType: 'json',
+                //timeout: 2000,
+                success: function(data) {
+                    if (data !== null && data.length > 0) {
+                        bridgeIP = data[0].internalipaddress;
+                        if (bridgeIP !== '0.0.0.0')
+                        {
+                            log('Found bridge at ' + bridgeIP);
+                            updateURLs();
+
+                            getBridgeState();
+                        }
+                        else{
+                            log('Bridge not found');
+                            updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
+                        }
+                    } else {
+                        log('meethue portal did not return');
+                        updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
+                    }
+                },
+                error: function(err){
+                    // error
+                    log(err);
+                    updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
+                    if (typeof(onerror) !== 'undefined') {
+                        onerror(err);
+                    }
+                }
+            });
         },
         /**
          * Set the number of lamps available to control.
@@ -879,8 +874,10 @@ var hue = function ($, colors) {
             return [actors]; // lights: prefix not used, just return array of number.
         },
         discover: function(ip){
-          discover.start(ip);
+          //window.hue.findBridge(); 
+          discover.start(ip, true);
           updateStatus(statusInit.status,statusInit.text);
+          //discoverStatus = 'init';
 
         }
     };

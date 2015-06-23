@@ -40,21 +40,19 @@ var scenes = {
         },
         index: 0
     },
-    'NewYears': {
+    'New Years Fireworks': {
         interval: 500,
         Palette: Palettes.NewYears,
         update: function(lampIds) {
-            var lightStates = [];
-            $.each(lampIds, function(index, val){
-                if (Math.random() > 0.6) {
-                    var color = Palettes.NewYears[Math.round(Math.random() * (Palettes.NewYears.length - 1))]; // random
-                    lightStates.push({lamp: val, color:color, bri: 255, transitionTime: 0});
-                } else {
-                    var random = Math.floor((Math.random()*(15-6+1)+6) );
-                    lightStates.push({lamp: val, bri: -255, transitionTime: random});
-                }
-            });
-            return lightStates;
+            return scenes.fireworks(lampIds, this.Palette);
+        },
+        index: 0
+    },
+    '4th of July': {
+        interval: 500,
+        Palette: Palettes.America,
+        update: function(lampIds) {
+            return scenes.fireworks(lampIds, this.Palette);
         },
         index: 0
     },
@@ -240,5 +238,21 @@ var scenes = {
             }
         }
         return null;
+    },
+    fireworks: function(lampIds, palette){
+        var lightStates = [];
+            
+        for(var index = 0; index < lampIds.length; index++){
+            var val = lampIds[index];
+            
+            if (Math.random() > 0.6) {
+                var color = palette[Math.round(Math.random() * (palette.length - 1))]; // random
+                lightStates.push({lamp: val, color:color, bri: 255, transitionTime: 0});
+            } else {
+                var random = Math.floor((Math.random()*(15-6+1)+6) );
+                lightStates.push({lamp: val, bri: -255, transitionTime: random});
+            }
+        }
+        return lightStates;
     }
 };

@@ -98,7 +98,7 @@ html, body {
 
 .container {
   width: 100%;
-  padding-bottom: 45px;
+  padding-bottom: 15px;
 }
 
 footer {
@@ -113,8 +113,10 @@ footer {
   font-size: 0.7em;
 }
 
-body.light footer {
+body.light footer,
+body.pro footer {
   height: auto;
+  height: 15px;
 }
 
 h5 {

@@ -140,4 +140,9 @@ var Palettes = {
         { name: 'Silver', color: '#ACB6BC'},
         { name: 'Blue', color: '#06192E'}
     ],
+    'America': [
+        { name: 'White', color: '#FFFFFF'},
+        { name: 'Old Glory Red', color: '#B22234'},
+        { name: 'Old Glory Blue', color: '#3C3B6E'}
+    ],
 };

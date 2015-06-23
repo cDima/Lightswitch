@@ -11,14 +11,14 @@ var storageClass = function (){
 
 	function setSetting(name, val, callback){
 		try{
-		  	console.log('setting ' + name + ' = ' + val);
+		  	console.log('setting ' + name + ' = ' + JSON.stringify(val));
 		  	var obj = {};
 		  	obj[name] = val;
 
 		  	if (syncAvailable()) {
 				chrome.storage.sync.set(obj, callback);
 			} else {
-				localStorage.setItem(name, val);
+				localStorage.setItem(name, JSON.stringify(val));
 				if (callback) { 
 					callback(name, val);// might be different from sync
 				}
@@ -35,7 +35,13 @@ var storageClass = function (){
 				callback(items[name]);
 			});
 		} else if (localStorage) {
-			var result = localStorage.getItem(name);
+			var result = null;
+			try {
+				result = JSON.parse(localStorage.getItem(name));
+			}catch(e) {
+				console.log('Error: ' + e);
+				result = localStorage.getItem(name);
+			}
 			if (callback) { 
 				callback(result);
 			}

@@ -129,20 +129,19 @@ var Palettes = {
         '#FFFFFF',
         '#FFFE99',
     ],
-    'SuperbowlPatriots': [
-        { name: 'Nautical Blue', color: '#0D254C'},
-        { name: 'Red', color: '#C80815'},
-        { name: 'New Century Silver', color: '#D6D6D6'},
-        { name: 'White', color: '#FFFFFF'}
-    ],
-    'SuperbowlSeahawks': [
-        { name: 'Bright green', color: '#4EAE47'},
-        { name: 'Silver', color: '#ACB6BC'},
-        { name: 'Blue', color: '#06192E'}
-    ],
     'America': [
         { name: 'White', color: '#FFFFFF'},
         { name: 'Old Glory Red', color: '#B22234'},
-        { name: 'Old Glory Blue', color: '#3C3B6E'}
+        { name: 'Old Glory Blue', color: '#404BC1'}
+    ],
+    'Lightning': [
+        { name: 'Lightning', color: '#E5F8FF'},
+        { name: 'Dark night', color: '#050AF9'},
+        { name: 'Dark night', color: '#070A8E'},
+        { name: 'Dark night', color: '#0A0EC8'},
+        { name: 'Dark night', color: '#0A0DAE'},
+        { name: 'Dark night', color: '#2125D2'},
+        
+        
     ],
 };

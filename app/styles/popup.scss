@@ -34,7 +34,7 @@ html, body {
     color: #555;
     color: #B5B5B5;
     background-color: #EDEDED;
-    zoom: reset; 
+    /*zoom: reset; */
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -103,7 +103,7 @@ html, body {
 
 footer {
   position: absolute;
-  height: 50px;
+  /*height: 50px;*/
   bottom: 0;
   left: 0;
   margin: 0 auto;
@@ -116,7 +116,6 @@ footer {
 body.light footer,
 body.pro footer {
   height: auto;
-  height: 15px;
 }
 
 h5 {

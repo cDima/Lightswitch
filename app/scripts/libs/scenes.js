@@ -120,29 +120,12 @@ var scenes = {
             return scenes.randomPallete(lampIds, this.Palette);
         }
     },
-    'Patriots': {
-        interval: 5000,
-        index: 0,
-        Palette: Palettes.SuperbowlPatriots,
+    'Lightning':{
+        interval: 500,
+        Palette: Palettes.Lightning,
         update: function(lampIds) {
-            scenes.Patriots.index++;
-            if (scenes.Patriots.index >= this.Palette.length){
-                scenes.Patriots.index = 0;
-            }
-            return scenes.chain(lampIds, this.Palette, scenes.Patriots.index, 2);
-        }
-    },
-    'Seahawks': {
-        interval: 5000,
-        index: 0,
-        Palette: Palettes.SuperbowlSeahawks,
-        update: function(lampIds) {
-            scenes.Seahawks.index++;
-            if (scenes.Seahawks.index >= this.Palette.length){
-                scenes.Seahawks.index = 0;
-            }
-            return scenes.chain(lampIds, this.Palette, scenes.Seahawks.index, 2);
-        }
+            return scenes.lightning(lampIds, this.Palette);
+        }  
     },
     'Ambient': {
         interval: 1000,
@@ -252,6 +235,24 @@ var scenes = {
                 var random = Math.floor((Math.random()*(15-6+1)+6) );
                 lightStates.push({lamp: val, bri: -255, transitionTime: random});
             }
+        }
+        return lightStates;
+    },
+    lightning: function(lampIds, palette){
+        var lightStates = [];
+            
+        var isLightning = Math.random() < 0.1;
+        for(var index = 0; index < lampIds.length; index++){
+            var val = lampIds[index];
+            
+            var color = palette[Math.round(Math.random() * (palette.length - 2)) + 1 ]; // random after the first
+            if (isLightning) {
+                var bri = Math.round(Math.random()*100)+155;
+                lightStates.push({lamp: val, color:color, bri: bri, transitionTime: 0});
+            } else {
+                lightStates.push({lamp: val, color:color, bri: -255, transitionTime: 3});
+            }
+
         }
         return lightStates;
     }

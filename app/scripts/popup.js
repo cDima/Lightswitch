@@ -106,12 +106,13 @@ $(document).ready(function(){
 
 // Wait for device API libraries to load
 document.addEventListener('deviceready', onDeviceReady, false);
-
+var isDevice = false;
 // device APIs are available
 //
 function onDeviceReady() {
   //var ref = window.open('http://apache.org', '_blank', 'location=yes');
   // onclick="window.open('http://bit.ly/lightpro','_blank');"
+  isDevice = true;
 }
 
 
@@ -124,13 +125,18 @@ function handleSystemLink(a) {
   //  url = $(a.target).attr('href');
   //}
 
+  // windows 7 app defines winapp:
   if (window.winapp !== undefined){
     window.winapp.handleUrl(url);
     return false;
   }
 
-  window.open(url, '_blank', 'location=yes');
-  
+  if (isDevice) { 
+    window.open(url, '_system', 'location=yes');
+  } else {
+    window.open(url, '_blank', 'location=yes');
+  }
+
   return false;
 }
 

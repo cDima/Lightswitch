@@ -4,7 +4,7 @@
   "name": "Shine for Philips Hue",
   "short_name": "Shine",
   "description": "Shine — an app for Philips Hue lights",
-  "version": "2.0.2",
+  "version": "2.0.6",
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { 
             "128": "images/shine-logo128.png" },

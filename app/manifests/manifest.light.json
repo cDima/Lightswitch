@@ -4,7 +4,7 @@
   "name": "Lightswitch Light for Philips Hue",
   "short_name": "Lightswitch",
   "description": "Lightswitch Light allows control over digitally connected lightbulbs, such as Philips Hue.",
-  "version": "1.7.8",
+  "version": "2.0.6",
 
   "author": "Dmitry Sadakov (sadakov.com)",
   "icons": { "16": "images/lightswitch.logo.16.png",

@@ -314,6 +314,18 @@ p {margin: 0 0 5px;}
   padding-bottom: 10px;
 }
 
+.light-links {
+  text-decoration: none;
+  font-size: 0.8em;
+  text-align: center;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.light-links > div {
+  line-height: 1.9em;
+}
+
 .tab-pane{
   /*overflow:auto; */
   /*height: 215px; */

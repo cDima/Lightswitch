@@ -7,6 +7,26 @@
 /*globals $, trackState, storageClass */
 /*exported hueDiscoverer */
 
+/*
+
+popup.js - hueCommander -> hue.discover()
+background.js -> hue.discover();
+
+hue.js -> discoverer.start(ip) -> onAuthorized -> onIPAuthorized -> setIP -> updateStatus
+hue.js -> getBridgeState -> onGotBridgeState -> addUser *recursive -> updateStatus
+hue.js -> getBridgeState -> onGotBridgeState -> onAuthorized -> updateStatus
+hue.js -> getBridgeState -> onAuthError -> getBridgeState
+hue.js -> getLightState -> onAuthError -> getBridgeState 
+
+
+hueBridge.getBridgeState replaces hue.js
+hueBridge.onAuthError (no timeout counter) replaces onAuthError on hue.js
+hueBridge.
+
+
+todo: hueBridge rename to hueBridgeAuth.js   
+*/
+
 var hueBridge = function(bridgeIP, appname, lastUsername, onNeedAuthorization, onAuthorized, onError){
     // defaults
     if (lastUsername === null) {

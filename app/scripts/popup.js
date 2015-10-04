@@ -185,12 +185,12 @@ function initGlobals(){
     $('#https-proxy').hide();
 
     if (location.protocol === 'https:') {
+        /* todo: disfunctional probably */
         // page is secure, hue commander needs to use proxy to LPS.
         window.hueProxy = hueProxy();
 
         $('#https-proxy').show();
 
-        /* disfunctional probably: */
         ambieye = window.Ambient;
         window.hue = hue(window.jQuery, window.colors);
         sceneCmd = sceneCommander(window.jQuery, window.hue);
@@ -209,6 +209,7 @@ function initGlobals(){
 
     } else {
         log('loading as no chrome, running standalone');
+        // same as in background.js:
         window.hue = hue(window.jQuery, window.colors);
         sceneCmd = sceneCommander(window.jQuery, window.hue);
         ambieye = window.Ambient;
@@ -455,8 +456,6 @@ function tryIP(ip, error){
         url: 'http://' + ip + '/api/123-bogus',
         success: function(){
           hueProxy.cmd('discover', ip);
-          //hueProxy.cmd('setIp', ip);
-          //hueProxy.cmd('heartbeat');
         },
         error: error,
         timeout: 2000

@@ -7,10 +7,13 @@
 /*globals $, trackState, storageClass */
 /*exported hueDiscoverer */
 
-var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, onError){
+var hueBridge = function(bridgeIP, appname, lastUsername, onNeedAuthorization, onAuthorized, onError){
     // defaults
+    if (lastUsername === null) {
+        lastUsername = '123-bogus';
+    }
     var baseUrl = 'http://' + bridgeIP + '/api';
-    var baseApiUrl = baseUrl + '/' + apiKey;
+    var baseApiUrl = baseUrl + '/' + lastUsername;
     var status = 'init'; // found, notauthorized, ready, error
 
     var storage = storageClass();
@@ -18,6 +21,12 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
     function setLastBridgeIP(ip) {
       storage.set('lastBridgeIp', ip);
     }
+
+    function setLastUsername(val) {
+      storage.set('lastUsername', val);
+      baseApiUrl = baseUrl + '/' + lastUsername;
+    }
+
 
         
     var log = function(text) {
@@ -54,9 +63,6 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
                 data = dataArray[0]; // take first
             }
             
-            // save bridge ip to storage
-            setLastBridgeIP(bridgeIP);
-
             if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
             {
                 log('Bridge found at ' + bridgeIP);
@@ -67,12 +73,12 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
             {
                 status = 'ready';
                 log('Bridge ready ' + bridgeIP);
-                onAuthorized(bridgeIP, 'Ready', data);
+                onAuthorized(bridgeIP, lastUsername, 'Ready', data);
             }
         },
         addUser = function(){
             log('adding user...');
-            var dataString = JSON.stringify({devicetype: apiKey, username: apiKey });
+            var dataString = JSON.stringify({devicetype: appname }); // no username - bridge generates it
             log(dataString);
             $.ajax({
                 url: baseUrl,
@@ -90,24 +96,28 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
              }
              else if (response[0].hasOwnProperty('success'))
              {
+                // lastUsername
+
+                // save bridge ip to storage
+                setLastBridgeIP(bridgeIP);
+                lastUsername = response[0].success.username;
+                setLastUsername(lastUsername);
+
                 status = 'ready';
-                bridgeSuccess(response);
+                log('Authorization successful');
+                // request success message from actual bridge:
+                getBridgeState();
              }
         },
         unauthorized = function(response){
             if (response[0].error.description === 'link button not pressed') {
                 status = 'needauthorization';
                 onNeedAuthorization(bridgeIP, 'NeedAuthorization', 'Bridge found. Press the bridge button...');
-                setTimeout(addUser, 2000);
+                setTimeout(addUser, 2000); // recursively call every 2 seconds for 30 seconds.
             } else  {
                 status = 'error';
                 onError(bridgeIP, 'Error', 'Error: ' + response[0].error.description);
             }
-        },
-        bridgeSuccess = function(response) {
-            log('Authorization successful');
-            // request success message from actual bridge:
-            getBridgeState();
         };
     return {
         getStatus: function(){
@@ -120,7 +130,7 @@ var hueBridge = function(bridgeIP, apiKey, onNeedAuthorization, onAuthorized, on
 };
 
 
-var hueNupnpDiscoverer = function (onReady) { 
+var hueNupnpDiscoverer = function (callback) { 
 
     var ips = [];
     var findNupnpBridges = function() {
@@ -159,7 +169,7 @@ var hueNupnpDiscoverer = function (onReady) {
             ready();
         }, 
         ready = function(){
-            onReady(ips);
+            callback(ips);
         };
         
         // auto launch
@@ -189,13 +199,16 @@ var bruteForcer = function () {
 };
 
 
-var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError, onComplete) { 
+var hueDiscoverer = function (appname, onNeedAuthorization, onAuthorized, onError, onComplete) { 
 
     var hueBridges = [];
     var completeCounter = 0;
 
     var lastBridgeIp = null;
+    var lastUsername = null;
+
     var storage = null;
+    //var tryNupnp = false;
 
     function getLastBridgeIP() {
       storage.get('lastBridgeIp', function (ip) {
@@ -204,6 +217,10 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
         // debugging only!
         //lastBridgeIp = null;
 
+      });
+
+      storage.get('lastUsername', function (val) {
+        lastUsername = val;
       });
     }
 
@@ -221,10 +238,10 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
             launch();
         },
         addHueBridge = function(ip){
-            var probableHueBridge = hueBridge(ip, apiKey, onNeedAuthWrapper, onAuthorizedWrapper, onErrWrapper);
+            var probableHueBridge = hueBridge(ip, appname, lastUsername, onNeedAuthWrapper, onAuthorizedWrapper, onErrWrapper);
             hueBridges.unshift(probableHueBridge);
         },
-        start = function(ip, brute){
+        start = function(ip){
             if (ip) {
                addHueBridge(ip);
             } else if (lastBridgeIp !== null) {
@@ -232,7 +249,9 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
             }
             launch();
 
-            hueNupnpDiscoverer(launchAfter);
+            //if (tryNupnp) {
+                hueNupnpDiscoverer(launchAfter);
+            //}
         },
         launch = function(){
             if(hueBridges.length === 0) {
@@ -246,23 +265,29 @@ var hueDiscoverer = function (apiKey, onNeedAuthorization, onAuthorized, onError
             onNeedAuthorization(ip, status, message);
             completed();
         }, 
-        onAuthorizedWrapper = function(ip, status, message) {
-            onAuthorized(ip, status, message);
+        onAuthorizedWrapper = function(ip, username, status, message) {
+            onAuthorized(ip, username, status, message);
             completed();
         }, 
         onErrWrapper = function(ip, status, message) {
             onError(ip, status, message);
             completed();
+
         }, 
         completed = function(){
             completeCounter++;
             if (completeCounter >= hueBridges.length && onComplete) {
+            //if(tryNupnp) {
+
+            //} else {
+            //    completed();
+            //}
                 onComplete(); // call when every IP was traversed
             }
         };
     return {
-        start: function(ip, brute) {
-            start(ip, brute);
+        start: function(ip) {
+            start(ip);
         },
         ips: function() {
             return hueBridges;

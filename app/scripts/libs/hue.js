@@ -18,6 +18,9 @@
             findGroupIdByName 
 */
 
+// extract hueBridge class (with ip, username, authentication logic)
+// todo: remove authentication logic - forward to bridge class
+// on start check setup (ip & username) and do fast start.
 
 var hue = function ($, colors) { 
 
@@ -26,13 +29,14 @@ var hue = function ($, colors) {
 
     
     var bridgeIP = '', // Hue bridge's IP address 
-        apiKey = 'lightswitch-v4', //'1391b1706caeb6f4b2c8418fd8f402d8', // lightswitch - API key registered with hue bridge
+        appname = 'lightswitch-v4', // API key registered with hue bridge
+        username = '',
         status = { status: 'init', text: 'Initializing...' }, // system status
         state = null, // bridge state
 
         // defaults
         baseUrl = 'http://' + bridgeIP + '/api',
-        baseApiUrl = null,//baseUrl + '/' + apiKey,
+        baseApiUrl = null,//baseUrl + '/' + appname,
         lightApiUrl =null,// baseApiUrl + '/lights',
         lastResult = null,
         numberOfLamps = 3, // defaulted to the # of lamps included in the starter kit, update if you've connected additional bulbs
@@ -49,7 +53,7 @@ var hue = function ($, colors) {
         retryAuthCounter = 0,
         errorCounter = 0;
 
-        discover = hueDiscoverer(apiKey, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+        discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
 
         var statusInit = {status: 'init', text: 'Initializing...'};
         var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};
@@ -60,10 +64,10 @@ var hue = function ($, colors) {
           onStatus(statusNeedAuth);
           discoverStatus = 'auth';
         }
-        function onIpAuthorized(ip, message, data){
+        function onIpAuthorized(ip, username, message, data){
           //onStatus(statusReady);
           discoverStatus = 'ok';
-          hue.setIp(ip);
+          hue.setIp(ip, username);
           onAuthorized(data);
         }
         function onError(){
@@ -85,7 +89,7 @@ var hue = function ($, colors) {
          */
         updateURLs = function() {
             baseUrl = 'http://' + bridgeIP + '/api';
-            baseApiUrl = baseUrl + '/' + apiKey;
+            baseApiUrl = baseUrl + '/' + username;
             lightApiUrl = baseApiUrl + '/lights';
         },
         /**
@@ -458,7 +462,7 @@ var hue = function ($, colors) {
         },
         addUser = function(){
             log('adding user...');
-            var dataString = JSON.stringify({devicetype: apiKey, username: apiKey });
+            var dataString = JSON.stringify({devicetype: appname, username: username });
             log(dataString);
             $.ajax({
                 url: baseUrl,
@@ -776,48 +780,17 @@ var hue = function ($, colors) {
          * @param {String} IP Address as a String (e.g. 192.168.1.1)
          * @param {String} API key that was registered with the Hue bridge.
          */
-        setIp: function(ip) {
+        setIp: function(ip, hashedUsername) {
             bridgeIP = ip;
+            username = hashedUsername;
             updateURLs();
         },
         /**
          * Find bridges  findBridge() a upnp, then scan, then predefined typical ips. 
          */
-        findBridge: function(onerror) {
-            log('Requesting meethue.com/api/nupnp.');
-            $.ajax({
-                url: 'https://www.meethue.com/api/nupnp',
-                dataType: 'json',
-                //timeout: 2000,
-                success: function(data) {
-                    if (data !== null && data.length > 0) {
-                        bridgeIP = data[0].internalipaddress;
-                        if (bridgeIP !== '0.0.0.0')
-                        {
-                            log('Found bridge at ' + bridgeIP);
-                            updateURLs();
-
-                            getBridgeState();
-                        }
-                        else{
-                            log('Bridge not found');
-                            updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
-                        }
-                    } else {
-                        log('meethue portal did not return');
-                        updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
-                    }
-                },
-                error: function(err){
-                    // error
-                    log(err);
-                    updateStatus('BridgeNotFound', 'Philip Hue lights not found.');
-                    if (typeof(onerror) !== 'undefined') {
-                        onerror(err);
-                    }
-                }
-            });
-        },
+        //findBridge: function(onerror) {
+        // deprecated, use discover 
+        //},
         /**
          * Set the number of lamps available to control.
          *

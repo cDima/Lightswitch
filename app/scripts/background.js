@@ -24,7 +24,8 @@
 
 //$(document).ready(function(){
 window.hue = hue(window.jQuery, window.colors);
-window.hue.findBridge();
+//window.hue.findBridge();
+window.hue.discover();
 window.sceneCmd = sceneCommander(window.jQuery, window.hue);
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
 

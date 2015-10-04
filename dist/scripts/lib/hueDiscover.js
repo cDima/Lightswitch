@@ -7,11 +7,35 @@
 /*globals $, trackState, storageClass */
 /*exported hueDiscoverer */
 
-var hueBridge = function(bridgeIP, appname, lastUsername, onNeedAuthorization, onAuthorized, onError){
+/*
+
+popup.js - hueCommander -> hue.discover()
+background.js -> hue.discover();
+
+hue.js -> discoverer.start(ip) -> onAuthorized -> onIPAuthorized -> setIP -> updateStatus
+hue.js -> getBridgeState -> onGotBridgeState -> addUser *recursive -> updateStatus
+hue.js -> getBridgeState -> onGotBridgeState -> onAuthorized -> updateStatus
+hue.js -> getBridgeState -> onAuthError -> getBridgeState
+hue.js -> getLightState -> onAuthError -> getBridgeState 
+
+
+hueBridge.getBridgeState replaces hue.js
+hueBridge.onAuthError (no timeout counter) replaces onAuthError on hue.js
+hueBridge.getLightState new
+
+
+todo: hueBridge rename to hueBridgeAuth.js   
+*/
+
+var hueBridge = function(bridgeIP, appName, lastUsername, onNeedAuthorization, onAuthorized, onError, retryCount){
     // defaults
     if (lastUsername === null) {
         lastUsername = '123-bogus';
     }
+    var ip = bridgeIP;
+    var appname = appName;
+    var username = lastUsername;
+
     var baseUrl = 'http://' + bridgeIP + '/api';
     var baseApiUrl = baseUrl + '/' + lastUsername;
     var status = 'init'; // found, notauthorized, ready, error
@@ -27,11 +51,30 @@ var hueBridge = function(bridgeIP, appname, lastUsername, onNeedAuthorization, o
       baseApiUrl = baseUrl + '/' + lastUsername;
     }
 
+    var timeoutAuthCounter = 0;
+    var retryAuthCounter = 0;
 
+    //if (retryCount)
         
     var log = function(text) {
             var message = 'hueBridge (' + bridgeIP + '): ' + text;
             console.log(message);
+        },
+        getLightState = function(callback){
+            try{
+                $.ajax({
+                    dataType: 'json',
+                    url: baseApiUrl + '/lights',
+                    success: function(){
+                      timeoutAuthCounter = 0;
+                      callback();
+                    },
+                    error: onAuthError,
+                    timeout: 2000
+                });
+            }catch (err) {
+                onAuthError(err);
+            }
         },
         getBridgeState = function(){
             try{
@@ -48,31 +91,41 @@ var hueBridge = function(bridgeIP, appname, lastUsername, onNeedAuthorization, o
         },
         onAuthError = function(err){
             if (err.statusText === 'timeout') {
+                timeoutAuthCounter++;
                 log('Bridge error timeout: ' + bridgeIP);
-                onError(bridgeIP, 'Timeout', 'Too many timeouts on: ' + baseUrl);
-            } else { 
+                if (timeoutAuthCounter >= 10) {
+                    timeoutAuthCounter = 0;
+                    log('too many timeouts with IP ' + baseUrl);
+                    onError(bridgeIP, 'Timeout', 'Too many timeouts on: ' + baseUrl);
+                } else {
+                    log('timeout on auth: ' + err.statusText + ' retry #' + timeoutAuthCounter);
+                    getBridgeState(); // retry
+                }
+            } else { //if (err.statusText !== 'error') {
                 log('error on auth: ' + err.statusText);
-                // error
                 status = 'error';
-                onError(bridgeIP, 'Error', 'Unknown error' + err.statusText);
-            }
+                onError(bridgeIP, 'Error', 'Unknown error: ' + err.statusText);
+            } // what now?
         },
         onGotBridgeState = function(dataArray) {
             var data = dataArray;
             if ($.isArray(data)) {
                 data = dataArray[0]; // take first
             }
-            
+            timeoutAuthCounter = 0;
             if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
             {
-                log('Bridge found at ' + bridgeIP);
+                log('Not authorized with bridge '+ bridgeIP + ', registering...');
+                retryAuthCounter++;
                 status = 'found';
+                // bridgeAuth
                 addUser();
             }
             else if (data.hasOwnProperty('lights'))
             {
                 status = 'ready';
                 log('Bridge ready ' + bridgeIP);
+                retryAuthCounter = 0;
                 onAuthorized(bridgeIP, lastUsername, 'Ready', data);
             }
         },
@@ -120,6 +173,18 @@ var hueBridge = function(bridgeIP, appname, lastUsername, onNeedAuthorization, o
             }
         };
     return {
+        ip: function(){
+            return ip;
+        },
+        username: function(){
+            return username;
+        },
+        getLightState:function(callback){
+            getLightState(callback);
+        },
+        getBridgeState: function(){
+            getBridgeState();
+        },
         getStatus: function(){
             return status;
         },
@@ -238,7 +303,7 @@ var hueDiscoverer = function (appname, onNeedAuthorization, onAuthorized, onErro
             launch();
         },
         addHueBridge = function(ip){
-            var probableHueBridge = hueBridge(ip, appname, lastUsername, onNeedAuthWrapper, onAuthorizedWrapper, onErrWrapper);
+            var probableHueBridge = hueBridge(ip, appname, lastUsername, onNeedAuthWrapper, onAuthorizedWrapper, onErrWrapper, 0);
             hueBridges.unshift(probableHueBridge);
         },
         start = function(ip){

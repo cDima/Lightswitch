@@ -10,7 +10,7 @@
 'use strict';
 
 /*globals colorUtil:false,
-          hueDiscoverer
+          hueDiscoverer, hueBridge
 */ 
 /*trackEvent*/
 /*exported  hue, 
@@ -28,8 +28,9 @@ var hue = function ($, colors) {
     var discoverStatus = 'init';
 
     
-    var bridgeIP = '', // Hue bridge's IP address 
-        appname = 'lightswitch-v4', // API key registered with hue bridge
+    var bridge = null, 
+        bridgeIP = '', // Hue bridge's IP address 
+        appname = 'lightswitch-v5', // API key registered with hue bridge
         username = '',
         status = { status: 'init', text: 'Initializing...' }, // system status
         state = null, // bridge state
@@ -49,8 +50,6 @@ var hue = function ($, colors) {
         shortFlashState = { alert: shortFlashType },
         longFlashState = { alert: longFlashType },
         transitionTime = null,
-        timeoutAuthCounter = 0,
-        retryAuthCounter = 0,
         errorCounter = 0;
 
     discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
@@ -65,13 +64,17 @@ var hue = function ($, colors) {
       discoverStatus = 'auth';
     }
     function onIpAuthorized(ip, username, message, data){
-      //onStatus(statusReady);
-      discoverStatus = 'ok';
-      hue.setIp(ip, username);
-      onAuthorized(data);
+      if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
+        bridge = hueBridge(ip, appname, username, onNeedAuthorization, onIpAuthorized, onError, 10);
+        discoverStatus = 'ok';
+        hue.setIp(ip, username);
+      } 
+
+      onNewState(data);
     }
-    function onError(){
+    function onError(ip, msg, text){
       //onStatus(statusNoBridge);
+      updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
     }
 
     function onComplete(){
@@ -364,52 +367,19 @@ var hue = function ($, colors) {
             });
         },
         getLightState = function(){
-            $.ajax({
-                dataType: 'json',
-                url: lightApiUrl,
-                success: onLightUpdate,
-                error: onAuthError,
-                timeout: 2000
-            });
+            bridge.getLightState(onLightUpdate);
         },
         onLightUpdate = function(lights){
             // cache state
             /*jshint sub:true*/
             if (lights !== null && state !== null) {
                 state.lights = lights;
-                //log('hue: saving light state - ' + JSON.stringify(lights));
-                timeoutAuthCounter = 0;
             }
         },
         getBridgeState = function(){
-            $.ajax({
-                dataType: 'json',
-                url: baseApiUrl,
-                success: onGotBridgeState,
-                error: onAuthError,
-                timeout: 5000
-            });
+            bridge.getLightState(onLightUpdate);
         },
-        onGotBridgeState = function(dataArray) {
-            var data = dataArray;
-            if ($.isArray(data)) {
-                data = dataArray[0]; // take first
-            }
-            timeoutAuthCounter = 0;
-            if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
-            {
-                log('Not authorized with bridge, registering...');
-                retryAuthCounter++;
-                // bridgeAuth
-                addUser();
-            }
-            else if (data.hasOwnProperty('lights'))
-            {
-                retryAuthCounter = 0;
-                onAuthorized(data);
-            }
-        },
-        onAuthorized = function(data){
+        onNewState = function(data){
             //log('Authorized');
             /* jshint ignore:start */
             if (typeof testData !== undefined && testData !== null) {
@@ -444,50 +414,6 @@ var hue = function ($, colors) {
 
             log('Updating Status - ok...');
             updateStatus('OK', message);
-        },
-        onAuthError = function(err){
-            if (err.statusText === 'timeout') {
-                timeoutAuthCounter++;
-                if (timeoutAuthCounter >= 10) {
-                    timeoutAuthCounter = 0;
-                    log('too many timeouts with IP ' + baseUrl);
-                    updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
-                } else {
-                    log('timeout on auth: ' + err.statusText + ' retry #' + timeoutAuthCounter);
-                    getBridgeState(); // retry
-                }
-            } else { //if (err.statusText !== 'error') {
-                log('error on auth: ' + err.statusText);
-                updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
-            } // what now?
-        },
-        addUser = function(){
-            log('adding user...');
-            var dataString = JSON.stringify({devicetype: appname, username: username });
-            log(dataString);
-            $.ajax({
-                url: baseUrl,
-                type: 'POST',
-                data: dataString,
-                success: function(response) {
-                     log(response);
-                     if (response[0].hasOwnProperty('error'))
-                     {
-                        if (response[0].error.description === 'link button not pressed') {
-                            updateStatus('Authenticating', 'Bridge found. Press the bridge button...');
-                            setTimeout(addUser, 2000);
-                        } else  {
-                            log('Error: ' + response[0].error.description);
-                        }
-                     }
-                     else if (response[0].hasOwnProperty('success'))
-                     {
-                        log('Authorization successful');
-                        getBridgeState();
-                     }
-                }
-            });
-
         },
 
         /**
@@ -817,12 +743,7 @@ var hue = function ($, colors) {
             return status;
         },
         refresh: function(){
-            //if (!data) {
             getBridgeState();
-            //} else {
-            //    onAuthorized(data);
-            //}
-            
         },
         heartbeat: function(){
             getLightState();

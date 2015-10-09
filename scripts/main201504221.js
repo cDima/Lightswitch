@@ -3523,7 +3523,7 @@ var hue = function ($, colors) {
     
     var bridge = null, 
         bridgeIP = '', // Hue bridge's IP address 
-        appname = 'lightswitch-v4', // API key registered with hue bridge
+        appname = 'lightswitch-v5', // API key registered with hue bridge
         username = '',
         status = { status: 'init', text: 'Initializing...' }, // system status
         state = null, // bridge state

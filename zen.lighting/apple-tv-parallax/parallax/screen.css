@@ -34,44 +34,62 @@ html {
     padding-top: 10px;
 
     flex-shrink: 0;
+
+    flex-shrink: 0;
+    /*background-color: green;*/
+    display: flex;
+    flex-flow: row wrap;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: stretch;
+
   }
 
 .poster_container {
-  -webkit-backface-visibility: hidden;
-  background-clip: padding-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  -webkit-perspective: 500px;
-          perspective: 500px;
-  -webkit-transform: scale(0, 0);
-      -ms-transform: scale(0, 0);
-          transform: scale(0, 0);
-  opacity: 1;
-  -webkit-transition: all .2s ease-in-out;
-          transition: all .2s ease-in-out;
-  overflow: hidden;
-
-
-    flex: 1;
+      -webkit-backface-visibility: hidden;
+    background-clip: padding-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    /* -webkit-align-items: center; */
+    -ms-flex-align: center;
+    /* align-items: center; */
+    /* -webkit-box-pack: center; */
+    /* -webkit-justify-content: center; */
+    -ms-flex-pack: center;
+    /* justify-content: center; */
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 500px;
+    perspective: 500px;
+    -webkit-transform: scale(0, 0);
+    -ms-transform: scale(0, 0);
+    transform: scale(0, 0);
+    opacity: 1;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    overflow: hidden;
+    /* flex: 1; */
     min-width: 133px;
     min-height: 200px;
     max-width: 300px;
     max-height: 450px;
-    width: 100%; 
-    height: 100%; 
-    /*margin: 10px;*/
+    width: 100%;
+    height: 100%;
+    /* margin: 10px; */
+    flex-basis: 200px;
+    flex: 1;
+    flex-basis: 200px;
+    height: 330px;
+    /*height: 290px;*/
+    min-width: 100px;
+    max-width: 200px;
+    margin: auto;
+    /*border: solid black 2px;
+    background-color: red;*/
+    padding: 10px;
 
   }
   .poster_container .poster .poster_wrapper {
@@ -90,12 +108,15 @@ html {
     -webkit-backface-visibility: hidden;
     outline: 1px solid transparent;
     -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    /*transform:rotateY(20deg) rotateX(20deg);*/
-    width: 300px;
-    height: 450px;
-    /*background:red;*/
-    /*max-width: 50%;*/ }
+    transform-style: preserve-3d;
+    /* transform: rotateY(20deg) rotateX(20deg); */
+    /*width: 300px;
+    height: 450px;*/
+    width: 180px;
+    height: 270px;
+    /* background: red; */
+    /* max-width: 50%; */
+  }
     .poster_container .poster .poster_layer {
       outline: 1px solid transparent;
       /*-webkit-backface-visibility: hidden;*/
@@ -113,12 +134,14 @@ html {
       width: 100%;
       height: 100%;
       width: 100%;
+      width: 90%;
       height: 95%;
       margin-top: 20px;
       -webkit-filter: blur(10px);
               filter: blur(10px);
       z-index: 0;
       display: Block;
+      margin-left: 10px;
       -webkit-transform: translate3d(0, 0, -20px);
               transform: translate3d(0, 0, -20px); }
     .poster_container .poster .layer_1 {
@@ -202,6 +225,7 @@ html {
   display: -ms-flexbox;
   display: flex; }
 
+/*
 @media only screen and (max-width: 420px) {
   .poster_container .poster_wrapper {
     width: 200px;
@@ -213,7 +237,7 @@ html {
     .poster img {
       width: 200px;
       height: 300px;
-      /*border-radius:6px;*/ } }
+       } }
 @media only screen and (max-width: 1024px) {
   .poster_container .poster_wrapper {
     width: 200px;
@@ -225,7 +249,8 @@ html {
     .poster img {
       width: 200px;
       height: 300px;
-      /*border-radius:6px;*/ } }
+       } }
+       */
 .shader {
   opacity: 1;
   /*transition:all .2s ease-in-out;*/

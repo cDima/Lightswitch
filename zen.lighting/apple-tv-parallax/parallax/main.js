@@ -2,10 +2,10 @@ var start_x = null;
 var start_y = null;
 
 function prefixifyer(sel,prop,val){	
-	$(""+sel+"").css("-webkit-"+prop+"",""+val+"");	
-	$(""+sel+"").css("-moz-"+prop+"",""+val+"");	
-	$(""+sel+"").css("-o-"+prop+"",""+val+"");	
-	$(""+sel+"").css(""+prop+"",""+val+"");	
+	$(sel).css("-webkit-"+prop+"",""+val+"");	
+	$(sel).css("-moz-"+prop+"",""+val+"");	
+	$(sel).css("-o-"+prop+"",""+val+"");	
+	$(sel).css(""+prop+"",""+val+"");	
 }
 
 function resetPoster(){
@@ -56,7 +56,8 @@ $(document).ready(function() {
 	
 	if($('html').hasClass('no-touch')){
 
-		$(document).mousemove(function(e) { 
+		//$(document).mousemove(function(e) { 
+		$(".poster").mousemove(function(e) { 
 			
 			//on mousemove, make the poster scale up a bit
 			if($('html').hasClass('no-touch')){
@@ -64,21 +65,22 @@ $(document).ready(function() {
 			}
 			
 			//get the center of the poster/window
-			var poster = $(".poster");
+			var poster = $(e.currentTarget);// $(".poster");
+			var shader = poster.find(".shader");
 			var position =  poster.position();
 
 			logoCenterX =  poster.width()/2; // $(window).width()/2;
 			logoCenterY =  poster.height()/2; //$(window).height()/2;
 
 			//get current coordinates
-			var y = e.pageY;	
-			var x = e.pageX;    
+			var y = e.offsetY;	
+			var x = e.offsetX;    
 
 			//for rotation
 			xRotate = (x-logoCenterX)*.02;
 			yRotate = (logoCenterY - y)*.02;
 
-			$(".shader").css("opacity","1");
+			$(shader).css("opacity","1");
 
 			if(yRotate < 0){
 				gloss = (yRotate*.25) * -.5;
@@ -94,7 +96,7 @@ $(document).ready(function() {
 					angle = -5;
 				}
 
-				$(".shader").css("background","linear-gradient("+(180+(angle*-10))+"deg, rgba(255,255,255,.0), rgba(255,255,255,"+gloss+"))");
+				$(shader).css("background","linear-gradient("+(180+(angle*-10))+"deg, rgba(255,255,255,.0), rgba(255,255,255,"+gloss+"))");
 			}
 
 			if(yRotate > 0){
@@ -110,7 +112,7 @@ $(document).ready(function() {
 					angle = -5;
 				}
 				
-				$(".shader").css("background","linear-gradient("+(180+(angle*10))+"deg, rgba(0,0,0,"+shade+"), rgba(255,255,255,.0))");
+				$(shader).css("background","linear-gradient("+(180+(angle*10))+"deg, rgba(0,0,0,"+shade+"), rgba(255,255,255,.0))");
 
 			}
 			
@@ -119,17 +121,17 @@ $(document).ready(function() {
 			noTransition();
 			
 			// rotate the whole poster		
-			prefixifyer(".poster","transform","rotateY("+(xRotate*-1)+"deg) rotateX("+(yRotate*-1)+"deg)");
+			prefixifyer(poster,"transform","rotateY("+(xRotate*-1)+"deg) rotateX("+(yRotate*-1)+"deg)");
 			
 			
 			//shift individutal layers on X,Y axis for parallax effect
-			prefixifyer(".layer_2 img","transform","translateX("+((xRotate*.25)*-1)+"px) translateY("+(yRotate*.25)+"px)");
-			prefixifyer(".layer_3 img","transform","translateX("+((xRotate*.3)*-1)+"px) translateY("+(yRotate*.3)+"px)");
-			prefixifyer(".layer_4 img","transform","translateX("+((xRotate*.5)*-1)+"px) translateY("+(yRotate*.5)+"px)");
+			prefixifyer(poster.find(".layer_2 img"),"transform","translateX("+((xRotate*.25)*-1)+"px) translateY("+(yRotate*.25)+"px)");
+			prefixifyer(poster.find(".layer_3 img"),"transform","translateX("+((xRotate*.3)*-1)+"px) translateY("+(yRotate*.3)+"px)");
+			prefixifyer(poster.find(".layer_4 img"),"transform","translateX("+((xRotate*.5)*-1)+"px) translateY("+(yRotate*.5)+"px)");
 				  
 		});     
 		
-		$(document).mouseleave(function() {
+		$(".poster").mouseleave(function() {
 			resetPoster();
 		});
 

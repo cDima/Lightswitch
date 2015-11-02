@@ -2,12 +2,6 @@ html, body {
   height: 100%; }
 
 body {
-  background: url("./sky_1.jpg");
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   }
 
 html {
@@ -20,8 +14,34 @@ html {
   text-align: center;
   padding-top: 50px;
   z-index: 0;
+  margin-bottom: 50px;
 }
 
+.background-image {
+    background: url("./unsplash/yacht.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: blur(10px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    transform: scale(1.2);
+
+}
 
 .gradient-overlay {
   height: 100%;
@@ -112,6 +132,8 @@ html {
     /*border: solid black 2px;
     background-color: red;*/
     padding: 10px;
+
+    margin: 0 50px;
 
   }
   .poster_container .poster .poster_wrapper {

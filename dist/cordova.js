@@ -1,1 +1,0 @@
-// should be replaced by cordova on build.

@@ -75,7 +75,7 @@ describe("HueDiscover", function() {
     });
   });
 
-  describe("search for nupnp on launch", function() {
+  xdescribe("search for nupnp on launch", function() {
 
     it("should handle single bridge from nupnp", function() {
 

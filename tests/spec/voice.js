@@ -30,6 +30,8 @@ describe("Voice commands", function() {
   }
 
   describe("should handle on/off commands", function() {
+
+
     shouldHandle("turn off the lights", undefined, 'off');
     shouldHandle("lights on", undefined, 'on');
     shouldHandle("lights off", undefined, 'off');

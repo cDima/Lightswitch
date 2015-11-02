@@ -1,6 +1,21 @@
 /*exported testData */
 /* jshint ignore:start */
 
+trackEvent = function() {
+  // do nothing
+};
+trackState = function(){};
+
+storageClass = function (){
+  
+  return {
+    get: function(nothing, callback){ 
+      callback(null);
+    },
+    set: function() {}
+  }
+};
+
 var testData = {
   "lights": {
     "1": {

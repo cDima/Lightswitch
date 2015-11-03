@@ -12,7 +12,6 @@ describe("HueDiscover", function() {
     state = 'error';
   }
 
-
   beforeEach(function() {
     jasmine.Ajax.install();
     discover = hueDiscoverer(onNeedAuthorization, onAuthorized, onError);
@@ -23,7 +22,7 @@ describe("HueDiscover", function() {
   });
   
 
-  xit("specifying response when you need it", function() {
+  it("specifying response when you need it", function() {
       var doneFn = jasmine.createSpy("success");
 
 
@@ -40,19 +39,97 @@ describe("HueDiscover", function() {
       expect(jasmine.Ajax.requests.mostRecent().url).toBe(url);
       expect(doneFn).not.toHaveBeenCalled();
 
+      // set response from fake server:
       jasmine.Ajax.requests.mostRecent().respondWith({
         "status": 200,
         "contentType": 'text/plain',
         "responseText": 'awesome response'
       });
 
+      // excepect after call
       expect(doneFn).toHaveBeenCalledWith('awesome response');
+    });
+
+
+  it("promise works?", function(doneCallback) {
+      var doneFn = jasmine.createSpy("success");
+
+      var success = function(data) {
+        console.log("1 in success");
+        doneFn(data);
+      };
+      var error = function(data) {
+        console.log("1 in err");
+        doneFn(data);
+      };
+
+      var prom = new Promise((resolveCallback, reject) => {
+        resolveCallback([]);
+      });
+
+      prom.then(() => { 
+        console.log('1 in prom then callback, calling success');
+        success('[]');
+      }, error).then(function(){
+        console.log("1 calling done");
+        expect(doneFn).toHaveBeenCalledWith('[]');
+        doneCallback();
+      });
+      
+    });
+
+  it("meethue lookup works against mock", function(done) {
+      var doneFn = jasmine.createSpy("success");
+
+      var successC = function(data) {
+        console.log("2 in success");
+        doneFn(data);
+      };
+      var errorC = function(data) {
+        console.log("2 in err");
+        doneFn(data);
+      };
+
+      var meethue = new MeetHueLookup($lite);
+      meethue.discover().then((data) => { 
+        console.log('2 in prom then callback, calling success');
+        successC(data);
+        console.log('2 in prom then callback end');
+      }, errorC).then(() => {
+
+        console.log("2 calling done");
+        // excepect after call
+        expect(doneFn).toHaveBeenCalledWith([]);
+        done();
+      });
+
+      //expect(jasmine.Ajax.requests.mostRecent().url).toBe('https://www.meethue.com/api/nupnp');
+      expect(doneFn).not.toHaveBeenCalled();
+
+
+      // set response from fake server:
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 200,
+        "contentType": 'json',
+        "responseText": '[]' // no bridges on wifi
+      });
+
     });
 
   xdescribe("search for nupnp on launch", function() {
     
     it("should not start", function() {
       expect(state).toEqual(null);
+    });
+
+    it("should check meethue by default", function() {
+
+      var url = 'https://www.meethue.com/api/nupnp';
+      jasmine.Ajax.stubRequest(url).andReturn([]);
+      discover.start();
+      expect(discover.ips().length).toEqual(0);
+
+      expect(jasmine.Ajax.requests.mostRecent().url).toEqual(url); 
     });
 
     it("should support 1 manual ip", function() {

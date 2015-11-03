@@ -120,7 +120,7 @@ gulp.task('scripts', () =>
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
-	//'./app/scripts/main.js',
+	    //'./app/scripts/main.js',
 	
       // works with other scripts, else breaks.
       './app/scripts/libs/jquery-1.11.1.min.js',
@@ -143,9 +143,10 @@ gulp.task('scripts', () =>
     	'./app/scripts/libs/hue.js',
     	'./app/scripts/libs/colorUtil.js',
     	'./app/scripts/libs/hueCommander.js',
-    	'./app/scripts/libs/voice.js',
+    	'./app/scripts/libs/voice.js', 
     	'./app/scripts/libs/hueProxy.js',
-    	'./app/scripts/popup.js'
+      './app/scripts/$lite.js',
+    	'./app/scripts/popup.js',
     ])
       .pipe($.newer('.tmp/scripts'))
       .pipe($.sourcemaps.init())
@@ -153,11 +154,8 @@ gulp.task('scripts', () =>
       .pipe($.sourcemaps.write())
       .pipe(gulp.dest('.tmp/scripts'))
       .pipe($.concat('main.min.js'))
-      
-      
       // Usage: gulp pro --prod // this will uglify.
-////    .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))
-    
+////    .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    
       //.pipe($.uglify({preserveComments: 'some'}))
       // Output files
       .pipe($.sourcemaps.write('.'))

@@ -243,7 +243,44 @@ var hueNupnpDiscoverer = function (callback) {
         return {};
     };
 
+class MeetHueLookup {
+    constructor($) {
+        this.$http = $;
+    }
+    discover() {
+        return new Promise((resolveCallback, reject) => {
+            console.log('Requesting meethue.com/api/nupnp.');
+            var nupnp = 'https://www.meethue.com/api/nupnp';
+            this.$http.ajax({
+                url: nupnp,
+                dataType: 'json',
+                success: (json) => {
+                    console.log('calling resolveCallback');
+                    resolveCallback(json);
+                    console.log('called resolveCallback');
+                },
+                error: (err) => {
+                    reject(err);
+                }
+            });
+        });
+    }
+}
 
+class BruteForcer {
+    static ips(){
+      var ips = [];
+      for(var i = 0; i < 21; i++) {
+        ips.push('10.0.1.' + i); // mac: 10.0.1.1-20
+        ips.push('192.168.0.' + i); // win: 192.168.0.1-20
+        ips.push('192.168.0.' + (100+i)); // win: 192.168.1.100-120
+        ips.push('192.168.1.' + i); // win: 192.168.1.1-20
+      }
+      return ips;
+    }
+}
+
+/*
 var bruteForcer = function () { 
     var getIps = function () {
           // try default ips for win and mac, first 20 devices
@@ -261,7 +298,7 @@ var bruteForcer = function () {
             return getIps();
         }
     };
-};
+};*/
 
 
 var hueDiscoverer = function (appname, onNeedAuthorization, onAuthorized, onError, onComplete) { 
@@ -320,7 +357,7 @@ var hueDiscoverer = function (appname, onNeedAuthorization, onAuthorized, onErro
         },
         launch = function(){
             if(hueBridges.length === 0) {
-                addHueBridges(bruteForcer().ips());
+                addHueBridges(BruteForcer.ips());
             }
             hueBridges.forEach(function(bridge) {
                 bridge.start();

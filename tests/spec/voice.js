@@ -50,6 +50,8 @@ describe("Voice commands", function() {
     shouldHandle("hallway off", 'hallway', 'off');
     shouldHandle("set the kitchen lights on", 'kitchen', 'on');
     shouldHandle("bedroom lights on", 'bedroom', 'on');
+    shouldHandle("turn on the bedroom lights", 'bedroom', 'on');
+
   });  
 
   describe("should handle brightness commands", function() {
@@ -66,6 +68,8 @@ describe("Voice commands", function() {
     shouldHandle("dim the kitchen to 55%", 'kitchen', '55%');
     shouldHandle("set the bedroom lights to 50%", 'bedroom', '50%');
     shouldHandle("set all the lights to 20% brightness", 'all', '20%');
+    shouldHandle("set the lights to 20%", undefined, '20%');
+    shouldHandle("set the lights to 20% brightness", undefined, '20%');
   });
 
   describe("should handle scenes", function() {
@@ -78,11 +82,4 @@ describe("Voice commands", function() {
     shouldHandle("start scene", undefined, 'scene:start');
     shouldHandle("continue scene", undefined, 'scene:start');
   });
-    /*
-turn on the bedroom lights
-bedroom lights on
-set the bedroom lights to 50%
-set the lights to 20%
-set the lights to 20% brightness
-*/
 });

@@ -1,5 +1,4 @@
 describe("HueDiscover", function() {
-  var discover = null;
 
   var state = null;
   function onNeedAuthorization() {
@@ -14,7 +13,6 @@ describe("HueDiscover", function() {
 
   beforeEach(function() {
     jasmine.Ajax.install();
-    discover = hueDiscoverer(onNeedAuthorization, onAuthorized, onError);
   });
 
   afterEach(function() {
@@ -24,7 +22,6 @@ describe("HueDiscover", function() {
 
   it("specifying response when you need it", function() {
       var doneFn = jasmine.createSpy("success");
-
 
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function(args) {
@@ -116,8 +113,61 @@ describe("HueDiscover", function() {
 
     });
 
-  xdescribe("search for nupnp on launch", function() {
+  describe('BruteForcer', function() {
+    it('should return 84 IPs.', function() {
+      expect(BruteForcer.ips().length).toEqual(84);
+    });
+  });
+
+  describe('HueBridge', function() {
     
+    var probableHueBridge;
+    //beforeEach(function(){
+    //});
+
+    it('should launch request on start', function() {
+      probableHueBridge = new HueBridge($lite, storageClass, '111.111.111.111', 'appname', 'lastUsername', onNeedAuthorization, onAuthorized, onError, 0);
+      probableHueBridge.getBridgeState();
+
+      var req = jasmine.Ajax.requests.mostRecent();
+      expect(req.url).toBe('http://111.111.111.111/api/lastUsername');
+      // set response from fake server:
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 300,
+        "contentType": 'json',
+        "responseText": '{}' // no bridges on wifi
+      });
+    });
+
+    it('should respond to timeout', function(done) {
+      function error(){
+        console.log('timeout - calling done')
+        done();
+      }
+      probableHueBridge = new HueBridge($lite, storageClass, '111.111.111.111', 'appname', 'lastUsername', onNeedAuthorization, onAuthorized, error, 0);
+      probableHueBridge.getBridgeState();
+
+      var req = jasmine.Ajax.requests.mostRecent();
+      expect(req.url).toBe('http://111.111.111.111/api/lastUsername');
+
+      // set response from fake server:
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 300,
+        "contentType": 'json',
+        "responseText": '{}' // no bridges on wifi
+      });
+    });
+
+  });
+
+
+  xdescribe("search for nupnp on launch", function() {
+    var discover;
+    beforeEach(function(){
+      discover = hueDiscoverer(onNeedAuthorization, onAuthorized, onError);
+    });
+
+
     it("should not start", function() {
       expect(state).toEqual(null);
     });

@@ -75,7 +75,6 @@ class HueBridge {
         this.$ = $;
         this.storage = storage;
 
-        this.ip = bridgeIP;
         // defaults
         if (lastUsername === null) {
             lastUsername = '123-bogus';
@@ -91,9 +90,9 @@ class HueBridge {
         this.timeoutAuthCounter = 0;
         this.retryAuthCounter = 0;
 
-        this.onNeedAuthorization = onNeedAuthorization.bind(this);
-        this.onAuthorized = onAuthorized.bind(this);
-        this.onError = onError.bind(this);
+        this.onNeedAuthorization = onNeedAuthorization;//.bind(this);
+        this.onAuthorized = onAuthorized;//.bind(this);
+        this.onError = onError;//.bind(this);
 
     }
 
@@ -103,7 +102,7 @@ class HueBridge {
       this.baseApiUrl = this.baseUrl + '/' + this.lastUsername;
     }
     log (text) {
-        var message = 'hueBridge (' + this.bridgeIP + '): ' + text;
+        var message = 'hueBridge (' + this.ip + '): ' + text;
         console.log(message);
     }
     getLightState (callback){
@@ -111,11 +110,11 @@ class HueBridge {
             this.$.ajax({
                 dataType: 'json',
                 url: this.baseApiUrl + '/lights',
-                success: () => {
+                success: (data) => {
                   this.timeoutAuthCounter = 0;
-                  callback();
+                  callback(data);
                 },
-                error: this.onAuthError,
+                error: (data) => this.onAuthError(data),
                 timeout: 2000
             });
         }catch (err) {
@@ -138,11 +137,11 @@ class HueBridge {
     onAuthError (err){
         if (err.statusText === 'timeout') {
             this.timeoutAuthCounter++;
-            this.log('Bridge error timeout: ' + this.bridgeIP);
+            this.log('Bridge error timeout: ' + this.ip);
             if (this.timeoutAuthCounter >= 10) {
                 this.timeoutAuthCounter = 0;
                 this.log('too many timeouts with IP ' + this.baseUrl);
-                this.onError(this.bridgeIP, 'Timeout', 'Too many timeouts on: ' + this.baseUrl);
+                this.onError(this.ip, 'Timeout', 'Too many timeouts on: ' + this.baseUrl);
             } else {
                 this.log('timeout on auth: ' + err.statusText + ' retry #' + this.timeoutAuthCounter);
                 this.getBridgeState(); // retry
@@ -150,7 +149,7 @@ class HueBridge {
         } else { //if (err.statusText !== 'error') {
             this.log('error on auth: ' + err.statusText);
             this.status = 'error';
-            this.onError(this.bridgeIP, 'Error', 'Unknown error: ' + err.statusText);
+            this.onError(this.ip, 'Error', 'Unknown error: ' + err.statusText);
         } // what now?
     }
     onGotBridgeState (dataArray) {
@@ -161,7 +160,7 @@ class HueBridge {
         this.timeoutAuthCounter = 0;
         if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
         {
-            this.log('Not authorized with bridge '+ this.bridgeIP + ', registering...');
+            this.log('Not authorized with bridge '+ this.ip + ', registering...');
             this.retryAuthCounter++;
             this.status = 'found';
             // bridgeAuth
@@ -170,9 +169,9 @@ class HueBridge {
         else if (data.hasOwnProperty('lights'))
         {
             this.status = 'ready';
-            this.log('Bridge ready ' + this.bridgeIP);
+            this.log('Bridge ready ' + this.ip);
             this.retryAuthCounter = 0;
-            this.onAuthorized(this.bridgeIP, this.lastUsername, 'Ready', data);
+            this.onAuthorized(this.ip, this.username, 'Ready', data);
         }
     }
     addUser (){
@@ -183,7 +182,7 @@ class HueBridge {
             url: this.baseUrl,
             type: 'POST',
             data: dataString,
-            success: this.onAddUserResponse
+            success: (data) => this.onAddUserResponse(data)
         });
     }
     onAddUserResponse (response) {
@@ -197,8 +196,8 @@ class HueBridge {
             // lastUsername
 
             // save bridge ip to storage
-            this.lastUsername = response[0].success.username;
-            this.save(this.bridgeIP, this.lastUsername);
+            this.username = response[0].success.username;
+            this.save(this.ip, this.username);
 
             this.status = 'ready';
             this.log('Authorization successful');
@@ -209,11 +208,11 @@ class HueBridge {
     unauthorized (response){
         if (response[0].error.description === 'link button not pressed') {
             this.status = 'needauthorization';
-            this.onNeedAuthorization(this.bridgeIP, 'NeedAuthorization', 'Bridge found. Press the bridge button...');
+            this.onNeedAuthorization(this.ip, this.username, 'NeedAuthorization', response); // changed signature
             setTimeout(this.addUser, 2000); // recursively call every 2 seconds for 30 seconds.
         } else  {
             this.status = 'error';
-            this.onError(this.bridgeIP, 'Error', 'Error: ' + response[0].error.description);
+            this.onError(this.ip, 'Error', 'Error: ' + response[0].error.description);
         }
     }
     ip (){

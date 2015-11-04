@@ -122,15 +122,16 @@ describe("HueDiscover", function() {
   describe('HueBridge', function() {
     
     var probableHueBridge;
-    //beforeEach(function(){
-    //});
+    var ip = '111.111.111.111';
+    var appname = 'appname';
+    var username = 'lastUsername';
 
     it('should launch request on start', function() {
-      probableHueBridge = new HueBridge($lite, storageClass, '111.111.111.111', 'appname', 'lastUsername', onNeedAuthorization, onAuthorized, onError, 0);
+      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, onError, 0);
       probableHueBridge.getBridgeState();
 
       var req = jasmine.Ajax.requests.mostRecent();
-      expect(req.url).toBe('http://111.111.111.111/api/lastUsername');
+      expect(req.url).toBe('http://' + ip + '/api/lastUsername');
       // set response from fake server:
       jasmine.Ajax.requests.mostRecent().respondWith({
         "status": 300,
@@ -140,21 +141,68 @@ describe("HueDiscover", function() {
     });
 
     it('should respond to timeout', function(done) {
-      function error(){
+      function error(data){
         console.log('timeout - calling done')
         done();
       }
-      probableHueBridge = new HueBridge($lite, storageClass, '111.111.111.111', 'appname', 'lastUsername', onNeedAuthorization, onAuthorized, error, 0);
+      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
       probableHueBridge.getBridgeState();
 
       var req = jasmine.Ajax.requests.mostRecent();
-      expect(req.url).toBe('http://111.111.111.111/api/lastUsername');
+      expect(req.url).toBe('http://' + ip + '/api/' + username);
 
       // set response from fake server:
       jasmine.Ajax.requests.mostRecent().respondWith({
         "status": 300,
         "contentType": 'json',
         "responseText": '{}' // no bridges on wifi
+      });
+    });
+
+    it('should respond to good result', function(done) {
+      function success(bridgeIP, username, status, data){
+        console.log('calling done')
+        console.log(data);
+        expect(bridgeIP).toEqual(ip);
+        done();
+      }
+      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, success, success, onError, 0);
+      probableHueBridge.getBridgeState();
+
+      var req = jasmine.Ajax.requests.mostRecent();
+
+      // set response from fake server:
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 200,
+        "contentType": 'json',
+        "responseText": JSON.stringify({'lights': 'yes'}) // no bridges on wifi
+      });
+    });
+
+
+    it('should respond to need authorization', function(done) {
+      function needauth(bridgeIP, userName, status, data){
+        expect(bridgeIP).toEqual(ip);
+        expect(userName).toEqual(username);
+        done();
+      }
+      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
+      probableHueBridge.getBridgeState();
+
+      // set response from fake server:
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 200,
+        "contentType": 'json',
+        "responseText": JSON.stringify({'error': { 'description': 'unauthorized user' }}) // no bridges on wifi
+      });
+
+
+      expect(req.url).toBe('http://' + ip +'/api/' + username);
+      // set response from fake server:
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 200,
+        "contentType": 'json',
+        "responseText": JSON.stringify([{'error': { 'description': 'link button not pressed' }}]) // no bridges on wifi
       });
     });
 

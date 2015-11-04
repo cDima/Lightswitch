@@ -11,6 +11,21 @@ describe("HueDiscover", function() {
     state = 'error';
   }
 
+  function respondWithJSON(json, status) {
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": status || 200,
+        "contentType": 'json',
+        "responseText": JSON.stringify(json) // no bridges on wifi
+      });
+  }
+
+  function respondWithTimeout() {
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        "status": 'timeout',
+        "statusText": 'timeout',
+      });
+  }
+
   beforeEach(function() {
     jasmine.Ajax.install();
   });
@@ -52,11 +67,9 @@ describe("HueDiscover", function() {
       var doneFn = jasmine.createSpy("success");
 
       var success = function(data) {
-        console.log("1 in success");
         doneFn(data);
       };
       var error = function(data) {
-        console.log("1 in err");
         doneFn(data);
       };
 
@@ -65,53 +78,42 @@ describe("HueDiscover", function() {
       });
 
       prom.then(() => { 
-        console.log('1 in prom then callback, calling success');
         success('[]');
       }, error).then(function(){
-        console.log("1 calling done");
         expect(doneFn).toHaveBeenCalledWith('[]');
         doneCallback();
       });
       
+  });
+
+
+  describe('MeetHue lookup', function() {
+    
+    it("meethue lookup works against mock", function(done) {
+        
+        var meethue = new MeetHueLookup($lite);
+        meethue.discover().then((data) => { 
+          expect(JSON.stringify(data)).toBe(JSON.stringify([]));
+        }, null).then(() => {
+          done();
+        });
+        respondWithJSON([]);
     });
 
-  it("meethue lookup works against mock", function(done) {
-      var doneFn = jasmine.createSpy("success");
+    it("meethue lookup returns ips", function(done) {
+        
+        var meethue = new MeetHueLookup($lite);
+        meethue.discover().then((data) => { 
+          expect(JSON.stringify(data)).toBe(JSON.stringify(['11.11.11.11']));
+        }, null).then(() => {
+          done();
+        });
 
-      var successC = function(data) {
-        console.log("2 in success");
-        doneFn(data);
-      };
-      var errorC = function(data) {
-        console.log("2 in err");
-        doneFn(data);
-      };
-
-      var meethue = new MeetHueLookup($lite);
-      meethue.discover().then((data) => { 
-        console.log('2 in prom then callback, calling success');
-        successC(data);
-        console.log('2 in prom then callback end');
-      }, errorC).then(() => {
-
-        console.log("2 calling done");
-        // excepect after call
-        expect(doneFn).toHaveBeenCalledWith([]);
-        done();
-      });
-
-      //expect(jasmine.Ajax.requests.mostRecent().url).toBe('https://www.meethue.com/api/nupnp');
-      expect(doneFn).not.toHaveBeenCalled();
-
-
-      // set response from fake server:
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        "status": 200,
-        "contentType": 'json',
-        "responseText": '[]' // no bridges on wifi
-      });
-
+        // set response from fake server:
+        respondWithJSON([{'internalipaddress':'11.11.11.11'}]);
     });
+
+  });
 
   describe('BruteForcer', function() {
     it('should return 84 IPs.', function() {
@@ -133,11 +135,8 @@ describe("HueDiscover", function() {
       var req = jasmine.Ajax.requests.mostRecent();
       expect(req.url).toBe('http://' + ip + '/api/lastUsername');
       // set response from fake server:
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        "status": 300,
-        "contentType": 'json',
-        "responseText": '{}' // no bridges on wifi
-      });
+      respondWithJSON({}); // no bridges on wifi
+
     });
 
     it('should respond to timeout', function(done) {
@@ -151,12 +150,80 @@ describe("HueDiscover", function() {
       var req = jasmine.Ajax.requests.mostRecent();
       expect(req.url).toBe('http://' + ip + '/api/' + username);
 
-      // set response from fake server:
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        "status": 300,
-        "contentType": 'json',
-        "responseText": '{}' // no bridges on wifi
+      respondWithJSON({}, 300)
+    });
+
+    describe('Light request', function(){
+      it('should respond to success', function(done) {
+        function success(data){
+          done();
+        }
+        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, null, null, null, 0);
+        probableHueBridge.getLightState(success);
+
+        var req = jasmine.Ajax.requests.mostRecent();
+        expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
+
+        respondWithJSON({'lights': []})
       });
+
+      it('should respond to success without callback', function(done) {
+        function success(data){
+          done();
+        }
+        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, null, success, null, 0);
+        probableHueBridge.getLightState();
+
+        var req = jasmine.Ajax.requests.mostRecent();
+        expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
+
+        respondWithJSON({'lights': []})
+      });
+
+      it('should respond to timeout', function(done) {
+        function error(data){
+          done();
+        }
+        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
+        probableHueBridge.getLightState();
+
+        var req = jasmine.Ajax.requests.mostRecent();
+        expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
+
+        respondWithJSON({}, 300);
+      });
+
+      it('should retry timeouts', function(done) {
+        function error(data){
+          done();
+        }
+        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
+        probableHueBridge.getLightState();
+
+        var req = jasmine.Ajax.requests.mostRecent();
+        expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
+
+        respondWithTimeout();
+        respondWithTimeout();
+        respondWithTimeout();
+        respondWithTimeout();
+        respondWithTimeout();
+      });
+
+      it('should respond to auth requested', function(done) {
+        function needauth(data){
+          done();
+        }
+        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
+        probableHueBridge.getLightState();
+
+        var req = jasmine.Ajax.requests.mostRecent();
+        expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
+
+        respondWithJSON({'error': { 'description': 'unauthorized user' }});
+        respondWithJSON([{'error': { 'description': 'link button not pressed' }}]);
+      });
+
     });
 
     it('should respond to good result', function(done) {
@@ -172,11 +239,7 @@ describe("HueDiscover", function() {
       var req = jasmine.Ajax.requests.mostRecent();
 
       // set response from fake server:
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        "status": 200,
-        "contentType": 'json',
-        "responseText": JSON.stringify({'lights': 'yes'}) // no bridges on wifi
-      });
+      respondWithJSON({'lights': 'yes'}); // no bridges on wifi
     });
 
 
@@ -189,27 +252,136 @@ describe("HueDiscover", function() {
       probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
       probableHueBridge.getBridgeState();
 
-      // set response from fake server:
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        "status": 200,
-        "contentType": 'json',
-        "responseText": JSON.stringify({'error': { 'description': 'unauthorized user' }}) // no bridges on wifi
-      });
+      respondWithJSON({'error': { 'description': 'unauthorized user' }});
+      
+      expect(jasmine.Ajax.requests.mostRecent().url).toBe('http://' + ip +'/api');
 
+      respondWithJSON([{'error': { 'description': 'link button not pressed' }}]);
 
-      expect(req.url).toBe('http://' + ip +'/api/' + username);
-      // set response from fake server:
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        "status": 200,
-        "contentType": 'json',
-        "responseText": JSON.stringify([{'error': { 'description': 'link button not pressed' }}]) // no bridges on wifi
-      });
     });
+
+    describe('setTimeouts', function(){
+
+        beforeEach(function() {
+          jasmine.clock().install();
+        });
+
+        afterEach(function() {
+          jasmine.clock().uninstall();
+        });
+
+        it('should re-ask for auth every 2 seconds', function(done) {
+          var secondPass = false;
+          function needauth(bridgeIP, userName, status, data){
+            expect(bridgeIP).toEqual(ip);
+            expect(userName).toEqual(username);
+            if (secondPass) done();
+          }
+          probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
+          probableHueBridge.getBridgeState();
+
+          // set response from fake server:
+          respondWithJSON({'error': { 'description': 'unauthorized user' }});
+
+          // set response from fake server:
+          respondWithJSON([{'error': { 'description': 'link button not pressed' }}]);
+          
+          jasmine.clock().tick(2001);
+
+          // set response from fake server:
+          secondPass = true;
+          expect(jasmine.Ajax.requests.mostRecent().url).toBe('http://' + ip +'/api');
+
+          respondWithJSON([{'error': { 'description': 'link button not pressed' }}]);
+
+        });
+
+        it('should authenticate if link button pressed', function(done) {
+          function authorized(bridgeIP, userName, status, data){
+            expect(bridgeIP).toEqual(ip);
+            expect(userName).toEqual('SALDKJASD');
+            done();
+          }
+          probableHueBridge = new HueBridge($lite, new storageClass(), ip, appname, username, null, authorized, null, 0);
+          probableHueBridge.getBridgeState();
+
+          respondWithJSON({'error': { 'description': 'unauthorized user' }});
+
+          respondWithJSON([{'success': {'username': 'SALDKJASD'}}]); // todo fill in with proper bridge response
+
+          respondWithJSON([{'lights': '' }]); 
+          
+
+        });
+    });
+  });
+
+  describe("HueDiscoverer", function() {
+
+      var p = '11.11.11.11';
+
+      it("should launch ip search", function(done) {
+
+        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+
+        dis.bridgeThenable(p).then((ip) => {
+          expect(ip).toEqual(p);
+          done();
+        });
+
+        respondWithJSON([{'lights': '' }]); 
+      });
+
 
   });
 
+  describe('Storage class', function() {
 
-  xdescribe("search for nupnp on launch", function() {
+      it('should save as promised', function(done) {
+        var obj = {'ip': '11.11.11.11', 'appname': 'JasminTests', 'username': 'GIBBERISH' };
+        Storage.set('test', obj).then((data) => {
+          console.log(data);
+          return Storage.get('test');
+        }).then((data) => {
+          console.log(data);
+          expect(data).toEqual(obj);
+          done();
+        });
+      });
+
+      it('should return null', function(done) {
+        Storage.get('gibberish').then((data) => {
+          console.log(data);
+          expect(data).toEqual(null);
+          done();
+        });
+      });
+
+      it('should be chainable', function(done) {
+        Storage.set('unit-1', {'unit-1': 1})
+        .then(() => {
+          return Storage.set('unit-2', {'unit-2':2});
+        })
+        .then(() => {
+          return Storage.set('unit-3', {'unit-3':3});
+        })
+        .then(() => {
+          return Promise.all([
+          Storage.get('unit-1'),
+          Storage.get('unit-2'),
+          Storage.get('unit-3'),
+          ]);
+        })
+        .then((datas) => {
+          console.log(datas);
+          expect(datas).toEqual([ {'unit-1':1}, {'unit-2':2}, {'unit-3':3}]);
+          done();
+        });
+      });
+
+  });  
+
+  xdescribe("HueDiscoverer", function() {
     var discover;
     beforeEach(function(){
       discover = hueDiscoverer(onNeedAuthorization, onAuthorized, onError);
@@ -286,5 +458,4 @@ describe("HueDiscover", function() {
     });
   });
 
-  
 });

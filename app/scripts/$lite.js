@@ -26,23 +26,31 @@ class $lite {
 		var xhr = new XMLHttpRequest();
 		xhr.contentType = 'json';
 		xhr.timeout = timeout;
+		xhr.ontimeout = function(){
+			//error(xhr, 'timeout', xhr.response);
+		}
 		xhr.onreadystatechange = function() {
 			try {
 			  if (xhr.readyState === 4) {
+			  	if (xhr.contentType === 'json') {
+			  		if (xhr.responseText == "") {
+						xhr.responseJSON = null;
+			  		} else {
+				  		xhr.responseJSON = JSON.parse(xhr.responseText);
+				  	}
+		  		}
 			    if (xhr.status === 200) {
-			    	if (xhr.contentType === 'json') {
-			        	success(JSON.parse(xhr.responseText), xhr.status, xhr);
-			        } else {
-			    	 	success(xhr.response, xhr.status, xhr);
-			      	}
+		    	 	success(xhr.responseJSON || xhr.responseText, 'success', xhr);
+		    	} else if (xhr.status === 0) {
+		    		error(xhr.responseJSON || xhr.responseText, 'timeout', xhr.response);
 			    } else {
-			      error(xhr, xhr.status, xhr.response);
+			      error(xhr.responseJSON || xhr.responseText, 'error', xhr.response);
 			    }
 			  }
 			} catch (err) {
 			  console.error(`Aborting request ${url}. Error: ${err}`);
 			  xhr.abort();
-			  error(xhr, xhr.status, xhr.response);
+			  error(xhr, 'error', xhr.response);
 			}
 		};
 

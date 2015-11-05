@@ -320,7 +320,7 @@ describe("HueDiscover", function() {
 
       var p = '11.11.11.11';
 
-      it("should launch ip search", function(done) {
+      it("should authenticate", function(done) {
 
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
 
@@ -333,6 +333,17 @@ describe("HueDiscover", function() {
       });
 
 
+      it("should reject", function(done) {
+
+        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+
+        dis.bridgeThenable(p).then(null, (err) => {
+          expect(err).toEqual(p);
+          done();
+        });
+
+        respondWithJSON([{'error': '' }], 500); 
+      });
   });
 
   describe('Storage class', function() {

@@ -138,7 +138,7 @@ class HueBridge {
         this.storage = storage;
 
         // defaults
-        if (lastUsername === null) {
+        if (!lastUsername) {
             lastUsername = '123-bogus';
         }
         this.ip = bridgeIP;
@@ -294,6 +294,86 @@ class HueBridge {
         return this.status;
     }
 
+}
+
+
+class HueDiscoverer {
+    constructor($lite, storage, appname, onNeedAuthorization) {
+        this.$lite = $lite;
+        this.storage = storage;
+        this.appname = appname;
+        this.onNeedAuthorization = onNeedAuthorization;
+    }
+    bridgeThenable (ip){
+        var bridgeThenable = new Promise((resolve, reject) => {
+            if (!ip) {
+                reject(ip);
+                return;
+            }
+
+            var bridge = null;
+
+            function onResolve(ip, status, message){
+                resolve(bridge, ip, status, message);
+            }
+            function onReject(ip, status, message){
+                reject(bridge, ip, status, message);
+            }
+
+            bridge = new HueBridge($lite, this.storage, ip, this.appname, this.username, 
+                this.onNeedAuthorization, 
+                (ip, status, message) => onResolve(bridge, status, message), 
+                (ip, status, message) => onReject(bridge, status, message));
+            bridge.getLightState();
+        }); 
+        return bridgeThenable;
+    } 
+    start(ip) {
+        return new Promise((resolve, reject) => {
+
+            var promise = Storage.get('lastBridgeIp')
+            .then((ip) => this.ip = ip)
+            .then(() => Storage.get('lastUsername'))
+            .then((val) => this.username = val)
+            .then(() => {
+                return this.bridgeThenable(ip);
+            })
+            .catch(() => {
+                 return this.bridgeThenable(this.ip);
+            })
+            .then((bridge) => resolve(bridge))
+            .catch(() => {
+                return new MeetHueLookup(this.$lite).discover();
+            })
+            .then((ips) => {
+                var bridges = [];
+                for(var i of ips) {
+                    bridges.push(this.bridgeThenable(i)); 
+                }
+                return Promise.any(bridges);
+            })
+            .then((bridges) => {
+                return resolve(bridges[0]);
+            })
+            .catch((deadBridges) => {
+                var ips = BruteForcer.ips();
+                var bridges = [];
+                for(var i of ips) {
+                    bridges.push(this.bridgeThenable(i)); // 84 requests
+                }
+                return Promise.any(bridges);
+            })
+            .then((bridges) => {
+                return resolve(bridges[0]);
+            })
+            .catch(() => {
+                reject();
+            }); 
+
+            //resolve();
+            return promise;
+        });
+    }
 }
 
 
@@ -506,85 +586,6 @@ var hueNupnpDiscoverer = function (callback) {
         return {};
     };
 
-
-class HueDiscoverer {
-    constructor($lite, storage, appname, onNeedAuthorization) {
-        this.$lite = $lite;
-        this.storage = storage;
-        this.appname = appname;
-        this.onNeedAuthorization = onNeedAuthorization;
-    }
-    bridgeThenable (ip){
-        var bridgeThenable = new Promise((resolve, reject) => {
-            if (!ip || !this.username) {
-                reject(ip);
-                return;
-            }
-
-            var bridge = null;
-
-            function onResolve(ip, status, message){
-                resolve(bridge, ip, status, message);
-            }
-            function onReject(ip, status, message){
-                reject(bridge, ip, status, message);
-            }
-
-            bridge = new HueBridge($lite, this.storage, ip, this.appname, this.username, 
-                this.onNeedAuthorization, 
-                (ip, status, message) => onResolve(bridge, status, message), 
-                (ip, status, message) => onReject(bridge, status, message));
-            bridge.getLightState();
-        }); 
-        return bridgeThenable;
-    } 
-    start(ip) {
-        return new Promise((resolve, reject) => {
-
-            var promise = Storage.get('lastBridgeIp')
-            .then((ip) => this.ip = ip)
-            .then(() => Storage.get('lastUsername'))
-            .then((val) => this.username = val)
-            .then(() => {
-                return this.bridgeThenable(ip);
-            })
-            .catch(() => {
-                 return this.bridgeThenable(this.ip);
-            })
-            .then((bridge) => resolve(bridge))
-            .catch(() => {
-                return new MeetHueLookup(this.$lite).discover();
-            })
-            .then((ips) => {
-                var bridges = [];
-                for(var i of ips) {
-                    bridges.push(this.bridgeThenable(i)); 
-                }
-                return Promise.any(bridges);
-            })
-            .then((bridges) => {
-                return resolve(bridges[0]);
-            })
-            .catch((deadBridges) => {
-                var ips = BruteForcer.ips();
-                var bridges = [];
-                for(i of ips) {
-                    bridges.push(this.bridgeThenable(i)); // 84 requests
-                }
-                return Promise.any(bridges);
-            })
-            .then((bridges) => {
-                return resolve(bridges[0]);
-            })
-            .catch(() => {
-                reject();
-            }); 
-
-            //resolve();
-            return promise;
-        });
-    }
-}
 
 var hueDiscoverer = function (appname, onNeedAuthorization, onAuthorized, onError, onComplete) { 
 

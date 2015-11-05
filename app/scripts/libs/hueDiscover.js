@@ -27,6 +27,57 @@ hueBridge.getLightState new
 todo: hueBridge rename to hueBridgeAuth.js   
 */
 
+
+Promise.any = function(arrayOfPromises) {
+  if(!arrayOfPromises || !(arrayOfPromises instanceof Array)) {
+    throw new Error('Must pass Promise.any an array');
+  }
+    
+  if(arrayOfPromises.length === 0) {
+    return Promise.resolve([]);
+  }
+   
+    
+  // For each promise that resolves or rejects, 
+  // make them all resolve.
+  // Record which ones did resolve or reject
+  var resolvingPromises = arrayOfPromises.map(function(promise) {
+    return promise.then(function(result) {
+      return {
+        resolve: true,
+        result: result
+      };
+    }, function(error) {
+      return {
+        resolve: false,
+        result: error
+      };
+    });
+  });
+
+  return Promise.all(resolvingPromises).then(function(results) {
+    // Count how many passed/failed
+    var passed = [], failed = [], allFailed = true;
+    results.forEach(function(result) {
+      if(result.resolve) {
+        allFailed = false;
+      }
+      if (result.resolve) {
+        passed.push(result.result);
+      } else {
+        failed.push(result.result);
+      }
+    });
+
+    if(allFailed) {
+      throw failed;
+    } else {
+      return passed;
+    }
+  });
+};
+
+
 class MeetHueLookup {
     constructor($lite) {
         this.$lite = $lite;
@@ -51,7 +102,7 @@ class MeetHueLookup {
                         resolveCallback(ips);
                     } else {
                         console.log('meethue portal did not return');
-                        resolveCallback([]);
+                        reject([]);
                     }
                 },
                 error: (err) => {
@@ -118,7 +169,7 @@ class HueBridge {
     }
     getLightState (successCallback){
         try{
-            this.$.ajax({
+            var options = {
                 dataType: 'json',
                 url: this.baseApiUrl + '/lights',
                 success: (data) => {
@@ -127,20 +178,22 @@ class HueBridge {
                 },
                 error: (data) => this.onAuthError(data),
                 timeout: 2000
-            });
+            };
+            this.$.ajax(options);
         }catch (err) {
             this.onAuthError(err);
         }
     }
     getBridgeState (){
         try{
-            this.$.ajax({
+            var options = {
                 dataType: 'json',
                 url: this.baseApiUrl,
                 success: (data) => this.onGotBridgeState(data),
                 error: (data) => this.onAuthError(data),
                 //timeout: 5000
-            });
+            };
+            this.$.ajax(options);
         }catch (err) {
             this.onAuthError(err);
         }
@@ -169,13 +222,18 @@ class HueBridge {
             data = dataArray[0]; // take first
         }
         this.timeoutAuthCounter = 0;
-        if (data.hasOwnProperty('error') && data.error.description === 'unauthorized user')
+        if (data.hasOwnProperty('error'))
         {
-            this.log('Not authorized with bridge '+ this.ip + ', registering...');
-            this.retryAuthCounter++;
-            this.status = 'found';
-            // bridgeAuth
-            this.addUser();
+            if (data.error.description === 'unauthorized user') {
+                this.log('Not authorized with bridge '+ this.ip + ', registering...');
+                this.retryAuthCounter++;
+                this.status = 'found';
+                // bridgeAuth
+                this.addUser();
+            } else {
+                this.status = 'error';
+                this.onError(this.ip, 'Error', 'Error: ' + data.error.description);
+            }
         }
         else if (data.hasOwnProperty('lights'))
         {
@@ -197,7 +255,7 @@ class HueBridge {
         });
     }
     onAddUserResponse (response) {
-        this.log(response);
+        this.log(JSON.stringify(response));
         if (response[0].hasOwnProperty('error'))
         {
             this.unauthorized(response);
@@ -458,34 +516,72 @@ class HueDiscoverer {
     }
     bridgeThenable (ip){
         var bridgeThenable = new Promise((resolve, reject) => {
-            if (!ip) resolve();
-            new HueBridge($lite, this.storage, ip, this.appname, this.username, 
+            if (!ip || !this.username) {
+                reject(ip);
+                return;
+            }
+
+            var bridge = null;
+
+            function onResolve(ip, status, message){
+                resolve(bridge, ip, status, message);
+            }
+            function onReject(ip, status, message){
+                reject(bridge, ip, status, message);
+            }
+
+            bridge = new HueBridge($lite, this.storage, ip, this.appname, this.username, 
                 this.onNeedAuthorization, 
-                (ip, status, message) => resolve(ip, status, message), 
-                (ip, status, message) => reject(ip, status, message))
-            .getLightState();
+                (ip, status, message) => onResolve(bridge, status, message), 
+                (ip, status, message) => onReject(bridge, status, message));
+            bridge.getLightState();
         }); 
         return bridgeThenable;
     } 
     start(ip) {
         return new Promise((resolve, reject) => {
 
-            var promise = Storage.get('lastBridgeIp', (ip) => this.ip = ip)
-            .then(() => Storage.get('lastUsername', (val) => this.username = val))
-            .then(() => bridgeThenable(ip))
-            .then((bridge) => resolve(bridge), () => bridgeThenable(lastBridgeIp))
-            .catch(() => {
-                new MeetHueLookup(this.$lite).then((ips) => ips.forEach(function(ip) {
-                    bridgeThenable(ip);
-                }));
-            })
+            var promise = Storage.get('lastBridgeIp')
+            .then((ip) => this.ip = ip)
+            .then(() => Storage.get('lastUsername'))
+            .then((val) => this.username = val)
             .then(() => {
-                BruteForcer.ips().forEach(function(ip) {
-                    bridgeThenable(ip);
-                });
+                return this.bridgeThenable(ip);
+            })
+            .catch(() => {
+                 return this.bridgeThenable(this.ip);
+            })
+            .then((bridge) => resolve(bridge))
+            .catch(() => {
+                return new MeetHueLookup(this.$lite).discover();
+            })
+            .then((ips) => {
+                var bridges = [];
+                for(var i of ips) {
+                    bridges.push(this.bridgeThenable(i)); 
+                }
+                return Promise.any(bridges);
+            })
+            .then((bridges) => {
+                return resolve(bridges[0]);
+            })
+            .catch((deadBridges) => {
+                var ips = BruteForcer.ips();
+                var bridges = [];
+                for(i of ips) {
+                    bridges.push(this.bridgeThenable(i)); // 84 requests
+                }
+                return Promise.any(bridges);
+            })
+            .then((bridges) => {
+                return resolve(bridges[0]);
+            })
+            .catch(() => {
+                reject();
             }); 
 
-            resolve();
+            //resolve();
+            return promise;
         });
     }
 }

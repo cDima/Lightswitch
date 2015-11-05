@@ -27,7 +27,7 @@ class Storage {
 		});
 	}
 
-	static get (name, callback) {
+	static get (name) {
 		return new Promise((resolve, reject) => {
 			if (this.syncAvailable()) {
 				chrome.storage.sync.get(name, function (items) {

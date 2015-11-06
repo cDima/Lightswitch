@@ -1,3 +1,29 @@
+describe("HueDiscover timings", function() {
+
+  function needAuth(ip){
+    console.log("Push button on bridge ip " + ip);
+  }
+
+  it("should work fast", function(done) {
+
+    var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
+
+    var t0 = performance.now();
+
+    dis.start().then(() => {
+        var t1 = performance.now();
+        console.log("Call took " + (t1 - t0) + " milliseconds.")
+        expect((t1 - t0)).toBeLessThan(5000);
+        done();
+    }, () => {
+        var t1 = performance.now();
+        console.log("Call took " + (t1 - t0) + " milliseconds.")
+        expect((t1 - t0)).toBeLessThan(5000);
+        done();
+    });
+  });
+});
+
 describe("HueDiscover", function() {
 
   var state = null;
@@ -333,9 +359,20 @@ describe("HueDiscover", function() {
       var u = '123-bogus';
       var url = 'http://' + p +'/api/' + u + '/lights';
 
-      it("should authenticate", function(done) {
+      function stubMeethue(success){
+        stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
+        stubWithJSON('http://3/api/' + u + '/lights', (success === true ? [{'lights': '' }] : [{'error': '' }]) );
+        stubWithJSON('http://4/api/' + u + '/lights', [{'error': '' }]);
+      }
+      function stubBruteforce(){
+        var ips = BruteForcer.ips();
+        var bridges = [];
+        for(var i of ips) {
+            stubWithJSON('http://' + i + '/api/' + u + '/lights', [{'error': '' }]);
+        }
+      }
 
-        var u = '123-bogus';
+      it("should authenticate", function(done) {
         stubWithJSON(url, {'error': { 'description': 'unauthorized user' }});
         stubWithJSON(url, [{'error': { 'description': 'link button not pressed' }}]);
         stubWithJSON(url, {'lights': [] });
@@ -354,7 +391,6 @@ describe("HueDiscover", function() {
           expect(bridge).toBe(p);
           done();
         }
-        var u = '123-bogus';
         stubWithJSON(url, {'error': { 'description': 'unauthorized user' }});
         stubWithJSON('http://' + p + '/api', [{'error': { 'description': 'link button not pressed' }}]);
         stubWithJSON('http://' + p + '/api', [{'error': { 'description': 'link button not pressed' }}]);
@@ -385,11 +421,10 @@ describe("HueDiscover", function() {
       it("should succeed stored ip", function(done) {
 
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
-
-        var u = 'USERNAME';
-
         // ajax responses
         stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'lights': '' }]);
+        stubMeethue(false);
+        stubBruteforce();
 
         Storage.set('lastBridgeIp', p)
         .then(() => {
@@ -409,9 +444,10 @@ describe("HueDiscover", function() {
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
+        stubMeethue(false);
+        stubBruteforce();
         stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'lights': '' }]);
 
         Storage.set('lastBridgeIp', undefined)
@@ -433,11 +469,13 @@ describe("HueDiscover", function() {
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
         stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'error': '' }]);
         stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'lights': '' }]);
+
+        stubMeethue(false);
+        stubBruteforce();
 
         Storage.set('lastBridgeIp', p)
         .then(() => {
@@ -459,11 +497,9 @@ describe("HueDiscover", function() {
           expect(bridge).toBe(p);
           done();
         }
-        var u = '123-bogus';
         var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
 
@@ -471,6 +507,9 @@ describe("HueDiscover", function() {
         stubWithJSON('http://' + p +'/api/' + u + '/lights', {'error': { 'description': 'unauthorized user' }});
         stubWithJSON('http://' + p + '/api', [{'error': { 'description': 'link button not pressed' }}]);
         stubWithJSON('http://' + p + '/api', [{'error': { 'description': 'link button not pressed' }}]);
+
+        stubMeethue(false);
+        stubBruteforce();
 
         Storage.set('lastBridgeIp', p)
         .then(() => {
@@ -487,14 +526,12 @@ describe("HueDiscover", function() {
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
         stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'error': '' }]);
         stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
-        stubWithJSON('http://3/api/' + u + '/lights', [{'lights': '' }]);
-        stubWithJSON('http://4/api/' + u + '/lights', [{'error': '' }]);
+        stubMeethue(true);
+        stubBruteforce();
 
         Storage.set('lastBridgeIp', p)
         .then(() => {
@@ -509,52 +546,18 @@ describe("HueDiscover", function() {
 
       });
 
-      it("should failover to 4", function(done) {
-
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
-
-        var ip = '2.2.2.2';
-        var u = 'USERNAME';
-
-        // ajax responses
-        stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
-        stubWithJSON('http://3/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('http://4/api/' + u + '/lights', [{'lights': '' }]);
-
-        Storage.set('lastBridgeIp', p)
-        .then(() => {
-          return Storage.set('lastUsername', u);
-        })
-        .then(() => {
-          return dis.start(ip);
-        }).then((bridge) => {
-          expect(bridge.ip).toBe('4');
-          done();
-        })
-
-      });
-
       it("should failover to brute", function(done) {
 
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
         stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'error': '' }]);
         stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
-        stubWithJSON('http://3/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('http://4/api/' + u + '/lights', [{'error': '' }]);
         
-        var ips = BruteForcer.ips();
-        var bridges = [];
-        for(var i of ips) {
-            stubWithJSON('http://' + i + '/api/' + u + '/lights', [{'error': '' }]);
-        }
+        stubMeethue(false);
+        stubBruteforce();
 
         Storage.set('lastBridgeIp', p)
         .then(() => {
@@ -565,7 +568,7 @@ describe("HueDiscover", function() {
         }).catch((bridge) => {
           expect(bridge).toBe(undefined);
           done();
-        })
+        });
 
       });
 
@@ -574,24 +577,14 @@ describe("HueDiscover", function() {
         var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
         stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'error': '' }]);
         stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
-        stubWithJSON('http://3/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('http://4/api/' + u + '/lights', [{'error': '' }]);
-        
-        var ips = BruteForcer.ips();
-        var bridges = [];
-        for(i of ips) {
-            if (i === '192.168.0.10') {
-              stubWithJSON('http://' + i + '/api/' + u + '/lights', [{'lights': '' }]);
-            } else {
-              stubWithJSON('http://' + i + '/api/' + u + '/lights', [{'error': '' }]);
-            }
-        }
+
+        stubMeethue(false);
+        stubBruteforce();
+        stubWithJSON('http://192.168.0.10/api/' + u + '/lights', [{'lights': '' }]);
 
         Storage.set('lastBridgeIp', p)
         .then(() => {
@@ -602,7 +595,9 @@ describe("HueDiscover", function() {
         }).then((bridge) => {
           expect(bridge.ip).toBe('192.168.0.10');
           done();
-        })
+        }).catch((bridge) => {
+          expect(bridge).toBe(undefined);
+        });
 
       });
 
@@ -616,7 +611,6 @@ describe("HueDiscover", function() {
         var dis = new HueDiscoverer($lite, Storage, 'appname', auth);
 
         var ip = '2.2.2.2';
-        var u = 'USERNAME';
 
         // ajax responses
         stubWithJSON('http://' + ip +'/api/' + u + '/lights', {'error': { 'description': 'unauthorized user' }});

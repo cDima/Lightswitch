@@ -10,7 +10,7 @@ class $lite {
 		var type = options.type || 'GET';
 		var headers = options.headers || {} ;
 		var body = options.data || null;
-		var timeout = options.timeout || null;
+		var timeout = options.timeout || 1000;
 		var success = options.success || function(err, data) {
 			console.log('options.success was missing for this request');
 		};
@@ -63,6 +63,7 @@ class $lite {
 			xhr.setRequestHeader(key, headers[key]);
 		});
 
+		console.log("$lite sending: " + url);
 		if(!body) {
 		  	xhr.send();
 		} else {

@@ -115,13 +115,13 @@ class MeetHueLookup {
 
 class BruteForcer {
     static ips(){
-      var ips = [];
-      for(var i = 0; i < 21; i++) {
-        ips.push('10.0.1.' + i); // mac: 10.0.1.1-20
-        ips.push('192.168.0.' + i); // win: 192.168.0.1-20
-        ips.push('192.168.0.' + (100+i)); // win: 192.168.1.100-120
-        ips.push('192.168.1.' + i); // win: 192.168.1.1-20
-      }
+        var ips = [];
+        var i =0;
+        for(i = 0; i < 21; i++) { ips.push('10.0.1.' + i); } // mac: 10.0.1.1-20
+        for(i = 0; i < 21; i++) { ips.push('192.168.0.' + i); } // win: 192.168.0.1-20
+        for(i = 0; i < 21; i++) { ips.push('192.168.0.' + (100+i)); } // win: 192.168.1.100-120
+        for(i = 0; i < 21; i++) { ips.push('192.168.1.' + i); } // win: 192.168.1.1-20
+      
       return ips;
     }
 }
@@ -177,7 +177,7 @@ class HueBridge {
                   this.onGotBridgeState(data, successCallback); // lighter bag of data
                 },
                 error: (data) => this.onAuthError(data),
-                timeout: 2000
+                timeout: 1000
             };
             this.$.ajax(options);
         }catch (err) {
@@ -191,7 +191,7 @@ class HueBridge {
                 url: this.baseApiUrl,
                 success: (data) => this.onGotBridgeState(data),
                 error: (data) => this.onAuthError(data),
-                //timeout: 5000
+                timeout: 5000
             };
             this.$.ajax(options);
         }catch (err) {
@@ -335,7 +335,7 @@ class HueDiscoverer {
             .then((ip) => this.ip = ip)
             .then(() => Storage.get('lastUsername'))
             .then((val) => this.username = val)
-            .then(() => {
+            /*.then(() => {
                 return this.bridgeThenable(ip);
             })
             .catch(() => {
@@ -365,7 +365,34 @@ class HueDiscoverer {
             })
             .then((bridges) => {
                 return resolve(bridges[0]);
+            })*/
+            .then(() => {
+                var promises = [];
+                if (ip){
+                    promises.push(this.bridgeThenable(ip)); // from arguments
+                }
+                if (this.ip){
+                    promises.push(this.bridgeThenable(this.ip)); // from storage
+                }
+                
+                var meethuePromise = new Promise((resolve,reject) => {
+                    return new MeetHueLookup(this.$lite).discover().then((ips) => {
+                        var bridges = [];
+                        for(var i of ips) {
+                            bridges.push(this.bridgeThenable(i)); 
+                        }
+                        Promise.any(bridges).then((bridges) => resolve(bridges[0]), () => reject());
+                    }, () => reject());
+                });
+                promises.push(meethuePromise);
+
+                var ips = BruteForcer.ips();
+                for(var i of ips) {
+                    promises.push(this.bridgeThenable(i)); // 84 requests
+                }
+                return Promise.any(promises);
             })
+            .then((bridges) => resolve(bridges[0]))
             .catch(() => {
                 reject();
             }); 
@@ -417,7 +444,7 @@ var hueBridge = function(bridgeIP, appName, lastUsername, onNeedAuthorization, o
                       callback();
                     },
                     error: onAuthError,
-                    timeout: 2000
+                    timeout: 1000
                 });
             }catch (err) {
                 onAuthError(err);
@@ -429,8 +456,8 @@ var hueBridge = function(bridgeIP, appName, lastUsername, onNeedAuthorization, o
                     dataType: 'json',
                     url: baseApiUrl,
                     success: onGotBridgeState,
-                    error: onAuthError//,
-                    //timeout: 5000
+                    error: onAuthError,
+                    timeout: 5000
                 });
             }catch (err) {
                 onAuthError(err);
@@ -551,7 +578,7 @@ var hueNupnpDiscoverer = function (callback) {
             $.ajax({
                 url: nupnp,
                 dataType: 'json',
-                //timeout: 2000,
+                timeout: 2000,
                 success: onNupnpResponse,
                 error: errorNupnp
             });

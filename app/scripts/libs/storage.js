@@ -37,7 +37,14 @@ class Storage {
 			} else if (localStorage) {
 				var result = null;
 				try {
-					result = JSON.parse(localStorage.getItem(name));
+					var b = localStorage.getItem(name);
+					if (b === 'undefined') {
+						result = undefined;
+					} else if (b === 'null') {
+						result = null;
+					} else {
+						result = JSON.parse(b);
+					}
 				}catch(e) {
 					console.log('Error: ' + e);
 					result = localStorage.getItem(name);

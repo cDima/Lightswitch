@@ -28,56 +28,6 @@ todo: hueBridge rename to hueBridgeAuth.js
 */
 
 
-Promise.any = function(arrayOfPromises) {
-  if(!arrayOfPromises || !(arrayOfPromises instanceof Array)) {
-    throw new Error('Must pass Promise.any an array');
-  }
-    
-  if(arrayOfPromises.length === 0) {
-    return Promise.resolve([]);
-  }
-   
-    
-  // For each promise that resolves or rejects, 
-  // make them all resolve.
-  // Record which ones did resolve or reject
-  var resolvingPromises = arrayOfPromises.map(function(promise) {
-    return promise.then(function(result) {
-      return {
-        resolve: true,
-        result: result
-      };
-    }, function(error) {
-      return {
-        resolve: false,
-        result: error
-      };
-    });
-  });
-
-  return Promise.all(resolvingPromises).then(function(results) {
-    // Count how many passed/failed
-    var passed = [], failed = [], allFailed = true;
-    results.forEach(function(result) {
-      if(result.resolve) {
-        allFailed = false;
-      }
-      if (result.resolve) {
-        passed.push(result.result);
-      } else {
-        failed.push(result.result);
-      }
-    });
-
-    if(allFailed) {
-      throw failed;
-    } else {
-      return passed;
-    }
-  });
-};
-
-
 class MeetHueLookup {
     constructor($lite) {
         this.$lite = $lite;
@@ -174,7 +124,8 @@ class HueBridge {
                 url: this.baseApiUrl + '/lights',
                 success: (data) => {
                   this.timeoutAuthCounter = 0;
-                  this.onGotBridgeState(data, successCallback); // lighter bag of data
+                  this.onGotLightState(data,successCallback);
+                  //this.onGotBridgeState(data, successCallback); // lighter bag of data
                 },
                 error: (data) => this.onAuthError(data),
                 timeout: 1000
@@ -216,10 +167,17 @@ class HueBridge {
             this.onError(this.ip, 'Error', 'Unknown error: ' + err.statusText);
         } // what now?
     }
-    onGotBridgeState (dataArray, successCallback) {
-        var data = dataArray;
+    onGotLightState (data, successCallback) {
+        if (data.hasOwnProperty('1')
+            && data['1'].hasOwnProperty('manufacturername')) {
+            // indeeed a light response.
+            var stateData = {'lights' : data};
+            this.onGotBridgeState(stateData, successCallback);
+        }
+    }
+    onGotBridgeState (data, successCallback) {
         if (Array.isArray(data)) {
-            data = dataArray[0]; // take first
+            data = data[0]; // take first
         }
         this.timeoutAuthCounter = 0;
         if (data.hasOwnProperty('error'))
@@ -240,7 +198,7 @@ class HueBridge {
             this.status = 'ready';
             this.log('Bridge ready ' + this.ip);
             this.retryAuthCounter = 0;
-            (successCallback || this.onAuthorized)(this.ip, this.username, 'Ready', data);
+            (successCallback || this.onAuthorized)(this, this.ip, this.username, 'Ready', data);
         }
     }
     addUser (){
@@ -276,9 +234,12 @@ class HueBridge {
         if (response[0].error.description === 'link button not pressed') {
             this.status = 'needauthorization';
             this.onNeedAuthorization(this.ip, this.username, 'NeedAuthorization', response); // changed signature
+            /*
             setTimeout(() => {
                 this.addUser();
             }, 2000); // recursively call every 2 seconds for 30 seconds.
+            */
+            this.onError(this.ip, 'Error', 'Need authentication: ' + response[0].error.description);
         } else  {
             this.status = 'error';
             this.onError(this.ip, 'Error', 'Error: ' + response[0].error.description);
@@ -335,37 +296,6 @@ class HueDiscoverer {
             .then((ip) => this.ip = ip)
             .then(() => Storage.get('lastUsername'))
             .then((val) => this.username = val)
-            /*.then(() => {
-                return this.bridgeThenable(ip);
-            })
-            .catch(() => {
-                 return this.bridgeThenable(this.ip);
-            })
-            .then((bridge) => resolve(bridge))
-            .catch(() => {
-                return new MeetHueLookup(this.$lite).discover();
-            })
-            .then((ips) => {
-                var bridges = [];
-                for(var i of ips) {
-                    bridges.push(this.bridgeThenable(i)); 
-                }
-                return Promise.any(bridges);
-            })
-            .then((bridges) => {
-                return resolve(bridges[0]);
-            })
-            .catch((deadBridges) => {
-                var ips = BruteForcer.ips();
-                var bridges = [];
-                for(var i of ips) {
-                    bridges.push(this.bridgeThenable(i)); // 84 requests
-                }
-                return Promise.any(bridges);
-            })
-            .then((bridges) => {
-                return resolve(bridges[0]);
-            })*/
             .then(() => {
                 var promises = [];
                 if (ip){

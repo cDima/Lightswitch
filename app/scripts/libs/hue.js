@@ -52,7 +52,8 @@ var hue = function ($, colors) {
         transitionTime = null,
         errorCounter = 0;
 
-    discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+    //discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+    discover = new HueDiscoverer($lite, Storage, appname, onNeedAuthorization);
 
     var statusInit = {status: 'init', text: 'Initializing...'};
     var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};
@@ -63,24 +64,34 @@ var hue = function ($, colors) {
       onStatus(statusNeedAuth);
       discoverStatus = 'auth';
     }
-    function onIpAuthorized(ip, username, message, data){
-      if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
-        bridge = hueBridge(ip, appname, username, onNeedAuthorization, onIpAuthorized, onError, 10);
-        discoverStatus = 'ok';
-        hue.setIp(ip, username);
-      } 
 
-      onNewState(data);
+    function onIpAuthorized(bridgeAuthorized, ip, username, message, data){
+
+      //if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
+      bridge = new HueBridge(
+        $lite, 
+        Storage, 
+        bridgeAuthorized.ip, 
+        appname, 
+        bridgeAuthorized.username,
+        onNeedAuthorization, 
+        onIpAuthorized, 
+        onError, 
+        10);
+      discoverStatus = 'ok';
+      hue.setIp(bridge.ip, bridge.username);
+      //} 
+
+      if (data === undefined) {
+        bridge.getBridgeState();
+      } else {
+        onNewState(data); // safe to delete
+     }
     }
+
     function onError(ip, msg, text){
       //onStatus(statusNoBridge);
       updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
-    }
-
-    function onComplete(){
-      if (discoverStatus === 'init') {
-        onStatus(statusNoBridge);
-      }
     }
 
     var onLampError = function(err){
@@ -766,7 +777,7 @@ var hue = function ($, colors) {
             return [actors]; // lights: prefix not used, just return array of number.
         },
         discover: function(ip){
-          discover.start(ip);
+          discover.start(ip).then(onIpAuthorized, onError);
           updateStatus(statusInit.status,statusInit.text);
         }
     };

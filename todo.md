@@ -1,5 +1,11 @@
 Todo:
 
+- es6 unit tests
+- 
+
+
+Future:
+
 - valentine day scene
 - ambient eye
 	- timing of ambieye: movie mode/ game mode / work mode 

@@ -127,6 +127,7 @@ gulp.task('scripts', () =>
     	'./app/scripts/libs/bootstrap.min.js',
     	'./app/scripts/libs/bootstrap-slider.min.js',
     	'./app/scripts/libs/color-thief.min.js',
+      './app/scripts/libs/extensions.js',
     	'./app/scripts/config.js',
     	'./app/scripts/config.features.js',
     	'./app/scripts/libs/ga.js',

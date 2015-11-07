@@ -15,18 +15,7 @@
 'use strict';
 
 var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
-    if (typeof String.prototype.endsWith !== 'function') {
-        String.prototype.endsWith = function(suffix) {
-            return this.indexOf(suffix, this.length - suffix.length) !== -1;
-        };
-    }
-     
-    if (typeof String.prototype.startsWith !== 'function') {
-        String.prototype.startsWith = function(prefix) {
-            return this.indexOf(prefix) !== -1;
-        };
-    }
-
+    
     var logger = null,
         actorId = null,
         stateCache = null,
@@ -309,24 +298,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         }
     };
 };
-
-/*
-function executeBrightness(val){
-  window.hueCommander.command('bri:' + val);   
-  return false;
-}
-
-function executeToggle(on){
-  window.hueCommander.command(on ? 'on' : 'off');   
-  return false;
-}
-function executeHrefCommand() {
-  
-  var command = $(this).attr('href');
-  executeCommand(command);
-  return false;
-}
-*/
 
 
 function executeCommand(command) {

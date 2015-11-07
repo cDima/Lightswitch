@@ -22,6 +22,26 @@ describe("HueDiscover timings", function() {
         done();
     });
   });
+
+  it("should fail fast against live bridge unauthenticated", function(done) {
+
+    var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
+
+    var t0 = performance.now();
+
+    dis.bridgeThenable('192.168.0.102').then(() => {
+        var t1 = performance.now();
+        console.log("Call took " + (t1 - t0) + " milliseconds.")
+        expect((t1 - t0)).toBeLessThan(5000);
+        done();
+    }, () => {
+        var t1 = performance.now();
+        console.log("Call took " + (t1 - t0) + " milliseconds.")
+        expect((t1 - t0)).toBeLessThan(5000);
+        done();
+    });
+  });
+
 });
 
 describe("HueDiscover", function() {

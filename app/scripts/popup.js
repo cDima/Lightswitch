@@ -185,16 +185,16 @@ function initGlobals(){
     $('#https-proxy').hide();
 
     if (location.protocol === 'https:') {
-        /* todo: disfunctional probably */
-        // page is secure, hue commander needs to use proxy to LPS.
-        window.hueProxy = hueProxy();
+      /* todo: disfunctional probably */
+      // page is secure, hue commander needs to use proxy to LPS.
+      window.hueProxy = hueProxy();
 
-        $('#https-proxy').show();
+      $('#https-proxy').show();
 
-        ambieye = window.Ambient;
-        window.hue = hue(window.jQuery, window.colors);
-        sceneCmd = sceneCommander(window.jQuery, window.hue);
-        window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+      ambieye = window.Ambient;
+      window.hue = hue(window.jQuery, window.colors);
+      sceneCmd = sceneCommander(window.jQuery, window.hue);
+      window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
         
     } else if (background !== null) {
       window.hue = background.hue;
@@ -220,12 +220,7 @@ function initGlobals(){
         hueProxy.cmd('discover');
     }
 
-    
-
     log('client: binding to status change.');
-
-    //window.hueCommander.setLogger(log);
-    //window.sceneCmd.setLogger(log);
 
     requestStatus();
 

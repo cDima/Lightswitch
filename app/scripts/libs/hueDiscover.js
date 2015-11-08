@@ -100,7 +100,7 @@ class HueBridge {
         this.status = 'init'; // found, notauthorized, ready, error
         
         this.timeoutAuthCounter = 0;
-        this.retryAuthCounter = 0;
+        this.retryCount = retryCount || 0;
 
         this.onNeedAuthorization = onNeedAuthorization;
         this.onAuthorized = onAuthorized;
@@ -150,12 +150,14 @@ class HueBridge {
         }
     }
     onAuthError (err){
-        if (err.statusText === 'timeout') {
+        if (err.statusText === 'timeout' || err.status === 0) {
             this.timeoutAuthCounter++;
             this.log('Bridge error timeout: ' + this.ip);
-            if (this.timeoutAuthCounter >= 5) {
+            if (this.timeoutAuthCounter >= this.retryCount) {
                 this.timeoutAuthCounter = 0;
-                this.log('too many timeouts with IP ' + this.baseUrl);
+                if (this.retryCount !== 0) {
+                    this.log('too many timeouts with IP ' + this.baseUrl);
+                }
                 this.onError(this.ip, 'Timeout', 'Too many timeouts on: ' + this.baseUrl);
             } else {
                 this.log('timeout on auth: ' + err.statusText + ' retry #' + this.timeoutAuthCounter);
@@ -197,7 +199,7 @@ class HueBridge {
         {
             this.status = 'ready';
             this.log('Bridge ready ' + this.ip);
-            this.retryAuthCounter = 0;
+            this.retryCounter = 0;
             (successCallback || this.onAuthorized)(this, this.ip, this.username, 'Ready', data);
         }
     }
@@ -234,11 +236,6 @@ class HueBridge {
         if (response[0].error.description === 'link button not pressed') {
             this.status = 'needauthorization';
             this.onNeedAuthorization(this.ip, this.username, 'NeedAuthorization', response); // changed signature
-            /*
-            setTimeout(() => {
-                this.addUser();
-            }, 2000); // recursively call every 2 seconds for 30 seconds.
-            */
             this.onError(this.ip, 'Error', 'Need authentication: ' + response[0].error.description);
         } else  {
             this.status = 'error';
@@ -394,7 +391,7 @@ var hueBridge = function(bridgeIP, appName, lastUsername, onNeedAuthorization, o
             }
         },
         onAuthError = function(err){
-            if (err.statusText === 'timeout') {
+            if (err.statusText === 'timeout' || err.status === 0) {
                 timeoutAuthCounter++;
                 log('Bridge error timeout: ' + bridgeIP);
                 if (timeoutAuthCounter >= 10) {

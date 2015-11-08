@@ -42,9 +42,10 @@ class $lite {
 			    if (xhr.status === 200) {
 		    	 	success(xhr.responseJSON || xhr.responseText, 'success', xhr);
 		    	} else if (xhr.status === 0) {
-		    		error(xhr.responseJSON || xhr.responseText, 'timeout', xhr.response);
+		    		//xhr.statusText = 'timeout';
+		    		error(xhr, 'timeout', xhr.response);
 			    } else {
-			      error(xhr.responseJSON || xhr.responseText, 'error', xhr.response);
+			      error(xhr, 'error', xhr.response);
 			    }
 			  }
 			} catch (err) {

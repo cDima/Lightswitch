@@ -65,6 +65,11 @@ var hue = function ($, colors) {
       discoverStatus = 'auth';
     }
 
+    function onBridgeError(err) {
+        console.log('onBridgeError'  + err);
+        onError(err);
+    }
+
     function onIpAuthorized(bridgeAuthorized, ip, username, message, data){
 
       //if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
@@ -76,7 +81,7 @@ var hue = function ($, colors) {
         bridgeAuthorized.username,
         onNeedAuthorization, 
         onIpAuthorized, 
-        onError, 
+        onBridgeError, 
         10);
       discoverStatus = 'ok';
       hue.setIp(bridge.ip, bridge.username);

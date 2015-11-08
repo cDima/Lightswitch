@@ -73,6 +73,9 @@ describe("HueDiscover", function() {
     });
   }
 
+  function respondWithSuccess() {
+        respondWithJSON({'1':{'manufacturername':'Philips'}});
+      }
 
   function respondWithTimeout() {
       jasmine.Ajax.requests.mostRecent().respondWith({
@@ -221,7 +224,7 @@ describe("HueDiscover", function() {
         var req = jasmine.Ajax.requests.mostRecent();
         expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
 
-        respondWithJSON({'lights': []})
+        respondWithSuccess();
       });
 
       it('should respond to success without callback', function(done) {
@@ -234,7 +237,7 @@ describe("HueDiscover", function() {
         var req = jasmine.Ajax.requests.mostRecent();
         expect(req.url).toBe('http://' + ip + '/api/' + username + '/lights');
 
-        respondWithJSON({'lights': []})
+        respondWithSuccess();
       });
 
       it('should respond to timeout', function(done) {
@@ -284,10 +287,10 @@ describe("HueDiscover", function() {
     });
 
     it('should respond to good result', function(done) {
-      function success(bridgeIP, username, status, data){
+      function success(bridge, username, status, data){
         console.log('calling done')
         console.log(data);
-        expect(bridgeIP).toEqual(ip);
+        expect(bridge.ip).toEqual(ip);
         done();
       }
       probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, success, success, onError, 0);
@@ -301,8 +304,8 @@ describe("HueDiscover", function() {
 
 
     it('should respond to need authorization', function(done) {
-      function needauth(bridgeIP, userName, status, data){
-        expect(bridgeIP).toEqual(ip);
+      function needauth(bridge, userName, status, data){
+        expect(bridge).toEqual(ip);
         expect(userName).toEqual(username);
         done();
       }
@@ -354,9 +357,9 @@ describe("HueDiscover", function() {
         });
 
         it('should authenticate if link button pressed', function(done) {
-          function authorized(bridgeIP, userName, status, data){
-            expect(bridgeIP).toEqual(ip);
-            expect(userName).toEqual('SALDKJASD');
+          function authorized(bridge, userName, status, data){
+            expect(bridge.ip).toEqual(ip);
+            expect(bridge.username).toEqual('SALDKJASD');
             done();
           }
           probableHueBridge = new HueBridge($lite, new storageClass(), ip, appname, username, null, authorized, null, 0);
@@ -367,7 +370,7 @@ describe("HueDiscover", function() {
           respondWithJSON([{'success': {'username': 'SALDKJASD'}}]); // todo fill in with proper bridge response
 
           respondWithJSON([{'lights': '' }]); 
-          
+          //stubSuccess();
 
         });
     });
@@ -379,10 +382,20 @@ describe("HueDiscover", function() {
       var u = '123-bogus';
       var url = 'http://' + p +'/api/' + u + '/lights';
 
+      function stubSuccess(url) {
+        stubWithJSON(url + '/lights', {'1':{'manufacturername':'Philips'}});
+        stubWithJSON(url, {'lights':'1'});
+      }
+
+
       function stubMeethue(success){
         stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
-        stubWithJSON('http://3/api/' + u + '/lights', (success === true ? [{'lights': '' }] : [{'error': '' }]) );
         stubWithJSON('http://4/api/' + u + '/lights', [{'error': '' }]);
+        if (success) {
+          stubSuccess('http://3/api/' + u);
+        } else {
+          stubWithJSON('http://3/api/' + u + '/lights', [{'error': '' }]);
+        }
       }
       function stubBruteforce(){
         var ips = BruteForcer.ips();
@@ -468,7 +481,7 @@ describe("HueDiscover", function() {
         // ajax responses
         stubMeethue(false);
         stubBruteforce();
-        stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'lights': '' }]);
+        stubSuccess('http://' + ip +'/api/' + u);
 
         Storage.set('lastBridgeIp', undefined)
         .then(() => {
@@ -479,6 +492,8 @@ describe("HueDiscover", function() {
         }).then((bridge) => {
           expect(bridge.ip).toBe(ip);
           done();
+        }).catch((b) => {
+          console.log(b);
         })
 
       });

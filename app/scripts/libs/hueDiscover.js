@@ -170,10 +170,10 @@ class HueBridge {
     onGotLightState (data, successCallback) {
         if (data.hasOwnProperty('1')
             && data['1'].hasOwnProperty('manufacturername')) {
-            // indeeed a light response.
-            var stateData = {'lights' : data};
-            this.onGotBridgeState(stateData, successCallback);
-        }
+            // indeed a light response.
+            data = {'lights' : data};
+        } 
+        this.onGotBridgeState(data, successCallback);
     }
     onGotBridgeState (data, successCallback) {
         if (Array.isArray(data)) {

@@ -1,7 +1,7 @@
 // extensions.js
 // (c) Dmitry Sadakov - 2015 All rights reserved.
 
-'user strict';
+'use strict';
 
 if (typeof String.prototype.endsWith !== 'function') {
     String.prototype.endsWith = function(suffix) {

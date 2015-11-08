@@ -636,38 +636,6 @@ describe("HueDiscover", function() {
 
       });
 
-
-      xit("should ask for link button on manual ip", function(done) {
-
-        function auth(bridge) {
-          expect(bridge.ip).toBe(ip);
-          done();
-        }
-        var dis = new HueDiscoverer($lite, Storage, 'appname', auth);
-
-        var ip = '2.2.2.2';
-
-        // ajax responses
-        stubWithJSON('http://' + ip +'/api/' + u + '/lights', {'error': { 'description': 'unauthorized user' }});
-        stubWithJSON('http://' + ip +'/api/' + u + '/lights', [{'error': { 'description': 'link button not pressed' }}]);
-        stubWithJSON('http://' + ip +'/api/' + u + '/lights', {'lights': [] });
-        stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('https://www.meethue.com/api/nupnp', [{'internalipaddress':'3'},{'internalipaddress':'4'}]);
-        stubWithJSON('http://3/api/' + u + '/lights', [{'error': '' }]);
-        stubWithJSON('http://4/api/' + u + '/lights', [{'error': '' }]);
-        
-
-        Storage.set('lastBridgeIp', p)
-        .then(() => {
-          return Storage.set('lastUsername', u);
-        })
-        .then(() => {
-          return dis.start(ip);
-        }).then((bridge) => {
-        });
-
-      });
-
   });
 
   describe('Storage class', function() {

@@ -4,6 +4,8 @@
 
 'use strict';
 
+/*exported $lite */
+
 class $lite {
  	static ajax(options) {
 		var url = options.url;
@@ -28,12 +30,12 @@ class $lite {
 		xhr.timeout = timeout;
 		xhr.ontimeout = function(){
 			//error(xhr, 'timeout', xhr.response);
-		}
+		};
 		xhr.onreadystatechange = function() {
 			try {
 			  if (xhr.readyState === 4) {
 			  	if (xhr.contentType === 'json') {
-			  		if (xhr.responseText == "") {
+			  		if (xhr.responseText === '') {
 						xhr.responseJSON = null;
 			  		} else {
 				  		xhr.responseJSON = JSON.parse(xhr.responseText);
@@ -64,7 +66,7 @@ class $lite {
 			xhr.setRequestHeader(key, headers[key]);
 		});
 
-		console.log("$lite sending: " + url);
+		console.log('$lite sending: ' + url);
 		if(!body) {
 		  	xhr.send();
 		} else {

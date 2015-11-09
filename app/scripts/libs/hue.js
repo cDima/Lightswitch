@@ -9,8 +9,7 @@
 
 'use strict';
 
-/*globals colorUtil:false,
-          hueDiscoverer, hueBridge
+/*globals colorUtil:false, HueDiscoverer, $lite, Storage, HueBridge
 */ 
 /*trackEvent*/
 /*exported  hue, 
@@ -57,7 +56,7 @@ var hue = function ($, colors) {
 
     var statusInit = {status: 'init', text: 'Initializing...'};
     var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};
-    var statusNoBridge = {status: 'BridgeNotFound', text: 'Philip Hue bridge not found.'};
+    //var statusNoBridge = {status: 'BridgeNotFound', text: 'Philip Hue bridge not found.'};
     //var statusReady = {status: 'OK', text: 'Lights found.'};
 
     function onNeedAuthorization() {

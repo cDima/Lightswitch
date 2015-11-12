@@ -6,7 +6,7 @@ describe("HueDiscover timings", function() {
 
   it("should work fast", function(done) {
 
-    var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
+    var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', needAuth);
 
     var t0 = performance.now();
 
@@ -25,7 +25,7 @@ describe("HueDiscover timings", function() {
 
   it("should fail fast against live bridge unauthenticated", function(done) {
 
-    var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
+    var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', needAuth);
 
     var t0 = performance.now();
 
@@ -151,7 +151,7 @@ describe("HueDiscover", function() {
         
         stubWithJSON('https://www.meethue.com/api/nupnp', []);
 
-        var meethue = new MeetHueLookup($lite);
+        var meethue = new MeetHueLookup(AjaxLite);
         meethue.discover().then((data) => { 
           expect(JSON.stringify(data)).toBe(JSON.stringify([]));
         }, null).catch((response) => {
@@ -162,7 +162,7 @@ describe("HueDiscover", function() {
 
     it("meethue lookup returns ips", function(done) {
         
-        var meethue = new MeetHueLookup($lite);
+        var meethue = new MeetHueLookup(AjaxLite);
         meethue.discover().then((data) => { 
           expect(JSON.stringify(data)).toBe(JSON.stringify(['11.11.11.11']));
         }, null).then(() => {
@@ -189,7 +189,7 @@ describe("HueDiscover", function() {
     var username = 'lastUsername';
 
     it('should launch request on start', function() {
-      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, onError, 0);
+      probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, onNeedAuthorization, onAuthorized, onError, 0);
       probableHueBridge.getBridgeState();
 
       var req = jasmine.Ajax.requests.mostRecent();
@@ -204,7 +204,7 @@ describe("HueDiscover", function() {
         console.log('timeout - calling done')
         done();
       }
-      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
+      probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
       probableHueBridge.getBridgeState();
 
       var req = jasmine.Ajax.requests.mostRecent();
@@ -218,7 +218,7 @@ describe("HueDiscover", function() {
         function success(data){
           done();
         }
-        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, null, null, null, 0);
+        probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, null, null, null, 0);
         probableHueBridge.getLightState(success);
 
         var req = jasmine.Ajax.requests.mostRecent();
@@ -231,7 +231,7 @@ describe("HueDiscover", function() {
         function success(data){
           done();
         }
-        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, null, success, null, 0);
+        probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, null, success, null, 0);
         probableHueBridge.getLightState();
 
         var req = jasmine.Ajax.requests.mostRecent();
@@ -244,7 +244,7 @@ describe("HueDiscover", function() {
         function error(data){
           done();
         }
-        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
+        probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
         probableHueBridge.getLightState();
 
         var req = jasmine.Ajax.requests.mostRecent();
@@ -257,7 +257,7 @@ describe("HueDiscover", function() {
         function error(data){
           done();
         }
-        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
+        probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, onNeedAuthorization, onAuthorized, error, 0);
         probableHueBridge.getLightState();
 
         var req = jasmine.Ajax.requests.mostRecent();
@@ -274,7 +274,7 @@ describe("HueDiscover", function() {
         function needauth(data){
           done();
         }
-        probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
+        probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, needauth, null, null, 0);
         probableHueBridge.getLightState();
 
         var req = jasmine.Ajax.requests.mostRecent();
@@ -293,7 +293,7 @@ describe("HueDiscover", function() {
         expect(bridge.ip).toEqual(ip);
         done();
       }
-      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, success, success, onError, 0);
+      probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, success, success, onError, 0);
       probableHueBridge.getBridgeState();
 
       var req = jasmine.Ajax.requests.mostRecent();
@@ -309,7 +309,7 @@ describe("HueDiscover", function() {
         expect(userName).toEqual(username);
         done();
       }
-      probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
+      probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, needauth, null, null, 0);
       probableHueBridge.getBridgeState();
 
       respondWithJSON({'error': { 'description': 'unauthorized user' }});
@@ -337,7 +337,7 @@ describe("HueDiscover", function() {
             expect(userName).toEqual(username);
             if (secondPass) done();
           }
-          probableHueBridge = new HueBridge($lite, storageClass, ip, appname, username, needauth, null, null, 0);
+          probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, needauth, null, null, 0);
           probableHueBridge.getBridgeState();
 
           // set response from fake server:
@@ -362,12 +362,12 @@ describe("HueDiscover", function() {
             expect(bridge.username).toEqual('SALDKJASD');
             done();
           }
-          probableHueBridge = new HueBridge($lite, new storageClass(), ip, appname, username, null, authorized, null, 0);
+          probableHueBridge = new HueBridge(AjaxLite, new Storage(), ip, appname, username, null, authorized, null, 0);
           probableHueBridge.getBridgeState();
 
           respondWithJSON({'error': { 'description': 'unauthorized user' }});
 
-          respondWithJSON([{'success': {'username': 'SALDKJASD'}}]); // todo fill in with proper bridge response
+          respondWithJSON([{'success': {'username': 'SALDKJASD'}}]); 
 
           respondWithJSON([{'lights': '' }]); 
           //stubSuccess();
@@ -410,7 +410,7 @@ describe("HueDiscover", function() {
         stubWithJSON(url, [{'error': { 'description': 'link button not pressed' }}]);
         stubWithJSON(url, {'lights': [] });
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         dis.bridgeThenable(p).then((bridge) => {
           expect(bridge.ip).toEqual(p);
@@ -428,7 +428,7 @@ describe("HueDiscover", function() {
         stubWithJSON('http://' + p + '/api', [{'error': { 'description': 'link button not pressed' }}]);
         stubWithJSON('http://' + p + '/api', [{'error': { 'description': 'link button not pressed' }}]);
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', needAuth);
 
         dis.bridgeThenable(p).then((bridge) => {
           expect(bridge.ip).toEqual(p);
@@ -441,7 +441,7 @@ describe("HueDiscover", function() {
         stubWithJSON(url, [{'error': { 'description': 'link button not pressed' }}]);
         stubWithJSON(url, {'error': [] });
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         dis.bridgeThenable(p).then(null, (err) => {
           expect(err.ip).toEqual(p);
@@ -453,7 +453,7 @@ describe("HueDiscover", function() {
 
       it("should succeed stored ip", function(done) {
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
         // ajax responses
         stubWithJSON('http://' + p +'/api/' + u + '/lights', [{'lights': '' }]);
         stubMeethue(false);
@@ -474,7 +474,7 @@ describe("HueDiscover", function() {
 
       it("should succeed explicit ip", function(done) {
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
 
@@ -501,7 +501,7 @@ describe("HueDiscover", function() {
 
       it("should fail explicit ip failover to stored", function(done) {
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
 
@@ -532,7 +532,7 @@ describe("HueDiscover", function() {
           expect(bridge).toBe(p);
           done();
         }
-        var dis = new HueDiscoverer($lite, Storage, 'appname', needAuth);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', needAuth);
 
         var ip = '2.2.2.2';
 
@@ -558,7 +558,7 @@ describe("HueDiscover", function() {
 
       it("should failover to nupnp", function(done) {
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
 
@@ -583,7 +583,7 @@ describe("HueDiscover", function() {
 
       it("should failover to brute", function(done) {
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
 
@@ -609,7 +609,7 @@ describe("HueDiscover", function() {
 
       it("should failover to brute succeeds", function(done) {
 
-        var dis = new HueDiscoverer($lite, Storage, 'appname', onNeedAuthorization);
+        var dis = new HueDiscoverer(AjaxLite, Storage, 'appname', onNeedAuthorization);
 
         var ip = '2.2.2.2';
 

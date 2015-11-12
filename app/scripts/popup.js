@@ -141,7 +141,7 @@ function handleSystemLink(a) {
 }
 
 function amExtension(){
-  return typeof(chrome) !== 'undefined'  && chrome.extension !== undefined;
+  return typeof (chrome) !== 'undefined'  && chrome.extension !== undefined;
 }
 
 function initGlobals(){
@@ -158,6 +158,7 @@ function initGlobals(){
     if(config.app !== 'app') {
       /* jshint ignore:start */
       // Set colors
+      /*
       UserVoice.push(['set', {
         target : '#uservoice',
         accent_color: '#448dd6',
@@ -170,6 +171,7 @@ function initGlobals(){
 
         }
       }]);
+    */
       /* jshint ignore:end */
     }
 

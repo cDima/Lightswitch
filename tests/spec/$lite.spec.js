@@ -1,4 +1,4 @@
-describe("$lite", function() {
+describe("AjaxLite", function() {
 
   function respondWithJSON(json, status) {
       jasmine.Ajax.requests.mostRecent().respondWith({
@@ -67,7 +67,7 @@ describe("$lite", function() {
           //data: JSON.stringify(data)
     };
     $.ajax(options);
-    $lite.ajax(options);
+    AjaxLite.ajax(options);
 
   });
 
@@ -87,7 +87,7 @@ describe("$lite", function() {
           //data: JSON.stringify(data)
     };
     $.ajax(options);
-    $lite.ajax(options);
+    AjaxLite.ajax(options);
 
   });
 
@@ -106,7 +106,7 @@ describe("$lite", function() {
           data: JSON.stringify({'on':true})
     };
     $.ajax(options);
-    $lite.ajax(options);
+    AjaxLite.ajax(options);
 
   });
 
@@ -125,7 +125,7 @@ describe("$lite", function() {
           data: JSON.stringify({'on':true})
     };
     $.ajax(options);
-    $lite.ajax(options);
+    AjaxLite.ajax(options);
 
   });
 });

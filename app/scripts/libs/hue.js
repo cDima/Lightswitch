@@ -9,7 +9,7 @@
 
 'use strict';
 
-/*globals colorUtil:false, HueDiscoverer, $lite, Storage, HueBridge
+/*globals colorUtil:false, HueDiscoverer, AjaxLite, Storage, HueBridge
 */ 
 /*trackEvent*/
 /*exported  hue, 
@@ -52,7 +52,7 @@ var hue = function ($, colors) {
         errorCounter = 0;
 
     //discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
-    discover = new HueDiscoverer($lite, Storage, appname, onNeedAuthorization);
+    discover = new HueDiscoverer(AjaxLite, Storage, appname, onNeedAuthorization);
 
     var statusInit = {status: 'init', text: 'Initializing...'};
     var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};
@@ -73,7 +73,7 @@ var hue = function ($, colors) {
 
       //if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
       bridge = new HueBridge(
-        $lite, 
+        AjaxLite, 
         Storage, 
         bridgeAuthorized.ip, 
         appname, 
@@ -93,8 +93,14 @@ var hue = function ($, colors) {
      }
     }
 
-    function onError(ip, msg, text){
+    function onDiscoverError(ip, msg, text){
       //onStatus(statusNoBridge);
+      if (status !== null && statusNeedAuth.status !== status.status) {
+          updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
+      }
+    }
+
+    function onError(ip, msg, text){
       updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
     }
 
@@ -781,7 +787,7 @@ var hue = function ($, colors) {
             return [actors]; // lights: prefix not used, just return array of number.
         },
         discover: function(ip){
-          discover.start(ip).then(onIpAuthorized, onError);
+          discover.start(ip).then(onIpAuthorized, onDiscoverError);
           updateStatus(statusInit.status,statusInit.text);
         }
     };

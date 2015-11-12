@@ -4,21 +4,21 @@
 
 'use strict';
 
-/*globals trackState */
+/*globals trackState,AjaxLite */
 /*exported HueDiscoverer */
 
 class MeetHueLookup {
-    constructor($lite) {
-        this.$lite = $lite;
+    constructor(AjaxLite) {
+        this.AjaxLite = AjaxLite;
     }
     discover() {
         return new Promise((resolveCallback, reject) => {
             console.log('Requesting meethue.com/api/nupnp.');
             var nupnp = 'https://www.meethue.com/api/nupnp';
-            this.$lite.ajax({
+            this.AjaxLite.ajax({
                 url: nupnp,
                 dataType: 'json',
-                success: (data) => {
+                success: data => {
                     trackState('nunpnp', data);
                     if (data !== null && data.length > 0) {
                         var ips = [];
@@ -34,7 +34,7 @@ class MeetHueLookup {
                         reject([]);
                     }
                 },
-                error: (err) => {
+                error: err => {
                     reject(err);
                 }
             });
@@ -101,12 +101,12 @@ class HueBridge {
             var options = {
                 dataType: 'json',
                 url: this.baseApiUrl + '/lights',
-                success: (data) => {
+                success: data => {
                   this.timeoutAuthCounter = 0;
                   this.onGotLightState(data,successCallback);
                   //this.onGotBridgeState(data, successCallback); // lighter bag of data
                 },
-                error: (data) => this.onAuthError(data),
+                error: data => this.onAuthError(data),
                 timeout: 2000
             };
             this.$.ajax(options);
@@ -119,8 +119,8 @@ class HueBridge {
             var options = {
                 dataType: 'json',
                 url: this.baseApiUrl,
-                success: (data) => this.onGotBridgeState(data),
-                error: (data) => this.onAuthError(data),
+                success: data => this.onGotBridgeState(data),
+                error: data => this.onAuthError(data),
                 timeout: 5000
             };
             this.$.ajax(options);
@@ -190,7 +190,7 @@ class HueBridge {
             url: this.baseUrl,
             type: 'POST',
             data: dataString,
-            success: (data) => this.onAddUserResponse(data)
+            success: data => this.onAddUserResponse(data)
         });
     }
     onAddUserResponse (response) {
@@ -235,8 +235,8 @@ class HueBridge {
 
 
 class HueDiscoverer {
-    constructor($lite, storage, appname, onNeedAuthorization) {
-        this.$lite = $lite;
+    constructor(AjaxLite, storage, appname, onNeedAuthorization) {
+        this.AjaxLite = AjaxLite;
         this.storage = storage;
         this.appname = appname;
         this.onNeedAuthorization = onNeedAuthorization;
@@ -257,7 +257,7 @@ class HueDiscoverer {
                 reject(bridge, ip, status, message);
             }
 
-            bridge = new HueBridge(this.$lite, this.storage, ip, this.appname, this.username, 
+            bridge = new HueBridge(this.AjaxLite, this.storage, ip, this.appname, this.username, 
                 this.onNeedAuthorization, 
                 (ip, status, message) => onResolve(bridge, status, message), 
                 (ip, status, message) => onReject(bridge, status, message));
@@ -269,8 +269,12 @@ class HueDiscoverer {
         return new Promise((resolve, reject) => {
 
             var promise = this.storage.get('lastBridgeIp')
-            .then((ip) => this.ip = ip)
-            .then(() => this.storage.get('lastUsername'))
+            .then((ip) => {
+                this.ip = ip;
+            })
+            .then(() => {
+                this.storage.get('lastUsername');
+            })
             .then((val) => this.username = val)
             .then(() => {
                 var promises = [];
@@ -280,12 +284,12 @@ class HueDiscoverer {
                 if (this.ip){
                     promises.push(this.bridgeThenable(this.ip)); // from storage
                 }
-                return Promise.any(promises);
+                return promises.length != 0 ? Promise.any(promises) : Promise.reject();
             })
             .catch(() => {
                 var promises = [];
                 var meethuePromise = new Promise((resolve,reject) => {
-                    return new MeetHueLookup(this.$lite).discover().then((ips) => {
+                    return new MeetHueLookup(this.AjaxLite).discover().then((ips) => {
                         var bridges = [];
                         for(var i of ips) {
                             bridges.push(this.bridgeThenable(i)); 

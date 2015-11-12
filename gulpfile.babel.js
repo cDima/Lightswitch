@@ -29,13 +29,14 @@ const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 // Lint JavaScript
-gulp.task('jshint', () =>
-  gulp.src(['app/scripts/**/*.js',
+gulp.task('lint', () =>
+  gulp.src([
+    'app/scripts/**/*.js',
    '!app/scripts/**/*.min.js'
    ])
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')))
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.if(!browserSync.active, $.eslint.failOnError()))
 );
 
 gulp.task('zip', function () {
@@ -45,7 +46,7 @@ gulp.task('zip', function () {
 });
 // Optimize images
 gulp.task('images', () =>
-  gulp.src('app/images/**/*.{jpg,jpeg,svg,gif,png}')
+  gulp.src('app/images/**/*')
     .pipe(
       //$.cache(
         $.imagemin({
@@ -120,14 +121,14 @@ gulp.task('scripts', () =>
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
-	    //'./app/scripts/main.js',
-	
-      // works with other scripts, else breaks.
+      // Other scripts
+
       './app/scripts/libs/jquery-1.11.1.min.js',
     	'./app/scripts/libs/bootstrap.min.js',
     	'./app/scripts/libs/bootstrap-slider.min.js',
     	'./app/scripts/libs/color-thief.min.js',
       './app/scripts/libs/extensions.js',
+      './app/scripts/ajaxlite.js',
     	'./app/scripts/config.js',
     	'./app/scripts/config.features.js',
     	'./app/scripts/libs/ga.js',
@@ -139,15 +140,14 @@ gulp.task('scripts', () =>
     	'./app/scripts/libs/ambient.js',
     	'./app/scripts/libs/scenes.js',
     	'./app/scripts/libs/sceneCommander.js',
-    	'./app/scripts/libs/testData.js',
+    	//'./app/scripts/libs/testData.js',
     	'./app/scripts/libs/hueDiscover.js',
     	'./app/scripts/libs/hue.js',
     	'./app/scripts/libs/colorUtil.js',
     	'./app/scripts/libs/hueCommander.js',
     	'./app/scripts/libs/voice.js', 
     	'./app/scripts/libs/hueProxy.js',
-      './app/scripts/$lite.js',
-    	'./app/scripts/popup.js',
+    	'./app/scripts/popup.js'
     ])
     .pipe($.newer('.tmp/scripts'))
     .pipe($.sourcemaps.init())
@@ -167,9 +167,10 @@ gulp.task('scripts', () =>
 gulp.task('scripts-tvos', () => {
   
   return;
+  /*
     gulp.src([
       './app/scripts/libs/extensions.js',
-      './app/scripts/$lite.js',
+      './app/scripts/ajaxlite.js',
       './app/scripts/libs/testData.js',
       './app/scripts/libs/storage.js',
       './app/scripts/libs/hueDiscover.js',
@@ -181,7 +182,7 @@ gulp.task('scripts-tvos', () => {
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/scripts'))
     .pipe($.size({title: 'scripts-tvos'}))
-
+*/
   }
 );
 
@@ -239,12 +240,16 @@ gulp.task('serve', ['scripts','scripts-tvos', 'styles'], () => {
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: ['.tmp', 'app']
+    server: ['.tmp', 'app'],
+    port: 3000
   });
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/**/*.js'], ['jshint', 'scripts','scripts-tvos']);
+  gulp.watch(['app/scripts/**/*.js'], ['jshint', 
+    'scripts'
+    //,'scripts-tvos'
+    ]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -259,7 +264,8 @@ gulp.task('serve:dist', ['default'], () =>
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: 'dist'
+    server: 'dist',
+    port: 3001
   })
 );
 
@@ -298,7 +304,7 @@ gulp.task('win', function() {
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['jshint', 'html', 'scripts', 'scripts-tvos',
+    ['lint', 'html', 'scripts', //'scripts-tvos',
     'images', 
     'fonts', 'copy'],
     'generate-service-worker','zip',

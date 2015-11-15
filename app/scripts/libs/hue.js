@@ -70,7 +70,7 @@ var hue = function ($, colors) {
         onError(err);
     }
 
-    function onIpAuthorized(bridgeAuthorized, ip, username, message, data){
+    function onIpAuthorized(bridgeAuthorized, ip, usernameArg, message, data){
 
       //if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
       bridge = new HueBridge(
@@ -84,7 +84,11 @@ var hue = function ($, colors) {
         onBridgeError, 
         10);
       discoverStatus = 'ok';
-      hue.setIp(bridge.ip, bridge.username);
+
+      bridgeIP = bridge.ip;
+      username = bridge.username;
+      updateURLs();
+
       //} 
 
       if (data === undefined) {
@@ -96,16 +100,32 @@ var hue = function ($, colors) {
 
     function onDiscoverError(ip, msg, text){
       //onStatus(statusNoBridge);
-      if (status !== null && statusNeedAuth.status !== status.status) {
+      if (status !== null) {
+        if (status.status !== statusNeedAuth.status) {
           updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
+        } else {
+          // discover:
+          setTimeout(() => rediscover(), 2000);
+        }
       }
+    }
+
+    function rediscover(ip) {
+      discover.start(ip).then((bridge, ip, username, message, data) => {
+          onIpAuthorized(bridge, ip, username, message, data);
+        },
+        (ip, msg, text) => {
+            onDiscoverError(ip, msg, text);
+          }
+        );
+      updateStatus(statusInit.status,statusInit.text);
     }
 
     function onError(ip, msg, text){
       updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
     }
 
-    var onLampError = function(err){
+    var onLampError = function (err){
             // do nothing for now.
             errorCounter++;
         },
@@ -309,8 +329,8 @@ var hue = function ($, colors) {
         buildXYState = function(xyCoords /* Number[] */, brightness, transitionTimeOverride) {
             var stateObj = { xy: xyCoords };
             if (typeof(brightness) === 'number') {
-				stateObj.bri = brightness;
-			}
+      				stateObj.bri = brightness;
+      			}
             addTransitionTime(stateObj, transitionTimeOverride);
             return stateObj;
         },
@@ -404,7 +424,7 @@ var hue = function ($, colors) {
         onNewState = function(data){
             //log('Authorized');
             /* jshint ignore:start */
-            if (typeof testData !== undefined && testData !== null) {
+            if (!(typeof (testData) === 'undefined')) {
                 data = testData;
             }
             /* jshint ignore:end */
@@ -453,7 +473,7 @@ var hue = function ($, colors) {
         },
         log = function(text) {
             console.log('hue: ' + text);
-            if (logHandler !== null) {
+            if (typeof (logHandler) !== 'undefined') {
                 logHandler(text);
             }
         },
@@ -713,15 +733,6 @@ var hue = function ($, colors) {
             transitionTime = time;
         },
         /**
-            hardcode IP
-         * todo: remove from interface
-         */
-        setIp: function(ip, hashedUsername) {
-            bridgeIP = ip;
-            username = hashedUsername;
-            updateURLs();
-        },
-        /**
          * Find bridges  findBridge() a upnp, then scan, then predefined typical ips. 
          */
         //findBridge: function(onerror) {
@@ -771,8 +782,7 @@ var hue = function ($, colors) {
             return [actors]; // lights: prefix not used, just return array of number.
         },
         discover: function(ip){
-          discover.start(ip).then(onIpAuthorized, onDiscoverError);
-          updateStatus(statusInit.status,statusInit.text);
+          rediscover(ip);
         }
     };
 };

@@ -201,9 +201,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         discover = function(ip){
             hue.discover(ip);
         }, 
-        setIp = function(ip){
-            hue.setIp(ip);
-        }, 
         heartbeat = function(){
             hue.heartbeat();
         },
@@ -258,9 +255,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         discover: function(ip) {
             discover(ip);
-        }, 
-        setIp: function(ip){
-            setIp(ip);
         }, 
         heartbeat: function(){
             heartbeat();

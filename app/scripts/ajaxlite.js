@@ -30,7 +30,7 @@ class AjaxLite {
       // error(xhr, 'timeout', xhr.response);
     };
     xhr.onreadystatechange = function() {
-      try {
+      //try {
         if (xhr.readyState === 4) {
           if (xhr.contentType === 'json') {
             if (xhr.responseText === '') {
@@ -48,11 +48,11 @@ class AjaxLite {
             error(xhr, 'error', xhr.response);
           }
         }
-      } catch (err) {
-        console.error(`Aborting request ${url}. Error: ${err}`);
-        xhr.abort();
-        error(xhr, 'error', xhr.response);
-      }
+      //} catch (err) {
+      //  console.error(`Aborting request ${url}. Error: ${err}`);
+      //  xhr.abort();
+      //  error(xhr, 'error', xhr.response);
+      //}
     };
 
     xhr.open(type, url, true);

@@ -59,7 +59,8 @@ var hue = function ($, colors) {
     //var statusNoBridge = {status: 'BridgeNotFound', text: 'Philip Hue bridge not found.'};
     //var statusReady = {status: 'OK', text: 'Lights found.'};
 
-    function onNeedAuthorization() {
+    function onNeedAuthorization(ip) {
+      statusNeedAuth.text = 'Bridge found at ' + ip + '.<br >Press the bridge button...';
       onStatus(statusNeedAuth);
       discoverStatus = 'auth';
     }
@@ -446,24 +447,14 @@ var hue = function ($, colors) {
         }, 
         onStatus = function(newStatus) {
             if (JSON.stringify(status) !== JSON.stringify(newStatus) ) {
-                console.log('hue: sending status change, ' + newStatus.status + ', text: ' + newStatus.text + ', data: ' + newStatus.data);
+                console.log('hue: status change, ' + newStatus.status + ', text: ' + newStatus.text + ', data: ' + newStatus.data);
                 status = newStatus;
-                statusChange();
             }
         },
         log = function(text) {
             console.log('hue: ' + text);
             if (logHandler !== null) {
                 logHandler(text);
-            }
-        },
-        // events:
-        statusChangeHandler = null,
-        logHandler = null,
-        statusChange = function() { 
-            if (statusChangeHandler !== null) {
-                console.log('hue: sending status change, ' + status.status + ', text: ' + status.text + ', data: ' + status.data);
-                statusChangeHandler(status);
             }
         },
         setHueSatState = function(lampIndex, hue, sat, bri, transitiontime) {
@@ -746,13 +737,6 @@ var hue = function ($, colors) {
                 numberOfLamps = numLamps;
             }
         },
-        //status: status,
-        // events
-        onStatusChange: function  (func) {
-            console.log('new subscriber to status change registered; internal status' + status);
-            statusChangeHandler = func;
-            statusChangeHandler(status);
-        }, 
         setLogger: function  (func) {
             console.log('new subscriber to log change registered;');
             logHandler = func;

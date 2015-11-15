@@ -201,9 +201,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         discover = function(ip){
             hue.discover(ip);
         }, 
-        onStatusChange = function(onStatus){
-            hue.onStatusChange(onStatus);
-        }, 
         setIp = function(ip){
             hue.setIp(ip);
         }, 
@@ -262,9 +259,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         discover: function(ip) {
             discover(ip);
         }, 
-        onStatusChange: function(onStatus){
-            onStatusChange(onStatus);
-        },
         setIp: function(ip){
             setIp(ip);
         }, 

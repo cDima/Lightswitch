@@ -161,6 +161,7 @@ gulp.task('scripts', () =>
     // Output files
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('.tmp/scripts'))
     .pipe($.size({title: 'scripts'}))
 );
 

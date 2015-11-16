@@ -45,11 +45,11 @@ class MeetHueLookup {
 class BruteForcer {
     static ips(){
         var ips = [];
-        var i =0;
-        for(i = 0; i < 21; i++) { ips.push('10.0.1.' + i); } // mac: 10.0.1.1-20
-        for(i = 0; i < 21; i++) { ips.push('192.168.0.' + i); } // win: 192.168.0.1-20
-        for(i = 0; i < 21; i++) { ips.push('192.168.0.' + (100+i)); } // win: 192.168.1.100-120
-        for(i = 0; i < 21; i++) { ips.push('192.168.1.' + i); } // win: 192.168.1.1-20
+        var i = 0;
+        for(i = 1; i < 8; i++) { ips.push('10.0.1.' + i); } // mac: 10.0.1.1-20
+        for(i = 1; i < 8; i++) { ips.push('192.168.0.' + i); } // win: 192.168.0.1-20
+        for(i = 1; i < 8; i++) { ips.push('192.168.0.' + (100+i)); } // win: 192.168.1.100-120
+        for(i = 1; i < 8; i++) { ips.push('192.168.1.' + i); } // win: 192.168.1.1-20
       
       return ips;
     }

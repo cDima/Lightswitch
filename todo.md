@@ -1,5 +1,6 @@
 Todo:
 
+Ease renaming of main.min.2015111510.js - from manual three places: gulp, index, test.
 - es6 unit tests
 - 
 

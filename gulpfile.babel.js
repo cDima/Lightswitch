@@ -107,7 +107,7 @@ gulp.task('styles', () => {
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
-    .pipe($.if('*.css', $.minifyCss()))
+    //.pipe($.if('*.css', $.minifyCss()))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/styles'))
     .pipe($.size({title: 'styles'}));
@@ -168,24 +168,44 @@ gulp.task('scripts', () =>
 );
 
 gulp.task('scripts-tvos', () => {
-  
-  return;
-  /*
-    gulp.src([
+  //return;
+  gulp.src([
+      // Note: Since we are not using useref in the scripts build pipeline,
+      //       you need to explicitly list your scripts here in the right order
+      //       to be correctly concatenated
+      // Other scripts
+
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',
-      './app/scripts/libs/testData.js',
       './app/scripts/libs/storage.js',
       './app/scripts/libs/hueDiscover.js',
+      //'./app/scripts/libs/colors.js',
+      //'./app/scripts/libs/palettes.js',
+      //'./app/scripts/libs/sequence.js',
+      //'./app/scripts/libs/scenes.js',
+      //'./app/scripts/libs/sceneCommander.js',
+      './app/scripts/libs/hue.js',
+      './app/scripts/libs/colorUtil.js',
+      './app/scripts/libs/hueCommander.js',
+      './app/scripts/libs/hueProxy.js',
+      //'./app/scripts/popup.js'
+      './app/scripts/tvos/Presenter.js',
+      './app/scripts/tvos/ResourceLoader.js',
+      './app/scripts/tvos/application.js',
     ])
     .pipe($.newer('.tmp/scripts'))
-    .pipe($.sourcemaps.init())
+    //.pipe($.sourcemaps.init())
     .pipe($.babel())
+    //.pipe($.sourcemaps.write())
     .pipe($.concat('tvos.min.js'))
-    .pipe($.sourcemaps.write('.'))
+    // Usage: gulp pro --prod // this will uglify.
+    //.pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    
+    //.pipe($.uglify({preserveComments: 'some'}))
+    // Output files
+    //.pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('.tmp/scripts'))
     .pipe($.size({title: 'scripts-tvos'}))
-*/
   }
 );
 
@@ -232,7 +252,10 @@ gulp.task('clean', cb => del(['.tmp', 'dist/**/*', 'dist.zip', '!dist/.git'], {d
   cb));
 
 // Watch files for changes & reload
-gulp.task('serve', ['scripts','scripts-tvos', 'styles'], () => {
+gulp.task('serve', [
+  'scripts',
+  'scripts-tvos',
+  'styles'], () => {
   browserSync({
     notify: false,
     // Customize the Browsersync console logging prefix
@@ -251,7 +274,7 @@ gulp.task('serve', ['scripts','scripts-tvos', 'styles'], () => {
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['lint', 
     'scripts'
-    //,'scripts-tvos'
+    ,'scripts-tvos'
     ]);
   gulp.watch(['app/images/**/*'], reload);
 });
@@ -307,7 +330,7 @@ gulp.task('win', function() {
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', //'scripts-tvos',
+    ['lint', 'html', 'scripts', 'scripts-tvos',
     'images', 
     'fonts', 'copy'],
     'generate-service-worker','zip',

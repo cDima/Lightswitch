@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": ";AACA,UAMC;EALC,WAAW,EAAE,YAAY;EACzB,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,GAAG;EAChB,GAAG,EAAE,2EAA2B;EAChC,aAAa,EAAE,6HAAW;;;AAG5B,UAMC;EALC,WAAW,EAAE,YAAY;EACzB,UAAU,EAAE,MAAM;EAClB,WAAW,EAAE,GAAG;EAChB,GAAG,EAAE,yEAAwB;EAC7B,aAAa,EAAE,6HAAW",
-"sources": ["../font-montserrat.min.scss"],
-"names": [],
-"file": "font-montserrat.min.css"
-}
+{"version":3,"sources":["/source/font-montserrat.min.scss"],"names":[],"mappings":"AACA,WACE,YAAA,WACA,WAAA,OACA,YAAA,IACA,IAAA,4BAAA,+BAAA,gBACA,cAAA,YAAA,OAAA,YAAA,OAAA,OAAA,OAAA,YAAA,OAAA,OAAA,OAAA,OAAA,OAAA,OAAA,OAGF,WACE,YAAA,WACA,WAAA,OACA,YAAA,IACA,IAAA,yBAAA,gCAAA,gBACA,cAAA,YAAA,OAAA,YAAA,OAAA,OAAA,OAAA,YAAA,OAAA,OAAA,OAAA,OAAA,OAAA,OAAA","file":"font-montserrat.min.css","sourcesContent":["/* latin */\r\n@font-face {\r\n  font-family: 'Montserrat';\r\n  font-style: normal;\r\n  font-weight: 400;\r\n  src: local('Montserrat-Regular'), url(../fonts/montserrat.woff2) format('woff2');\r\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;\r\n}\r\n/* latin */\r\n@font-face {\r\n  font-family: 'Montserrat';\r\n  font-style: normal;\r\n  font-weight: 700;\r\n  src: local('Montserrat-Bold'), url(../fonts/montserrat2.woff2) format('woff2');\r\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;\r\n}\r\n"],"sourceRoot":"/source/"}

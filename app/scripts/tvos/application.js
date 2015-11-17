@@ -5,12 +5,30 @@
 if(navigationDocument !== undefined) {
 
   var resourceLoader;
+  var window = {};
+  var Promise = {};
 
   App.onLaunch = function(options) {
+    console.log('loaded tvos js.');
+
+    window.hue = hue(AjaxLite, window.colors);
+    sceneCmd = sceneCommander(AjaxLite, window.hue);
+    //ambieye = window.Ambient;
+    window.hueCommander = hueCommander(AjaxLite, window.hue, colorUtil(), sceneCmd);
+    //window.hueProxy = hueProxy(window.hueCommander);
+    //ambieye.onUpdate(updatePreviewColors);
+
+    hueProxy.cmd('discover');
+    //var h = HueDiscoverer();
+    //h.discover();
+    
+
+    return;
+    /*
     var javascriptFiles = [
-     `${options.BASEURL}js/ResourceLoader.js`,
-     `${options.BASEURL}js/Presenter.js`,
-     `${options.BASEURL}js/hue/hueTest.js`
+     //`${options.BASEURL}js/ResourceLoader.js`,
+     //`${options.BASEURL}js/Presenter.js`,
+     //`${options.BASEURL}js/hue/hueTest.js`
      //`${options.BASEURL}js/vendor/jquery-2.1.4.js`
     ];
 
@@ -29,6 +47,7 @@ if(navigationDocument !== undefined) {
         navigationDocument.presentModal(errorDoc);
       }
     });
+    */
   }
 
   var createAlert = function(title, description) {

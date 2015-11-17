@@ -314,6 +314,10 @@ p {margin: 0 0 5px;}
   padding-bottom: 10px;
 }
 
+.selectable {
+  -webkit-user-select: initial;
+}
+
 .light-links {
   text-decoration: none;
   font-size: 0.8em;
@@ -324,6 +328,11 @@ p {margin: 0 0 5px;}
 
 .light-links > div {
   line-height: 1.9em;
+}
+
+.padded-links {
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 
 .tab-pane{

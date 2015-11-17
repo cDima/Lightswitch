@@ -34,7 +34,7 @@ var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed po
 
 var sceneCmd = null;
 var ambieye = null;
-var heartbeatInterval = 4000;
+var heartbeatInterval = 10000;
 
 var hubStartTime = new Date().getTime();
 
@@ -634,18 +634,22 @@ function updateActorUI(actorId) {
 function updateActorControls(actors) {
   var on = false;
   var bri = 0;
-  
+  var names = '';
   $.each(actors, function(key, lamp){
     on = on || (lamp && lamp.state && lamp.state.on && lamp.state.reachable);
     if (lamp && lamp.state && (lamp.state.bri > bri)) {
       bri = lamp.state.bri;
     }
+    names = names + ', ' + lamp.name;
   });
  
   $('#lightswitch').prop('checked', on);
   enableBrightness(on);
   $('#brightness-control').val(bri);
   $('#brightness-control').change(); // update ui
+
+  names = names.substring(2);
+  $("#config-actor").text('Actors: ' + names);
 }
 
 function initGroupCreation() {
@@ -846,6 +850,12 @@ function fillSettings(state) {
               }
             } 
         }
+
+        $('#bridge #config-ip').text('IP: ' + state.config.ipaddress + ' (v' +  state.config.apiversion + ')');
+        $('#bridge #config-swversion').text('Version: ' + state.config.swversion);
+        $('#bridge #config-portal').text('Portal: ' + state.config.portalconnection);
+        $('#bridge #config-zigbeechannel').text('Zigbee: ' + state.config.zigbeechannel);
+
         log('Config: ' + state.config.name +
             ', version: ' + state.config.swversion +
             ', ip: ' + state.config.ipaddress +

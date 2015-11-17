@@ -122,7 +122,7 @@ gulp.task('scripts', () =>
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       // Other scripts
-
+      //'./app/scripts/lib/browser-polyfill.js',
       './app/scripts/libs/jquery-1.11.1.min.js',
     	'./app/scripts/libs/bootstrap.min.js',
     	'./app/scripts/libs/bootstrap-slider.min.js',
@@ -174,7 +174,7 @@ gulp.task('scripts-tvos', () => {
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       // Other scripts
-
+      './app/scripts/lib/browser-polyfill.min.js',
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',
       './app/scripts/libs/storage.js',

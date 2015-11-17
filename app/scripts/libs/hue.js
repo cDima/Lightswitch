@@ -411,13 +411,12 @@ var hue = function ($, colors) {
         getLightState = function(){
             bridge.getLightState(onLightUpdate);
         },
-        onLightUpdate = function(lights){
-            // cache state
-            /*jshint sub:true*/
-            if (lights !== null && state !== null) {
-                state.lights = lights;
+        onLightUpdate = function(bridge, ip, username, status, data){
+            if (data !== null && state !== null) {
+                state.lights = data.lights;
             }
         },
+        // todo: why does this repeat getLightState?
         getBridgeState = function(){
             bridge.getLightState(onLightUpdate);
         },

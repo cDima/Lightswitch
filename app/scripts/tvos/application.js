@@ -5,12 +5,11 @@
 if(navigationDocument !== undefined) {
 
   var resourceLoader;
-  var window = {};
-  var Promise = {};
 
   App.onLaunch = function(options) {
     console.log('loaded tvos js.');
-
+    //debugger;
+    
     window.hue = hue(AjaxLite, window.colors);
     sceneCmd = sceneCommander(AjaxLite, window.hue);
     //ambieye = window.Ambient;

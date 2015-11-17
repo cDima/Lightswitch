@@ -176,8 +176,8 @@ describe("HueDiscover", function() {
   });
 
   describe('BruteForcer', function() {
-    it('should return 28 IPs.', function() {
-      expect(BruteForcer.ips().length).toEqual(28);
+    it('should return 29 IPs.', function() {
+      expect(BruteForcer.ips().length).toEqual(29);
     });
   });
 

@@ -1,8 +1,23 @@
 Todo:
 
-Ease renaming of main.min.2015111510.js - from manual three places: gulp, index, test.
-- es6 unit tests
-- 
+* Ease main.min.js file renaming (three places: gulp, index, tests).
+* remove hue.getBridgeState since it's mapped to getLightState
+* test tvos ui & discovery alert
+* don't store same ip and key again to storage on successful find
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Future:

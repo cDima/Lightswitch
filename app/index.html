@@ -224,6 +224,13 @@
                             <div id="groups"></div>
                             <h5>Lamps</h5>
                             <div id="lamps"></div>
+                            <h5>Bridge info</h5>
+                            <div id="bridge" class="selectable">
+                              <div class="padded-links" id="config-ip"></div>
+                              <div class="padded-links" id="config-swversion"></div>
+                              <div class="padded-links" id="config-actor"></div>
+                            </div>
+
                             <!--<h5>Keep in touch</h5>
                              <div class="pane-body">
                               <a href="https://www.facebook.com/ambieye"
@@ -242,62 +249,7 @@
                               </a>
 
                             </div>--> 
-                            <h5>Links</h5>
-                            <div class="" style="padding-left: 10px;padding-bottom: 10px;">
-                               <a href="http://bit.ly/lightpro" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-toggle-on"></i> Lightswitch
-                                </a> &nbsp;
-                                <a href="http://bit.ly/shinehue" class="not-light nativeclick"  target="_blank">
-                                  <i class="fa fa-lightbulb-o"></i> Shine
-                                </a> &nbsp;
-                                <a href="http://bit.ly/ambieye" class="not-light nativeclick"  target="_blank">
-                                  <i class="fa fa-eye"></i> Ambience
-                                </a> &nbsp;
-
-                            </div>
-                            <div class="" style="padding-left: 10px; padding-bottom: 10px;">
-                                <a href="http://ambieye.com/win" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-windows"></i> Windows 7+
-                                </a> &nbsp;              
-                                <a href="http://play.google.com/store/apps/details?id=com.ambieye.android" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-android"></i> Android
-                                </a> &nbsp;
-                                <a href="https://itunes.apple.com/us/app/ambieye-for-philips-hue/id971945102" class=" nativeclick not-light" target="_blank">
-                                  <i class="fa fa-apple"></i> iOS
-                                </a> &nbsp; 
-                            </div>
-                            <div class="" style="padding-left: 10px;padding-bottom: 10px;">
-                                <a href="https://www.facebook.com/ambieye" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-facebook"></i> Facebook
-                                </a> &nbsp;
-                                <a href="https://twitter.com/ambieye" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-twitter"></i> Twitter
-                                </a> &nbsp;
-                                <a href="https://plus.google.com/u/0/b/103745234332101043763/+ApistarterOnline/posts" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-google-plus"></i> Google+
-                                </a> &nbsp;
-                              <!-- <input type="button" 
-                                value="Lightswitch »" 
-                                class="store-button nativeclick" 
-                                href="http://bit.ly/lightpro" />
-                              <input 
-                                type="button" 
-                                value="Shine »" 
-                                class="store-button nativeclick"
-                                href="http://bit.ly/shinehue" />
-                              <input type="button" value="Ambience »" class="store-button"
-                              href="http://bit.ly/ambieye" />
-                             <span class="store-buttons">
-                                 <a href="http://bit.ly/lightpro" target="_blank">
-                                  <span class="chromewebstore"></span>
-                                  <i class="fa fa-toggle-on"></i> Lightswitch Pro »
-                                </a> &nbsp;
-                                <a href="http://bit.ly/shinehue" target="_blank">
-                                  <span class="chromewebstore"></span>
-                                  <i class="fa fa-lightbulb-o"></i> Shine »
-                                </a> 
-                              </span>-->
-                            </div>
+                            
                             <!--
                             <div class="pane-body applinks only-pro">
                               <a href="https://chrome.google.com/webstore/detail/lightswitch-for-philips-h/ahcbfmbmpojngalhbkkggbfamgmkneoo/reviews" target="_blank">
@@ -461,9 +413,66 @@
 
                               </div>
                             </div>
+                            <h5>Links</h5>
+                            <div class="padded-links">
+                               <a href="http://bit.ly/lightpro" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-toggle-on"></i> Lightswitch
+                                </a> &nbsp;
+                                <a href="http://bit.ly/shinehue" class="not-light nativeclick"  target="_blank">
+                                  <i class="fa fa-lightbulb-o"></i> Shine
+                                </a> &nbsp;
+                                <a href="http://bit.ly/ambieye" class="not-light nativeclick"  target="_blank">
+                                  <i class="fa fa-eye"></i> Ambience
+                                </a> &nbsp;
+
+                            </div>
+                            <div class="padded-links">
+                                <a href="http://ambieye.com/win" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-windows"></i> Windows 7+
+                                </a> &nbsp;              
+                                <a href="http://play.google.com/store/apps/details?id=com.ambieye.android" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-android"></i> Android
+                                </a> &nbsp;
+                                <a href="https://itunes.apple.com/us/app/ambieye-for-philips-hue/id971945102" class=" nativeclick not-light" target="_blank">
+                                  <i class="fa fa-apple"></i> iOS
+                                </a> &nbsp; 
+                            </div>
+                            <div class="padded-links">
+                                <a href="https://www.facebook.com/ambieye" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-facebook"></i> Facebook
+                                </a> &nbsp;
+                                <a href="https://twitter.com/ambieye" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-twitter"></i> Twitter
+                                </a> &nbsp;
+                                <a href="https://plus.google.com/u/0/b/103745234332101043763/+ApistarterOnline/posts" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-google-plus"></i> Google+
+                                </a> &nbsp;
+                              <!-- <input type="button" 
+                                value="Lightswitch »" 
+                                class="store-button nativeclick" 
+                                href="http://bit.ly/lightpro" />
+                              <input 
+                                type="button" 
+                                value="Shine »" 
+                                class="store-button nativeclick"
+                                href="http://bit.ly/shinehue" />
+                              <input type="button" value="Ambience »" class="store-button"
+                              href="http://bit.ly/ambieye" />
+                             <span class="store-buttons">
+                                 <a href="http://bit.ly/lightpro" target="_blank">
+                                  <span class="chromewebstore"></span>
+                                  <i class="fa fa-toggle-on"></i> Lightswitch Pro »
+                                </a> &nbsp;
+                                <a href="http://bit.ly/shinehue" target="_blank">
+                                  <span class="chromewebstore"></span>
+                                  <i class="fa fa-lightbulb-o"></i> Shine »
+                                </a> 
+                              </span>-->
+                            </div>
+
                             <div class="pane-body">
-                            <!--<br />
-                            Made with ♥ in New York City.-->
+                              <br />
+                              Made with ♥ in New York City.
                             </div>
                         </div>
                       </div>

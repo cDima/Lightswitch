@@ -29,7 +29,7 @@ if (typeof String.prototype.startsWith !== 'function') {
 }
 
 
-if (Promise) {
+if (typeof Promise !== 'undefined' && Promise) {
 	Promise.any = function(arrayOfPromises) {
 	  if(!arrayOfPromises || !(arrayOfPromises instanceof Array)) {
 	    throw new Error('Must pass Promise.any an array');

@@ -158,7 +158,7 @@ gulp.task('scripts', () =>
     .pipe($.concat('main.min.2015111510.js'))
     
     // Usage: gulp pro --prod // this will uglify.
-    //.pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    
+    .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    
     //.pipe($.uglify({preserveComments: 'some'}))
     // Output files
     .pipe($.sourcemaps.write('.'))

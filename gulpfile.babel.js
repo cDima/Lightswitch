@@ -116,64 +116,64 @@ gulp.task('styles', () => {
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
 // to enables ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
-gulp.task('scripts', () =>
-    gulp.src([
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
-      // Other scripts
+
+var popupScr = [
       //'./app/scripts/lib/browser-polyfill.js',
       './app/scripts/libs/jquery-1.11.1.min.js',
-    	'./app/scripts/libs/bootstrap.min.js',
-    	'./app/scripts/libs/bootstrap-slider.min.js',
-    	'./app/scripts/libs/color-thief.min.js',
+      './app/scripts/libs/bootstrap.min.js',
+      './app/scripts/libs/bootstrap-slider.min.js',
+      './app/scripts/libs/color-thief.min.js',
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',
-    	'./app/scripts/config.js',
-    	'./app/scripts/config.features.js',
-    	'./app/scripts/libs/ga.js',
-    	'./app/scripts/libs/storage.js',
-    	'./app/scripts/libs/uservoice.js',
-    	'./app/scripts/libs/colors.js',
-    	'./app/scripts/libs/palettes.js',
-    	'./app/scripts/libs/sequence.js',
-    	'./app/scripts/libs/ambient.js',
-    	'./app/scripts/libs/scenes.js',
-    	'./app/scripts/libs/sceneCommander.js',
-    	//'./app/scripts/libs/testData.js',
-    	'./app/scripts/libs/hueDiscover.js',
-    	'./app/scripts/libs/hue.js',
-    	'./app/scripts/libs/colorUtil.js',
-    	'./app/scripts/libs/hueCommander.js',
-    	'./app/scripts/libs/voice.js', 
-    	'./app/scripts/libs/hueProxy.js',
-    	'./app/scripts/popup.js'
-    ])
-    .pipe($.newer('.tmp/scripts'))
-    .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/scripts'))
-    //.pipe($.concat('main.min.js'))
-    .pipe($.concat('main.min.2015111510.js'))
-    
-    // Usage: gulp pro --prod // this will uglify.
-    .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    
-    //.pipe($.uglify({preserveComments: 'some'}))
-    // Output files
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(gulp.dest('.tmp/scripts'))
-    .pipe($.size({title: 'scripts'}))
-);
+      './app/scripts/config.js',
+      './app/scripts/config.features.js',
+      './app/scripts/libs/ga.js',
+      './app/scripts/libs/storage.js',
+      './app/scripts/libs/uservoice.js',
+      './app/scripts/libs/colors.js',
+      './app/scripts/libs/palettes.js',
+      './app/scripts/libs/sequence.js',
+      './app/scripts/libs/ambient.js',
+      './app/scripts/libs/scenes.js',
+      './app/scripts/libs/sceneCommander.js',
+      //'./app/scripts/libs/testData.js',
+      './app/scripts/libs/hueDiscover.js',
+      './app/scripts/libs/hue.js',
+      './app/scripts/libs/colorUtil.js',
+      './app/scripts/libs/hueCommander.js',
+      './app/scripts/libs/voice.js', 
+      './app/scripts/libs/hueProxy.js',
+      './app/scripts/popup.js'
+    ];
 
-gulp.task('scripts-tvos', () => {
-  //return;
-  gulp.src([
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
-      // Other scripts
+var backgroundScr = [
+      './app/scripts/libs/jquery-1.11.1.min.js',
+      './app/scripts/libs/extensions.js',
+      './app/scripts/ajaxlite.js',
+      './app/scripts/config.js',
+      './app/scripts/config.features.js',
+      './app/scripts/libs/ga.js',
+      './app/scripts/libs/color-thief.min.js',
+      './app/scripts/libs/storage.js',
+      './app/scripts/libs/colors.js',
+      './app/scripts/libs/palettes.js',
+      './app/scripts/libs/sequence.js',
+      './app/scripts/libs/ambient.js',
+      './app/scripts/libs/scenes.js',
+      './app/scripts/libs/sceneCommander.js',
+      //'./app/scripts/libs/testData.js',
+      './app/scripts/libs/hueDiscover.js',
+      './app/scripts/libs/hue.js',
+
+      './app/scripts/libs/colorUtil.js',
+      './app/scripts/libs/hueCommander.js',
+
+      './app/scripts/libs/voice.js',
+      './app/scripts/libs/colorUtil.js',
+      './app/scripts/libs/hueCommander.js',
+      './app/scripts/background.js',
+    ];
+var tvosScr = [
       './app/scripts/lib/browser-polyfill.min.js',
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',
@@ -191,8 +191,51 @@ gulp.task('scripts-tvos', () => {
       //'./app/scripts/popup.js'
       './app/scripts/tvos/Presenter.js',
       './app/scripts/tvos/ResourceLoader.js',
-      './app/scripts/tvos/application.js',
-    ])
+      './app/scripts/tvos/application.js'
+    ];
+
+gulp.task('scripts', () => [
+      // Note: Since we are not using useref in the scripts build pipeline,
+      //       you need to explicitly list your scripts here in the right order
+      //       to be correctly concatenated
+      // Other scripts
+    gulp.src(popupScr)
+    .pipe($.newer('.tmp/scripts'))
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/scripts'))
+    //.pipe($.concat('main.min.js'))
+    .pipe($.concat('main.min.2015111510.js'))
+    
+    // Usage: gulp pro --prod // this will uglify.
+    .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    
+    //.pipe($.uglify({preserveComments: 'some'}))
+    // Output files
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.size({title: 'scripts'})),
+
+    gulp.src(backgroundScr)
+    .pipe($.newer('.tmp/scripts'))
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.concat('background.min.js'))
+    // Output files
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.size({title: 'scripts'}))
+
+    ]
+);
+
+gulp.task('scripts-tvos', () => {
+  //return;
+  gulp.src(tvosScr)
     .pipe($.newer('.tmp/scripts'))
     //.pipe($.sourcemaps.init())
     .pipe($.babel())

@@ -41,40 +41,47 @@ var Ambient = (function () {
         } else {
 			var img = new Image();
 			img.src = image;
+			img.onload = function(){
+				// get main colors
+				var colorThief = new ColorThief();
+				if (img && img.width == 0) {
+					return; // this is an error
+				}
+				var colors = colorThief.getPalette(img, 8);
+				if (!colors) {
+					return;
+				}
 
-			// get main colors
-			var colorThief = new ColorThief();
-			var colors = colorThief.getPalette(img, 8);
+				lastUpdate = new Date();
 
-			lastUpdate = new Date();
+				dominantColors = [];
+				var helper = colorUtil();
 
-			dominantColors = [];
-			var helper = colorUtil();
+				if (publicMethods.enablePrimary) {
+					var primary = helper.rgbToHex(
+							    colors[0][0],
+								colors[0][1],
+								colors[0][2]
+							);
+					var bri = parseBrightness(primary);
+					
+					// thrice for ui.
+					var color = {color: primary, bri: bri};
+					dominantColors.push(color);
+					dominantColors.push(color);
+					dominantColors.push(color);
 
-			if (publicMethods.enablePrimary) {
-				var primary = helper.rgbToHex(
-						    colors[0][0],
-							colors[0][1],
-							colors[0][2]
-						);
-				var bri = parseBrightness(primary);
-				
-				// thrice for ui.
-				var color = {color: primary, bri: bri};
-				dominantColors.push(color);
-				dominantColors.push(color);
-				dominantColors.push(color);
-
-			} else {
-				colors.forEach(function(color){
-					var hex = helper.rgbToHex(
-						    color[0],
-							color[1],
-							color[2]
-						);
-					var b = parseBrightness(hex);
-					dominantColors.push({ color: hex, bri: b });
-				});
+				} else {
+					colors.forEach(function(color){
+						var hex = helper.rgbToHex(
+							    color[0],
+								color[1],
+								color[2]
+							);
+						var b = parseBrightness(hex);
+						dominantColors.push({ color: hex, bri: b });
+					});
+				}
 			}
 
 			updateHandlers.forEach(function(handler) {
@@ -83,7 +90,7 @@ var Ambient = (function () {
 		}
 
 		// do it again
-		setTimeout(retryRequestImage, getDelay() * 1000);
+		setTimeout(retryRequestImage, getDelay() * 500);
 	}
 
 	function retryRequestImage(){	

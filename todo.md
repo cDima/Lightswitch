@@ -5,7 +5,12 @@ Todo:
 * test tvos ui & discovery alert
 * don't store same ip and key again to storage on successful find
 
-
+* `gulp web --prod` done
+* `gulp light --prod` 
+* `gulp pro --prod` 
+* `gulp eye --prod` 
+* `gulp app --prod`  // shine
+* `gulp win --prod` 
 
 
 

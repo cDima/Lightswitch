@@ -32,11 +32,13 @@ if (typeof Promise !== 'undefined' && Promise) {
 	  // Record which ones did resolve or reject
 	  var resolvingPromises = arrayOfPromises.map(function(promise) {
 	    return promise.then(function(result) {
+	    	console.log('resolved');
 	      return {
 	        resolve: true,
 	        result: result
 	      };
 	    }, function(error) {
+	       console.log('rejected');
 	      return {
 	        resolve: false,
 	        result: error

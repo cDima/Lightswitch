@@ -1424,7 +1424,9 @@ function requestAmbientPermissionOnClient(callback){
 
 function updatePreviewColors(colors, image){
   $('.preview-box').each(function(index, value) {
-    $(value).css('background-color', colors[index].color);
+    if (colors[index]) {
+      $(value).css('background-color', colors[index].color);
+    }
   });
 
   $('#ambientpreview').attr('src', image);

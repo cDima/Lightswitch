@@ -30,29 +30,29 @@ class AjaxLite {
       // error(xhr, 'timeout', xhr.response);
     };
     xhr.onreadystatechange = function() {
-      //try {
-        if (xhr.readyState === 4) {
-          if (xhr.contentType === 'json') {
-            if (xhr.responseText === '') {
-              xhr.responseJSON = null;
-            } else {
+      if (xhr.readyState === 4) {
+        if (xhr.contentType === 'json') {
+          if (xhr.responseText === '') {
+            xhr.responseJSON = null;
+          } else {
+            try {
               xhr.responseJSON = JSON.parse(xhr.responseText);
+            } catch (err) {
+              console.error(`JSON parsing error: ${url}. Error: ${err}`);
+              xhr.responseJSON = null;
             }
           }
-          if (xhr.status === 200) {
-            success(xhr.responseJSON || xhr.responseText, 'success', xhr);
-          } else if (xhr.status === 0) {
-            // xhr.statusText = 'timeout';
-            error(xhr, 'timeout', xhr.response);
-          } else {
-            error(xhr, 'error', xhr.response);
-          }
         }
-      //} catch (err) {
-      //  console.error(`Aborting request ${url}. Error: ${err}`);
-      //  xhr.abort();
-      //  error(xhr, 'error', xhr.response);
-      //}
+        if (xhr.status === 200) {
+          success(xhr.responseJSON || xhr.responseText, 'success', xhr);
+        } else if (xhr.status === 0) {
+          // xhr.statusText = 'timeout';
+          error(xhr, 'timeout', xhr.response);
+        } else {
+          error(xhr, 'error', xhr.response);
+        }
+      }
+    
     };
 
     xhr.open(type, url, true);

@@ -19,8 +19,9 @@ class Storage {
 					chrome.storage.sync.set(obj, resolve);
 				} else {
 					localStorage.setItem(name, JSON.stringify(val));
-					resolve(name, val);// might be different from sync
 				}
+
+				resolve(name, val);// might be different from sync
 			} catch(e) {
 				reject(e);
 			}

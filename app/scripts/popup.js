@@ -465,6 +465,7 @@ function tryIP(ip, error){
 
 
 function showManualBridge(){
+  if (!$('#manualbridgeip').hasClass('fade3')) {
     $('#manualbridgeip').addClass('fade3').show();
     if (config.app === 'web') {
       // do nothing
@@ -477,10 +478,11 @@ function showManualBridge(){
         $('#connectStatus').fadeIn(600);
     });
     hideControls();
+  }
 
-    setTimeout(function(){
-      hueProxy.cmd('discover');
-    }, 2000);
+  setTimeout(function(){
+    hueProxy.cmd('discover');
+  }, 2000);
 }
 
 var cachedStatus = null;

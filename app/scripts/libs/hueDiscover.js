@@ -184,7 +184,8 @@ class HueBridge {
             url: this.baseUrl,
             type: 'POST',
             data: dataString,
-            success: data => this.onAddUserResponse(data)
+            success: data => this.onAddUserResponse(data),
+            error: data => this.unauthorized()
         });
     }
     onAddUserResponse (response) {
@@ -204,6 +205,9 @@ class HueBridge {
         }
     }
     unauthorized (response){
+        if (!response) {
+            this.onError(this.ip, 'Error', 'Request cancelled');
+        } else
         if (response[0].error.description === 'link button not pressed') {
             this.status = 'needauthorization';
             this.onNeedAuthorization(this.ip, this.username, 'NeedAuthorization', response); // changed signature
@@ -301,7 +305,9 @@ class HueDiscoverer {
 
                 var ips = BruteForcer.ips();
                 for(var i of ips) {
-                    promises.push(self.bridgeThenable(i)); // 84 requests
+                    if (i !== self.ip && i !== ip) {
+                        promises.push(self.bridgeThenable(i)); // 84 requests
+                    }
                 }
                 return Promise.any(promises);
             })

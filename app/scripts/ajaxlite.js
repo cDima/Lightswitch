@@ -27,7 +27,7 @@ class AjaxLite {
     xhr.contentType = 'json';
     xhr.timeout = timeout;
     xhr.ontimeout = function() {
-      // error(xhr, 'timeout', xhr.response);
+      //error(xhr, 'timeout', xhr.response);
     };
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {

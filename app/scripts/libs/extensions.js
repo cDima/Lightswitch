@@ -16,6 +16,8 @@ if (typeof String.prototype.startsWith !== 'function') {
 }
 
 
+var brokenPromises = [];
+
 if (typeof Promise !== 'undefined' && Promise) {
 	Promise.any = function(arrayOfPromises) {
 	  if(!arrayOfPromises || !(arrayOfPromises instanceof Array)) {
@@ -30,15 +32,23 @@ if (typeof Promise !== 'undefined' && Promise) {
 	  // For each promise that resolves or rejects, 
 	  // make them all resolve.
 	  // Record which ones did resolve or reject
+	  var i = 0;
 	  var resolvingPromises = arrayOfPromises.map(function(promise) {
+	  	promise.id = i;
+	  	var localI = i;
+	  	brokenPromises[localI] = promise;
+	  	i++;
+
 	    return promise.then(function(result) {
-	    	console.log('resolved');
+	      console.log('resolved ' + localI);
+	      delete brokenPromises[localI];
 	      return {
 	        resolve: true,
 	        result: result
 	      };
 	    }, function(error) {
-	       console.log('rejected');
+	       console.log('rejected ' + localI);
+	       delete brokenPromises[localI];
 	      return {
 	        resolve: false,
 	        result: error

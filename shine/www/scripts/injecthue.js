@@ -1,1 +1,0 @@
-var externalBackground=chrome.extension.getBackgroundPage();

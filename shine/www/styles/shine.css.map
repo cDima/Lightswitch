@@ -1,7 +1,1 @@
-{
-"version": 3,
-"mappings": "AACA,MAAO;EACL,gBAAgB,EAAE,kCAAkC;EACpD,MAAM,EAAE,IAAI;EACZ,gBAAgB,EAAE,kCAAkC;EACpD,eAAe,EAAE,KAAK;EACtB,mBAAmB,EAAE,IAAI",
-"sources": ["../shine.scss"],
-"names": [],
-"file": "shine.css"
-}
+{"version":3,"sources":["../../stdin"],"names":[],"mappings":"AACA;EACE,qDAAqB;EACrB,aAAa;EACb,qDAAqB;EACrB,uBAAuB;EACvB,0BAA0B,EAC3B","file":"shine.css","sourcesContent":["\n.shine {\n  background-image: url('../images/shine.logo.v1.png');\n  height: 79px;\n  background-image: url(\"../images/shine.logo.v1.png\");\n  background-size: 128px;\n  background-position: 41px;\n}\n\n"],"sourceRoot":"/source/"}

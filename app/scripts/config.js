@@ -6,8 +6,8 @@
 
  var config = {
   //app: 'light' // light, ambieye, pro, web
-  app: 'eye',
-  //app: 'pro',
+  //app: 'ambieye',
+  app: 'pro',
   //app: 'app',
   //app: 'web',
  };

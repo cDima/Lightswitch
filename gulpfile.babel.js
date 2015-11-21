@@ -16,7 +16,7 @@ import del from 'del';
 import runSequence from 'run-sequence';
 import browserSync from 'browser-sync';
 import zip from 'gulp-zip';
-import swPrecache from 'sw-precache';
+//import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import {output as pagespeed} from 'psi';
 import pkg from './package.json';
@@ -376,7 +376,8 @@ gulp.task('default', ['clean'], cb =>
     ['lint', 'html', 'scripts', 'scripts-tvos',
     'images', 
     'fonts', 'copy'],
-    'generate-service-worker','zip',
+    //'generate-service-worker',
+    'zip',
     cb
   )
 );
@@ -391,46 +392,6 @@ gulp.task('pagespeed', cb =>
     // key: 'YOUR_API_KEY'
   }, cb)
 );
-
-// See http://www.html5rocks.com/en/tutorials/service-worker/introduction/ for
-// an in-depth explanation of what service workers are and why you should care.
-// Generate a service worker file that will provide offline functionality for
-// local resources. This should only be done for the 'dist' directory, to allow
-// live reload to work as expected when serving from the 'app' directory.
-gulp.task('generate-service-worker', cb => {
-  const rootDir = 'dist';
-
-  swPrecache({
-    // Used to avoid cache conflicts when serving on localhost.
-    cacheId: pkg.name || 'web-starter-kit',
-    staticFileGlobs: [
-      // Add/remove glob patterns to match your directory setup.
-      `${rootDir}/fonts/**/*.woff`,
-      `${rootDir}/images/**/*`,
-      `${rootDir}/scripts/**/*.js`,
-      `${rootDir}/styles/**/*.css`,
-      `${rootDir}/*.{html,json}`
-    ],
-    // Translates a static file path to the relative URL that it's served from.
-    stripPrefix: path.join(rootDir, path.sep)
-  }, (err, swFileContents) => {
-    if (err) {
-      cb(err);
-      return;
-    }
-
-    const filepath = path.join(rootDir, 'service-worker.js');
-
-    fs.writeFile(filepath, swFileContents, err => {
-      if (err) {
-        cb(err);
-        return;
-      }
-
-      cb();
-    });
-  });
-});
 
 // Load custom tasks from the `tasks` directory
 // try { require('require-dir')('tasks'); } catch (err) { console.error(err); }

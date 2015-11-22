@@ -1217,8 +1217,10 @@ AjaxLite = (function () {function AjaxLite() {_classCallCheck(this, AjaxLite);}_
 var config = { 
   //app: 'light' // light, ambieye, pro, web
   //app: 'ambieye',
-  app: 'pro' };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbmZpZy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUVBOztvQkFBWSxDQUFDOztBQUlaLElBQUksTUFBTSxHQUFHOzs7QUFHWixLQUFHLEVBQUUsS0FBSyxFQUdWLENBQUMiLCJmaWxlIjoiY29uZmlnLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyogKEMpIDIwMTQgRG1pdHJ5IFNhZGFrb3YgKi9cblxuJ3VzZSBzdHJpY3QnO1xuXG4vKmV4cG9ydGVkIGNvbmZpZyAqL1xuXG4gdmFyIGNvbmZpZyA9IHtcbiAgLy9hcHA6ICdsaWdodCcgLy8gbGlnaHQsIGFtYmlleWUsIHBybywgd2ViXG4gIC8vYXBwOiAnYW1iaWV5ZScsXG4gIGFwcDogJ3BybycsXG4gIC8vYXBwOiAnYXBwJyxcbiAgLy9hcHA6ICd3ZWInLFxuIH07XG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=
+  //app: 'pro',
+  //app: 'app',
+  app: 'web' };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbmZpZy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUVBOztvQkFBWSxDQUFDOztBQUlaLElBQUksTUFBTSxHQUFHOzs7OztBQUtaLEtBQUcsRUFBRSxLQUFLLEVBQ1YsQ0FBQyIsImZpbGUiOiJjb25maWcuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKiAoQykgMjAxNCBEbWl0cnkgU2FkYWtvdiAqL1xuXG4ndXNlIHN0cmljdCc7XG5cbi8qZXhwb3J0ZWQgY29uZmlnICovXG5cbiB2YXIgY29uZmlnID0ge1xuICAvL2FwcDogJ2xpZ2h0JyAvLyBsaWdodCwgYW1iaWV5ZSwgcHJvLCB3ZWJcbiAgLy9hcHA6ICdhbWJpZXllJyxcbiAgLy9hcHA6ICdwcm8nLFxuICAvL2FwcDogJ2FwcCcsXG4gIGFwcDogJ3dlYicsXG4gfTtcbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==
 
 /* (C) 2014 Dmitry Sadakov */
 

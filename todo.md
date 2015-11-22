@@ -7,12 +7,18 @@ Todo:
 
 * `gulp web --prod` done
 * `gulp light --prod` 
-* `gulp pro --prod` 
-* `gulp eye --prod` 
+* `gulp pro --prod` // chrome lightswitch pro
+* `gulp eye --prod`  // chrome ambience
 * `gulp app --prod`  // shine
-* `gulp win --prod` 
+* `gulp win --prod` // 
 
-
+* fix Philips Hue link on ios
+* cordova in-app-purchase
+* ios 1.99 - dynamic scenes
+* android 0.99
+* ios native screen widget
+* ios homekit
+* 
 
 
 

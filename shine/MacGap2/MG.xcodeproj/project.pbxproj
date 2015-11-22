@@ -43,7 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2237E646192B0177001E1393 /* MG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2237E646192B0177001E1393 /* Ambieye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ambieye.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2237E649192B0177001E1393 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2237E64C192B0177001E1393 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		2237E64D192B0177001E1393 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -135,7 +135,7 @@
 		2237E647192B0177001E1393 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2237E646192B0177001E1393 /* MG.app */,
+				2237E646192B0177001E1393 /* Ambieye.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 			);
 			name = MG;
 			productName = MG;
-			productReference = 2237E646192B0177001E1393 /* MG.app */;
+			productReference = 2237E646192B0177001E1393 /* Ambieye.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -481,7 +481,7 @@
 				GCC_PREFIX_HEADER = "MacGap/MG-Prefix.pch";
 				INFOPLIST_FILE = "MacGap/MG-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ambieye.mac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Ambieye;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -496,7 +496,7 @@
 				GCC_PREFIX_HEADER = "MacGap/MG-Prefix.pch";
 				INFOPLIST_FILE = "MacGap/MG-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ambieye.mac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Ambieye;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

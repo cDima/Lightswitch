@@ -4748,7 +4748,10 @@ function handleSystemLink(a) {
   if (window.winapp !== undefined) {
     window.winapp.handleUrl(url);
     return false;}
-
+                                                                                  
+                                                                                                                                             App;                                                                 //App.open('http://google.com');
+                                                                                                                                             //if(typeof App !=== 'undefined' && App.open) {
+                                                                                                                                             //isDevice = true;}
 
   if (isDevice) {
     window.open(url, '_system', 'location=yes');} else 

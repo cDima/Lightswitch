@@ -1,9 +1,253 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="^(?!CodecCommon)" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="09e0add0-52e1-49bd-afa7-fe7af228861e" name="Default" comment="" />
+    <list default="true" id="09e0add0-52e1-49bd-afa7-fe7af228861e" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\ant-gen\com\ambieye\shine\BuildConfig.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\ant-gen\com\ambieye\shine\R.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\cordova_plugins.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\plugins\org.apache.cordova.inappbrowser\www\inappbrowser.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\router.htm" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\injecthue.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\lib\hueDiscover.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\lib\voice-redirect.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\main201504221.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\scripts\voice-page.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\components.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\assets\www\styles\components.css.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Projects\Lightswitch\shine\platforms\android\src\com\ambieye\shine\CordovaApp.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/Ambience-10.png" afterPath="$PROJECT_DIR$/assets/www/images/Ambience-10.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/build/outputs/aar/CordovaLib-release.aar" afterPath="$PROJECT_DIR$/CordovaLib/build/outputs/aar/CordovaLib-release.aar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/Google-Chrome-Flat-Browser.jpg" afterPath="$PROJECT_DIR$/assets/www/images/Google-Chrome-Flat-Browser.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/HueScript.png" afterPath="$PROJECT_DIR$/assets/www/images/HueScript.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/Logo-transparent.png" afterPath="$PROJECT_DIR$/../../www/images/ls/Logo-transparent.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/Screenshot 2015-02-11 00.40.52.png" afterPath="$PROJECT_DIR$/assets/www/images/win/Screenshot 2015-02-11 00.40.52.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/Screenshot 2015-02-11 00.40.52.png" afterPath="$PROJECT_DIR$/../../www/images/win/Screenshot 2015-02-11 00.40.52.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/Screenshot 2015-02-11 00.41.03.png" afterPath="$PROJECT_DIR$/assets/www/images/win/Screenshot 2015-02-11 00.41.03.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/Screenshot 2015-02-11 00.41.03.png" afterPath="$PROJECT_DIR$/../../www/images/win/Screenshot 2015-02-11 00.41.03.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/Screenshot 2015-02-11 00.41.05.png" afterPath="$PROJECT_DIR$/assets/www/images/win/Screenshot 2015-02-11 00.41.05.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/Screenshot 2015-02-11 00.41.05.png" afterPath="$PROJECT_DIR$/../../www/images/win/Screenshot 2015-02-11 00.41.05.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambience.png" afterPath="$PROJECT_DIR$/assets/www/images/ambience.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye-beta.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye-beta.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ambieye-beta.png" afterPath="$PROJECT_DIR$/../../www/images/ambieye-beta.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye-beta1.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye-beta1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye-ico-on.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye-ico-on.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye-ico.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye-ico.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye-logo.128.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye-logo.128.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye-off.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye-off.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ambieye-off.png" afterPath="$PROJECT_DIR$/../../www/images/ambieye-off.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye.on.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye.on.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/ambieye.png" afterPath="$PROJECT_DIR$/assets/www/images/ambieye.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/ambieye.png" afterPath="$PROJECT_DIR$/assets/www/images/win/ambieye.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/apistarter.png" afterPath="$PROJECT_DIR$/assets/www/images/apistarter.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/apistarter.png" afterPath="$PROJECT_DIR$/../../www/images/apistarter.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/appbar.lightbulb.hue.png" afterPath="$PROJECT_DIR$/assets/www/images/win/appbar.lightbulb.hue.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/blanck-.png" afterPath="$PROJECT_DIR$/assets/www/images/win/blanck-.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/blanck-.png" afterPath="$PROJECT_DIR$/../../www/images/win/blanck-.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/touch/chrome-touch-icon-192x192.png" afterPath="$PROJECT_DIR$/assets/www/images/touch/chrome-touch-icon-192x192.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/chromewebstore.png" afterPath="$PROJECT_DIR$/assets/www/images/chromewebstore.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/chromewebstore.png" afterPath="$PROJECT_DIR$/../../www/images/chromewebstore.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-build/dexedLibs/classes-df95175b31263a3af4e4bc0d92fdee90.jar" afterPath="$PROJECT_DIR$/ant-build/dexedLibs/classes-df95175b31263a3af4e4bc0d92fdee90.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/ant-build/classes.jar" afterPath="$PROJECT_DIR$/CordovaLib/ant-build/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/build/intermediates/bundles/release/classes.jar" afterPath="$PROJECT_DIR$/CordovaLib/build/intermediates/bundles/release/classes.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/colorbox-100.png" afterPath="$PROJECT_DIR$/assets/www/images/colorbox-100.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/colorbox.png" afterPath="$PROJECT_DIR$/assets/www/images/colorbox.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/colors.png" afterPath="$PROJECT_DIR$/assets/www/images/win/colors.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/colorwheel-100.png" afterPath="$PROJECT_DIR$/assets/www/images/colorwheel-100.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/colorwheel-100.png" afterPath="$PROJECT_DIR$/../../www/images/colorwheel-100.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/colorwheel.png" afterPath="$PROJECT_DIR$/assets/www/images/colorwheel.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/colorwheel.png" afterPath="$PROJECT_DIR$/../../www/images/colorwheel.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/colorwhell2.png" afterPath="$PROJECT_DIR$/assets/www/images/colorwhell2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/demo1.png" afterPath="$PROJECT_DIR$/../../www/images/ls/demo1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../dist.zip" afterPath="$PROJECT_DIR$/../../../dist.zip" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/dynamic.png" afterPath="$PROJECT_DIR$/assets/www/images/win/dynamic.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/dynamic.png" afterPath="$PROJECT_DIR$/../../www/images/win/dynamic.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/eye-large.png" afterPath="$PROJECT_DIR$/assets/www/images/eye-large.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/eye-large.png" afterPath="$PROJECT_DIR$/../../www/images/eye-large.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/eye-m.png" afterPath="$PROJECT_DIR$/assets/www/images/eye-m.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/eye-small.png" afterPath="$PROJECT_DIR$/assets/www/images/eye-small.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/eye-small.png" afterPath="$PROJECT_DIR$/../../www/images/eye-small.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/groups.png" afterPath="$PROJECT_DIR$/assets/www/images/win/groups.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/groups.png" afterPath="$PROJECT_DIR$/../../www/images/win/groups.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/hue-kit.png" afterPath="$PROJECT_DIR$/assets/www/images/hue-kit.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/huekit.png" afterPath="$PROJECT_DIR$/assets/www/images/huekit.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/hueweb.png" afterPath="$PROJECT_DIR$/assets/www/images/hueweb.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/touch/icon-128x128.png" afterPath="$PROJECT_DIR$/assets/www/images/touch/icon-128x128.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/light.appbar.lightbulb.hue.png" afterPath="$PROJECT_DIR$/assets/www/images/win/light.appbar.lightbulb.hue.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/light.png" afterPath="$PROJECT_DIR$/assets/www/images/light.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.grey.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.grey.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.128.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.128.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/lightswitch.logo.128.png" afterPath="$PROJECT_DIR$/../../www/images/lightswitch.logo.128.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.16.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.16.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.32.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.32.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.48.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.48.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/lightswitch.logo.48.png" afterPath="$PROJECT_DIR$/../../www/images/lightswitch.logo.48.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.128.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.128.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.128.v2.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.128.v2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.16.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.16.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.32.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.32.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.48.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.logo.on.48.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.white.bold.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.white.bold.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/lightswitch.white.png" afterPath="$PROJECT_DIR$/assets/www/images/lightswitch.white.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/logo-white.png" afterPath="$PROJECT_DIR$/assets/www/images/win/logo-white.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/logo.png" afterPath="$PROJECT_DIR$/assets/www/images/win/logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/logo@2x.png" afterPath="$PROJECT_DIR$/assets/www/images/win/logo@2x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/logos-ambieye.png" afterPath="$PROJECT_DIR$/assets/www/images/win/logos-ambieye.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/logos-ambieye.png" afterPath="$PROJECT_DIR$/../../www/images/win/logos-ambieye.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/ls-1.png" afterPath="$PROJECT_DIR$/../../www/images/ls/ls-1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/ls-2.png" afterPath="$PROJECT_DIR$/../../www/images/ls/ls-2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/ls-3.png" afterPath="$PROJECT_DIR$/../../www/images/ls/ls-3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/ls-4.png" afterPath="$PROJECT_DIR$/../../www/images/ls/ls-4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/ls1.png" afterPath="$PROJECT_DIR$/../../www/images/ls/ls1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/ls/ls2.png" afterPath="$PROJECT_DIR$/../../www/images/ls/ls2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/material-icon-256.png" afterPath="$PROJECT_DIR$/assets/www/images/win/material-icon-256.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/material-icon.png" afterPath="$PROJECT_DIR$/assets/www/images/material-icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/material-icon.png" afterPath="$PROJECT_DIR$/assets/www/images/win/material-icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/touch/ms-touch-icon-144x144-precomposed.png" afterPath="$PROJECT_DIR$/assets/www/images/touch/ms-touch-icon-144x144-precomposed.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/pro.png" afterPath="$PROJECT_DIR$/assets/www/images/pro.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/screen1.png" afterPath="$PROJECT_DIR$/assets/www/images/win/screen1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/screen1.png" afterPath="$PROJECT_DIR$/../../www/images/win/screen1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/screen1@2x.png" afterPath="$PROJECT_DIR$/assets/www/images/win/screen1@2x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/screen1@2x.png" afterPath="$PROJECT_DIR$/../../www/images/win/screen1@2x.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/shine-logo128.png" afterPath="$PROJECT_DIR$/assets/www/images/shine-logo128.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/shine.logo.v1.png" afterPath="$PROJECT_DIR$/assets/www/images/shine.logo.v1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/shine.png" afterPath="$PROJECT_DIR$/assets/www/images/shine.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/splash-off.png" afterPath="$PROJECT_DIR$/assets/www/images/splash-off.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/splash.png" afterPath="$PROJECT_DIR$/assets/www/images/splash.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/win/sync.png" afterPath="$PROJECT_DIR$/assets/www/images/win/sync.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/images/win/sync.png" afterPath="$PROJECT_DIR$/../../www/images/win/sync.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gitignore" afterPath="$PROJECT_DIR$/../../../.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/.htaccess" afterPath="$PROJECT_DIR$/../../www/.htaccess" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/ant-build/AndroidManifest.cordova.xml" afterPath="$PROJECT_DIR$/CordovaLib/ant-build/AndroidManifest.cordova.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-build/AndroidManifest.cordova.xml" afterPath="$PROJECT_DIR$/ant-build/AndroidManifest.cordova.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/AndroidManifest.xml" afterPath="$PROJECT_DIR$/CordovaLib/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/build/intermediates/bundles/release/AndroidManifest.xml" afterPath="$PROJECT_DIR$/CordovaLib/build/intermediates/bundles/release/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-build/CordovaApp.ap_.d" afterPath="$PROJECT_DIR$/ant-build/CordovaApp.ap_.d" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-gen/R.java.d" afterPath="$PROJECT_DIR$/ant-gen/R.java.d" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/android.iml" afterPath="$PROJECT_DIR$/android.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/background.html" afterPath="$PROJECT_DIR$/assets/www/background.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/scripts/background.min.js.map" afterPath="$PROJECT_DIR$/../../www/scripts/background.min.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/scripts/background.min.js" afterPath="$PROJECT_DIR$/assets/www/scripts/background.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/scripts/background.min.js" afterPath="$PROJECT_DIR$/../../www/scripts/background.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/basic.html" afterPath="$PROJECT_DIR$/assets/www/basic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/bootstrap.min.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/bootstrap.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/bootstrap.min.css.map" afterPath="$PROJECT_DIR$/../../www/styles/bootstrap.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/bootstrap.min.css" afterPath="$PROJECT_DIR$/assets/www/styles/bootstrap.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/bootstrap.min.css" afterPath="$PROJECT_DIR$/../../www/styles/bootstrap.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/bower.json" afterPath="$PROJECT_DIR$/assets/www/bower.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/bower.json" afterPath="$PROJECT_DIR$/../../www/bower.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CordovaLib/ant-build/build.prop" afterPath="$PROJECT_DIR$/CordovaLib/ant-build/build.prop" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-build/build.prop" afterPath="$PROJECT_DIR$/ant-build/build.prop" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-build/classes.dex.d" afterPath="$PROJECT_DIR$/ant-build/classes.dex.d" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/components/components.css.map" afterPath="$PROJECT_DIR$/../../www/styles/components/components.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/components/components.css" afterPath="$PROJECT_DIR$/../../www/styles/components/components.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../config.xml" afterPath="$PROJECT_DIR$/../../config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/xml/config.xml" afterPath="$PROJECT_DIR$/res/xml/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/font-awesome.min.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/font-awesome.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/font-awesome.min.css.map" afterPath="$PROJECT_DIR$/../../www/styles/font-awesome.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/font-awesome.min.css" afterPath="$PROJECT_DIR$/assets/www/styles/font-awesome.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/font-awesome.min.css" afterPath="$PROJECT_DIR$/../../www/styles/font-awesome.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/font-montserrat.min.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/font-montserrat.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/font-montserrat.min.css.map" afterPath="$PROJECT_DIR$/../../www/styles/font-montserrat.min.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/font-montserrat.min.css" afterPath="$PROJECT_DIR$/assets/www/styles/font-montserrat.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/font-montserrat.min.css" afterPath="$PROJECT_DIR$/../../www/styles/font-montserrat.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/hamburger.svg" afterPath="$PROJECT_DIR$/assets/www/images/hamburger.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/images/icons/icons.svg" afterPath="$PROJECT_DIR$/assets/www/images/icons/icons.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../app/index.html" afterPath="$PROJECT_DIR$/../../../app/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/index.html" afterPath="$PROJECT_DIR$/assets/www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/index.html" afterPath="$PROJECT_DIR$/../../www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/injectedscripts.html" afterPath="$PROJECT_DIR$/assets/www/injectedscripts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/lightswitch.html" afterPath="$PROJECT_DIR$/assets/www/lightswitch.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/ls.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/ls.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/ls.css.map" afterPath="$PROJECT_DIR$/../../www/styles/ls.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/ls.css" afterPath="$PROJECT_DIR$/assets/www/styles/ls.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/ls.css" afterPath="$PROJECT_DIR$/../../www/styles/ls.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/main.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/main.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/main.css.map" afterPath="$PROJECT_DIR$/../../www/styles/main.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/main.css" afterPath="$PROJECT_DIR$/assets/www/styles/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/main.css" afterPath="$PROJECT_DIR$/../../www/styles/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/scripts/main.min.2015111510.js.map" afterPath="$PROJECT_DIR$/../../www/scripts/main.min.2015111510.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/scripts/main.min.2015111510.js" afterPath="$PROJECT_DIR$/../../www/scripts/main.min.2015111510.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/scripts/modernizr.min.js" afterPath="$PROJECT_DIR$/assets/www/scripts/modernizr.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/scripts/modernizr2.min.js" afterPath="$PROJECT_DIR$/assets/www/scripts/modernizr2.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/popup.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/popup.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/popup.css.map" afterPath="$PROJECT_DIR$/../../www/styles/popup.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/popup.css" afterPath="$PROJECT_DIR$/assets/www/styles/popup.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/popup.css" afterPath="$PROJECT_DIR$/../../www/styles/popup.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../app/scripts/popup.js" afterPath="$PROJECT_DIR$/../../../app/scripts/popup.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/privacy-statement.htm" afterPath="$PROJECT_DIR$/assets/www/privacy-statement.htm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant-build/proguard.txt" afterPath="$PROJECT_DIR$/ant-build/proguard.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/shine.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/shine.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/shine.css.map" afterPath="$PROJECT_DIR$/../../www/styles/shine.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/shine.css" afterPath="$PROJECT_DIR$/assets/www/styles/shine.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/shine.css" afterPath="$PROJECT_DIR$/../../www/styles/shine.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/slider.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/slider.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/slider.css.map" afterPath="$PROJECT_DIR$/../../www/styles/slider.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/slider.css" afterPath="$PROJECT_DIR$/assets/www/styles/slider.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/slider.css" afterPath="$PROJECT_DIR$/../../www/styles/slider.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/slider1.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/slider1.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/slider1.css.map" afterPath="$PROJECT_DIR$/../../www/styles/slider1.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/slider1.css" afterPath="$PROJECT_DIR$/assets/www/styles/slider1.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/slider1.css" afterPath="$PROJECT_DIR$/../../www/styles/slider1.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/social-likes_flat.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/social-likes_flat.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/social-likes_flat.css.map" afterPath="$PROJECT_DIR$/../../www/styles/social-likes_flat.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/social-likes_flat.css" afterPath="$PROJECT_DIR$/assets/www/styles/social-likes_flat.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/social-likes_flat.css" afterPath="$PROJECT_DIR$/../../www/styles/social-likes_flat.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/switch.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/switch.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/switch.css.map" afterPath="$PROJECT_DIR$/../../www/styles/switch.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/switch.css" afterPath="$PROJECT_DIR$/assets/www/styles/switch.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/switch.css" afterPath="$PROJECT_DIR$/../../www/styles/switch.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/terms-of-use.htm" afterPath="$PROJECT_DIR$/assets/www/terms-of-use.htm" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../todo.md" afterPath="$PROJECT_DIR$/../../../todo.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/scripts/tvos.min.js" afterPath="$PROJECT_DIR$/../../www/scripts/tvos.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/voice.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/voice.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/voice.css.map" afterPath="$PROJECT_DIR$/../../www/styles/voice.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/voice.css" afterPath="$PROJECT_DIR$/assets/www/styles/voice.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/voice.css" afterPath="$PROJECT_DIR$/../../www/styles/voice.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/voice.html" afterPath="$PROJECT_DIR$/assets/www/voice.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/win.css.map" afterPath="$PROJECT_DIR$/assets/www/styles/win.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/win.css.map" afterPath="$PROJECT_DIR$/../../www/styles/win.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/styles/win.css" afterPath="$PROJECT_DIR$/assets/www/styles/win.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../www/styles/win.css" afterPath="$PROJECT_DIR$/../../www/styles/win.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="android.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/assets/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/bundles/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/classes/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/coverage-instrumented-classes/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/dependency-cache/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/dex/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/dex-cache/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/incremental/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/jacoco/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/javaResources/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/libs/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/lint/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/manifests/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/ndk/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/pre-dexed/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/proguard/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/res/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/rs/" />
+    <ignored path="$PROJECT_DIR$/build/intermediates/symbols/" />
+    <ignored path="$PROJECT_DIR$/build/outputs/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,60 +258,44 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="android" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="build.gradle" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3519553" vertical-offset="372" max-vertical-offset="1700">
-              <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CordovaLib/build.gradle">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.24" vertical-offset="0" max-vertical-offset="731">
-              <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.gradle" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="408">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="local.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/local.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="289">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="340">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.29360968">
+              <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -79,6 +307,14 @@
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="true" />
     </FindUsagesManager>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="C:\Projects\Lightswitch\shine\key\my-release-key.keystore" />
+    <option name="KEY_ALIAS" value="alias_name" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="GradleLocalSettings">
     <option name="tasksExpandState">
@@ -98,12 +334,12 @@
           <value>
             <list>
               <ExternalProjectPojo>
-                <option name="name" value="android" />
-                <option name="path" value="$PROJECT_DIR$" />
-              </ExternalProjectPojo>
-              <ExternalProjectPojo>
                 <option name="name" value=":CordovaLib" />
                 <option name="path" value="$PROJECT_DIR$/CordovaLib" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="android" />
+                <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
             </list>
           </value>
@@ -507,6 +743,76 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="zipalignDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleDefault" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a bundle containing the library in Debug." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="bundleDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a bundle containing the library in Release." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="bundleRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="copyDebugLint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="copyReleaseLint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeDebugProguardFiles" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeReleaseProguardFiles" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebugJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebugJniLibs" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebugLocalJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebugRenderscript" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebugResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageReleaseJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageReleaseJniLibs" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageReleaseLocalJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageReleaseRenderscript" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageReleaseResources" />
               </ExternalTaskPojo>
             </list>
           </value>
@@ -920,6 +1226,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="$PROJECT_DIR$" value="4291750591040" />
+        <entry key="C:\Projects\Lightswitch\shine\platforms\android" value="4308364986422" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -934,12 +1241,70 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/gradle/1.0.0/gradle-1.0.0-sources.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder/1.0.0/builder-1.0.0-sources.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder-model/1.0.0/builder-model-1.0.0-sources.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder/1.0.0/builder-1.0.0.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/gradle/1.0.0/gradle-1.0.0.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder-model/1.0.0/builder-model-1.0.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.1/5e05aed7bd5c3941c03c22e853cae1c0f65cfdac/gradle-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.1/cd1ae9a4b885e8f07572d0f894f149533c082cc8/gradle-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/1.0.1/9a7030569d87e8c6b199fb2e68bb943ec46ff40d/builder-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/1.0.1/c8d3894bf14b2754a94b5091a4a4bd84ea0aa6fc/builder-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint/24.0.1/9b2a0bebe6119fb27af42df2b637567c4e96eda2/lint-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint/24.0.1/d014feecb7c9f4a4bba61b056ff9251c5279df24/lint-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-gradle/5.1/proguard-gradle-5.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-gradle/5.1/proguard-gradle-5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/1.0.1/c2282b1198c706411569385bd225e9a31bda2e72/builder-model-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/1.0.1/e48e9a3058bb3a9813248cc79bd64e0c211faa5/builder-model-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/1.0.1/9d2b0b7a8e7ebb00052b06d0c3820342d3d364c7/builder-test-api-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/1.0.1/ad1ed006cd1432f84d6018cae5b6c289f8b9a592/builder-test-api-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/24.0.1/bdda3b0aec0c676657831166ee6bfbe31644d69e/sdklib-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/24.0.1/129cb79134719e5e271e9a5d02dda97e359767a7/sdklib-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/24.0.1/40535662b5ec9a4250a864b8b2d633d71b64e5fc/sdk-common-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/24.0.1/78443e0d8bc5fd15ac02a4207752c990969ea32c/sdk-common-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/common/24.0.1/1fed391348abd575a36293605223200792c799aa/common-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/common/24.0.1/96a3273bdb7dd2babc6b7469c43a6bedb87fb1bf/common-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/24.0.1/6c02fab1ee2f2313e552a4265a63acb2ebef5718/manifest-merger-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/24.0.1/42055d1aaf4b93dbfebfaea3a4fc2f33f76360df/manifest-merger-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/24.0.1/495510e714c10ada6c15157975e2918ab5f85266/ddmlib-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/24.0.1/96e5bff5e7352c0d4252a34d00e9fe4e1b9a9a60/ddmlib-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/squareup/javawriter/2.5.0/javawriter-2.5.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/squareup/javawriter/2.5.0/javawriter-2.5.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-checks/24.0.1/fa840571862c96de5dec1cb72bf4c5f27695cdc4/lint-checks-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-checks/24.0.1/5852425e83bbf45642eb4c105999f3873c85321a/lint-checks-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt.core.compiler/ecj/4.2.2/fb9dc21349d06dd00b395af5c42f299df828f9da/ecj-4.2.2-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt.core.compiler/ecj/4.2.2/d9fd79499c664bccaf24dbe04be417de6c6af64a/ecj-4.2.2.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-base/5.1/proguard-base-5.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-base/5.1/proguard-base-5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/24.0.1/ca19b38f87f2e17cd615c57a316992b8e59f7973/layoutlib-api-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/24.0.1/99e81aa1d57c4a2764e3159ecaeb2c3d87e2adb1/layoutlib-api-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/24.0.1/a858dca8c3d888de61ab5a8584a81397f9b679c2/dvlib-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/24.0.1/88956eb2faa213e7ecba20d42ea814ad23ccb25a/dvlib-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/google/guava/guava/17.0/guava-17.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/google/guava/guava/17.0/guava-17.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-api/24.0.1/9afff58b7c567dfafdfa81c553595a066f3d55b2/lint-api-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-api/24.0.1/dabee09e35f6947d639127efc5a17cba76901bd4/lint-api-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm/4.0/asm-4.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm/4.0/asm-4.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-tree/4.0/asm-tree-4.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.jar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$" />
@@ -951,12 +1316,70 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/gradle/1.0.0/gradle-1.0.0-sources.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder/1.0.0/builder-1.0.0-sources.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder-model/1.0.0/builder-model-1.0.0-sources.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder/1.0.0/builder-1.0.0.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/gradle/1.0.0/gradle-1.0.0.jar" />
-                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/build/builder-model/1.0.0/builder-model-1.0.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.1/5e05aed7bd5c3941c03c22e853cae1c0f65cfdac/gradle-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.1/cd1ae9a4b885e8f07572d0f894f149533c082cc8/gradle-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/1.0.1/9a7030569d87e8c6b199fb2e68bb943ec46ff40d/builder-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/1.0.1/c8d3894bf14b2754a94b5091a4a4bd84ea0aa6fc/builder-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint/24.0.1/9b2a0bebe6119fb27af42df2b637567c4e96eda2/lint-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint/24.0.1/d014feecb7c9f4a4bba61b056ff9251c5279df24/lint-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-gradle/5.1/proguard-gradle-5.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-gradle/5.1/proguard-gradle-5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/1.0.1/c2282b1198c706411569385bd225e9a31bda2e72/builder-model-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/1.0.1/e48e9a3058bb3a9813248cc79bd64e0c211faa5/builder-model-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/1.0.1/9d2b0b7a8e7ebb00052b06d0c3820342d3d364c7/builder-test-api-1.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/1.0.1/ad1ed006cd1432f84d6018cae5b6c289f8b9a592/builder-test-api-1.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/24.0.1/bdda3b0aec0c676657831166ee6bfbe31644d69e/sdklib-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/24.0.1/129cb79134719e5e271e9a5d02dda97e359767a7/sdklib-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/24.0.1/40535662b5ec9a4250a864b8b2d633d71b64e5fc/sdk-common-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/24.0.1/78443e0d8bc5fd15ac02a4207752c990969ea32c/sdk-common-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/common/24.0.1/1fed391348abd575a36293605223200792c799aa/common-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/common/24.0.1/96a3273bdb7dd2babc6b7469c43a6bedb87fb1bf/common-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/24.0.1/6c02fab1ee2f2313e552a4265a63acb2ebef5718/manifest-merger-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/24.0.1/42055d1aaf4b93dbfebfaea3a4fc2f33f76360df/manifest-merger-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/24.0.1/495510e714c10ada6c15157975e2918ab5f85266/ddmlib-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/24.0.1/96e5bff5e7352c0d4252a34d00e9fe4e1b9a9a60/ddmlib-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/squareup/javawriter/2.5.0/javawriter-2.5.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/squareup/javawriter/2.5.0/javawriter-2.5.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-checks/24.0.1/fa840571862c96de5dec1cb72bf4c5f27695cdc4/lint-checks-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-checks/24.0.1/5852425e83bbf45642eb4c105999f3873c85321a/lint-checks-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt.core.compiler/ecj/4.2.2/fb9dc21349d06dd00b395af5c42f299df828f9da/ecj-4.2.2-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt.core.compiler/ecj/4.2.2/d9fd79499c664bccaf24dbe04be417de6c6af64a/ecj-4.2.2.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-base/5.1/proguard-base-5.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/proguard/proguard-base/5.1/proguard-base-5.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/24.0.1/ca19b38f87f2e17cd615c57a316992b8e59f7973/layoutlib-api-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/24.0.1/99e81aa1d57c4a2764e3159ecaeb2c3d87e2adb1/layoutlib-api-24.0.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/24.0.1/a858dca8c3d888de61ab5a8584a81397f9b679c2/dvlib-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/24.0.1/88956eb2faa213e7ecba20d42ea814ad23ccb25a/dvlib-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/google/guava/guava/17.0/guava-17.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/google/guava/guava/17.0/guava-17.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-api/24.0.1/9afff58b7c567dfafdfa81c553595a066f3d55b2/lint-api-24.0.1-sources.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-api/24.0.1/dabee09e35f6947d639127efc5a17cba76901bd4/lint-api-24.0.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm/4.0/asm-4.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm/4.0/asm-4.0.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-tree/4.0/asm-tree-4.0-sources.jar" />
+                            <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.jar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/CordovaLib" />
@@ -1081,20 +1504,24 @@
     </option>
   </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CordovaLib/build.gradle" />
         <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/CordovaLib/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="62" />
-    <option name="y" value="13" />
-    <option name="width" value="1444" />
-    <option name="height" value="1000" />
+  <component name="NamedScopeManager">
+    <order />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectFrameBounds">
+    <option name="x" value="11" />
+    <option name="y" value="203" />
+    <option name="width" value="1029" />
+    <option name="height" value="1061" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -1120,6 +1547,10 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1140,9 +1571,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1155,15 +1583,58 @@
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../key/my-release-key.keystore" />
     <property name="FullScreen" value="false" />
+    <property name="android.project.structure.last.selected" value="android" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.sdk.path" value="D:/Users/Dmitri/AppData/Local/Android/sdk" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_23" />
+    <property name="ExportApk.ApkPath" value="C:\Projects\Lightswitch\shine\key" />
+    <property name="ExportApk.Flavors" value="" />
+    <property name="ExportApk.BuildType" value="release" />
   </component>
   <component name="RunManager" selected="Android Application.android">
-    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+    <configuration default="true" type="AndroidNativeRunConfigurationType" factoryName="Android Native">
       <module name="" />
-      <setting name="path" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="file://$PROJECT_DIR$" />
-      <setting name="debug" value="false" />
+      <option name="WORKING_DIR" value="" />
+      <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -1173,19 +1644,66 @@
       <option name="METHOD_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
       <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method>
+        <option name="Make" enabled="false" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
@@ -1196,6 +1714,7 @@
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1222,78 +1741,25 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
     <configuration default="false" name="android" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="android" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <list size="1">
@@ -1324,42 +1790,57 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="09e0add0-52e1-49bd-afa7-fe7af228861e" name="Default" comment="" />
       <created>1431623716864</created>
+      <option name="number" value="Default" />
       <updated>1431623716864</updated>
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="62" y="13" width="1444" height="1000" extended-state="0" />
+    <frame x="11" y="203" width="1029" height="1061" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.4970364" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.4843353" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28276575" sideWeight="0.538715" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977462" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977462" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977462" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32977462" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.6909399" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.48194015" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296" sideWeight="0.4970364" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32853982" sideWeight="0.51805985" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28276575" sideWeight="0.461285" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977462" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1373,34 +1854,158 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="524">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="537">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="537">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -1408,20 +2013,193 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CordovaLib/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.24" vertical-offset="0" max-vertical-offset="731">
-          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="66" selection-start-line="3" selection-start-column="66" selection-end-line="3" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3519553" vertical-offset="372" max-vertical-offset="1700">
-          <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CordovaLib/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29360968">
+          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
   </component>
 </project>
-

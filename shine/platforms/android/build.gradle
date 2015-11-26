@@ -68,6 +68,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
+    buildTypes {
+        debug {
+            debuggable true
+        }
+    }
+
 }
 
 task wrapper(type: Wrapper) {

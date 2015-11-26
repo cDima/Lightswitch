@@ -99,7 +99,7 @@ $(document).ready(function(){
     initAmbientEye();
     initCloseMinimize();
 
-    $('footer a').click(handleSystemLink);
+    //$('footer a').click(handleSystemLink);
     $('.nativeclick').click(handleSystemLink);
 
 });
@@ -131,7 +131,9 @@ function handleSystemLink(a) {
     return false;
   }
 
-  if (isDevice) { 
+  if (typeof navigator.app !== 'undefined' && navigator.app.loadUrl != undefined) {
+    navigator.app.loadUrl(url, { openExternal:true });
+  } else if (isDevice) { 
     window.open(url, '_system', 'location=yes');
   } else {
     window.open(url, '_blank', 'location=yes');

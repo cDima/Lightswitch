@@ -20,7 +20,13 @@ Todo:
 * ios homekit
 * 
 
-
+Android: 
+- gulp web
+- update version in shine/config
+- android-deploy.cmd
+- cordova emulate android
+- open android studio
+- sign with /shine/key/...
 
 
 

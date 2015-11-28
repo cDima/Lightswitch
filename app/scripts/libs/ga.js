@@ -44,9 +44,7 @@ Z.v=function(a){try{if(a.u)a.u[C](O,$.j("t0"));else{var b=a.c==gb?$:$.j(a.c);if(
 $.N=function(){"ga"!=gb&&J(49);var a=O[gb];if(!a||42!=a.answer){$.L=a&&a.l;$.loaded=!0;var b=O[gb]=$;X("create",b,b.create,3);X("remove",b,b.remove);X("getByName",b,b.j,5);X("getAll",b,b.K,6);b=pc[z];X("get",b,b.get,7);X("set",b,b.set,4);X("send",b,b[xc],2);b=Ya[z];X("get",b,b.get);X("set",b,b.set);t:for(var b=M.getElementsByTagName("script"),c=0;c<b[y]&&100>c;c++){var d;d=(d=b[c].src)?0!=d[t]("https://www.google-analytics.com/analytics")?!1:!0:!1;if(d){J(33);break t}}"https:"!=M[B][E]&&!Ba&&Ed()&&
 (J(36),Ba=!0);(O.gaplugins=O.gaplugins||{}).Linker=Dc;b=Dc[z];Yd.set("linker",Dc);X("decorate",b,b.Q,20);X("autoLink",b,b.S,25);Yd.set("displayfeatures",fd);Yd.set("adfeatures",Kd);a=a&&a.q;ka(a)?Z.D[G]($,a):J(50)}};$.k=function(){for(var a=$.K(),b=0;b<a[y];b++)a[b].get(V)};(function(){var a=$.N;if(!rc(a)){J(16);var b=!1,c=function(){!b&&rc(a)&&(b=!0,va(M,"visibilitychange",c))};L(M,"visibilitychange",c)}})();function La(a){var b=1,c=0,d;if(a)for(b=0,d=a[y]-1;0<=d;d--)c=a.charCodeAt(d),b=(b<<6&268435455)+c+(c<<14),c=b&266338304,b=0!=c?b^c>>21:b;return b};})(window);
 
-//mix panel
-
-
+	//mix panel
 	(function(f,b){
 	  if(!b.__SV){var a,e,i,g;
 	  window.mixpanel=b;b._i=[];
@@ -77,6 +75,8 @@ $.N=function(){"ga"!=gb&&J(49);var a=O[gb];if(!a||42!=a.answer){$.L=a&&a.l;$.loa
 	}})(document,window.mixpanel||[]);
 	
 if (config.app === 'app') {
+
+	// mixpanel 
 
 	(function() {
 	var n=!0,p=null,s=!1;function C(){return function(){}}
@@ -181,30 +181,33 @@ if (config.app === 'app') {
 
 //Google Analytics
 
-// light
-switch(config.app) {
-  case 'light':
-	  ga('create', 'UA-55863666-1', 'auto');
-	  break;
-  case 'pro':
-	  ga('create', 'UA-55863666-2', 'auto');
-	  mixpanel.init("339e511cfff7fdcd146d3a4dd60f03a8");
-	  break;
-  case 'web':
-	  ga('create', 'UA-58183317-1', 'auto');
-	  mixpanel.init("339e511cfff7fdcd146d3a4dd60f03a8");
-	  break;
-  case 'app':
-	  ga('create', 'UA-55863666-8', 'auto');
-	  break;
-  case 'ambieye':
-	  ga('create', 'UA-55863666-6', 'auto');
-	  break;
+if (typeof ga !== 'undefined') {
+	// light
+	switch(config.app) {
+	  case 'light':
+		  ga('create', 'UA-55863666-1', 'auto');
+		  break;
+	  case 'pro':
+		  ga('create', 'UA-55863666-2', 'auto');
+		  mixpanel.init("339e511cfff7fdcd146d3a4dd60f03a8");
+		  break;
+	  case 'web':
+		  ga('create', 'UA-58183317-1', 'auto');
+		  mixpanel.init("339e511cfff7fdcd146d3a4dd60f03a8");
+		  break;
+	  case 'app':
+		  ga('create', 'UA-55863666-8', 'auto');
+		  break;
+	  case 'ambieye':
+		  ga('create', 'UA-55863666-6', 'auto');
+		  break;
+	}
+	//ga('create', 'UA-55863666-2', 'auto');
+	// ambieye ga('create', 'UA-55863666-6', 'auto');
+
+	ga('require', 'displayfeatures');
+	ga('send', 'pageview');
 }
-//ga('create', 'UA-55863666-2', 'auto');
-// ambieye ga('create', 'UA-55863666-6', 'auto');
-ga('require', 'displayfeatures');
-ga('send', 'pageview');
 
 if (typeof(mixpanel) !== "undefined" && mixpanel.track_links !== undefined) {
 	mixpanel.track_links("a", "click", {
@@ -218,12 +221,13 @@ function trackState(name, state) {
 }
 
 function trackEvent(category, action, label, value, data) {
-
-	ga('send', 'event', category, action, {
-		'nonInteraction': 1, 
-		'label': label, 
-		'value': value
-	}); 
+	if (typeof ga !== 'undefined') {
+		ga('send', 'event', category, action, {
+			'nonInteraction': 1, 
+			'label': label, 
+			'value': value
+		}); 
+	}
 
 	var obj = {
 		'category': category, 

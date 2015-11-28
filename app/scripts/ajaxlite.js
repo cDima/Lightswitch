@@ -25,7 +25,6 @@ class AjaxLite {
 
     var xhr = new XMLHttpRequest();
     xhr.contentType = 'json';
-    xhr.timeout = timeout;
     xhr.ontimeout = function() {
       //error(xhr, 'timeout', xhr.response);
     };
@@ -59,6 +58,7 @@ class AjaxLite {
 
     xhr.setRequestHeader('Content-Type', contentType);
     xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*');
+    xhr.timeout = timeout;
 
     Object.keys(headers).forEach(function(key) {
       xhr.setRequestHeader(key, headers[key]);

@@ -98,7 +98,6 @@ class HueBridge {
                 success: data => {
                   this.timeoutAuthCounter = 0;
                   this.onGotLightState(data,successCallback);
-                  //this.onGotBridgeState(data, successCallback); // lighter bag of data
                 },
                 error: data => this.onAuthError(data),
                 timeout: 2000
@@ -108,12 +107,12 @@ class HueBridge {
             this.onAuthError(err);
         }
     }
-    getBridgeState (){
+    getBridgeState (successCallback){
         try{
             var options = {
                 dataType: 'json',
                 url: this.baseApiUrl,
-                success: data => this.onGotBridgeState(data),
+                success: data => this.onGotBridgeState(data, successCallback), // lighter bag of data
                 error: data => this.onAuthError(data),
                 timeout: 5000
             };
@@ -236,7 +235,7 @@ class HueDiscoverer {
         this.storage = storage;
         this.appname = appname;
         this.onNeedAuthorization = onNeedAuthorization;
-        self = this;
+        this.self = this;
     }
     bridgeThenable (ip){
         var bridgeThenable = new Promise((resolve, reject) => {
@@ -274,29 +273,29 @@ class HueDiscoverer {
         }
         return new Promise((resolve, reject) => {
 
-            var promise = self.storage.get('lastBridgeIp')
+            var promise = this.self.storage.get('lastBridgeIp')
             .then((ip) => {
-                self.ip = ip;
-                return self.storage.get('lastUsername');
+                this.self.ip = ip;
+                return this.self.storage.get('lastUsername');
             })
-            .then((val) => self.username = val)
+            .then((val) => this.self.username = val)
             .then(() => {
                 var promises = [];
                 if (ip){
-                    promises.push(self.bridgeThenable(ip)); // from arguments
+                    promises.push(this.self.bridgeThenable(ip)); // from arguments
                 }
-                if (self.ip){
-                    promises.push(self.bridgeThenable(self.ip)); // from storage
+                if (this.self.ip){
+                    promises.push(this.self.bridgeThenable(this.self.ip)); // from storage
                 }
                 return promises.length != 0 ? Promise.any(promises) : Promise.reject();
             })
             .catch(() => {
                 var promises = [];
                 var meethuePromise = new Promise((resolve,reject) => {
-                    return new MeetHueLookup(self.AjaxLite).discover().then((ips) => {
+                    return new MeetHueLookup(this.self.AjaxLite).discover().then((ips) => {
                         var bridges = [];
                         for(var i of ips) {
-                            bridges.push(self.bridgeThenable(i)); 
+                            bridges.push(this.self.bridgeThenable(i)); 
                         }
                         Promise.any(bridges).then((bridges) => resolve(bridges[0]), () => reject());
                     }, () => reject());
@@ -305,15 +304,15 @@ class HueDiscoverer {
 
                 var ips = BruteForcer.ips();
                 for(var i of ips) {
-                    if (i !== self.ip && i !== ip) {
-                        promises.push(self.bridgeThenable(i)); // 84 requests
+                    if (i !== this.self.ip && i !== ip) {
+                        promises.push(this.self.bridgeThenable(i)); // 84 requests
                     }
                 }
                 return Promise.any(promises);
             })
             .then((bridges) => {
-              self.storage.set('lastBridgeIp', bridges[0].ip);
-              self.storage.set('lastUsername', bridges[0].username);
+              this.self.storage.set('lastBridgeIp', bridges[0].ip);
+              this.self.storage.set('lastUsername', bridges[0].username);
               resolve(bridges[0]);
             })
             .catch(() => {

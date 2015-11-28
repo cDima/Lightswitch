@@ -118,7 +118,7 @@ gulp.task('styles', () => {
 // `.babelrc` file.
 
 var popupScr = [
-      //'./app/scripts/lib/browser-polyfill.js',
+      './app/scripts/libs/babel-polyfill.min.js',
       './app/scripts/libs/jquery-1.11.1.min.js',
       './app/scripts/libs/bootstrap.min.js',
       './app/scripts/libs/bootstrap-slider.min.js',
@@ -147,6 +147,7 @@ var popupScr = [
     ];
 
 var backgroundScr = [
+      './app/scripts/libs/babel-polyfill.min.js',
       './app/scripts/libs/jquery-1.11.1.min.js',
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',
@@ -174,7 +175,7 @@ var backgroundScr = [
       './app/scripts/background.js',
     ];
 var tvosScr = [
-      './app/scripts/lib/browser-polyfill.min.js',
+      './app/scripts/libs/browser-polyfill.min.js',
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',
       './app/scripts/libs/storage.js',
@@ -205,8 +206,7 @@ gulp.task('scripts', () => [
     .pipe($.babel())
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/scripts'))
-    //.pipe($.concat('main.min.js'))
-    .pipe($.concat('main.min.2015111510.js'))
+    .pipe($.concat('main.min.2015112701.js'))
     
     // Usage: gulp pro --prod // this will uglify.
     .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    

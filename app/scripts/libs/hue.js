@@ -416,9 +416,13 @@ var hue = function ($, colors) {
                 state.lights = data.lights;
             }
         },
-        // todo: why does this repeat getLightState?
+        onBridgeUpdate = function(bridge, ip, username, status, data){
+            if (data !== null && state !== null) {
+                state = data;
+            }
+        },
         getBridgeState = function(){
-            bridge.getLightState(onLightUpdate);
+            bridge.getBridgeState(onBridgeUpdate);
         },
         onNewState = function(data){
             //log('Authorized');

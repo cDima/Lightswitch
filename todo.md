@@ -5,20 +5,18 @@ Todo:
 * test tvos ui & discovery alert
 * don't store same ip and key again to storage on successful find
 
-* `gulp web --prod` done
+* `gulp web --prod` done // ambieye.com
 * `gulp light --prod` 
-* `gulp pro --prod` // chrome lightswitch pro
-* `gulp eye --prod`  // chrome ambience
-* `gulp app --prod`  // shine
-* `gulp win --prod` // 
+* `gulp pro --prod` done, // chrome lightswitch pro
+* `gulp eye --prod` done // chrome ambience
+* `gulp app --prod` done // chrome shine
+* `gulp win --prod`  // windows
+* android - free - done
+* android - paid - done
+* 
 
-* fix Philips Hue link on ios
-* cordova in-app-purchase
-* ios 1.99 - dynamic scenes
-* android 0.99
 * ios native screen widget
 * ios homekit
-* 
 
 Android: 
 - gulp web
@@ -27,11 +25,6 @@ Android:
 - cordova emulate android
 - open android studio
 - sign with /shine/key/...
-
-
-
-
-
 
 
 

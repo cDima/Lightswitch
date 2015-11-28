@@ -297,7 +297,7 @@ gulp.task('clean', cb => del(['.tmp', 'dist/**/*', 'dist.zip', '!dist/.git'], {d
 // Watch files for changes & reload
 gulp.task('serve', [
   'scripts',
-  'scripts-tvos',
+  //'scripts-tvos',
   'styles'], () => {
   browserSync({
     notify: false,
@@ -317,7 +317,7 @@ gulp.task('serve', [
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['lint', 
     'scripts'
-    ,'scripts-tvos'
+    //,'scripts-tvos'
     ]);
   gulp.watch(['app/images/**/*'], reload);
 });
@@ -373,7 +373,8 @@ gulp.task('win', function() {
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'scripts-tvos',
+    ['lint', 'html', 'scripts', 
+    //'scripts-tvos',
     'images', 
     'fonts', 'copy'],
     //'generate-service-worker',

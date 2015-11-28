@@ -83,6 +83,7 @@ $(document).ready(function(){
     initSearch();
     initManualBridge();
     initGroupCreation();
+    initSceneCreation();
 
     // todo: safe to remove?
     if (window.hue.status === 'OK') {
@@ -530,8 +531,6 @@ function startHeartbeat() {
 
 function hueHeartbeat() {
   hueProxy.cmd('heartbeat');
-  //requestSettings();
-  //hueProxy.cmd('getState', null, fillSettings); // will get previous state
 }
 
 function onBridgeNotFound(status) {
@@ -682,6 +681,28 @@ function initGroupCreation() {
       // reset
       delayedRefresh();
     });
+}
+
+function initSceneCreation() {
+  $('#create-scene').hide();
+  $('#make-scene').click(function(){
+    $('#create-scene').slideToggle();
+    return false;
+  });
+
+
+  $('#add-scene').click(function(){
+    var name = $('#scene-name input').val();
+    if (name === '') {
+      errorShake('#scene-name');
+      return;
+    }
+    $('#scene-name').removeClass('error');
+    $('#scene-name input').val('');
+    hueProxy.cmd('createScene', name);
+    // reset
+    delayedRefresh();
+  });
 }
 
 function createActorBtn(key,name){
@@ -866,8 +887,11 @@ function fillSettings(state) {
             ', portal: ' + state.config.portalconnection +
             ', zigbeechannel:' + state.config.zigbeechannel);
 
-
-        hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI); 
+        if (state.actorId == null) {
+          hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI); 
+        } else {
+          updateActorUI(state.actorId);
+        }
     }
 }
 

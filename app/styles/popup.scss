@@ -851,17 +851,32 @@ h5 a, h5 a:hover  {
   float: right;
   text-decoration: none;
 }
-#create-group {
+#create-group, .rounded-well {
   background: #F5F5F5;
   border-radius: 20px;
 }
+.rounded-well #scene-name {
+  width: 266px;
+  display: table;
+  margin-bottom: 0;
+}
+.rounded-well .input {
+  height: 23px;
+  margin: 10px 0px 10px 10px;
+}
+.rounded-well .submit {
+  height: 23px;
+  background: #678389;
+  margin-top: 10px;
+}
+
 #create-group #group-name {
   width: 266px;
   display: table;
   margin-bottom: 0;
 }
 #group-name .input {
-  width: auto;
+  /*width: auto;*/
   height: 23px;
   margin: 10px 0px 10px 10px;
 }

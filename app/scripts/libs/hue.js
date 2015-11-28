@@ -250,7 +250,12 @@ var hue = function ($, colors) {
             }
             return baseApiUrl + '/groups';
         },
-        
+        buildSceneURL = function(key) {
+            if (key !== undefined) {
+                return baseApiUrl + '/scenes/' + key;
+            }
+            return baseApiUrl + '/scenes';
+        },
         /**
          * Convenience function used to initiate an HTTP PUT request to modify 
          * state.
@@ -290,6 +295,23 @@ var hue = function ($, colors) {
             var error = log;
             return del(buildGroupURL(key), callback, error);
         },
+        getRandomInt = function(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        putScene = function(name, lampIds) {
+            var callback = apiSuccess;
+            var error = log;
+            var state = {name: name + ' on 0', lights: lampIds };
+            var key =  getRandomInt(100000000, 999999999) + '-on-0';
+            return putJSON(buildSceneURL(key), callback, error, state);
+        },
+        /*
+        updateScene = function(key, name, lampIds) {
+            var callback = apiSuccess;
+            var error = log;
+            var state = {name: name, lights: lampIds };
+            return putJSON(buildSceneURL(key), callback, error, state);
+        },*/
         /**
          * Convenience function used to initiate HTTP PUT requests to modify state
          * of all connected Hue lamps.
@@ -419,6 +441,7 @@ var hue = function ($, colors) {
         onBridgeUpdate = function(bridge, ip, username, status, data){
             if (data !== null && state !== null) {
                 state = data;
+                onNewState(data);
             }
         },
         getBridgeState = function(){
@@ -582,6 +605,9 @@ var hue = function ($, colors) {
         },
         removeGroup: function(key) {
             return deleteGroup(key);
+        },
+        createScene: function(name, lights) {
+            return putScene(name, lights);
         },
         /** 
          * Turn on scene by key

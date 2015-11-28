@@ -210,6 +210,10 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         removeGroup = function(key){
             hue.removeGroup(key);
         },
+        createScene = function(key){
+            var lampIds = hue.getLampIds(actorId);
+            hue.createScene(key, lampIds);
+        },
         refresh =  function(){
             hue.refresh();
         },
@@ -265,6 +269,10 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         removeGroup: function(key){
             removeGroup(key);
+        },
+        createScene: function(name){
+            //name, lampIds){
+            createScene(name);
         },
         refresh: function(){
             refresh();

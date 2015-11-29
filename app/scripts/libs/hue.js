@@ -305,6 +305,22 @@ var hue = function ($, colors) {
             var key =  getRandomInt(100000000, 999999999) + '-on-0';
             return putJSON(buildSceneURL(key), callback, error, state);
         },
+
+        startSchedule = function (id){
+            if (state !== null) {
+                // build schedule command, execute:
+                var schedule = state.schedules[id];
+                if (schedule) {
+                    var cmd = schedule.command;
+                    if (cmd.method.toLowerCase() === 'put') {
+                        var url = baseUrl + cmd.address.substring('/api'.length);
+                        putJSON(url, apiSuccess, log, cmd.body);
+                    }
+                }
+            } else {
+                // error
+            }
+        },
         /*
         updateScene = function(key, name, lampIds) {
             var callback = apiSuccess;
@@ -312,6 +328,60 @@ var hue = function ($, colors) {
             var state = {name: name, lights: lampIds };
             return putJSON(buildSceneURL(key), callback, error, state);
         },*/
+/*
+        // http://www.developers.meethue.com/documentation/schedules-api-0#31_get_all_schedules
+        getSchedules = function () {
+           return get(buildSchedulesURL(lampIndex), function(data) {
+                // success
+                if (data.state === undefined) {
+                    // fail
+                    return;
+                }
+                success(data.state.bri);
+            }, function(err){
+                err = null;
+                // fail
+            });
+       },
+
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#32_create_schedule
+    # TODO: strip whitespace from command
+    @createSchedule = (name="schedule", description="", command, time, status="enabled", autodelete=false) ->
+      _setup().then ->
+        body = {
+          "name": name
+          "description": description
+          "command": command
+          "time": time
+          "status": status
+          "autodelete": autodelete
+        }
+        _apiCall "post", ["schedules"], body
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#33_get_schedule_attributes
+    @getScheduleAttributes = (id) ->
+      _setup().then ->
+        _apiCall "get", ["schedules", id]
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#34_set_schedule_attributes
+    @setScheduleAttributes = (id, name=null, description=null, command=null, time=null, status=null, autodelete=null) ->
+      _setup().then ->
+        body = {}
+        body.name = name if name
+        body.description = description if description
+        body.command = command if command
+        body.status = status if status
+        body.autodelete = autodelete if autodelete != null
+        _apiCall "put", ["schedules", id], body
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#35_delete_schedule
+    @deleteSchedule = (id) ->
+      _setup().then ->
+        _apiCall "delete", ["schedules", id]
+
+*/
+
         /**
          * Convenience function used to initiate HTTP PUT requests to modify state
          * of all connected Hue lamps.
@@ -622,6 +692,9 @@ var hue = function ($, colors) {
                 //    put(val, state);
                 //});       
             //}
+        },
+        startSchedule: function(id) {
+            return startSchedule(id);
         },
         /**
          * Turn off the lamp at lampIndex.

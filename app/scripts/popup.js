@@ -749,8 +749,18 @@ function activateSceneClick(event){
   activateSceneByKey(key);
 }
 
+function activateScheduleClick(event){
+  var key = event.target.id;
+  activateScheduleByKey(key);
+}
+
+
 function activateSceneByKey(key){
   hueProxy.cmd('command', 'scene:' + key, activatedScene);
+}
+
+function activateScheduleByKey(key){
+  hueProxy.cmd('command', 'schedule:' + key, activatedSchedule);
 }
 
 function toggleActiveClick(event){
@@ -875,6 +885,18 @@ function fillSettings(state) {
               }
             } 
         }
+
+
+        for(i in state.schedules) {
+          key = i;
+          value = state.schedules[i];  
+
+          var btn = $('<button type="button" class="schedule savedscene"></button>').text(value.description + ' (' + value.name + ')').attr('id', key);
+          btn.click(activateScheduleClick);
+          $('#schedules').append(btn);
+        }
+
+        
 
         $('#bridge #config-ip').text('IP: ' + state.config.ipaddress + ' (v' +  state.config.apiversion + ')');
         $('#bridge #config-swversion').text('Version: ' + state.config.swversion);

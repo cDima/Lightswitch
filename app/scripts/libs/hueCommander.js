@@ -107,7 +107,12 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
 
                     sceneCmd.start(sceneName, lampids);
                     return sceneName;
-                }
+                } else if (command.lastIndexOf('schedule:', 0) === 0) {
+                    var scheduleId = command.substring('schedule:'.length);
+                    hue.startSchedule(scheduleId);
+                    return;
+                } 
+
             }
         },
         parseJson = function(cmd){
@@ -307,4 +312,11 @@ function activatedScene(key){
   $('.scene').removeClass('active');
   $('#scenes button[id="' + key + '"]').addClass('active');
   $('.scene[data-scene="' + key + '"]').addClass('active');
+}
+
+function activatedSchedule(key){
+  $('#schedule button').removeClass('active');
+  $('.schedule').removeClass('active');
+  $('#schedule button[id="schedule-' + key + '"]').addClass('active');
+  $('.schedule[data-schedule="' + key + '"]').addClass('active');
 }

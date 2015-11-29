@@ -786,7 +786,7 @@ function fillSettings(state) {
     }
 
     if (state.lights !== null && state.lights !== undefined) {
-        trackState('config', state);
+        trackState('config', state);        
         /*
         trackEvent('settings', 'init', 'version', state.config.swversion);
         trackEvent('settings', 'init', 'ip', state.config.ipaddress);
@@ -801,6 +801,8 @@ function fillSettings(state) {
         $('#group-add-lamps').empty();
         $('#groups').empty();
         $('#scenes').empty();
+        $('#schedules').empty();
+        
         $('#group-remove').empty();
 
         //$.each(state.lights, function(key, value) {

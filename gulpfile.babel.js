@@ -201,7 +201,7 @@ gulp.task('scripts', () => [
       //       to be correctly concatenated
       // Other scripts
     gulp.src(popupScr)
-    .pipe($.newer('.tmp/scripts'))
+    //.pipe($.newer('.tmp/scripts'))
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.sourcemaps.write())
@@ -218,7 +218,7 @@ gulp.task('scripts', () => [
     .pipe($.size({title: 'scripts'})),
 
     gulp.src(backgroundScr)
-    .pipe($.newer('.tmp/scripts'))
+    //.pipe($.newer('.tmp/scripts'))
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.sourcemaps.write())

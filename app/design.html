@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/Product">
-
-<head>
+<html lang="en" itemscope="" itemtype="http://schema.org/Product" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style="height: 435px;"><head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <meta name="description" content="Ambieye for Philips Hue, Lightswitch Pro, Shine for Hue. Wirelessly control digitally connected LED lights: Super bowl, dynamic scenes, compass colorpicker.">
 
@@ -15,7 +12,7 @@
 
     <!-- Twitter Card data -->
     <meta name="twitter:card" value="summary_large_image">
-    <meta name="twitter:site" content="@ambieye"  />
+    <meta name="twitter:site" content="@ambieye">
 
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="Ambieye for Philips Hue">
@@ -23,11 +20,11 @@
     <meta itemprop="image" content="http://ambieye.com/promo.png">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="Ambieye for Philips Hue" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="http://ambieye.com/" />
-    <meta property="og:image" content="http://ambieye.com/promofb.png" />
-    <meta property="og:description" content="Ambieye for Philips Hue, Lightswitch Pro, Shine for Hue. Wirelessly control digitally connected LED lights: Super bowl, dynamic scenes, compass colorpicker." />
+    <meta property="og:title" content="Ambieye for Philips Hue">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://ambieye.com/">
+    <meta property="og:image" content="http://ambieye.com/promofb.png">
+    <meta property="og:description" content="Ambieye for Philips Hue, Lightswitch Pro, Shine for Hue. Wirelessly control digitally connected LED lights: Super bowl, dynamic scenes, compass colorpicker.">
     <meta name="author" content="Dmitry Sadakov">
     <meta name="title" content="Ambieye for Philips Hue">
     <title>Ambieye for Philips Hue</title>
@@ -67,7 +64,7 @@
     <link href="styles/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="styles/font-montserrat.min.css" rel="stylesheet" type="text/css">
     <!-- build:js scripts/modernizr.min.js -->
-    <script src="scripts/libs/modernizr.custom.min.js"></script>
+    <script src="scripts/libs/modernizr.custom.min.js"></script><style type="text/css"></style>
     <!-- endbuild -->
 
     <!-- web components - not allowed by chrome unsafe-inline CSP 
@@ -78,17 +75,20 @@
   </head>
 
 
-<body id="page-top" class="background" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" class="background web" data-spy="scroll" data-target=".navbar-fixed-top" style="height: 435px;"><script type="text/javascript" id="__bs_script__">//<![CDATA[
+    document.write("<script async src='/browser-sync/browser-sync-client.2.10.0.js'><\/script>".replace("HOST", location.hostname));
+//]]></script><script async="" src="/browser-sync/browser-sync-client.2.10.0.js"></script>
+
     <div id="wrapper">
         <!-- Intro Header -->
         <header class="intro draggable">
           <div class="minimize-icon only-app no-drag">
-            <a href="#minimize" id="minimize-app" alt='minimize'>
+            <a href="#minimize" id="minimize-app" alt="minimize">
               <i class="fa fa-minus"></i>
             </a>
           </div>
           <div class="close-icon only-app no-drag">
-            <a href="#close" id="close-app" alt='close'>
+            <a href="#close" id="close-app" alt="close">
               <i class="fa fa-close"></i>
             </a>
           </div>
@@ -97,8 +97,8 @@
               <i class="fa fa-cloud"></i>
             </a>
           </div>-->
-          <div class="voice-control no-drag">
-            <a href="#voice" id="voice-mic" alt='voice'>
+          <div class="voice-control no-drag" style="display: block;">
+            <a href="#voice" id="voice-mic" alt="voice">
               <i class="fa fa-microphone"></i>
             </a>
             <span id="voice-feedback"></span>
@@ -109,14 +109,14 @@
                     <div class="row">
                         <div class="col-xs-10 offset">
                             <div id="lamp"></div>
-                            <div class="switch no-drag" id="toggle-lights">
-                              <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
+                            <div class="switch no-drag" id="toggle-lights" style="display: block;">
+                              <input id="lightswitch" class="cmn-toggle cmn-toggle-round" type="checkbox">
                               <label for="lightswitch"></label>
                             </div>
                             <h1 class="brand-heading logo">
                                 Lightswitch
                             </h1>
-                            <p id="connectStatus"></p>
+                            <p id="connectStatus" style="display: none;"><div class="intro-text">11 lights found.</div></p>
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -130,14 +130,14 @@
           <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
               <i class="fa fa-angle-double-down animated"></i>
           </a> -->
-          <p id="manualbridgeip" class="no-drag"  style="display:none">
-            <input class="bridgeip input" placeholder="Enter the bridge IP..." />
-            <button class="submit" name="Find" type="submit"  id="findbridge" value="Find">Find</button>
+          <p id="manualbridgeip" class="no-drag" style="display:none">
+            <input class="bridgeip input" placeholder="Enter the bridge IP...">
+            <button class="submit" name="Find" type="submit" id="findbridge" value="Find">Find</button>
           </p>
-          <div id="https-proxy"  style="display:none">
+          <div id="https-proxy" style="display:none">
             To use this application, please install the Chrome extension <a href="http://bit.ly/lightpro" class="not-light" target="_blank"><i class="fa fa-toggle-on"></i> Lightswitch Pro »</a>
           </div>
-          <div id="controls" style="display:none">
+          <div id="controls">
             <div class="row">
                 <div class="">
                     <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -169,7 +169,7 @@
                         Search
                         </b>
                       </a></li>
-                      <li role="presentation" class="config-ambieye">
+                      <li role="presentation" class="config-ambieye" style="display: none;">
                         <a href="#eye" role="tab" data-toggle="tab">
                         <i class="fa fa-eye"></i>
                         <b class="tab-text not-pro">&nbsp;Ambience</b>
@@ -194,7 +194,7 @@
                     </ul>
 
                     <!-- Tab panes -->
-                    <div class="tab-content">
+                    <div class="tab-content" style="display: block;">
                       <div role="tabpanel" class="tab-pane fade in active" id="home">
                         <div class="panel-body">
                             <h5>Brightness</h5>
@@ -202,33 +202,26 @@
                             <a class="link-btn command" href="#brighten" title="Brighten">+</a>-->
                             <div class="pane-body">
                               <div> 
-                                <input id="brightness-control" 
-                                data-slider-id='ex1Slider' 
-                                type="text" 
-                                data-slider-min="0"
-                                 data-slider-max="255" 
-                                 data-slider-step="1" 
-                                 data-slider-value="254"  
-                                 data-slider-tooltip="hide" />
+                                <div class="slider slider-horizontal" id="ex1Slider"><div class="slider-track"><div class="slider-selection" style="left: 0%; width: 99.6078%;"></div><div class="slider-handle round" style="left: 99.6078%;"></div><div class="slider-handle round hide" style="left: 0%;"></div></div><div class="tooltip top hide" style="top: -14px; left: 0px;"><div class="tooltip-arrow"></div><div class="tooltip-inner">254</div></div><input id="brightness-control" data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="254" data-slider-tooltip="hide"></div>
                               </div>
                             </div>
                             <h5>Groups <a id="make-group" href="#"><i class="fa fa-pencil"></i></a></h5>
-                            <div id="create-group">
+                            <div id="create-group" style="display: none;">
                               <p id="group-name">
-                                <input class="groupname input" placeholder="Enter group name..." />
-                                <button class="submit" name="Add" type="submit"  id="add-group" value="Add">Add</button>
+                                <input class="groupname input" placeholder="Enter group name...">
+                                <button class="submit" name="Add" type="submit" id="add-group" value="Add">Add</button>
                               </p>
-                              <div id="group-add-lamps"></div>
-                              <div id="group-remove"></div>
+                              <div id="group-add-lamps"><button type="button" class="actor lamp-select" id="1">Kitchen</button><button type="button" class="actor lamp-select" id="2">Door</button><button type="button" class="actor lamp-select" id="3">Window</button><button type="button" class="actor lamp-select" id="4">Hue Lamp 4</button><button type="button" class="actor lamp-select" id="5">Hue Lamp 5</button><button type="button" class="actor lamp-select" id="6">Hue Lamp 6</button><button type="button" class="actor lamp-select" id="7">Hue Lamp 7</button><button type="button" class="actor lamp-select" id="8">Hue Lamp 8</button><button type="button" class="actor lamp-select" id="9">Hue Lamp 9</button><button type="button" class="actor lamp-select" id="10">Hue Lamp 10</button><button type="button" class="actor lamp-select" id="11">Hue Lamp 11</button></div>
+                              <div id="group-remove"><button type="button" class="actor" id="1">Roof&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="2">Living Room&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="3">bedroom&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="4">Lamp 2&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="5">All&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="6">Livingroom Lamp&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="7">WindowDoor&nbsp;<li class="fa fa-remove"></li></button><button type="button" class="actor" id="8">wdor&nbsp;<li class="fa fa-remove"></li></button></div>
                             </div>
-                            <div id="groups"></div>
+                            <div id="groups"><button type="button" class="actor active" id="group-0">All</button><button type="button" class="actor" id="group-1">Roof</button><button type="button" class="actor" id="group-2">Living Room</button><button type="button" class="actor" id="group-3">bedroom</button><button type="button" class="actor" id="group-4">Lamp 2</button><button type="button" class="actor" id="group-5">All</button><button type="button" class="actor" id="group-6">Livingroom Lamp</button><button type="button" class="actor" id="group-7">WindowDoor</button><button type="button" class="actor" id="group-8">wdor</button></div>
                             <h5>Lamps</h5>
-                            <div id="lamps"></div>
+                            <div id="lamps"><button type="button" class="actor" id="1">Kitchen</button><button type="button" class="actor" id="2">Door</button><button type="button" class="actor" id="3">Window</button><button type="button" class="actor" id="4">Hue Lamp 4</button><button type="button" class="actor" id="5">Hue Lamp 5</button><button type="button" class="actor" id="6">Hue Lamp 6</button><button type="button" class="actor" id="7">Hue Lamp 7</button><button type="button" class="actor" id="8">Hue Lamp 8</button><button type="button" class="actor" id="9">Hue Lamp 9</button><button type="button" class="actor" id="10">Hue Lamp 10</button><button type="button" class="actor" id="11">Hue Lamp 11</button></div>
                             <h5>Bridge info</h5>
                             <div id="bridge" class="selectable">
-                              <div class="padded-links" id="config-ip"></div>
-                              <div class="padded-links" id="config-swversion"></div>
-                              <div class="padded-links" id="config-actor"></div>
+                              <div class="padded-links" id="config-ip">IP: 192.168.0.100 (v1.10.0)</div>
+                              <div class="padded-links" id="config-swversion">Version: 01028090</div>
+                              <div class="padded-links" id="config-actor">Actors: Kitchen, Door, Window, Hue Lamp 4, Hue Lamp 5, Hue Lamp 6, Hue Lamp 7, Hue Lamp 8, Hue Lamp 9, Hue Lamp 10, Hue Lamp 11</div>
                             </div>
 
                             <!--<h5>Keep in touch</h5>
@@ -277,24 +270,24 @@
                             -->
                         </div>
                       </div>
-                      <div role="tabpanel" class="tab-pane fade in" id="moods">
+                      <div role="tabpanel" class="tab-pane fade in  active" id="moods">
                         <div class="panel-body">
                           <h5>Dynamic scenes</h5>
-                          <div class="scene" data-scene="Broadway"></div>
-                          <div class="scene" data-scene="Sunrise"></div>
+                          <div class="scene" data-scene="Broadway"><div class="colors"><div class="color" title="#FFFFFF" style="background-color: rgb(255, 255, 255);"></div><div class="color" title="#FFFE99" style="background-color: rgb(255, 254, 153);"></div><div class="color" title="#FFFFFF" style="background-color: rgb(255, 255, 255);"></div><div class="color" title="#FFFE99" style="background-color: rgb(255, 254, 153);"></div><div class="color" title="#FFFFFF" style="background-color: rgb(255, 255, 255);"></div><div class="color" title="#FFFE99" style="background-color: rgb(255, 254, 153);"></div><div class="color" title="#FFFFFF" style="background-color: rgb(255, 255, 255);"></div><div class="color" title="#FFFE99" style="background-color: rgb(255, 254, 153);"></div></div><div class="scene-name">Broadway</div></div>
+                          <div class="scene" data-scene="Sunrise"><div class="colors"><div class="color" title="#FF8E74" style="background-color: rgb(255, 142, 116);"></div><div class="color" title="#FFB376" style="background-color: rgb(255, 179, 118);"></div><div class="color" title="#FFDF80" style="background-color: rgb(255, 223, 128);"></div><div class="color" title="#FFFA90" style="background-color: rgb(255, 250, 144);"></div><div class="color" title="#CBF2FF" style="background-color: rgb(203, 242, 255);"></div></div><div class="scene-name">Sunrise</div></div>
                           <div class="scene" data-scene="Sunset"></div>
                           <div class="scene" data-scene="Coffee"></div>
                           <div class="scene" data-scene="GreenForest"></div>
-                          <div class="scene" data-scene="Disco"></div>
-                          <div class="scene" data-scene="Romantic Red"></div>
-                          <div class="scene" data-scene="Police"></div>
+                          <div class="scene" data-scene="Disco"><div class="colors"><div class="color" title="#3400E5" style="background-color: rgb(52, 0, 229);"></div><div class="color" title="#7200E2" style="background-color: rgb(114, 0, 226);"></div><div class="color" title="#AD00DF" style="background-color: rgb(173, 0, 223);"></div><div class="color" title="#DD00D2" style="background-color: rgb(221, 0, 210);"></div><div class="color" title="#DA0094" style="background-color: rgb(218, 0, 148);"></div><div class="color" title="#D80058" style="background-color: rgb(216, 0, 88);"></div><div class="color" title="#D5001C" style="background-color: rgb(213, 0, 28);"></div><div class="color" title="#D31C00" style="background-color: rgb(211, 28, 0);"></div><div class="color" title="#D05500" style="background-color: rgb(208, 85, 0);"></div><div class="color" title="#CE8C00" style="background-color: rgb(206, 140, 0);"></div><div class="color" title="#CBC200" style="background-color: rgb(203, 194, 0);"></div><div class="color" title="#9BC900" style="background-color: rgb(155, 201, 0);"></div><div class="color" title="#63C600" style="background-color: rgb(99, 198, 0);"></div><div class="color" title="#2DC400" style="background-color: rgb(45, 196, 0);"></div><div class="color" title="#00C108" style="background-color: rgb(0, 193, 8);"></div><div class="color" title="#00BF3C" style="background-color: rgb(0, 191, 60);"></div></div><div class="scene-name">Disco</div></div>
+                          <div class="scene" data-scene="Romantic Red"><div class="colors"><div class="color" title="#ff0000" style="background-color: rgb(255, 0, 0);"></div><div class="color" title="#ff1919" style="background-color: rgb(255, 25, 25);"></div><div class="color" title="#ff3232" style="background-color: rgb(255, 50, 50);"></div><div class="color" title="#ff4c4c" style="background-color: rgb(255, 76, 76);"></div><div class="color" title="#ff6666" style="background-color: rgb(255, 102, 102);"></div><div class="color" title="#ff7f7f" style="background-color: rgb(255, 127, 127);"></div><div class="color" title="#ff9999" style="background-color: rgb(255, 153, 153);"></div><div class="color" title="#ffb2b2" style="background-color: rgb(255, 178, 178);"></div></div><div class="scene-name">Romantic Red</div></div>
+                          <div class="scene" data-scene="Police"><div class="colors"><div class="color" title="#0000FF" style="background-color: rgb(0, 0, 255);"></div><div class="color" title="#FF0000" style="background-color: rgb(255, 0, 0);"></div><div class="color" title="#0000FF" style="background-color: rgb(0, 0, 255);"></div><div class="color" title="#0000FF" style="background-color: rgb(0, 0, 255);"></div><div class="color" title="#FF0000" style="background-color: rgb(255, 0, 0);"></div></div><div class="scene-name">Police</div></div>
                           <!--<div class="scene" data-scene="Lightning"></div>-->
                           <h5>Holiday scenes</h5>
-                          <div class="scene" data-scene="Valentines"></div>
-                          <div class="scene" data-scene="New Years Fireworks"></div>
-                          <div class="scene" data-scene="Christmas"></div>
-                          <div class="scene" data-scene="Thanksgiving"></div>
-                          <div class="scene" data-scene="4th of July"></div>
+                          <div class="scene" data-scene="Valentines"><div class="colors"><div class="color" title="February 14" style="background-color: rgb(130, 0, 129);"></div><div class="color" title="Feelings" style="background-color: rgb(254, 89, 194);"></div><div class="color" title="Joy" style="background-color: rgb(254, 64, 185);"></div><div class="color" title="Hearts" style="background-color: rgb(254, 28, 172);"></div><div class="color" title="Attitude" style="background-color: rgb(57, 0, 57);"></div><div class="color" title="Pink Fluorescent" style="background-color: rgb(255, 192, 203);"></div></div><div class="scene-name">Valentines</div></div>
+                          <div class="scene" data-scene="New Years Fireworks"><div class="colors"><div class="color" title="#5B1D99" style="background-color: rgb(91, 29, 153);"></div><div class="color" title="#0074B4" style="background-color: rgb(0, 116, 180);"></div><div class="color" title="#00B34C" style="background-color: rgb(0, 179, 76);"></div><div class="color" title="#FFD41F" style="background-color: rgb(255, 212, 31);"></div><div class="color" title="#FC6E3D" style="background-color: rgb(252, 110, 61);"></div></div><div class="scene-name">New Years Fireworks</div></div>
+                          <div class="scene" data-scene="Christmas"><div class="colors"><div class="color" title="#FF3333" style="background-color: rgb(255, 51, 51);"></div><div class="color" title="#FFFFFF" style="background-color: rgb(255, 255, 255);"></div><div class="color" title="#FFFE99" style="background-color: rgb(255, 254, 153);"></div><div class="color" title="#33FF33" style="background-color: rgb(51, 255, 51);"></div></div><div class="scene-name">Christmas</div></div>
+                          <div class="scene" data-scene="Thanksgiving"><div class="colors"><div class="color" title="#FFC300" style="background-color: rgb(255, 195, 0);"></div><div class="color" title="#FF6200" style="background-color: rgb(255, 98, 0);"></div><div class="color" title="#FF0000" style="background-color: rgb(255, 0, 0);"></div><div class="color" title="#CD0500" style="background-color: rgb(205, 5, 0);"></div><div class="color" title="#690F00" style="background-color: rgb(105, 15, 0);"></div></div><div class="scene-name">Thanksgiving</div></div>
+                          <div class="scene" data-scene="4th of July"><div class="colors"><div class="color" title="White" style="background-color: rgb(255, 255, 255);"></div><div class="color" title="Old Glory Red" style="background-color: rgb(178, 34, 52);"></div><div class="color" title="Old Glory Blue" style="background-color: rgb(64, 75, 193);"></div></div><div class="scene-name">4th of July</div></div>
                           <!--<h5>Time of day</h5>
                           Morning
                             Working 
@@ -319,21 +312,21 @@
                           <h5 class="colors-name">Morning</h5>
                           <h5 class="colors-name">Daytime</h5>
                           <h5 class="colors-name">Afternoon</h5>-->
-                          <br />
+                          <br>
                           <h5>
                             Bridge Scenes 
                             <a id="make-scene" href="#"><i class="fa fa-pencil"></i></a>
                           </h5>
-                          <div id="create-scene" class="rounded-well">
+                          <div id="create-scene" class="rounded-well" style="display: none;">
                             <p id="scene-name">
-                              <input class="scenename input" placeholder="Enter scene name..." />
-                              <button class="submit" name="Create scene" type="submit"  id="add-scene" value="Add">Save</button>
+                              <input class="scenename input" placeholder="Enter scene name...">
+                              <button class="submit" name="Create scene" type="submit" id="add-scene" value="Add">Save</button>
                             </p>
                           </div>
 
-                          <div id="scenes"></div>
+                          <div id="scenes"><button type="button" class="savedscene" id="132af1969-on-0">Relax</button><button type="button" class="savedscene" id="717788343-on-0">purpole door</button><button type="button" class="savedscene" id="493427926-on-0">Red Door d</button><button type="button" class="savedscene" id="41af3e54b-on-0">New scene</button><button type="button" class="savedscene" id="32c76950d5-on-0">Deep sea</button><button type="button" class="savedscene" id="3c0fb63b08-on-0">Sunset</button><button type="button" class="savedscene" id="2e1dbbb4ac-on-0">Pencils</button><button type="button" class="savedscene" id="f5d73dbdd5-on-0">Concentrate</button><button type="button" class="savedscene" id="809f9686cd-on-0">Beach</button><button type="button" class="savedscene" id="25b485af0a-on-0">Jump!</button><button type="button" class="savedscene" id="0f2c67d801-on-0">Blue rain</button><button type="button" class="savedscene" id="fd499c3e2c-on-0">Taj</button><button type="button" class="savedscene" id="f2b600f908-on-0">Kathy</button><button type="button" class="savedscene" id="290831486-on-0">green door</button><button type="button" class="savedscene" id="411c1b0e6-on-0">Ski</button><button type="button" class="savedscene" id="e07a35d7e-on-0">Greece</button><button type="button" class="savedscene" id="797106fb9-on-0">Hammock</button><button type="button" class="savedscene" id="33300ac17-on-0">Feet up</button></div>
 
-                          <br />
+                          <br>
                           <div>
                             <h5>Schedules
                              <!-- <a id="make-schedule" href="#"><i class="fa fa-pencil"></i></a>-->
@@ -347,19 +340,28 @@
                             </div>-->
 
                             <div id="schedules">
-                              
+                              <button type="button" class="schedule savedscene" id="4">HueLabs schedule-huelabs-2VREgwai2BXu (dlighthuelabs-2VREgwai2BXu)</button><button type="button" class="schedule savedscene" id="7435031860821904">Sunset (Alarm)</button><button type="button" class="schedule savedscene" id="2477469222305790"> (Alarm)</button>
+                              <button type="button" class="schedule savedscene" id="3138920733877920"> (Timer)</button>
                             </div>
+                            <div class="large-list">
+                              <div class='item'>
+                                <div class="title">11:00 <i>AM</i></div>
+                                <div class="desc">Alarm, Turn on lights Door, Wall</div>
+                                <span class="enabled"></span>
+                              </div>
+                            </div>
+
                           </div>
                       </div>
                       </div>
 
-                      <div role="tabpanel" class="tab-pane fade in" id="colors">
+                      <div role="tabpanel" class="tab-pane fade in  active" id="colors">
                         <div class="panel-body">
                           <h5>Solid colors</h5> 
                           <div id="solid-palette">
-                            <div class="palette" data-palette="Kelvin degrees"></div>
-                            <div class="palette" data-palette="Fluorescents"></div>
-                            <div class="palette" data-palette="Rainbow"></div>
+                            <div class="palette" data-palette="Kelvin degrees"><div class="colors">                         <a href="#FF9329" class="color" title="Candle" style="background-color: rgb(255, 147, 41);"></a><a href="#FFC58F" class="color" title="40W Tungsten" style="background-color: rgb(255, 197, 143);"></a><a href="#FFD6AA" class="color" title="100W Tungsten" style="background-color: rgb(255, 214, 170);"></a><a href="#FFF1E0" class="color" title="Halogen" style="background-color: rgb(255, 241, 224);"></a><a href="#FFFAF4" class="color" title="Carbon Arc" style="background-color: rgb(255, 250, 244);"></a><a href="#FFFFFB" class="color" title="High Noon Sun" style="background-color: rgb(255, 255, 251);"></a><a href="#FFFFFF" class="color" title="Direct Sunlight" style="background-color: rgb(255, 255, 255);"></a><a href="#C9E2FF" class="color" title="Overcast Sky" style="background-color: rgb(201, 226, 255);"></a><a href="#409CFF" class="color" title="Clear Blue Sky" style="background-color: rgb(64, 156, 255);"></a></div>                         <div class="colors-name">Kelvin degrees</div>                      </div>
+                            <div class="palette" data-palette="Fluorescents"><div class="colors">                         <a href="#FFF4E5" class="color" title="Warm Fluorescent" style="background-color: rgb(255, 244, 229);"></a><a href="#F4FFFA" class="color" title="Standard Fluorescent" style="background-color: rgb(244, 255, 250);"></a><a href="#D4EBFF" class="color" title="Cool White Fluorescent" style="background-color: rgb(212, 235, 255);"></a><a href="#FFF4F2" class="color" title="Full Spectrum Fluorescent" style="background-color: rgb(255, 244, 242);"></a><a href="#FFEFF7" class="color" title="Grow Light Fluorescent" style="background-color: rgb(255, 239, 247);"></a><a href="#ffc0cb" class="color" title="Pink Fluorescent" style="background-color: rgb(255, 192, 203);"></a></div>                         <div class="colors-name">Fluorescents</div>                      </div>
+                            <div class="palette" data-palette="Rainbow"><div class="colors">                         <a href="#3400E5" class="color" title="#3400E5" style="background-color: rgb(52, 0, 229);"></a><a href="#7200E2" class="color" title="#7200E2" style="background-color: rgb(114, 0, 226);"></a><a href="#AD00DF" class="color" title="#AD00DF" style="background-color: rgb(173, 0, 223);"></a><a href="#DD00D2" class="color" title="#DD00D2" style="background-color: rgb(221, 0, 210);"></a><a href="#DA0094" class="color" title="#DA0094" style="background-color: rgb(218, 0, 148);"></a><a href="#D80058" class="color" title="#D80058" style="background-color: rgb(216, 0, 88);"></a><a href="#D5001C" class="color" title="#D5001C" style="background-color: rgb(213, 0, 28);"></a><a href="#D31C00" class="color" title="#D31C00" style="background-color: rgb(211, 28, 0);"></a><a href="#D05500" class="color" title="#D05500" style="background-color: rgb(208, 85, 0);"></a><a href="#CE8C00" class="color" title="#CE8C00" style="background-color: rgb(206, 140, 0);"></a><a href="#CBC200" class="color" title="#CBC200" style="background-color: rgb(203, 194, 0);"></a><a href="#9BC900" class="color" title="#9BC900" style="background-color: rgb(155, 201, 0);"></a><a href="#63C600" class="color" title="#63C600" style="background-color: rgb(99, 198, 0);"></a><a href="#2DC400" class="color" title="#2DC400" style="background-color: rgb(45, 196, 0);"></a><a href="#00C108" class="color" title="#00C108" style="background-color: rgb(0, 193, 8);"></a><a href="#00BF3C" class="color" title="#00BF3C" style="background-color: rgb(0, 191, 60);"></a></div>                         <div class="colors-name">Rainbow</div>                      </div>
                             <!--<div class="palette" data-palette="TurkeyFeast"></div>
                             <div class="palette" data-palette="TurkeyDinner"></div>
                             <div class="palette" data-palette="Rainbow"></div>-->
@@ -375,7 +377,7 @@
 
                           <div class="panel-body">
                           
-                            <div class="ground-enabled">
+                            <div class="ground-enabled" style="display: none;">
                               <div class="ground-switch" id="toggle-gravity-wrapper">
                                 <input id="toggle-gravity" class="cmn-toggle cmn-toggle-round" type="checkbox">
                                 <label for="toggle-gravity"></label>
@@ -385,7 +387,7 @@
                               </label>
                             </div>
                             <br>
-                            <div class="north-enabled">
+                            <div class="north-enabled" style="display: none;">
                               <div>
                                 <div class="north-switch" id="toggle-north-wrapper">
                                   <input id="toggle-north" class="cmn-toggle cmn-toggle-round" type="checkbox">
@@ -415,19 +417,19 @@
                           </div>
                       </div>
                       
-                      <div role="tabpanel" class="tab-pane fade in" id="subscribe">
+                      <div role="tabpanel" class="tab-pane fade in active" id="subscribe">
                         <div class="panel-body">
                             <h5>Newsletter, feedback, ideas</h5>
                             <div class="pane-body">
                             Enter your email to be the first to know about new features &amp; releases:
                             </div>
                             <div id="newsletter_form">
-                                <form action="" method="post" class="subscribe-form" name="mc-embedded-subscribe-form"  id="mc-embedded-subscribe-form" novalidate>
+                                <form action="" method="post" class="subscribe-form" name="mc-embedded-subscribe-form" id="mc-embedded-subscribe-form" novalidate="">
                                     <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input" placeholder="Enter your e-mail address..." required="">
-                                    <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="subscribe-submit submit">Notify Me</button>
+                                    <button name="subscribe" type="submit" id="mc-embedded-subscribe" value="Subscribe" class="subscribe-submit submit">Notify Me</button>
                                     <input type="text" style="display:none;" name="b_83c6f205a4379f5136e187d52_cad0da3b8a" tabindex="-1" value="">
                                 </form>
-                                <div class="successsubscribe">Thanks for subscribing, we will be in touch</div>
+                                <div class="successsubscribe" style="display: none;">Thanks for subscribing, we will be in touch</div>
                             </div>
                             <div class="pane-body">
                               You can <a href="mailto:apistarter@gmail.com" target="_blank">email privately</a>, and <a href="https://apistarter.uservoice.com/" class="nativeclick" target="_blank">publically</a>.
@@ -446,10 +448,10 @@
                                <a href="http://bit.ly/lightpro" class="not-light nativeclick" target="_blank">
                                   <i class="fa fa-toggle-on"></i> Lightswitch
                                 </a> &nbsp;
-                                <a href="http://bit.ly/shinehue" class="not-light nativeclick"  target="_blank">
+                                <a href="http://bit.ly/shinehue" class="not-light nativeclick" target="_blank">
                                   <i class="fa fa-lightbulb-o"></i> Shine
                                 </a> &nbsp;
-                                <a href="http://bit.ly/ambieye" class="not-light nativeclick"  target="_blank">
+                                <a href="http://bit.ly/ambieye" class="not-light nativeclick" target="_blank">
                                   <i class="fa fa-eye"></i> Ambience
                                 </a> &nbsp;
 
@@ -499,24 +501,24 @@
                             </div>
 
                             <div class="pane-body">
-                              <br />
+                              <br>
                               Made with ♥ in New York City.
                             </div>
                         </div>
                       </div>
-                      <div role="tabpanel" class="tab-pane fade in" id="search">
+                      <div role="tabpanel" class="tab-pane fade in  active" id="search">
                         <div class="panel-body">
                           <div class="search">
                             <input type="text" name="colorsearch" id="colorsearch" class="input search-input" placeholder="Search colourlovers.com...">
-                            <button  name="search" type="submit"  id="search" value="search" class="search-submit submit">
+                            <button name="search" type="submit" id="search" value="search" class="search-submit submit">
                             <!--<i class="fa fa-search"></i>-->
                              Search</button>
                              <div class="colorlovers shortcuts">
                                <a href="#search?top">top</a>
                                <a href="#search?new">new</a>
                                <a href="#search?random">random</a>
-                               <a href="#search?back"><span aria-hidden="true">&larr;</span> back</a>
-                               <a href="#search?next">next <span aria-hidden="true">&rarr;</span></a>
+                               <a href="#search?back"><span aria-hidden="true">←</span> back</a>
+                               <a href="#search?next">next <span aria-hidden="true">→</span></a>
                                <b id="search-loading"><i class="fa fa-circle-o-notch fa-spin"></i></b>
                              </div>
                             <div class="search-results center">
@@ -526,48 +528,44 @@
                         </div>
                       </div>
 
-                      <div role="tabpanel" class="tab-pane fade in" id="eye">
+                      <div role="tabpanel" class="tab-pane fade in  active" id="eye">
                         <div class="panel-body">
                           <div class="eye">
                             <a href="#ambieyepermissions" id="ambieyepermissions" class="hightlight">
                               Grant permissions to enable Ambient lights
                             </a>
                             <div class="eye-enabled">
-                              	<div class="eye-switch" id="toggle-ambientweb-wrapper">
-	                              <input id="toggle-ambientweb" class="cmn-toggle cmn-toggle-round" type="checkbox">
-	                              <label for="toggle-ambientweb"></label>
-	                            </div>
-              								<label for="toggle-ambientweb">
-              									Enable Ambient Web Colors
-              								</label>
+                                <div class="eye-switch" id="toggle-ambientweb-wrapper">
+                                <input id="toggle-ambientweb" class="cmn-toggle cmn-toggle-round" type="checkbox">
+                                <label for="toggle-ambientweb"></label>
+                              </div>
+                              <label for="toggle-ambientweb">
+                                Enable Ambient Web Colors
+                              </label>
                             </div>
-              							<div class="web-preview">
-              								<div class="eye-preview">
-              									<img id="ambientpreview" />
-              								</div>
-              								<div class="preview-box"></div>
-              								<div class="preview-box"></div>
-              								<div class="preview-box"></div>
-              							</div>
+                            <div class="web-preview">
+                              <div class="eye-preview">
+                                <img id="ambientpreview">
+                              </div>
+                              <div class="preview-box"></div>
+                              <div class="preview-box"></div>
+                              <div class="preview-box"></div>
+                            </div>
 
                             <div class="eyeoptions">
                               
-                              <div class="btn-group btn-group-xs eye-options" 
-                                   role="group" 
-                                   aria-label="Update speed" 
-                                   id="eye-mode-group"
-                                   data-toggle="buttons">
-                                <button type="button" id="eye-ambient" class="btn btn-primary ">
+                              <div class="btn-group btn-group-xs eye-options" role="group" aria-label="Update speed" id="eye-mode-group" data-toggle="buttons">
+                                <button type="button" id="eye-ambient" class="btn btn-primary">
                                   <i class="fa fa-glass"></i> Ambience
                                 </button>
-                                <button type="button" id="eye-work" class="btn btn-primary ">
+                                <button type="button" id="eye-work" class="btn btn-primary">
                                   <i class="fa fa-laptop"></i> Work
                                 </button>
-                                <button type="button" id="eye-movie" class="btn btn-primary ">
+                                <button type="button" id="eye-movie" class="btn btn-primary">
                                   <i class="fa fa-video-camera"></i> Movie
                                   
                                 </button>
-                                <button type="button" id="eye-gaming" class="btn btn-primary ">
+                                <button type="button" id="eye-gaming" class="btn btn-primary">
                                   <i class="fa fa-gamepad"></i> Gaming
                                 </button>
                               </div>
@@ -618,10 +616,10 @@
                  <a href="http://bit.ly/lightpro" class="nativeclick" target="_blank">
                     <i class="fa fa-toggle-on"></i> Lightswitch Pro
                   </a> &nbsp;
-                  <a href="http://bit.ly/shinehue" class="nativeclick"  target="_blank">
+                  <a href="http://bit.ly/shinehue" class="nativeclick" target="_blank">
                     <i class="fa fa-lightbulb-o"></i> Shine
                   </a> &nbsp;
-                  <a href="http://bit.ly/ambieye" class="nativeclick"  target="_blank">
+                  <a href="http://bit.ly/ambieye" class="nativeclick" target="_blank">
                     <i class="fa fa-eye"></i> Ambience
                   </a> &nbsp;
 
@@ -690,17 +688,17 @@
             -->
 
             
-            &copy; <time>2015</time> 
+            © <time>2015</time> 
             <span class="footer-links">
-              <a href="http://ambieye.com" class='nativeclick'  target="_blank">Ambieye
+              <a href="http://ambieye.com" class="nativeclick" target="_blank">Ambieye
               </a> &nbsp;
-              <a href="http://ambieye.com/terms-of-use.htm" class='nativeclick' target="_blank">
+              <a href="http://ambieye.com/terms-of-use.htm" class="nativeclick" target="_blank">
                 terms
               </a> &nbsp;
-              <a href="http://ambieye.com/privacy-statement.htm" class='nativeclick' target="_blank">
+              <a href="http://ambieye.com/privacy-statement.htm" class="nativeclick" target="_blank">
                 privacy
               </a> &nbsp; 
-              <a href="http://blog.ambieye.com" class='nativeclick' target="_blank">
+              <a href="http://blog.ambieye.com" class="nativeclick" target="_blank">
                 blog
               </a> &nbsp;
               <!--
@@ -765,13 +763,7 @@
               " />
 
         </svg> -->
-
-        <!-- cordova -->
-        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-
-        
-        <script src="scripts/main.min.2015112701.js"></script>
         
     </div><!-- wrapper -->
-  </body>
-</html>
+
+</body></html>

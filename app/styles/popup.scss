@@ -870,6 +870,27 @@ h5 a, h5 a:hover  {
   margin-top: 10px;
 }
 
+.large-list {
+    background: #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+.large-list .item .title {
+    display: block;
+    font-size: 1.5em;
+    font-weight: 100;
+    color: #000;
+}
+.large-list .item .title i {
+    font-size: 0.7em;
+    font-style: normal;
+}
+.large-list .item .desc {
+    font-size: 1em;
+    font-style: normal;
+}
+
+
 #create-group #group-name {
   width: 266px;
   display: table;

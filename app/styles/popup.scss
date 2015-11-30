@@ -281,7 +281,7 @@ input.store-button:hover {
 }
 
 
-.switch {
+.switch.main {
   padding-top: 50px;
   padding-left: 76px;
   position: absolute;
@@ -316,6 +316,7 @@ p {margin: 0 0 5px;}
 
 .selectable {
   -webkit-user-select: initial;
+  cursor: text;
 }
 
 .light-links {
@@ -346,6 +347,7 @@ p {margin: 0 0 5px;}
 }
 .panel-body {
   padding: 0 10px 0px;
+  cursor: default;
 }
 .log-text {
   font-family: monospace;
@@ -871,10 +873,16 @@ h5 a, h5 a:hover  {
 }
 
 .large-list {
-    background: #ccc;
-    padding: 10px;
-    border-radius: 10px;
 }
+
+.large-list .item:hover {
+  background: rgba(234, 234, 234, 0.2);
+}
+.large-list .item {
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .large-list .item .title {
     display: block;
     font-size: 1.5em;
@@ -888,6 +896,11 @@ h5 a, h5 a:hover  {
 .large-list .item .desc {
     font-size: 1em;
     font-style: normal;
+}
+
+.large-list .switch {
+  float:right;
+  padding-top: 8px;
 }
 
 

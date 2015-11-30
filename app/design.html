@@ -109,7 +109,7 @@
                     <div class="row">
                         <div class="col-xs-10 offset">
                             <div id="lamp"></div>
-                            <div class="switch no-drag" id="toggle-lights" style="display: block;">
+                            <div class="main switch no-drag" id="toggle-lights" style="display: block;">
                               <input id="lightswitch" class="cmn-toggle cmn-toggle-round" type="checkbox">
                               <label for="lightswitch"></label>
                             </div>
@@ -345,7 +345,11 @@
                             </div>
                             <div class="large-list">
                               <div class='item'>
-                                <div class="title">11:00 <i>AM</i></div>
+                                <div class="switch no-drag" id="toggle-lights" style="display: block;">
+                                  <input id="lightswitch" class="cmn-toggle cmn-toggle-round active on" type="checkbox" checked="checked">
+                                  <label for="lightswitch"></label>
+                                </div>
+                                <div class="title">11:00 <i>am</i></div>
                                 <div class="desc">Alarm, Turn on lights Door, Wall</div>
                                 <span class="enabled"></span>
                               </div>

@@ -896,6 +896,33 @@ function fillSettings(state) {
           var btn = $('<button type="button" class="schedule savedscene"></button>').text(value.description + ' (' + value.name + ')').attr('id', key);
           btn.click(activateScheduleClick);
           $('#schedules').append(btn);
+
+
+          var desc = '';
+
+          if (value.name === '') {
+            desc = `<b>${value.description}</b>`;
+          } else {
+            desc = `<b>${value.name}</b>`;
+            if (value.description !== '') {
+              desc += ', ' + value.description;
+            }
+          } 
+
+          var scheduleItem = `<div class="item">
+              <div class="switch no-drag">
+                <input id="enable-schedule-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
+                  checked="${value.enabled ? "checked" : ""}">
+                <label for="enable-schedule-${key}"></label>
+              </div>
+              <div class="title">11:00 <i>am</i></div>
+              <div class="desc">${desc}</div>
+            </div>`;
+
+          btn = $(scheduleItem);
+          btn.click(activateScheduleClick);
+          $('#schedules-list').append(btn);
+
         }
 
         

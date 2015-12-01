@@ -910,6 +910,7 @@ function fillSettings(state) {
           } 
 
           var scheduleItem = `<div class="item">
+              <i class="play fa fa-play-circle"></i>
               <div class="switch no-drag">
                 <input id="enable-schedule-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
                   checked="${value.enabled ? "checked" : ""}">
@@ -919,7 +920,7 @@ function fillSettings(state) {
               <div class="desc">${desc}</div>
             </div>`;
 
-          btn = $(scheduleItem);
+          btn = $(scheduleItem).attr('id', key);
           btn.click(activateScheduleClick);
           $('#schedules-list').append(btn);
 

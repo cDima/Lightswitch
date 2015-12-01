@@ -896,11 +896,26 @@ h5 a, h5 a:hover  {
 .large-list .item .desc {
     font-size: 1em;
     font-style: normal;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .large-list .switch {
   float:right;
   padding-top: 8px;
+}
+.large-list .item .play {
+  float: left;  
+  font-size: 1.3em;
+  padding: 6px;
+  color: #ccc;
+  cursor: pointer;
+  padding-top: 10px;
+}
+.large-list .item:hover .play {
+  color:rgb(66, 139, 202);
 }
 
 

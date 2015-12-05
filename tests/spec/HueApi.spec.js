@@ -139,8 +139,8 @@ describe("HueTime", function() {
     expect(r).not.toBeNull();
     expect(r.None).toBe(0); 
     expect(r.Thursday).toBe(8); 
-    expect(r.Weekdays).toBe(124); 
-    expect(r.Alldays).toBe(127); 
+    expect(r.Weekday).toBe(124); 
+    expect(r.Everyday).toBe(127); 
   }); 
 
   it("should init to nulls", function() {

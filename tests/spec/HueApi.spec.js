@@ -75,11 +75,17 @@ class HueTime {
     }
   }
 
+  pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
   toString() {
     var returnValue = null;
     if (this.recurringDay)//recurrenceday
     {
-      returnValue = `W${this.recurringDay}/T${this.timerTime}`;
+      returnValue = `W${this.pad(this.recurringDay, 3)}/T${this.timerTime}`;
     }
     else if (this.timerTime)// timertime only when in timers and weekdays
     {
@@ -185,7 +191,7 @@ describe("HueTime", function() {
     }); 
 
     it("inits with days recurring", function() {
-      var t = "W32/T19:45:00";
+      var t = "W032/T19:45:00";
       var d = new HueTime(t);
       expect(d.dateTime).toBe(null); 
       expect(d.recurringDay).toBe(32); 
@@ -262,6 +268,176 @@ describe("HueTime", function() {
       expect(d.toString()).toBe(t); 
       console.log(d.toHumanString());
     }); 
+
+    it("Sunrise random alrm 2fadedaily", function() {
+      var t = "W127/T07:07:00A00:30:00";
+      var d = new HueTime(t);
+      expect(d.dateTime).toBe(null); 
+      expect(d.recurringDay).toBe(127); 
+      expect(d.numberOfRecurrences).toBe(null); 
+      expect(d.timerTime).toBe("07:07:00"); 
+      expect(d.randomizedTime).toBe("00:30:00"); 
+      expect(d.toString()).toBe(t); 
+      console.log(d.toHumanString());
+    }); 
+
+    it("Alarm beach 9:13pm no repeat", function() {
+      var t = "2015-12-07T21:13:00";
+      var d = new HueTime(t);
+      expect(d.dateTime).toBe("2015-12-07T21:13:00"); 
+      expect(d.recurringDay).toBe(null); 
+      expect(d.numberOfRecurrences).toBe(null); 
+      expect(d.timerTime).toBe(null); 
+      expect(d.randomizedTime).toBe(null); 
+      expect(d.toString()).toBe(t); 
+      console.log(d.toHumanString());
+    }); 
+
+    it("W124/T23:59:00", function() {
+      var t = "W124/T23:59:00";
+      var d = new HueTime(t);
+      expect(d.dateTime).toBe(null); 
+      expect(d.recurringDay).toBe(124); 
+      expect(d.numberOfRecurrences).toBe(null); 
+      expect(d.timerTime).toBe('23:59:00'); 
+      expect(d.randomizedTime).toBe(null); 
+      expect(d.toString()).toBe(t); 
+      console.log(d.toHumanString());
+    }); 
+
+    it("PT00:04:00", function() {
+      var t = "PT00:04:00";
+      var d = new HueTime(t);
+      expect(d.dateTime).toBe(null); 
+      expect(d.recurringDay).toBe(null); 
+      expect(d.numberOfRecurrences).toBe(null); 
+      expect(d.timerTime).toBe('00:04:00'); 
+      expect(d.randomizedTime).toBe(null); 
+      expect(d.toString()).toBe(t); 
+      console.log(d.toHumanString());
+    }); 
+
+    it("W064/T22:01:00", function() {
+      var t = "W064/T22:01:00";
+      var d = new HueTime(t);
+      expect(d.dateTime).toBe(null); 
+      expect(d.recurringDay).toBe(64); 
+      expect(d.numberOfRecurrences).toBe(null); 
+      expect(d.timerTime).toBe('22:01:00'); 
+      expect(d.randomizedTime).toBe(null); 
+      expect(d.toString()).toBe(t); 
+      console.log(d.toHumanString());
+    });
+
+    it("W084/T22:00:00", function() {
+      var t = "W084/T22:00:00";
+      var d = new HueTime(t);
+      expect(d.dateTime).toBe(null); 
+      expect(d.recurringDay).toBe(84); 
+      expect(d.numberOfRecurrences).toBe(null); 
+      expect(d.timerTime).toBe('22:00:00'); 
+      expect(d.randomizedTime).toBe(null); 
+      expect(d.toString()).toBe(t); 
+      console.log(d.toHumanString());
+    });
+
+
+
+
+/*
+  "7435031860821904": {
+    "name": "Sunrise random alrm 2fadedaily",
+    "description": "Sunset",
+    "command": {
+      "address": "/api/PKSjRbUoPH6IcBsm/groups/0/action",
+      "body": {
+        "scene": "087f88f52-on-2"
+      },
+      "method": "PUT"
+    },
+    "localtime": "W127/T07:07:00A00:30:00",
+    "time": "W127/T12:07:00A00:30:00",
+    "created": "2015-12-07T02:00:57",
+    "status": "enabled"
+  },
+  "2477469222305790": {
+    "name": "Alarm",
+    "description": "",
+    "command": {
+      "address": "/api/PKSjRbUoPH6IcBsm/groups/0/action",
+      "body": {
+        "scene": "02b12e930-off-0"
+      },
+      "method": "PUT"
+    },
+    "localtime": "W124/T23:59:00",
+    "time": "W062/T04:59:00",
+    "created": "2015-01-29T12:58:07",
+    "status": "enabled"
+  },
+  "3138920733877920": {
+    "name": "Timer",
+    "description": "",
+    "command": {
+      "address": "/api/PKSjRbUoPH6IcBsm/groups/0/action",
+      "body": {
+        "scene": "02b12e930-off-0"
+      },
+      "method": "PUT"
+    },
+    "time": "PT00:04:00",
+    "created": "2015-01-29T12:58:54",
+    "status": "disabled",
+    "autodelete": false,
+    "starttime": "2015-01-29T12:58:54"
+  },
+  "4898553139813510": {
+    "name": "Alarm beach 9:13pm no repeat",
+    "description": "Beach",
+    "command": {
+      "address": "/api/PKSjRbUoPH6IcBsm/groups/0/action",
+      "body": {
+        "scene": "809f9686c-on-0"
+      },
+      "method": "PUT"
+    },
+    "localtime": "2015-12-07T21:13:00",
+    "time": "2015-12-08T02:13:00",
+    "created": "2015-12-07T02:01:54",
+    "status": "enabled",
+    "autodelete": false
+  },
+  "4125118938878359": {
+    "name": "4 Lights off 10pm mon wed thur",
+    "description": "",
+    "command": {
+      "address": "/api/PKSjRbUoPH6IcBsm/groups/0/action",
+      "body": {
+        "scene": "39c55fe21-off-3"
+      },
+      "method": "PUT"
+    },
+    "localtime": "W084/T22:00:00",
+    "time": "W042/T03:00:00",
+    "created": "2015-12-07T02:03:13",
+    "status": "enabled"
+  },
+  "2408037275213699": {
+    "name": "Alarm 10pm feetup monday",
+    "description": "Feet up",
+    "command": {
+      "address": "/api/PKSjRbUoPH6IcBsm/groups/0/action",
+      "body": {
+        "scene": "33300ac17-on-1"
+      },
+      "method": "PUT"
+    },
+    "localtime": "W064/T22:01:00",
+    "time": "W032/T03:01:00",
+    "created": "2015-12-07T02:04:36",
+    "status": "enabled"
+  }
+*/
 
   });
 

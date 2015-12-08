@@ -7,20 +7,20 @@ var testData = {
     "1": {
       "state": {
         "on": false,
-        "bri": 89,
-        "hue": 48067,
-        "sat": 254,
+        "bri": 200,
+        "hue": 10023,
+        "sat": 250,
         "effect": "none",
         "xy": [
-          0.1582,
-          0.0872
+          0.5753,
+          0.4108
         ],
         "alert": "none",
-        "colormode": "xy",
+        "colormode": "hs",
         "reachable": true
       },
       "type": "Color light",
-      "name": "Hue bloom 1",
+      "name": "Campana",
       "modelid": "LLC011",
       "manufacturername": "Philips",
       "uniqueid": "00:17:88:01:00:c4:db:85-0b",
@@ -39,21 +39,21 @@ var testData = {
     "2": {
       "state": {
         "on": false,
-        "bri": 87,
-        "hue": 47678,
-        "sat": 254,
+        "bri": 1,
+        "hue": 10023,
+        "sat": 250,
         "effect": "none",
         "xy": [
-          0.17,
-          0.0557
+          0.4856,
+          0.4603
         ],
-        "ct": 153,
+        "ct": 413,
         "alert": "none",
-        "colormode": "xy",
+        "colormode": "hs",
         "reachable": true
       },
       "type": "Extended color light",
-      "name": "Hue lightstrip plus 1",
+      "name": "Office 1",
       "modelid": "LST002",
       "manufacturername": "Philips",
       "uniqueid": "00:17:88:01:01:1a:9b:b0-0b",
@@ -72,21 +72,21 @@ var testData = {
     "3": {
       "state": {
         "on": false,
-        "bri": 105,
-        "hue": 47678,
-        "sat": 254,
+        "bri": 1,
+        "hue": 10023,
+        "sat": 250,
         "effect": "none",
         "xy": [
-          0.17,
-          0.0557
+          0.4856,
+          0.4603
         ],
-        "ct": 153,
+        "ct": 413,
         "alert": "none",
-        "colormode": "xy",
+        "colormode": "hs",
         "reachable": true
       },
       "type": "Extended color light",
-      "name": "Hue lightstrip plus 2",
+      "name": "Office 2",
       "modelid": "LST002",
       "manufacturername": "Philips",
       "uniqueid": "00:17:88:01:01:1a:9b:b4-0b",
@@ -105,21 +105,21 @@ var testData = {
     "4": {
       "state": {
         "on": false,
-        "bri": 109,
-        "hue": 47678,
+        "bri": 0,
+        "hue": 17412,
         "sat": 254,
         "effect": "none",
         "xy": [
-          0.17,
-          0.0557
+          0.3217,
+          0.3291
         ],
-        "ct": 153,
+        "ct": 380,
         "alert": "none",
-        "colormode": "xy",
-        "reachable": true
+        "colormode": "ct",
+        "reachable": false
       },
       "type": "Extended color light",
-      "name": "Hue lightstrip plus 3",
+      "name": "Isla 1",
       "modelid": "LST002",
       "manufacturername": "Philips",
       "uniqueid": "00:17:88:01:01:1a:9b:b6-0b",
@@ -134,22 +134,146 @@ var testData = {
         "7": "none",
         "8": "none"
       }
+    },
+    "5": {
+      "state": {
+        "on": false,
+        "bri": 0,
+        "hue": 0,
+        "sat": 0,
+        "effect": "none",
+        "xy": [
+          0.321,
+          0.3281
+        ],
+        "ct": 380,
+        "alert": "none",
+        "colormode": "hs",
+        "reachable": false
+      },
+      "type": "Extended color light",
+      "name": "Isla 2",
+      "modelid": "LST002",
+      "manufacturername": "Philips",
+      "uniqueid": "00:17:88:01:01:1a:9b:bc-0b",
+      "swversion": "66015744",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "6": {
+      "state": {
+        "on": false,
+        "bri": 1,
+        "hue": 10023,
+        "sat": 250,
+        "effect": "none",
+        "xy": [
+          0.5753,
+          0.4108
+        ],
+        "alert": "none",
+        "colormode": "hs",
+        "reachable": false
+      },
+      "type": "Color light",
+      "name": "Vitrina",
+      "modelid": "LST001",
+      "manufacturername": "Philips",
+      "uniqueid": "00:17:88:01:00:cd:c8:e5-0b",
+      "swversion": "66013452",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
+    },
+    "7": {
+      "state": {
+        "on": false,
+        "bri": 1,
+        "hue": 10023,
+        "sat": 250,
+        "effect": "none",
+        "xy": [
+          0.5678,
+          0.3984
+        ],
+        "ct": 500,
+        "alert": "none",
+        "colormode": "hs",
+        "reachable": false
+      },
+      "type": "Extended color light",
+      "name": "Foco Hornos",
+      "modelid": "LCT003",
+      "manufacturername": "Philips",
+      "uniqueid": "00:17:88:01:00:e8:e4:32-0b",
+      "swversion": "66013105",
+      "pointsymbol": {
+        "1": "none",
+        "2": "none",
+        "3": "none",
+        "4": "none",
+        "5": "none",
+        "6": "none",
+        "7": "none",
+        "8": "none"
+      }
     }
   },
-  "groups": {},
+  "groups": {
+    "1": {
+      "name": "HPMusicGroup",
+      "lights": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "type": "LightGroup",
+      "action": {
+        "on": false,
+        "bri": 0,
+        "hue": 0,
+        "sat": 0,
+        "effect": "none",
+        "xy": [
+          0.321,
+          0.3281
+        ],
+        "ct": 380,
+        "alert": "none",
+        "colormode": "hs"
+      }
+    }
+  },
   "config": {
     "name": "Philips hue",
     "zigbeechannel": 11,
     "bridgeid": "001788FFFE17446F",
     "mac": "00:17:88:17:44:6f",
     "dhcp": true,
-    "ipaddress": "192.168.1.11",
+    "ipaddress": "192.168.1.12",
     "netmask": "255.255.255.0",
     "gateway": "192.168.1.3",
     "proxyaddress": "none",
     "proxyport": 0,
-    "UTC": "2015-11-28T15:36:58",
-    "localtime": "2015-11-28T16:36:58",
+    "UTC": "2015-12-07T22:28:19",
+    "localtime": "2015-12-07T23:28:19",
     "timezone": "Europe/Madrid",
     "modelid": "BSB001",
     "swversion": "01028090",
@@ -183,14 +307,29 @@ var testData = {
     },
     "whitelist": {
       "ffffffffed371996ffffffffa0360cc7": {
-        "last use date": "2015-11-28T15:23:46",
+        "last use date": "2015-12-07T22:09:28",
         "create date": "2015-11-28T15:02:20",
         "name": "Hue#Zuk Z1"
       },
       "lightswitch-v4": {
-        "last use date": "2015-11-28T15:36:58",
+        "last use date": "2015-12-06T22:39:31",
         "create date": "2015-11-28T15:33:44",
         "name": "lightswitch-v4"
+      },
+      "39c35f4aeafd3d737313bb61e7f92f3": {
+        "last use date": "2015-12-07T21:54:31",
+        "create date": "2015-12-06T11:31:12",
+        "name": "HueProApp#Z1"
+      },
+      "wTEqFYBjjcryMCiX": {
+        "last use date": "2015-12-07T22:09:28",
+        "create date": "2015-12-07T21:46:01",
+        "name": "Huemanic"
+      },
+      "28ee02c330e54d2f207c2bbb771d8a7": {
+        "last use date": "2015-12-07T22:28:19",
+        "create date": "2015-12-07T22:27:32",
+        "name": "lightswitch-v5"
       }
     }
   },
@@ -218,6 +357,5 @@ var testData = {
     }
   }
 };
-
 //var testData = null;
 /* jshint ignore:end */

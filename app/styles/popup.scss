@@ -281,7 +281,7 @@ input.store-button:hover {
 }
 
 
-.switch {
+.switch.main {
   padding-top: 50px;
   padding-left: 76px;
   position: absolute;
@@ -314,6 +314,11 @@ p {margin: 0 0 5px;}
   padding-bottom: 10px;
 }
 
+.selectable {
+  -webkit-user-select: initial;
+  cursor: text;
+}
+
 .light-links {
   text-decoration: none;
   font-size: 0.8em;
@@ -324,6 +329,11 @@ p {margin: 0 0 5px;}
 
 .light-links > div {
   line-height: 1.9em;
+}
+
+.padded-links {
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 
 .tab-pane{
@@ -337,6 +347,7 @@ p {margin: 0 0 5px;}
 }
 .panel-body {
   padding: 0 10px 0px;
+  cursor: default;
 }
 .log-text {
   font-family: monospace;
@@ -842,17 +853,79 @@ h5 a, h5 a:hover  {
   float: right;
   text-decoration: none;
 }
-#create-group {
+#create-group, .rounded-well {
   background: #F5F5F5;
   border-radius: 20px;
 }
+.rounded-well #scene-name {
+  width: 266px;
+  display: table;
+  margin-bottom: 0;
+}
+.rounded-well .input {
+  height: 23px;
+  margin: 10px 0px 10px 10px;
+}
+.rounded-well .submit {
+  height: 23px;
+  background: #678389;
+  margin-top: 10px;
+}
+
+.large-list {
+}
+
+.large-list .item:hover {
+  background: rgba(234, 234, 234, 0.2);
+}
+.large-list .item {
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.large-list .item .title {
+    display: block;
+    font-size: 1.5em;
+    font-weight: 100;
+    color: #000;
+}
+.large-list .item .title i {
+    font-size: 0.7em;
+    font-style: normal;
+}
+.large-list .item .desc {
+    font-size: 1em;
+    font-style: normal;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.large-list .switch {
+  float:right;
+  padding-top: 8px;
+}
+.large-list .item .play {
+  float: left;  
+  font-size: 1.3em;
+  padding: 6px;
+  color: #ccc;
+  cursor: pointer;
+  padding-top: 10px;
+}
+.large-list .item:hover .play {
+  color:rgb(66, 139, 202);
+}
+
+
 #create-group #group-name {
   width: 266px;
   display: table;
   margin-bottom: 0;
 }
 #group-name .input {
-  width: auto;
+  /*width: auto;*/
   height: 23px;
   margin: 10px 0px 10px 10px;
 }

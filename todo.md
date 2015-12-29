@@ -1,5 +1,37 @@
 Todo:
 
+* Ease main.min.js file renaming (three places: gulp, index, tests).
+* remove hue.getBridgeState since it's mapped to getLightState
+* test tvos ui & discovery alert
+* don't store same ip and key again to storage on successful find
+
+* `gulp web --prod` done // ambieye.com
+* `gulp light --prod` 
+* `gulp pro --prod` done, // chrome lightswitch pro
+* `gulp eye --prod` done // chrome ambience
+* `gulp app --prod` done // chrome shine
+* `gulp win --prod`  // windows
+* android - free - done
+* android - paid - done
+* 
+
+* ios native screen widget
+* ios homekit
+
+Android: 
+- gulp web
+- update version in shine/config
+- android-deploy.cmd
+- cordova emulate android
+- open android studio
+- sign with /shine/key/...
+
+
+
+
+
+Future:
+
 - valentine day scene
 - ambient eye
 	- timing of ambieye: movie mode/ game mode / work mode 

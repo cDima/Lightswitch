@@ -58,8 +58,8 @@
           content="http://applinks.org/documentation" />
  -->
 
-    <!-- Bootstrap Core CSS -->
-    <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Core CSS 
+    <link href="styles/bootstrap.min.css" rel="stylesheet">-->
     <link href="styles/slider.css" rel="stylesheet">
     <link href="styles/popup.css" rel="stylesheet">
     <link href="styles/switch.css" rel="stylesheet">
@@ -70,11 +70,9 @@
     <script src="scripts/libs/modernizr.custom.min.js"></script>
     <!-- endbuild -->
 
-    <!-- web components - not allowed by chrome unsafe-inline CSP 
-    <script src="bower_components/Webcomponentsjs/webcomponents.js"></script>
-    <link rel="import" href="bower_components/voice-elements/dist/voice-player.html">
-    <link rel="import" href="bower_components/voice-elements/dist/voice-recognition.html">
-    -->
+
+    <link href="/bower_components/Materialize/dist/css/materialize.css" rel="stylesheet" type="text/css">
+
   </head>
 
 
@@ -109,7 +107,7 @@
                     <div class="row">
                         <div class="col-xs-10 offset">
                             <div id="lamp"></div>
-                            <div class="switch no-drag" id="toggle-lights">
+                            <div class="main switch no-drag" id="toggle-lights">
                               <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
                               <label for="lightswitch"></label>
                             </div>
@@ -124,6 +122,21 @@
             </div>
         </header>
 
+
+
+  <div class="">
+    <div class="">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 <!--fa-toggle-off -->
         <div class="container footer-padding">
 
@@ -137,6 +150,65 @@
           <div id="https-proxy"  style="display:none">
             To use this application, please install the Chrome extension <a href="http://bit.ly/lightpro" class="not-light" target="_blank"><i class="fa fa-toggle-on"></i> Lightswitch Pro »</a>
           </div>
+
+
+          <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+
+                <li role="presentation" class="tab col s3 waves-effect waves-yellow active">
+                  <a href="#home" role="tab" data-toggle="tab">  
+                    <i class="fa fa-gear"></i> 
+                    <b class="tab-text not-pro">&nbsp; Lights</b>
+                  </a>
+                </li>
+                <li role="presentation" class="tab col s3 waves-effect waves-yellow config-moods">
+                  <a href="#moods" role="tab" data-toggle="tab">
+                    <i class="fa fa-paint-brush"></i>
+                    <!--Moods--> 
+                    <b class="tab-text not-pro">&nbsp; 
+                      Scenes
+                    </b>
+                  </a>
+                </li>
+                <li role="presentation" class="tab col s3 waves-effect waves-yellow config-colors">
+                  <a href="#colors" role="tab" data-toggle="tab">
+                    <!--Colors-->
+                    <i class="fa fa-eyedropper"></i>
+                    <b class="tab-text not-pro">&nbsp;
+                      Colors
+                    </b>
+                  </a>
+                </li>
+                <li role="presentation" class="tab col s3 waves-effect waves-yellow config-search">
+                  <a href="#search" role="tab" data-toggle="tab">
+                    <i class="fa fa-binoculars"></i>
+                    <b class="tab-text not-pro">&nbsp;
+                      Search
+                    </b>
+                  </a>
+                </li>
+                <li role="presentation" class="tab col s3 waves-effect waves-yellow config-ambieye" style="display:none;">
+                  <a href="#eye" role="tab" data-toggle="tab">
+                    <i class="fa fa-eye"></i>
+                    <b class="tab-text not-pro">&nbsp;Ambience</b>
+                  </a>
+                </li>
+                <li role="presentation" class="tab col s3 waves-effect waves-yellow config-feedback">
+                  <a href="#subscribe" role="tab" data-toggle="tab">
+                    <i class="fa fa-paper-plane"></i> 
+                    <b class="tab-text not-pro">&nbsp;
+                    Feedback
+                    </b>
+                  </a>
+                </li>
+                
+
+              </ul>
+            </div>
+          </div>
+        
+
           <div id="controls" style="display:none">
             <div class="row">
                 <div class="">
@@ -150,25 +222,29 @@
                       <li role="presentation" class="config-moods">
                         <a href="#moods" role="tab" data-toggle="tab">
                           <i class="fa fa-paint-brush"></i>
-                        <!--Moods--> 
-                        <b class="tab-text not-pro">&nbsp; Scenes</b>
+                          <!--Moods--> 
+                          <b class="tab-text not-pro">&nbsp; 
+                            Scenes
+                          </b>
                         </a>
                       </li>
                       <li role="presentation" class="config-colors">
                         <a href="#colors" role="tab" data-toggle="tab">
-                      <!--Colors-->
-                        <i class="fa fa-eyedropper"></i>
-                        <b class="tab-text not-pro">&nbsp;
-                        Colors
-                        </b>
-                      </a></li>
+                          <!--Colors-->
+                          <i class="fa fa-eyedropper"></i>
+                          <b class="tab-text not-pro">&nbsp;
+                            Colors
+                          </b>
+                        </a>
+                      </li>
                       <li role="presentation" class="config-search">
                         <a href="#search" role="tab" data-toggle="tab">
-                        <i class="fa fa-binoculars"></i>
-                        <b class="tab-text not-pro">&nbsp;
-                        Search
-                        </b>
-                      </a></li>
+                          <i class="fa fa-binoculars"></i>
+                          <b class="tab-text not-pro">&nbsp;
+                            Search
+                          </b>
+                        </a>
+                      </li>
                       <li role="presentation" class="config-ambieye">
                         <a href="#eye" role="tab" data-toggle="tab">
                         <i class="fa fa-eye"></i>
@@ -224,6 +300,13 @@
                             <div id="groups"></div>
                             <h5>Lamps</h5>
                             <div id="lamps"></div>
+                            <h5>Bridge info</h5>
+                            <div id="bridge" class="selectable">
+                              <div class="padded-links" id="config-ip"></div>
+                              <div class="padded-links" id="config-swversion"></div>
+                              <div class="padded-links" id="config-actor"></div>
+                            </div>
+
                             <!--<h5>Keep in touch</h5>
                              <div class="pane-body">
                               <a href="https://www.facebook.com/ambieye"
@@ -242,62 +325,7 @@
                               </a>
 
                             </div>--> 
-                            <h5>Links</h5>
-                            <div class="" style="padding-left: 10px;padding-bottom: 10px;">
-                               <a href="http://bit.ly/lightpro" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-toggle-on"></i> Lightswitch
-                                </a> &nbsp;
-                                <a href="http://bit.ly/shinehue" class="not-light nativeclick"  target="_blank">
-                                  <i class="fa fa-lightbulb-o"></i> Shine
-                                </a> &nbsp;
-                                <a href="http://bit.ly/ambieye" class="not-light nativeclick"  target="_blank">
-                                  <i class="fa fa-eye"></i> Ambience
-                                </a> &nbsp;
-
-                            </div>
-                            <div class="" style="padding-left: 10px; padding-bottom: 10px;">
-                                <a href="http://ambieye.com/win" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-windows"></i> Windows 7+
-                                </a> &nbsp;              
-                                <a href="http://play.google.com/store/apps/details?id=com.ambieye.android" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-android"></i> Android
-                                </a> &nbsp;
-                                <a href="https://itunes.apple.com/us/app/ambieye-for-philips-hue/id971945102" class=" nativeclick not-light" target="_blank">
-                                  <i class="fa fa-apple"></i> iOS
-                                </a> &nbsp; 
-                            </div>
-                            <div class="" style="padding-left: 10px;padding-bottom: 10px;">
-                                <a href="https://www.facebook.com/ambieye" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-facebook"></i> Facebook
-                                </a> &nbsp;
-                                <a href="https://twitter.com/ambieye" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-twitter"></i> Twitter
-                                </a> &nbsp;
-                                <a href="https://plus.google.com/u/0/b/103745234332101043763/+ApistarterOnline/posts" class="not-light nativeclick" target="_blank">
-                                  <i class="fa fa-google-plus"></i> Google+
-                                </a> &nbsp;
-                              <!-- <input type="button" 
-                                value="Lightswitch »" 
-                                class="store-button nativeclick" 
-                                href="http://bit.ly/lightpro" />
-                              <input 
-                                type="button" 
-                                value="Shine »" 
-                                class="store-button nativeclick"
-                                href="http://bit.ly/shinehue" />
-                              <input type="button" value="Ambience »" class="store-button"
-                              href="http://bit.ly/ambieye" />
-                             <span class="store-buttons">
-                                 <a href="http://bit.ly/lightpro" target="_blank">
-                                  <span class="chromewebstore"></span>
-                                  <i class="fa fa-toggle-on"></i> Lightswitch Pro »
-                                </a> &nbsp;
-                                <a href="http://bit.ly/shinehue" target="_blank">
-                                  <span class="chromewebstore"></span>
-                                  <i class="fa fa-lightbulb-o"></i> Shine »
-                                </a> 
-                              </span>-->
-                            </div>
+                            
                             <!--
                             <div class="pane-body applinks only-pro">
                               <a href="https://chrome.google.com/webstore/detail/lightswitch-for-philips-h/ahcbfmbmpojngalhbkkggbfamgmkneoo/reviews" target="_blank">
@@ -368,8 +396,38 @@
                           <h5 class="colors-name">Daytime</h5>
                           <h5 class="colors-name">Afternoon</h5>-->
                           <br />
-                          <h5>Portal Scenes</h5>
+                          <h5>
+                            Bridge Scenes 
+                            <a id="make-scene" href="#"><i class="fa fa-pencil"></i></a>
+                          </h5>
+                          <div id="create-scene" class="rounded-well">
+                            <p id="scene-name">
+                              <input class="scenename input" placeholder="Enter scene name..." />
+                              <button class="submit" name="Create scene" type="submit"  id="add-scene" value="Add">Save</button>
+                            </p>
+                          </div>
+
                           <div id="scenes"></div>
+
+                          <br />
+                          <div>
+                            <h5>Schedules
+                             <!-- <a id="make-schedule" href="#"><i class="fa fa-pencil"></i></a>-->
+                            </h5>
+
+                            <!--<div id="create-schedule" class="rounded-well">
+                              <p id="schedule-name">
+                                <input class="scenename input" placeholder="Enter schedule name..." />
+                                <button class="submit" name="Create schedule" type="submit"  id="add-schedule" value="Add">Save</button>
+                              </p>
+                            </div>-->
+                            <div id="schedules"></div>
+
+                            <div id="schedules-list" class="large-list">
+                              
+                            </div>
+
+                          </div>
                       </div>
                       </div>
 
@@ -461,9 +519,66 @@
 
                               </div>
                             </div>
+                            <h5>Links</h5>
+                            <div class="padded-links">
+                               <a href="http://bit.ly/lightpro" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-toggle-on"></i> Lightswitch
+                                </a> &nbsp;
+                                <a href="http://bit.ly/shinehue" class="not-light nativeclick"  target="_blank">
+                                  <i class="fa fa-lightbulb-o"></i> Shine
+                                </a> &nbsp;
+                                <a href="http://bit.ly/ambieye" class="not-light nativeclick"  target="_blank">
+                                  <i class="fa fa-eye"></i> Ambience
+                                </a> &nbsp;
+
+                            </div>
+                            <div class="padded-links">
+                                <a href="http://ambieye.com/win" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-windows"></i> Windows 7+
+                                </a> &nbsp;              
+                                <a href="http://play.google.com/store/apps/details?id=com.ambieye.android" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-android"></i> Android
+                                </a> &nbsp;
+                                <a href="https://itunes.apple.com/us/app/ambieye-for-philips-hue/id971945102" class=" nativeclick not-light" target="_blank">
+                                  <i class="fa fa-apple"></i> iOS
+                                </a> &nbsp; 
+                            </div>
+                            <div class="padded-links">
+                                <a href="https://www.facebook.com/ambieye" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-facebook"></i> Facebook
+                                </a> &nbsp;
+                                <a href="https://twitter.com/ambieye" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-twitter"></i> Twitter
+                                </a> &nbsp;
+                                <a href="https://plus.google.com/u/0/b/103745234332101043763/+ApistarterOnline/posts" class="not-light nativeclick" target="_blank">
+                                  <i class="fa fa-google-plus"></i> Google+
+                                </a> &nbsp;
+                              <!-- <input type="button" 
+                                value="Lightswitch »" 
+                                class="store-button nativeclick" 
+                                href="http://bit.ly/lightpro" />
+                              <input 
+                                type="button" 
+                                value="Shine »" 
+                                class="store-button nativeclick"
+                                href="http://bit.ly/shinehue" />
+                              <input type="button" value="Ambience »" class="store-button"
+                              href="http://bit.ly/ambieye" />
+                             <span class="store-buttons">
+                                 <a href="http://bit.ly/lightpro" target="_blank">
+                                  <span class="chromewebstore"></span>
+                                  <i class="fa fa-toggle-on"></i> Lightswitch Pro »
+                                </a> &nbsp;
+                                <a href="http://bit.ly/shinehue" target="_blank">
+                                  <span class="chromewebstore"></span>
+                                  <i class="fa fa-lightbulb-o"></i> Shine »
+                                </a> 
+                              </span>-->
+                            </div>
+
                             <div class="pane-body">
-                            <!--<br />
-                            Made with ♥ in New York City.-->
+                              <br />
+                              Made with ♥ in New York City.
                             </div>
                         </div>
                       </div>
@@ -642,7 +757,7 @@
             </div>
           -->
 
-            <div class="only-light">
+            <!--<div class="only-light">
               <input type="button" value="Pro »" class="store-button"
                     onclick="window.open('http://bit.ly/lightpro','_blank');" />
               <input type="button" value="Shine »" class="store-button"
@@ -650,19 +765,20 @@
               <input type="button" value="Ambience »" class="store-button" 
               onclick="window.open('http://bit.ly/ambieye','_blank');"/>
             </div>
+            -->
 
             
             &copy; <time>2015</time> 
             <span class="footer-links">
-              <a href="http://ambieye.com"  target="_blank">Ambieye
+              <a href="http://ambieye.com" class='nativeclick'  target="_blank">Ambieye
               </a> &nbsp;
-              <a href="http://ambieye.com/terms-of-use.htm" target="_blank">
+              <a href="http://ambieye.com/terms-of-use.htm" class='nativeclick' target="_blank">
                 terms
               </a> &nbsp;
-              <a href="http://ambieye.com/privacy-statement.htm" target="_blank">
+              <a href="http://ambieye.com/privacy-statement.htm" class='nativeclick' target="_blank">
                 privacy
               </a> &nbsp; 
-              <a href="http://blog.ambieye.com" target="_blank">
+              <a href="http://blog.ambieye.com" class='nativeclick' target="_blank">
                 blog
               </a> &nbsp;
               <!--
@@ -732,33 +848,8 @@
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
         
-        <!-- build:js scripts/main201504221.js -->
-        <script src="scripts/libs/jquery-1.11.1.min.js"></script>
-        <script src="scripts/libs/bootstrap.min.js"></script>
-        <script src="scripts/libs/bootstrap-slider.min.js"></script>
-		    <script src="scripts/libs/color-thief.min.js"></script>
-        <script src="scripts/config.js"></script>
-        <script src="scripts/config.features.js"></script>
-        <script src="scripts/libs/ga.js"></script>
-        <script src="scripts/libs/storage.js"></script>
-        <script src="scripts/libs/uservoice.js"></script>
-      	<script src="scripts/libs/colors.js"></script>
-        <script src="scripts/libs/palettes.js"></script>  
-        <script src="scripts/libs/sequence.js"></script>  
-        <script src="scripts/libs/ambient.js"></script>  
-        <script src="scripts/libs/scenes.js"></script>  
-        <script src="scripts/libs/sceneCommander.js"></script>  
-        <script src="scripts/libs/testData.js"></script>
-        <script src="scripts/libs/hueDiscover.js"></script>  
-      	<script src="scripts/libs/hue.js"></script>  
-        <script src="scripts/libs/colorUtil.js"></script>
-        <script src="scripts/libs/hueCommander.js"></script>
-        <script src="scripts/libs/voice.js"></script>
-        <script src="scripts/libs/hueProxy.js"></script>
-        <script src="scripts/popup.js"></script>  
-        <!-- endbuild -->
-
-
+        <script src="scripts/main.min.2015112701.js"></script>
+        
     </div><!-- wrapper -->
   </body>
 </html>

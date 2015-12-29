@@ -15,18 +15,7 @@
 'use strict';
 
 var hueCommander = function ($, hue, colorUtil, sceneCmd) { 
-    if (typeof String.prototype.endsWith !== 'function') {
-        String.prototype.endsWith = function(suffix) {
-            return this.indexOf(suffix, this.length - suffix.length) !== -1;
-        };
-    }
-     
-    if (typeof String.prototype.startsWith !== 'function') {
-        String.prototype.startsWith = function(prefix) {
-            return this.indexOf(prefix) !== -1;
-        };
-    }
-
+    
     var logger = null,
         actorId = null,
         stateCache = null,
@@ -118,7 +107,12 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
 
                     sceneCmd.start(sceneName, lampids);
                     return sceneName;
-                }
+                } else if (command.lastIndexOf('schedule:', 0) === 0) {
+                    var scheduleId = command.substring('schedule:'.length);
+                    hue.startSchedule(scheduleId);
+                    return;
+                } 
+
             }
         },
         parseJson = function(cmd){
@@ -212,12 +206,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         discover = function(ip){
             hue.discover(ip);
         }, 
-        onStatusChange = function(onStatus){
-            hue.onStatusChange(onStatus);
-        }, 
-        setIp = function(ip){
-            hue.setIp(ip);
-        }, 
         heartbeat = function(){
             hue.heartbeat();
         },
@@ -226,6 +214,10 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         removeGroup = function(key){
             hue.removeGroup(key);
+        },
+        createScene = function(key){
+            var lampIds = hue.getLampIds(actorId);
+            hue.createScene(key, lampIds);
         },
         refresh =  function(){
             hue.refresh();
@@ -273,12 +265,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         discover: function(ip) {
             discover(ip);
         }, 
-        onStatusChange: function(onStatus){
-            onStatusChange(onStatus);
-        },
-        setIp: function(ip){
-            setIp(ip);
-        }, 
         heartbeat: function(){
             heartbeat();
         },
@@ -288,6 +274,10 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
         },
         removeGroup: function(key){
             removeGroup(key);
+        },
+        createScene: function(name){
+            //name, lampIds){
+            createScene(name);
         },
         refresh: function(){
             refresh();
@@ -310,24 +300,6 @@ var hueCommander = function ($, hue, colorUtil, sceneCmd) {
     };
 };
 
-/*
-function executeBrightness(val){
-  window.hueCommander.command('bri:' + val);   
-  return false;
-}
-
-function executeToggle(on){
-  window.hueCommander.command(on ? 'on' : 'off');   
-  return false;
-}
-function executeHrefCommand() {
-  
-  var command = $(this).attr('href');
-  executeCommand(command);
-  return false;
-}
-*/
-
 
 function executeCommand(command) {
   window.hueCommander.command(command);
@@ -340,4 +312,11 @@ function activatedScene(key){
   $('.scene').removeClass('active');
   $('#scenes button[id="' + key + '"]').addClass('active');
   $('.scene[data-scene="' + key + '"]').addClass('active');
+}
+
+function activatedSchedule(key){
+  $('#schedule button').removeClass('active');
+  $('.schedule').removeClass('active');
+  $('#schedule button[id="schedule-' + key + '"]').addClass('active');
+  $('.schedule[data-schedule="' + key + '"]').addClass('active');
 }

@@ -1,8 +1,6 @@
 node_modules
-.sass-cache
+dist
 .tmp
-
-dist.zip
-
-#shine/platforms/ios/www
-#shine/www/
+app.yaml
+*.scssc
+shine/www

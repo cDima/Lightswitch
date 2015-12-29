@@ -410,3 +410,47 @@ To disable web storage backup to iCloud, set the BackupWebStorage preference to 
 
 2015-07-02 17:36:05.199 Ambieye[17538:3719779] Resetting plugins due to page load.
 2015-07-02 17:36:05.599 Ambieye[17538:3719779] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/7371710D-B2A9-464A-A517-BA43910D4CCA/data/Containers/Bundle/Application/A9BADEC8-170F-464C-88EC-3A9AAE039773/Ambieye.app/www/index.html
+2015-11-20 23:14:42.088 Ambieye[3804:61236] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/86F9EDD5-BDE7-42F6-83A3-54EB5B908331/data/Containers/Data/Application/3ECA004D-E6AA-49D0-B130-3B70DB5A6626/Library/Cookies/com.ambieye.shine.binarycookies
+2015-11-20 23:14:42.307 Ambieye[3804:61236] Apache Cordova native platform version 3.7.0 is starting.
+2015-11-20 23:14:42.308 Ambieye[3804:61236] Multi-tasking -> Device: YES, App: YES
+2015-11-20 23:14:42.317 Ambieye[3804:61236] Unlimited access to network resources
+2015-11-20 23:14:42.323 Ambieye[3804:61236] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-11-20 23:14:42.833 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:14:43.550 Ambieye[3804:61236] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/86F9EDD5-BDE7-42F6-83A3-54EB5B908331/data/Containers/Bundle/Application/89D9B9E6-5AE1-4009-B0CF-A7C5C56AC8AC/Ambieye.app/www/index.html
+2015-11-20 23:14:43.610 Ambieye[3804:61274] App Transport Security has blocked a cleartext HTTP (http://) resource load since it is insecure. Temporary exceptions can be configured via your app's Info.plist file.
+2015-11-20 23:15:41.356 Ambieye[3804:61236] THREAD WARNING: ['InAppBrowser'] took '45.994141' ms. Plugin should use a background thread.
+2015-11-20 23:15:58.446 Ambieye[3804:61236] CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:15:58.446 Ambieye[3804:61236] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:15:58.448 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:15:58.448 Ambieye[3804:61236] IAB.close() called but it was already closed.
+2015-11-20 23:15:58.451 Ambieye[3804:61236] Failed to load webpage with error: The resource could not be loaded because the App Transport Security policy requires the use of a secure connection.
+2015-11-20 23:16:00.575 Ambieye[3804:61236] CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:00.575 Ambieye[3804:61236] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:00.576 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:16:00.576 Ambieye[3804:61236] IAB.close() called but it was already closed.
+2015-11-20 23:16:00.577 Ambieye[3804:61236] Failed to load webpage with error: The resource could not be loaded because the App Transport Security policy requires the use of a secure connection.
+2015-11-20 23:16:01.426 Ambieye[3804:61236] CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:01.426 Ambieye[3804:61236] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:01.427 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:16:01.427 Ambieye[3804:61236] IAB.close() called but it was already closed.
+2015-11-20 23:16:01.428 Ambieye[3804:61236] Failed to load webpage with error: The resource could not be loaded because the App Transport Security policy requires the use of a secure connection.
+2015-11-20 23:16:02.281 Ambieye[3804:61236] CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:02.281 Ambieye[3804:61236] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:02.282 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:16:02.282 Ambieye[3804:61236] IAB.close() called but it was already closed.
+2015-11-20 23:16:02.283 Ambieye[3804:61236] Failed to load webpage with error: The resource could not be loaded because the App Transport Security policy requires the use of a secure connection.
+2015-11-20 23:16:30.986 Ambieye[3804:61236] CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:30.986 Ambieye[3804:61236] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-11-20 23:16:30.987 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:16:30.987 Ambieye[3804:61236] IAB.close() called but it was already closed.
+2015-11-20 23:16:30.988 Ambieye[3804:61236] Failed to load webpage with error: The resource could not be loaded because the App Transport Security policy requires the use of a secure connection.
+2015-11-20 23:17:03.369 Ambieye[3804:61236] Resetting plugins due to page load.
+2015-11-20 23:17:03.377 Ambieye[3804:61236] IAB.close() called but it was already closed.
+2015-11-20 23:17:03.933 Ambieye[3804:61236] Finished load of: file:///Users/yuliasadakova/Library/Developer/CoreSimulator/Devices/86F9EDD5-BDE7-42F6-83A3-54EB5B908331/data/Containers/Bundle/Application/89D9B9E6-5AE1-4009-B0CF-A7C5C56AC8AC/Ambieye.app/www/index.html

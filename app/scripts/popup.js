@@ -34,7 +34,7 @@ var heartbeat = null;// setInterval(hue.heartbeat, 1000); // dies with closed po
 
 var sceneCmd = null;
 var ambieye = null;
-var heartbeatInterval = 4000;
+var heartbeatInterval = 10000;
 
 var hubStartTime = new Date().getTime();
 
@@ -83,6 +83,7 @@ $(document).ready(function(){
     initSearch();
     initManualBridge();
     initGroupCreation();
+    initSceneCreation();
 
     // todo: safe to remove?
     if (window.hue.status === 'OK') {
@@ -99,7 +100,7 @@ $(document).ready(function(){
     initAmbientEye();
     initCloseMinimize();
 
-    $('footer a').click(handleSystemLink);
+    //$('footer a').click(handleSystemLink);
     $('.nativeclick').click(handleSystemLink);
 
 });
@@ -131,7 +132,9 @@ function handleSystemLink(a) {
     return false;
   }
 
-  if (isDevice) { 
+  if (typeof navigator.app !== 'undefined' && navigator.app.loadUrl != undefined) {
+    navigator.app.loadUrl(url, { openExternal:true });
+  } else if (isDevice) { 
     window.open(url, '_system', 'location=yes');
   } else {
     window.open(url, '_blank', 'location=yes');
@@ -141,7 +144,7 @@ function handleSystemLink(a) {
 }
 
 function amExtension(){
-  return typeof(chrome) !== 'undefined'  && chrome.extension !== undefined;
+  return typeof (chrome) !== 'undefined'  && chrome.extension !== undefined;
 }
 
 function initGlobals(){
@@ -158,6 +161,7 @@ function initGlobals(){
     if(config.app !== 'app') {
       /* jshint ignore:start */
       // Set colors
+      /*
       UserVoice.push(['set', {
         target : '#uservoice',
         accent_color: '#448dd6',
@@ -170,6 +174,7 @@ function initGlobals(){
 
         }
       }]);
+    */
       /* jshint ignore:end */
     }
 
@@ -185,16 +190,16 @@ function initGlobals(){
     $('#https-proxy').hide();
 
     if (location.protocol === 'https:') {
-        /* todo: disfunctional probably */
-        // page is secure, hue commander needs to use proxy to LPS.
-        window.hueProxy = hueProxy();
+      /* todo: disfunctional probably */
+      // page is secure, hue commander needs to use proxy to LPS.
+      window.hueProxy = hueProxy();
 
-        $('#https-proxy').show();
+      $('#https-proxy').show();
 
-        ambieye = window.Ambient;
-        window.hue = hue(window.jQuery, window.colors);
-        sceneCmd = sceneCommander(window.jQuery, window.hue);
-        window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
+      ambieye = window.Ambient;
+      window.hue = hue(window.jQuery, window.colors);
+      sceneCmd = sceneCommander(window.jQuery, window.hue);
+      window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
         
     } else if (background !== null) {
       window.hue = background.hue;
@@ -220,12 +225,7 @@ function initGlobals(){
         hueProxy.cmd('discover');
     }
 
-    
-
     log('client: binding to status change.');
-
-    //window.hueCommander.setLogger(log);
-    //window.sceneCmd.setLogger(log);
 
     requestStatus();
 
@@ -468,6 +468,7 @@ function tryIP(ip, error){
 
 
 function showManualBridge(){
+  if (!$('#manualbridgeip').hasClass('fade3')) {
     $('#manualbridgeip').addClass('fade3').show();
     if (config.app === 'web') {
       // do nothing
@@ -480,10 +481,11 @@ function showManualBridge(){
         $('#connectStatus').fadeIn(600);
     });
     hideControls();
+  }
 
-    setTimeout(function(){
-      hueProxy.cmd('discover');
-    }, 2000);
+  setTimeout(function(){
+    hueProxy.cmd('discover');
+  }, 2000);
 }
 
 var cachedStatus = null;
@@ -529,8 +531,6 @@ function startHeartbeat() {
 
 function hueHeartbeat() {
   hueProxy.cmd('heartbeat');
-  //requestSettings();
-  //hueProxy.cmd('getState', null, fillSettings); // will get previous state
 }
 
 function onBridgeNotFound(status) {
@@ -637,18 +637,22 @@ function updateActorUI(actorId) {
 function updateActorControls(actors) {
   var on = false;
   var bri = 0;
-  
+  var names = '';
   $.each(actors, function(key, lamp){
     on = on || (lamp && lamp.state && lamp.state.on && lamp.state.reachable);
     if (lamp && lamp.state && (lamp.state.bri > bri)) {
       bri = lamp.state.bri;
     }
+    names = names + ', ' + lamp.name;
   });
  
   $('#lightswitch').prop('checked', on);
   enableBrightness(on);
   $('#brightness-control').val(bri);
   $('#brightness-control').change(); // update ui
+
+  names = names.substring(2);
+  $("#config-actor").text('Actors: ' + names);
 }
 
 function initGroupCreation() {
@@ -677,6 +681,28 @@ function initGroupCreation() {
       // reset
       delayedRefresh();
     });
+}
+
+function initSceneCreation() {
+  $('#create-scene').hide();
+  $('#make-scene').click(function(){
+    $('#create-scene').slideToggle();
+    return false;
+  });
+
+
+  $('#add-scene').click(function(){
+    var name = $('#scene-name input').val();
+    if (name === '') {
+      errorShake('#scene-name');
+      return;
+    }
+    $('#scene-name').removeClass('error');
+    $('#scene-name input').val('');
+    hueProxy.cmd('createScene', name);
+    // reset
+    delayedRefresh();
+  });
 }
 
 function createActorBtn(key,name){
@@ -723,8 +749,18 @@ function activateSceneClick(event){
   activateSceneByKey(key);
 }
 
+function activateScheduleClick(event){
+  var key = event.target.id;
+  activateScheduleByKey(key);
+}
+
+
 function activateSceneByKey(key){
   hueProxy.cmd('command', 'scene:' + key, activatedScene);
+}
+
+function activateScheduleByKey(key){
+  hueProxy.cmd('command', 'schedule:' + key, activatedSchedule);
 }
 
 function toggleActiveClick(event){
@@ -750,7 +786,7 @@ function fillSettings(state) {
     }
 
     if (state.lights !== null && state.lights !== undefined) {
-        trackState('config', state);
+        trackState('config', state);        
         /*
         trackEvent('settings', 'init', 'version', state.config.swversion);
         trackEvent('settings', 'init', 'ip', state.config.ipaddress);
@@ -765,6 +801,8 @@ function fillSettings(state) {
         $('#group-add-lamps').empty();
         $('#groups').empty();
         $('#scenes').empty();
+        $('#schedules').empty();
+        
         $('#group-remove').empty();
 
         //$.each(state.lights, function(key, value) {
@@ -849,14 +887,63 @@ function fillSettings(state) {
               }
             } 
         }
+
+
+        for(i in state.schedules) {
+          key = i;
+          value = state.schedules[i];  
+
+          var btn = $('<button type="button" class="schedule savedscene"></button>').text(value.description + ' (' + value.name + ')').attr('id', key);
+          btn.click(activateScheduleClick);
+          $('#schedules').append(btn);
+
+
+          var desc = '';
+
+          if (value.name === '') {
+            desc = `<b>${value.description}</b>`;
+          } else {
+            desc = `<b>${value.name}</b>`;
+            if (value.description !== '') {
+              desc += ', ' + value.description;
+            }
+          } 
+
+          var scheduleItem = `<div class="item">
+              <i class="play fa fa-play-circle"></i>
+              <div class="switch no-drag">
+                <input id="enable-schedule-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
+                  checked="${value.enabled ? "checked" : ""}">
+                <label for="enable-schedule-${key}"></label>
+              </div>
+              <div class="title">11:00 <i>am</i></div>
+              <div class="desc">${desc}</div>
+            </div>`;
+
+          btn = $(scheduleItem).attr('id', key);
+          btn.click(activateScheduleClick);
+          $('#schedules-list').append(btn);
+
+        }
+
+        
+
+        $('#bridge #config-ip').text('IP: ' + state.config.ipaddress + ' (v' +  state.config.apiversion + ')');
+        $('#bridge #config-swversion').text('Version: ' + state.config.swversion);
+        $('#bridge #config-portal').text('Portal: ' + state.config.portalconnection);
+        $('#bridge #config-zigbeechannel').text('Zigbee: ' + state.config.zigbeechannel);
+
         log('Config: ' + state.config.name +
             ', version: ' + state.config.swversion +
             ', ip: ' + state.config.ipaddress +
             ', portal: ' + state.config.portalconnection +
             ', zigbeechannel:' + state.config.zigbeechannel);
 
-
-        hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI); 
+        if (state.actorId == null) {
+          hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI); 
+        } else {
+          updateActorUI(state.actorId);
+        }
     }
 }
 
@@ -1417,7 +1504,9 @@ function requestAmbientPermissionOnClient(callback){
 
 function updatePreviewColors(colors, image){
   $('.preview-box').each(function(index, value) {
-    $(value).css('background-color', colors[index].color);
+    if (colors[index]) {
+      $(value).css('background-color', colors[index].color);
+    }
   });
 
   $('#ambientpreview').attr('src', image);

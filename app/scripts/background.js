@@ -4,34 +4,33 @@
  */
 'use strict';
 
-/*global 
-	$, 
+/* global
+	$,
 	hue:false,
- 	sceneCommander:false, 
- 	config:false, 
- 	voiceCmd, 
- 	findActors, 
- 	setActor, 
- 	huevoice, 
+ 	sceneCommander:false,
+ 	config:false,
+ 	voiceCmd,
+ 	findActors,
+ 	setActor,
+ 	huevoice,
  	executeCommand,
  	hueCommander,
- 	colorUtil, 
+ 	colorUtil,
  	sceneCmd
  */
 
-/*exported hasAllUrlAccess, requestAmbientPermission, voiceCmdFunc */
+/* exported hasAllUrlAccess, requestAmbientPermission, voiceCmdFunc */
 
-
-//$(document).ready(function(){
+// $(document).ready(function(){
 window.hue = hue(window.jQuery, window.colors);
-//window.hue.findBridge();
+// window.hue.findBridge();
 window.hue.discover();
 window.sceneCmd = sceneCommander(window.jQuery, window.hue);
 window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
 
 if (config.app === 'app') {
 	/* global chrome */
-	if (chrome.app.runtime.onLaunched !== undefined) {
+  if (chrome.app.runtime.onLaunched !== undefined) {
 		chrome.app.runtime.onLaunched.addListener(function() {
 		  chrome.app.window.create('index.html', {
 		  	id: 'app',

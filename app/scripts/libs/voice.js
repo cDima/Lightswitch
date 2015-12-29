@@ -3,7 +3,7 @@
     SpeechSynthesisUtterance: false,
     trackEvent
 */
-/*exported voice, voiceCommander, huevoice, voiceCmd */
+/*exported voice, voiceCommander, huevoice, voiceCmd */ 
 'use strict';
 
 var voice = function () { 

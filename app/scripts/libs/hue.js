@@ -9,8 +9,7 @@
 
 'use strict';
 
-/*globals colorUtil:false,
-          hueDiscoverer, hueBridge
+/*globals colorUtil:false, HueDiscoverer, AjaxLite, Storage, HueBridge
 */ 
 /*trackEvent*/
 /*exported  hue, 
@@ -52,38 +51,81 @@ var hue = function ($, colors) {
         transitionTime = null,
         errorCounter = 0;
 
-    discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+    //discover = hueDiscoverer(appname, onNeedAuthorization, onIpAuthorized, onError, onComplete);
+    discover = new HueDiscoverer(AjaxLite, Storage, appname, onNeedAuthorization);
 
     var statusInit = {status: 'init', text: 'Initializing...'};
     var statusNeedAuth = {status: 'Authenticating', text: 'Bridge found. Press the bridge button...'};
-    var statusNoBridge = {status: 'BridgeNotFound', text: 'Philip Hue bridge not found.'};
+    //var statusNoBridge = {status: 'BridgeNotFound', text: 'Philip Hue bridge not found.'};
     //var statusReady = {status: 'OK', text: 'Lights found.'};
 
-    function onNeedAuthorization() {
+    function onNeedAuthorization(ip) {
+      statusNeedAuth.text = 'Bridge found at ' + ip + '.<br >Press the bridge button...';
       onStatus(statusNeedAuth);
       discoverStatus = 'auth';
     }
-    function onIpAuthorized(ip, username, message, data){
-      if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
-        bridge = hueBridge(ip, appname, username, onNeedAuthorization, onIpAuthorized, onError, 10);
-        discoverStatus = 'ok';
-        hue.setIp(ip, username);
-      } 
 
-      onNewState(data);
+    function onBridgeError(err) {
+        console.log('onBridgeError'  + err);
+        onError(err);
     }
-    function onError(ip, msg, text){
+
+    function onIpAuthorized(bridgeAuthorized, ip, usernameArg, message, data){
+
+      //if(bridge === null || !(ip === bridge.ip() && username === bridge.username())) {
+      bridge = new HueBridge(
+        AjaxLite, 
+        Storage, 
+        bridgeAuthorized.ip, 
+        appname, 
+        bridgeAuthorized.username,
+        onNeedAuthorization, 
+        onIpAuthorized, 
+        onBridgeError, 
+        10);
+      discoverStatus = 'ok';
+
+      bridgeIP = bridge.ip;
+      username = bridge.username;
+      updateURLs();
+
+      //} 
+
+      if (data === undefined) {
+        bridge.getBridgeState();
+      } else {
+        onNewState(data); // safe to delete
+     }
+    }
+
+    function onDiscoverError(ip, msg, text){
       //onStatus(statusNoBridge);
-      updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
-    }
-
-    function onComplete(){
-      if (discoverStatus === 'init') {
-        onStatus(statusNoBridge);
+      if (status !== null) {
+        if (status.status !== statusNeedAuth.status) {
+          updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
+        } else {
+          // discover:
+          setTimeout(() => rediscover(), 2000);
+        }
       }
     }
 
-    var onLampError = function(err){
+    function rediscover(ip) {
+      discover.start(ip).then((bridge, ip, username, message, data) => {
+          onIpAuthorized(bridge, ip, username, message, data);
+        },
+        (ip, msg, text) => {
+            onDiscoverError(ip, msg, text);
+          }
+        );
+      updateStatus(statusInit.status,statusInit.text);
+    }
+
+    function onError(ip, msg, text){
+      updateStatus('BridgeNotFound', 'Philip Hue bridge not found.');
+    }
+
+    var onLampError = function (err){
             // do nothing for now.
             errorCounter++;
         },
@@ -208,7 +250,12 @@ var hue = function ($, colors) {
             }
             return baseApiUrl + '/groups';
         },
-        
+        buildSceneURL = function(key) {
+            if (key !== undefined) {
+                return baseApiUrl + '/scenes/' + key;
+            }
+            return baseApiUrl + '/scenes';
+        },
         /**
          * Convenience function used to initiate an HTTP PUT request to modify 
          * state.
@@ -248,6 +295,93 @@ var hue = function ($, colors) {
             var error = log;
             return del(buildGroupURL(key), callback, error);
         },
+        getRandomInt = function(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        putScene = function(name, lampIds) {
+            var callback = apiSuccess;
+            var error = log;
+            var state = {name: name + ' on 0', lights: lampIds };
+            var key =  getRandomInt(100000000, 999999999) + '-on-0';
+            return putJSON(buildSceneURL(key), callback, error, state);
+        },
+
+        startSchedule = function (id){
+            if (state !== null) {
+                // build schedule command, execute:
+                var schedule = state.schedules[id];
+                if (schedule) {
+                    var cmd = schedule.command;
+                    if (cmd.method.toLowerCase() === 'put') {
+                        var url = baseUrl + cmd.address.substring('/api'.length);
+                        putJSON(url, apiSuccess, log, cmd.body);
+                    }
+                }
+            } else {
+                // error
+            }
+        },
+        /*
+        updateScene = function(key, name, lampIds) {
+            var callback = apiSuccess;
+            var error = log;
+            var state = {name: name, lights: lampIds };
+            return putJSON(buildSceneURL(key), callback, error, state);
+        },*/
+/*
+        // http://www.developers.meethue.com/documentation/schedules-api-0#31_get_all_schedules
+        getSchedules = function () {
+           return get(buildSchedulesURL(lampIndex), function(data) {
+                // success
+                if (data.state === undefined) {
+                    // fail
+                    return;
+                }
+                success(data.state.bri);
+            }, function(err){
+                err = null;
+                // fail
+            });
+       },
+
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#32_create_schedule
+    # TODO: strip whitespace from command
+    @createSchedule = (name="schedule", description="", command, time, status="enabled", autodelete=false) ->
+      _setup().then ->
+        body = {
+          "name": name
+          "description": description
+          "command": command
+          "time": time
+          "status": status
+          "autodelete": autodelete
+        }
+        _apiCall "post", ["schedules"], body
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#33_get_schedule_attributes
+    @getScheduleAttributes = (id) ->
+      _setup().then ->
+        _apiCall "get", ["schedules", id]
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#34_set_schedule_attributes
+    @setScheduleAttributes = (id, name=null, description=null, command=null, time=null, status=null, autodelete=null) ->
+      _setup().then ->
+        body = {}
+        body.name = name if name
+        body.description = description if description
+        body.command = command if command
+        body.status = status if status
+        body.autodelete = autodelete if autodelete != null
+        _apiCall "put", ["schedules", id], body
+
+    # http://www.developers.meethue.com/documentation/schedules-api-0#35_delete_schedule
+    @deleteSchedule = (id) ->
+      _setup().then ->
+        _apiCall "delete", ["schedules", id]
+
+*/
+
         /**
          * Convenience function used to initiate HTTP PUT requests to modify state
          * of all connected Hue lamps.
@@ -287,8 +421,8 @@ var hue = function ($, colors) {
         buildXYState = function(xyCoords /* Number[] */, brightness, transitionTimeOverride) {
             var stateObj = { xy: xyCoords };
             if (typeof(brightness) === 'number') {
-				stateObj.bri = brightness;
-			}
+      				stateObj.bri = brightness;
+      			}
             addTransitionTime(stateObj, transitionTimeOverride);
             return stateObj;
         },
@@ -369,20 +503,24 @@ var hue = function ($, colors) {
         getLightState = function(){
             bridge.getLightState(onLightUpdate);
         },
-        onLightUpdate = function(lights){
-            // cache state
-            /*jshint sub:true*/
-            if (lights !== null && state !== null) {
-                state.lights = lights;
+        onLightUpdate = function(bridge, ip, username, status, data){
+            if (data !== null && state !== null) {
+                state.lights = data.lights;
+            }
+        },
+        onBridgeUpdate = function(bridge, ip, username, status, data){
+            if (data !== null && state !== null) {
+                state = data;
+                onNewState(data);
             }
         },
         getBridgeState = function(){
-            bridge.getLightState(onLightUpdate);
+            bridge.getBridgeState(onBridgeUpdate);
         },
         onNewState = function(data){
             //log('Authorized');
             /* jshint ignore:start */
-            if (typeof testData !== undefined && testData !== null) {
+            if (!(typeof (testData) === 'undefined')) {
                 data = testData;
             }
             /* jshint ignore:end */
@@ -425,24 +563,14 @@ var hue = function ($, colors) {
         }, 
         onStatus = function(newStatus) {
             if (JSON.stringify(status) !== JSON.stringify(newStatus) ) {
-                console.log('hue: sending status change, ' + newStatus.status + ', text: ' + newStatus.text + ', data: ' + newStatus.data);
+                console.log('hue: status change, ' + newStatus.status + ', text: ' + newStatus.text + ', data: ' + newStatus.data);
                 status = newStatus;
-                statusChange();
             }
         },
         log = function(text) {
             console.log('hue: ' + text);
-            if (logHandler !== null) {
+            if (typeof (logHandler) !== 'undefined') {
                 logHandler(text);
-            }
-        },
-        // events:
-        statusChangeHandler = null,
-        logHandler = null,
-        statusChange = function() { 
-            if (statusChangeHandler !== null) {
-                console.log('hue: sending status change, ' + status.status + ', text: ' + status.text + ', data: ' + status.data);
-                statusChangeHandler(status);
             }
         },
         setHueSatState = function(lampIndex, hue, sat, bri, transitiontime) {
@@ -548,6 +676,9 @@ var hue = function ($, colors) {
         removeGroup: function(key) {
             return deleteGroup(key);
         },
+        createScene: function(name, lights) {
+            return putScene(name, lights);
+        },
         /** 
          * Turn on scene by key
          */
@@ -561,6 +692,9 @@ var hue = function ($, colors) {
                 //    put(val, state);
                 //});       
             //}
+        },
+        startSchedule: function(id) {
+            return startSchedule(id);
         },
         /**
          * Turn off the lamp at lampIndex.
@@ -701,15 +835,6 @@ var hue = function ($, colors) {
             transitionTime = time;
         },
         /**
-            hardcode IP
-         * todo: remove from interface
-         */
-        setIp: function(ip, hashedUsername) {
-            bridgeIP = ip;
-            username = hashedUsername;
-            updateURLs();
-        },
-        /**
          * Find bridges  findBridge() a upnp, then scan, then predefined typical ips. 
          */
         //findBridge: function(onerror) {
@@ -725,13 +850,6 @@ var hue = function ($, colors) {
                 numberOfLamps = numLamps;
             }
         },
-        //status: status,
-        // events
-        onStatusChange: function  (func) {
-            console.log('new subscriber to status change registered; internal status' + status);
-            statusChangeHandler = func;
-            statusChangeHandler(status);
-        }, 
         setLogger: function  (func) {
             console.log('new subscriber to log change registered;');
             logHandler = func;
@@ -766,8 +884,7 @@ var hue = function ($, colors) {
             return [actors]; // lights: prefix not used, just return array of number.
         },
         discover: function(ip){
-          discover.start(ip);
-          updateStatus(statusInit.status,statusInit.text);
+          rediscover(ip);
         }
     };
 };

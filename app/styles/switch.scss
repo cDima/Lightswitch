@@ -3,14 +3,14 @@
   margin-left: -9999px;
   visibility: hidden;
 }
-.cmn-toggle + label {
+.cmn-toggle + .label {
   display: block;
   position: relative;
   cursor: pointer;
   outline: none;
   user-select: none;
 }
-input.cmn-toggle-round + label {
+.cmn-toggle-round + .label {
   padding: 1px;
   width: 40px;
   height: 20px;
@@ -22,8 +22,8 @@ input.cmn-toggle-round + label {
   border-radius: 20px;
   /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);*/
 }
-input.cmn-toggle-round + label:before,
-input.cmn-toggle-round + label:after {
+.cmn-toggle-round + .label:before,
+.cmn-toggle-round + .label:after {
   display: block;
   position: absolute;
   top: 1px;
@@ -31,13 +31,18 @@ input.cmn-toggle-round + label:after {
   bottom: 1px;
   content: "";
 }
-input.cmn-toggle-round + label:before {
+.cmn-toggle-round + .label:before {
+    border:none;
+
   right: 2px;
   background-color: #f1f1f1;
   border-radius: 20px;
   transition: background 0.4s, width 0.4s;
+
+
+
 }
-input.cmn-toggle-round + label:after {
+.cmn-toggle-round + .label:after {
   width: 20px;
   background-color: #fff;
   border-radius: 100%;
@@ -59,7 +64,7 @@ input.cmn-toggle-round + label:after {
   pointer-events: none
 
 }
-input.cmn-toggle-round:checked + label:after {
+.cmn-toggle-round:checked + .label:after {
   margin-left: 20px;
 
   /*-webkit-transition: -webkit-transform .1s ease-in-out;
@@ -75,6 +80,29 @@ input.cmn-toggle-round:checked + label:after {
   animation-fill-mode: forwards;
   animation-name: switchThumbAnimation
 
+}
+
+.cmn-toggle-round:checked + .label:before {
+  border: none;
+  transform: none;
+  width: 40px;
+  height: auto;
+  /* top: initial; */
+  top: -1px;
+  left: 1px;
+
+  background-color: #EFEFEF;
+  background-color: #8ce196;
+  background-color: #FFFD6F;
+  background-color: #FFFEA5;
+  box-shadow: 0 1px 2px rgba(253, 244, 72, 0.2)
+}
+.cmn-toggle-round:disabled + .label:before,  
+.cmn-toggle-round:disabled + .label:after   {
+  background-color: #ddd;
+}
+.cmn-toggle-round:disabled + .label   {
+  background-color: #ccc;
 }
 
 @-webkit-keyframes switchThumbAnimation {
@@ -97,19 +125,4 @@ input.cmn-toggle-round:checked + label:after {
     0% { width: 20px; margin-left: 20px;}
     50% { width: 30px; margin-left: 00px;}
     100% { width: 20px; margin-left: 0px;}
-}
-
-input.cmn-toggle-round:checked + label:before {
-  background-color: #EFEFEF;
-  background-color: #8ce196;
-  background-color: #FFFD6F;
-  background-color: #FFFEA5;
-  box-shadow: 0 1px 2px rgba(253, 244, 72, 0.2)
-}
-input.cmn-toggle-round:disabled + label:before,  
-input.cmn-toggle-round:disabled + label:after   {
-  background-color: #ddd;
-}
-input.cmn-toggle-round:disabled + label   {
-  background-color: #ccc;
 }

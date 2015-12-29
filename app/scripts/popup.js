@@ -233,6 +233,10 @@ function initGlobals(){
     $('#controls').hide();
     $('.successsubscribe').hide();
 
+    $('#lightswitch1').click(function(){
+      $('#lightswitch1').toggleClass('checked');
+    });
+
     setInitialHeight();
 }
  

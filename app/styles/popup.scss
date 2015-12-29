@@ -358,18 +358,6 @@ p {margin: 0 0 5px;}
   margin: 0 auto;
   text-align: center;
 }
-.cmn-toggle {
-  position: absolute;
-  margin-left: -9999px;
-  visibility: hidden;
-}
-.cmn-toggle + label {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-}
 
 @keyframes fadein {
     from {

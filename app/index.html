@@ -102,6 +102,12 @@
             <span id="voice-feedback"></span>
           </div>
 
+        <!--<div>
+          <h3> Html</h3>
+          <input id="lightswitch1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+          <label class="label" for="lightswitch1"></label>
+        </div>-->
+
             <div class="intro-body">
                 <div class="container">
                     <div class="row">
@@ -121,21 +127,6 @@
                 </div>
             </div>
         </header>
-
-
-
-  <div class="">
-    <div class="">
-
-      <!--   Icon Section   -->
-      <div class="row">
-        <div class="col s12 m4">
-
-        </div>
-      </div>
-
-    </div>
-  </div>
 
 <!--fa-toggle-off -->
         <div class="container footer-padding">
@@ -345,12 +336,12 @@
                              <!-- <a id="make-schedule" href="#"><i class="fa fa-pencil"></i></a>-->
                             </h6>
 
-                            <!--<div id="create-schedule" class="rounded-well">
+                            <div id="create-schedule" class="rounded-well">
                               <p id="schedule-name">
-                                <input class="scenename input" placeholder="Enter schedule name..." />
+                                <div class="scenename input" placeholder="Enter schedule name..." />
                                 <button class="submit" name="Create schedule" type="submit"  id="add-schedule" value="Add">Save</button>
                               </p>
-                            </div>-->
+                            </div>
                             <div id="schedules"></div>
 
                             <div id="schedules-list" class="large-list">
@@ -515,10 +506,11 @@
                       <div role="tabpanel" class="tab-pane fade in" id="search">
                         <div class="panel-body">
                           <div class="search">
-                            <input type="text" name="colorsearch" id="colorsearch" class="input search-input" placeholder="Search colourlovers.com...">
-                            <button  name="search" type="submit"  id="search" value="search" class="search-submit submit">
-                            <!--<i class="fa fa-search"></i>-->
-                             Search</button>
+                            <div class="input-field col s12">
+                              <input type="text" name="colorsearch" id="colorsearch">
+                              <label for="colorsearch">Search colourlovers.com...</label>
+                            </div>
+
                              <div class="colorlovers shortcuts">
                                <a href="#search?top">top</a>
                                <a href="#search?new">new</a>

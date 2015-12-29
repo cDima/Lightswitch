@@ -1,5 +1,26 @@
 Todo:
 
+- Change input fields to new markup
+- isolate checkbox theme
+- width fix
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Future plans:
+
 * Ease main.min.js file renaming (three places: gulp, index, tests).
 * remove hue.getBridgeState since it's mapped to getLightState
 * test tvos ui & discovery alert

@@ -30,6 +30,5 @@
   },
   "_source": "git://github.com/abpetkov/powerange.git",
   "_target": "~0.0.2",
-  "_originalSource": "powerange",
-  "_direct": true
+  "_originalSource": "powerange"
 }

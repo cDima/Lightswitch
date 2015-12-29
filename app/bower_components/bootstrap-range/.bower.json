@@ -37,6 +37,5 @@
   },
   "_source": "git://github.com/drewcovi/bootstrap-range.git",
   "_target": "~1.0.10",
-  "_originalSource": "bootstrap-range",
-  "_direct": true
+  "_originalSource": "bootstrap-range"
 }

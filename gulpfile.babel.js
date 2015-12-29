@@ -143,7 +143,7 @@ var popupScr = [
       './app/scripts/libs/hueCommander.js',
       './app/scripts/libs/voice.js', 
       './app/scripts/libs/hueProxy.js',
-      './app/bower_components/Materialize/dist/js/materialize.js',
+      './app/scripts/libs/materialize.min.js',
       './app/scripts/popup.js',
 
     ];

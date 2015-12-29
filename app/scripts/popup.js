@@ -273,7 +273,7 @@ function setInitialHeight() {
 function initSlider(){
 
     //$('#brightness-control').rangepicker().on('slideStop', function(slideEvt){
-    $('#brightness-control').slider().on('slideStop', function(slideEvt){
+    $('#brightness-control').BootstrapSlider().on('slideStop', function(slideEvt){
       var val = slideEvt.value;
       log('new brightness: ' + val);
       hueProxy.cmd('command', 'bri:' + val);
@@ -609,6 +609,7 @@ function onSuccessfulInit(){
     $('.nav-tabs a[href="#moods"]').tab('show');
     activateSceneByKey(autostartScene);
   }
+
 }
 
 function setHeight(height, transitionTime) {
@@ -980,7 +981,12 @@ function showControls(){
     }
 }
 function showTabContent() {
-    $('.tab-content').fadeIn(600, initVoice);
+    $('.tab-content').fadeIn(600, function() {
+      //$('ul.tabs').tabs('select_tab', 'home');
+      $('ul.tabs').tabs();
+      initVoice();
+    });
+
 }
 
 function initLightswitch() {

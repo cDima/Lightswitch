@@ -233,10 +233,6 @@ function initGlobals(){
     $('#controls').hide();
     $('.successsubscribe').hide();
 
-    $('#lightswitch1').click(function(){
-      $('#lightswitch1').toggleClass('checked');
-    });
-
     setInitialHeight();
 }
  
@@ -986,8 +982,8 @@ function showControls(){
 }
 function showTabContent() {
     $('.tab-content').fadeIn(600, function() {
-      //$('ul.tabs').tabs('select_tab', 'home');
-      $('ul.tabs').tabs();
+      $('ul.tabs').tabs('select_tab', 'home');
+      //$('ul.tabs').tabs();
       initVoice();
     });
 

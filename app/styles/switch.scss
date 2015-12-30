@@ -3,14 +3,14 @@
   margin-left: -9999px;
   visibility: hidden;
 }
-.cmn-toggle + .label {
+.cmn-toggle + label {
   display: block;
   position: relative;
   cursor: pointer;
   outline: none;
   user-select: none;
 }
-.cmn-toggle-round + .label {
+.cmn-toggle-round + label {
   padding: 1px;
   width: 40px;
   height: 20px;
@@ -22,8 +22,8 @@
   border-radius: 20px;
   /*box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);*/
 }
-.cmn-toggle-round + .label:before,
-.cmn-toggle-round + .label:after {
+.cmn-toggle-round + label:before,
+.cmn-toggle-round + label:after {
   display: block;
   position: absolute;
   top: 1px;
@@ -31,7 +31,7 @@
   bottom: 1px;
   content: "";
 }
-.cmn-toggle-round + .label:before {
+.cmn-toggle-round + label:before {
     border:none;
 
   right: 2px;
@@ -42,7 +42,7 @@
 
 
 }
-.cmn-toggle-round + .label:after {
+.cmn-toggle-round + label:after {
   width: 20px;
   background-color: #fff;
   border-radius: 100%;
@@ -64,7 +64,7 @@
   pointer-events: none
 
 }
-.cmn-toggle-round:checked + .label:after {
+.cmn-toggle-round:checked + label:after {
   margin-left: 20px;
 
   /*-webkit-transition: -webkit-transform .1s ease-in-out;
@@ -82,7 +82,7 @@
 
 }
 
-.cmn-toggle-round:checked + .label:before {
+.cmn-toggle-round:checked + label:before {
   border: none;
   transform: none;
   width: 40px;
@@ -97,11 +97,11 @@
   background-color: #FFFEA5;
   box-shadow: 0 1px 2px rgba(253, 244, 72, 0.2)
 }
-.cmn-toggle-round:disabled + .label:before,  
-.cmn-toggle-round:disabled + .label:after   {
+.cmn-toggle-round:disabled + label:before,  
+.cmn-toggle-round:disabled + label:after   {
   background-color: #ddd;
 }
-.cmn-toggle-round:disabled + .label   {
+.cmn-toggle-round:disabled + label   {
   background-color: #ccc;
 }
 

@@ -419,14 +419,20 @@
                             <div class="pane-body">
                             Enter your email to be the first to know about new features &amp; releases:
                             </div>
-                            <div id="newsletter_form">
-                                <form action="" method="post" class="subscribe-form" name="mc-embedded-subscribe-form"  id="mc-embedded-subscribe-form" novalidate>
-                                    <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input" placeholder="Enter your e-mail address..." required="">
-                                    <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="subscribe-submit submit">Notify Me</button>
+                                <form action="" method="post" name="mc-embedded-subscribe-form"  id="mc-embedded-subscribe-form" novalidate>
+                                <div class="col s12 valign-wrapper">
+                                  <div class="input-field col s10">
+                                      <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input s5" required="">
+                                      <label for="EMAIL">Email</label>
+                                  </div>
+                                  <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="waves-effect waves-light btn col s2  input-field">
+                                    <i class="fa fa-plus-circle"></i>
+                                  </button>
+                                </div>
+
                                     <input type="text" style="display:none;" name="b_83c6f205a4379f5136e187d52_cad0da3b8a" tabindex="-1" value="">
                                 </form>
                                 <div class="successsubscribe">Thanks for subscribing, we will be in touch</div>
-                            </div>
                             <div class="pane-body">
                               You can <a href="mailto:apistarter@gmail.com" target="_blank">email privately</a>, and <a href="https://apistarter.uservoice.com/" class="nativeclick" target="_blank">publically</a>.
                             </div>
@@ -551,22 +557,22 @@
 
                             <div class="eyeoptions">
                               
-                              <div class="btn-group btn-group-xs eye-options" 
+                              <div class="bbtn-group bbtn-group-xs eye-options" 
                                    role="group" 
                                    aria-label="Update speed" 
                                    id="eye-mode-group"
                                    data-toggle="buttons">
-                                <button type="button" id="eye-ambient" class="btn btn-primary ">
+                                <button type="button" id="eye-ambient" class="bbtn bbtn-primary ">
                                   <i class="fa fa-glass"></i> Ambience
                                 </button>
-                                <button type="button" id="eye-work" class="btn btn-primary ">
+                                <button type="button" id="eye-work" class="bbtn bbtn-primary ">
                                   <i class="fa fa-laptop"></i> Work
                                 </button>
-                                <button type="button" id="eye-movie" class="btn btn-primary ">
+                                <button type="button" id="eye-movie" class="bbtn bbtn-primary ">
                                   <i class="fa fa-video-camera"></i> Movie
                                   
                                 </button>
-                                <button type="button" id="eye-gaming" class="btn btn-primary ">
+                                <button type="button" id="eye-gaming" class="bbtn bbtn-primary ">
                                   <i class="fa fa-gamepad"></i> Gaming
                                 </button>
                               </div>

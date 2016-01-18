@@ -261,7 +261,7 @@ class HueDiscoverer {
         }); 
         return bridgeThenable;
     } 
-    start(ip) {
+    start(ip, brute = false) {
         function getIP () {
             return this.storage.get('lastBridgeIp');
         }
@@ -302,10 +302,12 @@ class HueDiscoverer {
                 });
                 promises.push(meethuePromise);
 
-                var ips = BruteForcer.ips();
-                for(var i of ips) {
-                    if (i !== this.self.ip && i !== ip) {
-                        promises.push(this.self.bridgeThenable(i)); // 84 requests
+                if (brute === true) {
+                    var ips = BruteForcer.ips();
+                    for(var i of ips) {
+                        if (i !== this.self.ip && i !== ip) {
+                            promises.push(this.self.bridgeThenable(i)); // 84 requests
+                        }
                     }
                 }
                 return Promise.any(promises);

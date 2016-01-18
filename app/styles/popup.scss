@@ -98,6 +98,7 @@ html, body {
 
 .container {
   width: 100%;
+  max-width: initial;
   padding-bottom: 15px;
 }
 
@@ -298,6 +299,15 @@ p {margin: 0 0 5px;}
 .tabs {
   width: 320px;
 }
+
+.tabs .tab a.active {
+    background-color: #0089ec;
+}
+.tabs .indicator {
+    background-color: #1C9DFB;
+    z-index: 1;
+}
+
 .nav-justified {
   border-bottom: 1px solid #ddd;
   border-bottom-color: #fff;
@@ -631,6 +641,111 @@ a.hightlight {
   margin-left: -10px;
   margin-right: -10px;*/
 }
+
+
+/** buttons **/
+
+.bbtn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 4px;
+}
+.bbtn-group > .bbtn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.bbtn-group > .bbtn:first-child {
+    margin-left: 0;
+}
+.bbtn-group > .bbtn:hover, 
+.bbtn-group-vertical > .bbtn:hover, 
+.bbtn-group > .bbtn:focus, 
+.bbtn-group-vertical > .bbtn:focus, 
+.bbtn-group > .bbtn:active, 
+.bbtn-group-vertical > .bbtn:active, 
+.bbtn-group > .bbtn.active, 
+.bbtn-group-vertical > .bbtn.active {
+    z-index: 2;
+}
+.bbtn-group > .bbtn, 
+.bbtn-group-vertical > .bbtn {
+    position: relative;
+    float: left;
+}
+.bbtn-xs, 
+.bbtn-group-xs > .bbtn {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.bbtn-primary:active, 
+.bbtn-primary.active, 
+.open > .dropdown-toggle.bbtn-primary {
+    background-image: none;
+}
+.bbtn-primary {
+    color: #fff;
+    background-color: #428bca;
+    border-color: #357ebd;
+}
+.bbtn:hover, 
+.bbtn:focus {
+    color: #333;
+    text-decoration: none;
+}
+.bbtn-primary:hover, 
+.bbtn-primary:focus, 
+.bbtn-primary:active, 
+.bbtn-primary.active, 
+.open > .dropdown-toggle.bbtn-primary {
+    color: #fff;
+    background-color: #3071a9;
+    border-color: #285e8e;
+}
+.bbtn:active, .bbtn.active {
+    background-image: none;
+    outline: 0;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.bbtn-group, 
+.bbtn-group-vertical {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+.bbtn-group > .bbtn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+    border-radius: 0;
+}
+.bbtn-group .bbtn + .bbtn, 
+.bbtn-group .bbtn + .bbtn-group, 
+.bbtn-group .bbtn-group + .bbtn, 
+.bbtn-group .bbtn-group + .bbtn-group {
+    margin-left: -1px;
+}
+
+.bbtn-group > .bbtn:last-child:not(:first-child), 
+.bbtn-group > .dropdown-toggle:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+
 
 .input {
   width: 69%;

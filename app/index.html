@@ -78,6 +78,7 @@
 
 
 <body id="page-top" class="background" data-spy="scroll" data-target=".navbar-fixed-top">
+  <div class="background-frame">
     <div id="wrapper">
         <!-- Intro Header -->
         <header class="intro draggable">
@@ -112,15 +113,15 @@
             <div class="intro-body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-10 offset">
+                        <div class="col-xs-12">
                             <div id="lamp"></div>
+                            <h1 class="brand-heading logo">
+                                Lightswitch
+                            </h1>
                             <div class="main switch no-drag" id="toggle-lights">
                               <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
                               <label for="lightswitch"></label>
                             </div>
-                            <h1 class="brand-heading logo">
-                                Lightswitch
-                            </h1>
                             <p id="connectStatus"></p>
                             <div class="clear"></div>
                         </div>
@@ -143,53 +144,55 @@
             To use this application, please install the Chrome extension <a href="http://bit.ly/lightpro" class="not-light" target="_blank"><i class="fa fa-toggle-on"></i> Lightswitch Pro »</a>
           </div>
 
+
+          <ul class="tabs  black  lighten-2">
+
+            <li role="presentation" class="tab col s3 waves-effect waves-yellow ">
+              <a href="#home" role="tab" class="white-text" >  
+                <i class="fa fa-gear"></i> 
+                <b class="tab-text not-pro">&nbsp; Lights</b>
+              </a>
+            </li>
+            <li role="presentation" class="tab col s3 waves-effect waves-yellow config-moods">
+              <a href="#moods" role="tab"  class="white-text">
+                <i class="fa fa-paint-brush"></i>
+                <!--Moods--> 
+                <b class="tab-text not-pro">&nbsp; Scenes</b>
+              </a>
+            </li>
+            <li role="presentation" class="tab col s3 waves-effect waves-yellow config-colors">
+              <a href="#colors" role="tab"  class="white-text">
+                <!--Colors-->
+                <i class="fa fa-eyedropper"></i>
+                <b class="tab-text not-pro">&nbsp; Colors</b>
+              </a>
+            </li>
+            <li role="presentation" class="tab col s3 waves-effect waves-yellow config-search">
+              <a href="#search" role="tab" class="white-text">
+                <i class="fa fa-binoculars"></i>
+                <b class="tab-text not-pro">&nbsp; Search</b>
+              </a>
+            </li>
+            <li role="presentation" class="tab col s3 waves-effect waves-yellow config-ambieye" style="display:none;">
+              <a href="#eye" role="tab"  class="white-text">
+                <i class="fa fa-eye"></i>
+                <b class="tab-text not-pro">&nbsp;Ambience</b>
+              </a>
+            </li>
+            <li role="presentation" class="tab col s3 waves-effect waves-yellow config-feedback">
+              <a href="#subscribe" role="tab"  class="white-text">
+                <i class="fa fa-paper-plane"></i> 
+                <b class="tab-text not-pro">&nbsp; Feedback</b>
+              </a>
+            </li>
+
+
+          </ul>
+
+
           <div id="controls" style="display:none">
             <div class="row">
                 <div class="">
-
-        					<ul class="tabs  black  lighten-2">
-
-        						<li role="presentation" class="tab col s3 waves-effect waves-yellow ">
-        						  <a href="#home" role="tab" class="white-text" >  
-        						    <i class="fa fa-gear"></i> 
-        						    <b class="tab-text not-pro">&nbsp; Lights</b>
-        						  </a>
-        						</li>
-        						<li role="presentation" class="tab col s3 waves-effect waves-yellow config-moods">
-        						  <a href="#moods" role="tab"  class="white-text">
-        						    <i class="fa fa-paint-brush"></i>
-        						    <!--Moods--> 
-        						    <b class="tab-text not-pro">&nbsp; Scenes</b>
-        						  </a>
-        						</li>
-        						<li role="presentation" class="tab col s3 waves-effect waves-yellow config-colors">
-        						  <a href="#colors" role="tab"  class="white-text">
-        						    <!--Colors-->
-        						    <i class="fa fa-eyedropper"></i>
-        						    <b class="tab-text not-pro">&nbsp; Colors</b>
-        						  </a>
-        						</li>
-        						<li role="presentation" class="tab col s3 waves-effect waves-yellow config-search">
-        						  <a href="#search" role="tab" class="white-text">
-        						    <i class="fa fa-binoculars"></i>
-        						    <b class="tab-text not-pro">&nbsp; Search</b>
-        						  </a>
-        						</li>
-        						<li role="presentation" class="tab col s3 waves-effect waves-yellow config-ambieye" style="display:none;">
-        						  <a href="#eye" role="tab"  class="white-text">
-        						    <i class="fa fa-eye"></i>
-        						    <b class="tab-text not-pro">&nbsp;Ambience</b>
-        						  </a>
-        						</li>
-        						<li role="presentation" class="tab col s3 waves-effect waves-yellow config-feedback">
-        						  <a href="#subscribe" role="tab"  class="white-text">
-        						    <i class="fa fa-paper-plane"></i> 
-        						    <b class="tab-text not-pro">&nbsp; Feedback</b>
-        						  </a>
-        						</li>
-
-
-        					</ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -773,10 +776,9 @@
 
         <!-- cordova -->
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-
-        
         <script src="scripts/main.min.2015112701.js"></script>
         
     </div><!-- wrapper -->
+    </div> <!-- background-frame -->
   </body>
 </html>

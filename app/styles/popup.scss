@@ -15,6 +15,8 @@ html {
 body {
    min-height: 100%;
    /*position: absolute; -- fixes popup scroll issues*/
+
+    height: 100% !important; /* testing */
 }
 body.web,
 body.win,
@@ -34,6 +36,7 @@ html, body {
     color: #555;
     color: #B5B5B5;
     background-color: #EDEDED;
+    background: #444;
     /*zoom: reset; */
 
     -webkit-touch-callout: none;
@@ -50,11 +53,19 @@ html, body {
   padding-bottom: 55px;
 }
 
+.background-frame {
+    padding: 50px;
+    background-color: #444;
+    height: 100%;
+}
+
 #wrapper  {
   position: relative;
   width: 100%;
   min-height:100%;
   background: white;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /*@media only screen and (max-width: 640px) {
@@ -93,6 +104,13 @@ html, body {
   body {
     padding: 0px;
   }
+  .background-frame {
+    padding: 0;
+    height: initial;
+  }
+  .tabs .tab {
+     min-width: initial; 
+  }
 }
 
 
@@ -100,6 +118,7 @@ html, body {
   width: 100%;
   max-width: initial;
   padding-bottom: 15px;
+  overflow: hidden;
 }
 
 footer {
@@ -218,6 +237,7 @@ body.win .intro-body {
   background-repeat: no-repeat;
   background-size: 200px;
   text-indent: -3000px;  
+  background-position: center center;
 }
 
 
@@ -283,9 +303,9 @@ input.store-button:hover {
 
 
 .switch.main {
-  padding-top: 50px;
-  padding-left: 76px;
-  position: absolute;
+  margin: 0 auto;
+  width: 45px;
+  overflow: hidden;
 }
 .switch {
     animation: fadein 2s;

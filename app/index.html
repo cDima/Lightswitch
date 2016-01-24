@@ -197,8 +197,9 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                       <div role="tabpanel" class="tab-pane fade in active" id="home">
-                        <div class="panel-body">
-                            <h6>Brightness</h6>
+                        <div class="card">
+                          <div class="card-content">
+                            <span class="card-title">Brightness</span>
                             <!--<a class="link-btn command" href="#darken" title="Darken">-</a>
                             <a class="link-btn command" href="#brighten" title="Brighten">+</a>-->
                             <div class="pane-body">
@@ -231,6 +232,7 @@
                               <div class="padded-links" id="config-swversion"></div>
                               <div class="padded-links" id="config-actor"></div>
                             </div>
+                          </div>
 
                             <!--<h6>Keep in touch</h6>
                              <div class="pane-body">
@@ -279,79 +281,82 @@
                         </div>
                       </div>
                       <div role="tabpanel" class="tab-pane fade in" id="moods">
-                        <div class="panel-body">
-                          <h6>Dynamic scenes</h6>
-                          <div class="scene" data-scene="Broadway"></div>
-                          <div class="scene" data-scene="Sunrise"></div>
-                          <div class="scene" data-scene="Sunset"></div>
-                          <div class="scene" data-scene="Coffee"></div>
-                          <div class="scene" data-scene="GreenForest"></div>
-                          <div class="scene" data-scene="Disco"></div>
-                          <div class="scene" data-scene="Romantic Red"></div>
-                          <div class="scene" data-scene="Police"></div>
-                          <!--<div class="scene" data-scene="Lightning"></div>-->
-                          <h6>Holiday scenes</h6>
-                          <div class="scene" data-scene="Valentines"></div>
-                          <div class="scene" data-scene="New Years Fireworks"></div>
-                          <div class="scene" data-scene="Christmas"></div>
-                          <div class="scene" data-scene="Thanksgiving"></div>
-                          <div class="scene" data-scene="4th of July"></div>
-                          <!--<h6>Time of day</h6>
-                          Morning
-                            Working 
-                            Cooking 
-                            Yoga
-                          Late Morning
-                          Afternoon
-                            Working 
-                            Cooking 
-                          Evening 
-                            Reading 
-                            Watching TV 
-                            Entertaining
-                            Chilling
-                          Night
-                            Bathroom
-                            Read in bed
-                            Path to kitchen
+
+                        <div class="card">
+                          <div class="card-content">
+                            <span class="card-title">Dynamic scenes</span>
+                            
+                            <div class="scene" data-scene="Broadway"></div>
+                            <div class="scene" data-scene="Sunrise"></div>
+                            <div class="scene" data-scene="Sunset"></div>
+                            <div class="scene" data-scene="Coffee"></div>
+                            <div class="scene" data-scene="GreenForest"></div>
+                            <div class="scene" data-scene="Disco"></div>
+                            <div class="scene" data-scene="Romantic Red"></div>
+                            <div class="scene" data-scene="Police"></div>
+                            <!--<div class="scene" data-scene="Lightning"></div>-->
+                            <h6>Holiday scenes</h6>
+                            <div class="scene" data-scene="Valentines"></div>
+                            <div class="scene" data-scene="New Years Fireworks"></div>
+                            <div class="scene" data-scene="Christmas"></div>
+                            <div class="scene" data-scene="Thanksgiving"></div>
+                            <div class="scene" data-scene="4th of July"></div>
+                            <!--<h6>Time of day</h6>
+                            Morning
+                              Working 
+                              Cooking 
+                              Yoga
+                            Late Morning
+                            Afternoon
+                              Working 
+                              Cooking 
+                            Evening 
+                              Reading 
+                              Watching TV 
+                              Entertaining
+                              Chilling
+                            Night
+                              Bathroom
+                              Read in bed
+                              Path to kitchen
 
 
-                          <div class="scene" data-scene="TurkeyFeast"></div>
-                          <h5 class="colors-name">Morning</h6>
-                          <h5 class="colors-name">Daytime</h6>
-                          <h5 class="colors-name">Afternoon</h6>-->
-                          <br />
-                          <h6>
-                            Bridge Scenes 
-                            <a id="make-scene" href="#"><i class="fa fa-pencil"></i></a>
-                          </h6>
-                          <div id="create-scene" class="rounded-well">
-                            <p id="scene-name">
-                              <input class="scenename input" placeholder="Enter scene name..." />
-                              <button class="submit" name="Create scene" type="submit"  id="add-scene" value="Add">Save</button>
-                            </p>
-                          </div>
-
-                          <div id="scenes"></div>
-
-                          <br />
-                          <div>
-                            <h6>Schedules
-                             <!-- <a id="make-schedule" href="#"><i class="fa fa-pencil"></i></a>-->
+                            <div class="scene" data-scene="TurkeyFeast"></div>
+                            <h5 class="colors-name">Morning</h6>
+                            <h5 class="colors-name">Daytime</h6>
+                            <h5 class="colors-name">Afternoon</h6>-->
+                            <br />
+                            <h6>
+                              Bridge Scenes 
+                              <a id="make-scene" href="#"><i class="fa fa-pencil"></i></a>
                             </h6>
-
-                            <div id="create-schedule" class="rounded-well">
-                              <p id="schedule-name">
-                                <div class="scenename input" placeholder="Enter schedule name..."></div>
-                                <button class="submit" name="Create schedule" type="submit"  id="add-schedule" value="Add">Save</button>
+                            <div id="create-scene" class="rounded-well">
+                              <p id="scene-name">
+                                <input class="scenename input" placeholder="Enter scene name..." />
+                                <button class="submit" name="Create scene" type="submit"  id="add-scene" value="Add">Save</button>
                               </p>
                             </div>
-                            <div id="schedules"></div>
 
-                            <div id="schedules-list" class="large-list"></div>
-
+                            <div id="scenes"></div>
+                            </div>
                           </div>
-                      </div>
+
+                          <div class="card">
+                            <div class="card-content">
+                             <!-- <a id="make-schedule" href="#"><i class="fa fa-pencil"></i></a>-->
+                              <span class="card-title">Schedules</span>
+                              <div id="create-schedule" class="rounded-well">
+                                <p id="schedule-name">
+                                  <div class="scenename input" placeholder="Enter schedule name..."></div>
+                                  <button class="submit" name="Create schedule" type="submit"  id="add-schedule" value="Add">Save</button>
+                                </p>
+                              </div>
+                              <div id="schedules"></div>
+
+                              <div id="schedules-list" class="large-list"></div>
+                            </div>
+                          </div>
+
                       </div>
 
                       <div role="tabpanel" class="tab-pane fade in" id="colors">
@@ -417,8 +422,9 @@
                       </div>
                       
                       <div role="tabpanel" class="tab-pane fade in" id="subscribe">
-                        <div class="card-panel">
-                            <h6>Newsletter, feedback, ideas</h6>
+                        <div class="card">
+                          <div class="card-content">
+                              <span class="card-title">Newsletter &amp; feedback</span>
                             <div class="pane-body">
                               Enter your email to be the first to know about new features &amp; releases:
                             </div>
@@ -448,11 +454,11 @@
 
                               </div>
                             </div>
+                            </div>
                           </div>
                           <div class="card">
                             <div class="card-content">
                               <span class="card-title">Links</span>
-                              <h6>Links</h6>
                               <div class="padded-links">
                                  <a href="http://bit.ly/lightpro" class="not-light nativeclick" target="_blank">
                                     <i class="fa fa-toggle-on"></i> Lightswitch

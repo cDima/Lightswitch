@@ -1395,7 +1395,7 @@ function getColor(e){
 /* ambient eye tab on show */
 
 function initAmbientEye() {
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+    $('.tabs.main-menu').on('click', function(e) {
       
       circle.hide();
       log('in tab: ' + e.target.hash);

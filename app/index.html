@@ -213,6 +213,7 @@
                         <div class="card">
                           <div class="card-content">
                             <span class="card-title">Brightness</span>
+                            <div class="padded-links" id="config-actor"></div>
                             <!--<a class="link-btn command" href="#darken" title="Darken">-</a>
                             <a class="link-btn command" href="#brighten" title="Brighten">+</a>-->
                             <div class="row">
@@ -255,11 +256,25 @@
                               <div id="group-remove"></div>
                             </div>
                             <div id="groups"></div>
-                            <h6>Lamps</h6>
+                            <h6>Lights</h6>
                             <div id="lamps"></div>
 
-                          </div>
+
+                                <div id="lights-list" class="large-list row">
+                                  <div class="item" id="4">
+                                    <i class="fa fa-lightbulb-o"></i>
+                                    <div class="switch no-drag">
+                                      <input id="toggle-light-1" class="cmn-toggle cmn-toggle-round" type="checkbox" checked="">
+                                      <label for="toggle-light-1"></label>
+                                    </div>
+                                    <div class="title">HueName <i>model number</i></div>
+                                    <div class="desc"><b>SW Version</b>, in 5 groups</div>
+                                  </div>
+
+                                </div>
+
                         </div>
+                      </div>
 
                           
                         <div class="card">
@@ -268,7 +283,6 @@
                             <div class="selectable" id="bridge">
                                 <div class="padded-links" id="config-ip"></div>
                                 <div class="padded-links" id="config-swversion"></div>
-                                <div class="padded-links" id="config-actor"></div>
                             </div>
                           </div>
                         </div>
@@ -418,7 +432,7 @@
                               </div>
                               <!--<div id="schedules"></div>-->
 
-                              <div id="schedules-list" class="large-list"></div>
+                              <div id="schedules-list" class="large-list row"></div>
                             </div>
                           </div>
                       </div>

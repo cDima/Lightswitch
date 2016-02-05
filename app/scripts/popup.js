@@ -832,6 +832,29 @@ function fillSettings(state) {
             //  value.name + ', reachable: ' + 
             //  value.state.reachable + 
             //  ', on: ' + value.state.on);
+
+            /* value: "{"state":
+                 {"on":true,
+                 "bri":248,
+                 "hue":14910,
+                 "sat":144,
+                 "effect":"none",
+                 "xy":[0.4358,0.4044],
+                 "ct":369,
+                 "alert":"select",
+                 "colormode":"xy",
+                 "reachable":false
+                },
+                "type":"Extended color light",
+                "name":"Kitchen",
+                "modelid":"LCT001",
+                "manufacturername":"Philips",
+                "uniqueid":"00:17:88:01:00:bd:88:d3-0b",
+                "swversion":"66013452",
+                "pointsymbol":{"1":"0f00f0ffff000033330000333300003333000044",
+                "2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"}
+                }"
+            */
             btn = createActorBtn(key, value.name);
             btn.click(actorClick);
             btn.click(flashLamp);
@@ -842,6 +865,37 @@ function fillSettings(state) {
             selector.click(flashLamp);
             selector.click(toggleActiveClick);
             $('#group-add-lamps').append(selector);
+
+            var desc = "";
+
+
+            if (value.state.reachable) {
+              desc = `hsl: ${Math.round(value.state.hue/65535*359)}°, 
+                       ${Math.round(value.state.sat/256*100)}%, 
+                       ${Math.round(value.state.bri/256*100)}%. `;
+            } 
+//groups: lights: 0: "1"
+//name: "All"
+            var color = `hsla(
+                       ${Math.round(value.state.hue*1000/65535*359)/1000}, 
+                       ${Math.round(value.state.sat*1000/256*100)/1000}%, 
+                       ${Math.round(value.state.bri*1000/256*100)/1000}%, 1)`;
+
+            var item = `<div class="item">
+                <i class="fa fa-lightbulb-o"></i>
+                <div class="switch no-drag">
+                  <input id="toggle-light-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
+                    checked="${value.state.on ? "checked" : ""}" ${value.state.reachable ? "" : "disabled"}>
+                  <label for="toggle-light-${key}"></label>
+                </div>
+                <div class="title">${value.name} <i>${value.state.reachable ? "" : "offline"}</i></div>
+                <div class="desc">${desc}</div>
+              </div>`;
+
+            btn = $(item).attr('id', key);
+            btn.click(toggleActiveClick);
+            $('#lights-list').append(btn);
+
         }
 
 

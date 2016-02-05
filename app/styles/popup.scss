@@ -476,12 +476,14 @@ p {margin: 0 0 5px;}
   background-color: #fff;
   border: none;
   width: auto;
-  height: 20px;
+  height: 30px;
   margin: 2px;
   outline: none;
   border-radius: 20px;
-  border: solid 1px #fff;
+  border: solid 1px #F5F4F4;
   transition: background-color 400ms;
+  padding: 5px 20px;
+  background-color: #f1f1f1;
 }
 .savedscene {
   background-color: #f3f3f3;
@@ -1043,7 +1045,7 @@ h6 a, h6 a:hover  {
 }
 
 #create-group, .rounded-well {
-  background: #F5F5F5;
+  background: #fafafa;
   border-radius: 20px;
 }
 .rounded-well #scene-name {
@@ -1095,18 +1097,25 @@ h6 a, h6 a:hover  {
   float:right;
   padding-top: 8px;
 }
-.large-list .item .play {
+.large-list .item i.fa {
   float: left;  
   font-size: 1.3em;
   padding: 6px;
   color: #ccc;
-  cursor: pointer;
-  padding-top: 10px;
+  padding-top: 7px;
 }
-.large-list .item:hover .play {
+.large-list .item i.fa.play {
+  cursor: pointer;
+}
+.large-list .item:hover i.fa {
   color:rgb(66, 139, 202);
 }
-
+[type="checkbox"]:checked:disabled + label:before {
+  border-bottom: 1px;
+}
+.cmn-toggle-round:disabled + label:before, .cmn-toggle-round:disabled + label:after {
+    background-color: #F3F3F3 !important;
+}
 
 #create-group #group-name {
   padding-top: 10px;

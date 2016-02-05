@@ -973,6 +973,7 @@ if (typeof String.prototype.endsWith !== 'function') {
 
 function hideControls(){
   $('.tab-content').hide(0);
+  $('.main-menu.tabs').fadeOut(600);
   $('#controls').fadeOut(600, showTabContent);
 }
 
@@ -980,6 +981,7 @@ function showControls(){
     $('#connectStatus').hide(0);
     $('.tab-content').hide(0);
     if (config.tabs === true) {
+      $('.main-menu.tabs').fadeIn(600);
       $('#controls').fadeIn(600, showTabContent);
     }
 }

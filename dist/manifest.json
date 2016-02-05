@@ -1,21 +1,24 @@
 {
   "manifest_version": 2,
 
-  "name": "Ambience for Philips Hue",
-  "short_name": "Ambience",
-  "description": "Ambience for Philips Hue — Netflix, Youtube, Hulu, Vimeo, websites. Let the web shine.",
+  "name": "Lightswitch Web for Philips Hue",
+  "short_name": "Lightswitch",
+  "description": "Lightswitch — a chrome extension for Philips Hue lights",
   "version": "3.0.0",
 
   "author": "Dmitry Sadakov (sadakov.com)",
-  "icons": { 
-     "128": "images/ambieye.on.png",
-    "1000": "images/material-icon.png" 
-   },
+  "icons": { "16": "images/lightswitch.logo.on.16.png",
+             "32": "images/lightswitch.logo.on.32.png",
+             "48": "images/lightswitch.logo.on.48.png",
+            "128": "images/lightswitch.logo.on.128.png" },
   "permissions": [
-    "tabs",
-    "<all_urls>",
     "https://www.meethue.com/",
+    "https://colorlovers.herokuapp.com/",
     "storage"
+  ],
+  "optional_permissions": [ 
+    "activeTab",
+    "<all_urls>"
   ],
   "background": {
     "scripts": [
@@ -23,8 +26,8 @@
     ]
   },
   "browser_action": {
-    "default_icon": "images/ambieye-ico-on.png",
+    "default_icon": "images/lightswitch.logo.128.png",
     "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' https://cdn.mxpnl.com https://*.list-manage.com https://*.uservoice.com https://colorlovers.herokuapp.com https://www.google-analytics.com; object-src 'self';"
+  "content_security_policy": "script-src 'self' https://cdn.mxpnl.com https://script.fail https://*.list-manage.com https://*.uservoice.com https://colorlovers.herokuapp.com https://www.google-analytics.com; object-src 'self';"
 }

@@ -663,6 +663,7 @@ function initGroupCreation() {
     $('#create-group').hide();
     $('#make-group').click(function(){
       $('#create-group').slideToggle();
+      return false;
     });
     $('#add-group').click(function(){
       var name = $('#group-name input').val();
@@ -707,6 +708,15 @@ function initSceneCreation() {
     // reset
     delayedRefresh();
   });
+
+  $('#create-schedule').hide();
+  $('#make-schedule').click(function(){
+    $('#create-schedule').slideToggle();
+    return false;
+  });
+  //$('#add-schedule').click(function(){
+  //});
+  
 }
 
 function createActorBtn(key,name){
@@ -1347,18 +1357,18 @@ function getColor(e){
     log('touch event e.pageX:' + e.pageX);
     log('touch event touches:' + touches);
 
-    var x = e.pageX;
-    var y = e.pageY;
+    var x = e.offsetX;
+    var y = e.offsetY;
 
     if (touches !== undefined && touches.length > 0) {
-      x = touches[0].pageX;
-      y = touches[0].pageY;
+      x = touches[0].offsetX;
+      y = touches[0].offsetY;
       log('touches[0]:' + touches[0]);
     }
 
 
-    var canvasX = Math.floor(x - canvasOffset.left);
-    var canvasY = Math.floor(y - canvasOffset.top);
+    var canvasX = Math.floor(x );//- canvasOffset.left);
+    var canvasY = Math.floor(y );//- canvasOffset.top);
     var pixel = null;
     
     var ctx = document.getElementById(e.target.id).getContext('2d');
@@ -1376,12 +1386,13 @@ function getColor(e){
     var pixelColor = 'rgb('+pixel[0]+', '+pixel[1]+', '+pixel[2]+')';
     //$('.preview').css('backgroundColor', pixelColor);
 
+    var left = x - 10 + e.target.offsetLeft;
     circle.css({ 
           backgroundColor: pixelColor, 
           //top: e.pageY - 50,
           //left: e.pageX -10
-          top: y - 50,
-          left: x -10
+          top: y - 50 + e.target.offsetTop,
+          left: left
         });
 
     // update controls

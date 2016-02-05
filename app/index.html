@@ -129,40 +129,26 @@
                 </div>
             </div>
         </header>
-
-<!--fa-toggle-off -->
         <div class="container footer-padding">
-
-          <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
-              <i class="fa fa-angle-double-down animated"></i>
-          </a> 
-
-
-<div class="col s12 valign-wrapper">
-    <div class="input-field col s10">
-        <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input s5" required="">
-        <label for="EMAIL">Email</label>
-    </div>
-    <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="waves-effect waves-light btn col s2  input-field">
-      <i class="fa fa-plus-circle"></i>
-    </button>
-  </div>
-
-          -->
-
-          <div id="manualbridgeip" class="manualbridge no-drag col s12 valign-wrapper"  style="display:none">
-            <div class="input-field">
-                <input type="text" class="col bridgeip input validate" name="manualip" id="manualip" pattern="\b(?:\d{1,3}\.){3}\d{1,3}\b" />
-                <label for="manualip"  data-error="Bridge not detected" data-success="Connecting...">Enter the bridge IP...</label>
+          
+          <div id="manualbridgeip" class="manualbridge materialform no-drag col s12 valign-wrapper"  style="display:none">
+            <div class="col s1">
+              <i class="fa fa-search"></i>
+            </div>
+            <div class="input-field col s10">
+                <input type="text" class="bridgeip input validate" name="manualip" id="manualip" pattern="\b(?:\d{1,3}\.){3}\d{1,3}\b" />
+                <label for="manualip"  data-error="Please enter IP address" data-success="">Enter the bridge IP...</label>
             </div>            
-            <!--<button class="submit" 
+            <button class="submit col s1"  
                     name="Find" 
                     type="submit"  
                     id="findbridge" 
                     value="Find">
-                    Find
-            </button>-->
+                    &rarr;
+            </button>
           </div>
+
+
           <div id="https-proxy"  style="display:none">
             To use this application, please install the Chrome extension <a href="http://bit.ly/lightpro" class="not-light" target="_blank"><i class="fa fa-toggle-on"></i> Lightswitch Pro »</a>
           </div>
@@ -239,10 +225,31 @@
                             </div>
                             <h6>Groups <a id="make-group" href="#"><i class="fa fa-pencil"></i></a></h6>
                             <div id="create-group">
-                              <p id="group-name">
+
+
+                              <div id="group-name" class="materialform no-drag col s12">
+                                <!--<div class="col s1">
+                                  <i class="fa fa-search"></i>
+                                </div>-->
+                                <div class="input-field col s11">
+                                    <input type="text" name="groupname" id="groupname" class="groupname input"/>
+                                    <label for="groupname">Enter group name...</label>
+                                </div>            
+                                <button class="submit col s1"  
+                                        name="Add" 
+                                        type="submit"  
+                                        id="add-group" 
+                                        value="Add">
+                                        +
+                                </button>
+                              </div>
+
+
+                              <!--<p id="group-name">
                                 <input class="groupname input" placeholder="Enter group name..." />
                                 <button class="submit" name="Add" type="submit"  id="add-group" value="Add">Add</button>
-                              </p>
+                              </p>-->
+
                               <div id="group-add-lamps"></div>
                               <div id="group-remove"></div>
                             </div>

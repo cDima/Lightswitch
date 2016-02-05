@@ -441,11 +441,14 @@ function initManualBridge(){
 function tryBridge(){
   var ip = $('#manualbridgeip input').val();
   tryIP(ip,function() {
+    // on fail
     $('#manualbridgeip')
       .addClass('shake')
       .bind('oanimationend animationend webkitAnimationEnd', function() { 
        $('#manualbridgeip').removeClass('shake');
     });
+    
+
   });
 }
 

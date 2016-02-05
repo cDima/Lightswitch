@@ -135,11 +135,34 @@
 
           <!-- <a id="connectStatus" href="#authenticate" class="btn btn-circle page-scrollconnectStatus">
               <i class="fa fa-angle-double-down animated"></i>
-          </a> -->
-          <p id="manualbridgeip" class="no-drag"  style="display:none">
-            <input class="bridgeip input" placeholder="Enter the bridge IP..." />
-            <button class="submit" name="Find" type="submit"  id="findbridge" value="Find">Find</button>
-          </p>
+          </a> 
+
+
+<div class="col s12 valign-wrapper">
+    <div class="input-field col s10">
+        <input type="email" name="EMAIL" id="EMAIL" class="subscribe-input input s5" required="">
+        <label for="EMAIL">Email</label>
+    </div>
+    <button  name="subscribe" type="submit"  id="mc-embedded-subscribe" value="Subscribe" class="waves-effect waves-light btn col s2  input-field">
+      <i class="fa fa-plus-circle"></i>
+    </button>
+  </div>
+
+          -->
+
+          <div id="manualbridgeip" class="manualbridge no-drag col s12 valign-wrapper"  style="display:none">
+            <div class="input-field">
+                <input type="text" class="col bridgeip input validate" name="manualip" id="manualip" pattern="\b(?:\d{1,3}\.){3}\d{1,3}\b" />
+                <label for="manualip"  data-error="Bridge not detected" data-success="Connecting...">Enter the bridge IP...</label>
+            </div>            
+            <!--<button class="submit" 
+                    name="Find" 
+                    type="submit"  
+                    id="findbridge" 
+                    value="Find">
+                    Find
+            </button>-->
+          </div>
           <div id="https-proxy"  style="display:none">
             To use this application, please install the Chrome extension <a href="http://bit.ly/lightpro" class="not-light" target="_blank"><i class="fa fa-toggle-on"></i> Lightswitch Pro »</a>
           </div>

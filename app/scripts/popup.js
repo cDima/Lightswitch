@@ -881,6 +881,8 @@ function fillSettings(state) {
                        ${Math.round(value.state.sat*1000/256*100)/1000}%, 
                        ${Math.round(value.state.bri*1000/256*100)/1000}%, 1)`;
 
+            desc = "";
+
             var item = `<div class="item">
                 <i class="fa fa-lightbulb-o"></i>
                 <div class="switch no-drag">

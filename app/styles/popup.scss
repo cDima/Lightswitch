@@ -1077,7 +1077,7 @@ h6 a, h6 a:hover  {
 .large-list .item .title {
     display: block;
     font-size: 1.5em;
-    font-weight: 100;
+    font-weight: 300;
     color: #000;
 }
 .large-list .item .title i {
@@ -1109,12 +1109,6 @@ h6 a, h6 a:hover  {
 }
 .large-list .item:hover i.fa {
   color:rgb(66, 139, 202);
-}
-[type="checkbox"]:checked:disabled + label:before {
-  border-bottom: 1px;
-}
-.cmn-toggle-round:disabled + label:before, .cmn-toggle-round:disabled + label:after {
-    background-color: #F3F3F3 !important;
 }
 
 #create-group #group-name {

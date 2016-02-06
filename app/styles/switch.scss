@@ -38,9 +38,6 @@
   background-color: #f1f1f1;
   border-radius: 20px;
   transition: background 0.4s, width 0.4s;
-
-
-
 }
 .cmn-toggle-round + label:after {
   width: 20px;
@@ -104,6 +101,19 @@
 .cmn-toggle-round:disabled + label   {
   background-color: #ccc;
 }
+[type="checkbox"]:checked:disabled + label:before {
+  border-bottom: 1px;
+}
+.cmn-toggle-round:disabled + label {
+    background-color: #E6E6E6;;
+}
+.cmn-toggle-round:disabled + label:before, .cmn-toggle-round:disabled + label:after {
+    background-color: #fff !important;
+}
+.cmn-toggle + label {
+  cursor: default;
+}
+
 
 @-webkit-keyframes switchThumbAnimation {
     0% { width: 20px; margin-left: 0px; }

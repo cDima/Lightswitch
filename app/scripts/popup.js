@@ -729,7 +729,7 @@ function actorClick(event){
   $('button').removeClass('active');
   $('button[id=' + key + ']').addClass('active');
   setActor(key);
-  $("#config-actor").text('Actors: ' + $(event.target).html());
+  $("#config-actor").text($(event.target).html());
   return false;
 }
 
@@ -820,10 +820,34 @@ function fillSettings(state) {
         
         $('#group-remove').empty();
 
-        //$.each(state.lights, function(key, value) {
+        //arr.sort(function (v,v1) { return v.f > v1.f ; })
+        for(i in state.lights) {
+            state.lights[i].key = i;
+        }
+
+        var allOn = false;
+        var lightsReachable = [];
+        var lightsUnreachable = [];
+
         for(i in state.lights) {
             key = i;
             value = state.lights[i];
+            if (value.state === undefined) {
+              continue;
+            }
+            if (value.state.reachable) {
+                lightsReachable.push(value);
+            } else {
+              lightsUnreachable.push(value);
+            }
+            allOn = allOn || value.state.reachable || value.state.on;
+        }
+        var lightsAll = lightsReachable.concat(lightsUnreachable);
+
+        //$.each(state.lights, function(key, value) {
+        for(i in lightsAll) {
+            //key = i;
+            value = state.lights[lightsAll[i].key];
           
             if (value.state === undefined) {
               continue;
@@ -856,12 +880,12 @@ function fillSettings(state) {
                 "2":"none","3":"none","4":"none","5":"none","6":"none","7":"none","8":"none"}
                 }"
             */
-            btn = createActorBtn(key, value.name);
+            btn = createActorBtn(value.key, value.name);
             btn.click(actorClick);
             btn.click(flashLamp);
             $('#lamps').append(btn);
             
-            selector = createActorBtn(key, value.name);
+            selector = createActorBtn(value.key, value.name);
             selector.addClass('lamp-select');
             selector.click(flashLamp);
             selector.click(toggleActiveClick);
@@ -882,40 +906,26 @@ function fillSettings(state) {
                        ${Math.round(value.state.sat*1000/256*100)/1000}%, 
                        ${Math.round(value.state.bri*1000/256*100)/1000}%, 1)`;
 
-            desc = "";
+            //desc = "";
 
             var item = `<div class="item">
                 <i class="hueicon hue-${value.modelid}"></i>
                 <div class="switch no-drag">
-                  <input id="toggle-light-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
+                  <input id="toggle-light-${value.key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
                     checked="${value.state.on ? "checked" : ""}" ${value.state.reachable ? "" : "disabled"}>
-                  <label for="toggle-light-${key}"></label>
+                  <label for="toggle-light-${value.key}"></label>
                 </div>
                 <div class="title">${value.name} <i>${value.state.reachable ? "" : "offline"}</i></div>
                 <div class="desc">${desc}</div>
               </div>`;
 
-            btn = $(item).attr('id', key);
+            btn = $(item).attr('id', value.key);
             btn.click(toggleActiveClick);
             $('#lights-list').append(btn);
 
         }
 
 
-        var allOn = false;
-        var lightsReachable = [];
-
-        for(i in state.lights) {
-            key = i;
-            value = state.lights[i];
-            if (value.state === undefined) {
-              continue;
-            }
-            if (value.state.reachable) {
-                lightsReachable.push(value);
-            }
-            allOn = allOn || value.state.reachable || value.state.on;
-        }
         
         if (typeof(chrome) !== 'undefined'  && chrome.browserAction !== undefined) {
           var path = 'images/lightswitch.logo.on.128.png';

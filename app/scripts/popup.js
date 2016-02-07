@@ -641,13 +641,13 @@ function updateActorUI(actorId) {
 function updateActorControls(actors) {
   var on = false;
   var bri = 0;
-  var names = '';
+  //var names = '';
   $.each(actors, function(key, lamp){
     on = on || (lamp && lamp.state && lamp.state.on && lamp.state.reachable);
     if (lamp && lamp.state && (lamp.state.bri > bri)) {
       bri = lamp.state.bri;
     }
-    names = names + ', ' + lamp.name;
+    //names = names + ', ' + lamp.name;
   });
  
   $('#lightswitch').prop('checked', on);
@@ -655,8 +655,8 @@ function updateActorControls(actors) {
   $('#brightness-control').val(bri);
   $('#brightness-control').change(); // update ui
 
-  names = names.substring(2);
-  $("#config-actor").text('Actors: ' + names);
+  //names = names.substring(2);
+  //$("#config-actor").text('Actors: ' + names);
 }
 
 function initGroupCreation() {
@@ -729,6 +729,7 @@ function actorClick(event){
   $('button').removeClass('active');
   $('button[id=' + key + ']').addClass('active');
   setActor(key);
+  $("#config-actor").text('Actors: ' + $(event.target).html());
   return false;
 }
 
@@ -884,7 +885,7 @@ function fillSettings(state) {
             desc = "";
 
             var item = `<div class="item">
-                <i class="fa fa-lightbulb-o"></i>
+                <i class="hueicon hue-${value.modelid}"></i>
                 <div class="switch no-drag">
                   <input id="toggle-light-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
                     checked="${value.state.on ? "checked" : ""}" ${value.state.reachable ? "" : "disabled"}>

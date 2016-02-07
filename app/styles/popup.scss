@@ -912,11 +912,11 @@ a.hightlight {
 .materialform .bridgeip {
 }
 .materialform > div > i.fa {
-    /*padding-top: 15px;*/
-  }
-  .nopadding {
-    padding: 0;
-  }
+  /*padding-top: 15px;*/
+}
+.nopadding {
+  padding: 0;
+}
 
 .materialform button.submit {
   border: 0;
@@ -1079,6 +1079,9 @@ h6 a, h6 a:hover  {
     font-size: 1.5em;
     font-weight: 300;
     color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .large-list .item .title i {
     font-size: 0.7em;
@@ -1109,6 +1112,20 @@ h6 a, h6 a:hover  {
 }
 .large-list .item:hover i.fa {
   color:rgb(66, 139, 202);
+}
+
+.hueicon {
+  display: block;
+  text-indent: -9999px;
+  width: 20px;
+  height: 20px;
+  background: url(../images/svg/white_and_color_e27.svg);
+  background-size: 20px 20px;
+  float: left;
+  margin-left: 0;
+  margin-top: 6px;
+  margin-bottom: 5px;
+  margin-right: 6px;
 }
 
 #create-group #group-name {

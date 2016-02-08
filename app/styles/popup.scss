@@ -83,6 +83,7 @@ html, body {
 .tabs.main-menu {
   width: 320px;
   border-bottom: 1px solid #ddd;
+  background: inherit;
 }
 .tabs.main-menu .tab a {
   color: #666;
@@ -1126,6 +1127,9 @@ h6 a, h6 a:hover  {
   margin-top: 6px;
   margin-bottom: 5px;
   margin-right: 6px;
+}
+.hue-LCT001 {
+  background: url(../images/svg/white_and_color_e27.svg);
 }
 
 #create-group #group-name {

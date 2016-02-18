@@ -113,9 +113,7 @@ gulp.task('styles', () => {
     .pipe($.size({title: 'styles'}));
 });
 
-// Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
-// to enables ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
-// `.babelrc` file.
+// Concatenate and minify JavaScript.
 
 var popupScr = [
       './app/scripts/libs/babel-polyfill.min.js',
@@ -137,6 +135,7 @@ var popupScr = [
       './app/scripts/libs/scenes.js',
       './app/scripts/libs/sceneCommander.js',
       //'./app/scripts/libs/testData.js',
+      './app/scripts/libs/hueTime.js',
       './app/scripts/libs/hueDiscover.js',
       './app/scripts/libs/hue.js',
       './app/scripts/libs/colorUtil.js',
@@ -317,7 +316,8 @@ gulp.task('serve', [
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
-  gulp.watch(['app/scripts/**/*.js'], ['lint', 
+  gulp.watch(['app/scripts/**/*.js'], [
+    //'lint', 
     'scripts'
     //,'scripts-tvos'
     ]);
@@ -375,8 +375,11 @@ gulp.task('win', function() {
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 
-    //'scripts-tvos',
+    [
+      //'lint', 
+      'html', 
+      'scripts', 
+      //'scripts-tvos',
     'images', 
     'fonts', 'copy'],
     //'generate-service-worker',

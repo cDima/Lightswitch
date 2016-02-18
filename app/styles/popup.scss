@@ -68,6 +68,12 @@ html, body {
   margin: 0 auto;
 }
 
+header {
+    /*background: url(../images/bk/bk1.png);*/
+    background-position-y: -206px;
+}
+
+
 /*@media only screen and (max-width: 640px) {
 
 
@@ -79,6 +85,8 @@ html, body {
 }
 */
  /* CSS that's applied when the viewing area's width is 450px or less */
+
+
 
 .tabs.main-menu {
   width: 320px;

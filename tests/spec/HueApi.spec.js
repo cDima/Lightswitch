@@ -6,11 +6,20 @@ describe("HueTime", function() {
     
     var r = HueTime.Recurrings;
     expect(r).not.toBeNull();
-    expect(r.never).toBe(0); 
     expect(r.Thursday).toBe(8); 
     expect(r.weekday).toBe(124); 
     expect(r.day).toBe(127); 
+
   }); 
+
+  it("should parse names", function() {
+    expect(new HueTime().recurringDayName(124)).toBe("weekday");
+    expect(new HueTime().recurringDayName(HueTime.Recurrings.Thursday | HueTime.Recurrings.Tuesday)).toBe("Tuesday, Thursday");
+    expect(new HueTime().recurringDayName(HueTime.Recurrings.Saturday | HueTime.Recurrings.Sunday)).toBe("weekend");
+    expect(new HueTime().recurringDayName(HueTime.Recurrings.weekend)).toBe("weekend");
+    expect(new HueTime().recurringDayName(HueTime.Recurrings.day)).toBe("day");
+  }); 
+
 
   it("should init to nulls", function() {
     var d = new HueTime();
@@ -30,6 +39,10 @@ describe("HueTime", function() {
       expect(d.dateTime).toBe(new Date(date).toISOString().slice(0,-5)); 
       expect(d.toString()).toBe(date); 
       console.log(d.toHumanString());
+      expect(d.humanDate, "Sat, September 20th 2014");
+      expect(d.humanRandomTime, "");
+      expect(d.humanRepeats, "");
+      expect(d.humanTime, "7:35 PM");
     }); 
 
     it("randomized date times", function() {

@@ -13,36 +13,50 @@ class HueTime {
     this.randomizedTime = null;
     this.recurringDay = null;
     this.numberOfRecurrences = null;
+
     this.humanTime = '';
-    this.humanDesc = '';
+    this.humanDate = '';
+    this.humanRandomTime = '';
+    this.humanRepeats = '';
+
     this.hueString = null;
 
     if(input) this.parse(input);
   }
 
   static get Recurrings (){
+    // bitmap 0MTWTFSS 
     return {
-      'never': 0,
-      'Sunday': 1,
-      'Saturday': 2,
-      'Friday': 4,
-      'Thursday': 8,
-      'Wednesday': 16,
-      'Tuesday': 32,
       'Monday': 64,
+      'Tuesday': 32,
+      'Wednesday': 16,
+      'Thursday': 8,
+      'Friday': 4,
+      'Saturday': 2,
+      'Sunday': 1,
       'weekday': 124,
       'weekend': 3,
       'day': 127,
+      'never': 0,
     };
   }
 
-  get recurringDayName () {
+  recurringDayName (bitmask) {
     var obj = HueTime.Recurrings;
-    for (var property in obj){
-        if ((obj[property] == this.recurringDay)){
-            return property;
+    let res = '';
+    var weekend = (obj.weekend & bitmask) == obj.weekend;
+    var weekday = (obj.weekday & bitmask) == obj.weekday;
+    if((obj.day & bitmask) == obj.day) return 'day';
+
+    for (var prop in obj){
+        if (obj[prop] > 0 && 
+          ((obj[prop] == obj.weekday || (!weekday && 2 < obj[prop] && obj[prop] <= 64)) || 
+          (obj[prop] == obj.weekend || (!weekend && obj[prop] <= 2))) && 
+          (obj[prop] & bitmask) == obj[prop]) {
+            res += ', ' + prop;
         }
     }
+    if (res.length > 0) return res.substr(2);
     return 'Never';
   }
 
@@ -87,31 +101,37 @@ class HueTime {
     if (this.dateTime) {
       this.m = new moment(this.dateTime);
       this.humanTime = this.m.format("h:mm A");
-      if (this.humanRandomTime) this.humanTime += ' ~ ' + this.humanRandomTime;
-      this.humanDesc = this.m.format("ddd, MMMM Do YYYY");
+      this.humanDate = this.m.format("ddd, MMMM Do YYYY");
     } 
     if (this.timerTime) {
       this.m = new moment(this.timerTime, 'hh:mm:ss');
       this.humanTime = this.m.format("h:mm A");
-      if (this.humanRandomTime) this.humanTime += ' ~ ' + this.humanRandomTime;
+    }
+
+    if (this.humanRandomTime) { 
+      this.humanTime += ' ~ ' + this.humanRandomTime;
     }
     
-    var repeatable = '';
-    if (this.recurringDay) {
-      repeatable = `repeats every ${this.recurringDayName} `;
-    } 
-    if (this.numberOfRecurrences) {
-      repeatable = `repeats ${this.numberOfRecurrences} time`;
-      if (this.numberOfRecurrences > 1) {
-        repeatable += 's ';
-      }
-    } 
-    this.humanDesc += repeatable;
+    this.humanRepeats = this.humanReoccurences(this);
     this.hueString = this.toString();
 
     var input = input;
-    let s = `${this.humanTime}; ${this.humanDesc}`;
+    let s = `${this.humanTime}; ${this.humanDate} ${this.humanRepeats}`;
 
+  }
+
+  humanReoccurences(hueTime) {
+    let rep = '';
+    if (hueTime.recurringDay) {
+       rep = `repeats every ${hueTime.recurringDayName(this.recurringDay)} `;
+    } 
+    if (hueTime.numberOfRecurrences) {
+      rep = `repeats ${hueTime.numberOfRecurrences} time`;
+      if (hueTime.numberOfRecurrences > 1) {
+        rep += 's ';
+      }
+    } 
+    return rep;
   }
 
   pad(n, width, z) {
@@ -151,26 +171,6 @@ class HueTime {
   }
 
   toHumanString (){
-    var value = '';
-    if (this.recurringDay) {
-      value = `repeats every ${this.recurringDayName} `;
-    } 
-    if (this.numberOfRecurrences) {
-      value = `repeats ${this.numberOfRecurrences} time`;
-      if (this.numberOfRecurrences > 1) {
-        value += 's ';
-      }
-    } 
-    if (this.dateTime) {
-      value += 'at ' + this.dateTime.substring(0, 2);
-    }
-    if (this.timerTime) {
-      value += 'at ' + this.timerTime;
-    }
-    if (this.randomizedTime) {
-      value += ' randomized until ' + this.randomizedTime;
-    }
-
-    return value;
+    return `${this.humanTime}; ${this.humanDate} ${this.humanRepeats}`;
   }
 }

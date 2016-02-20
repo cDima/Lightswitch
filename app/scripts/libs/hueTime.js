@@ -1,6 +1,10 @@
 "use strict";
 
-
+/// supports three types of dates from the hue bridge: alarm or timer.
+// timers are split up:
+  // date-time strings 2014-09-20T19:35:26 + randomized time 20h
+  // Weekly reoccurences at a specific time: W032/T19:45:00 repeats Tuesday at 7:45 pm.
+// alarm
 class HueTime {
   constructor(input) {
 
@@ -9,13 +13,16 @@ class HueTime {
     this.randomizedTime = null;
     this.recurringDay = null;
     this.numberOfRecurrences = null;
+    this.humanTime = '';
+    this.humanDesc = '';
+    this.hueString = null;
 
     if(input) this.parse(input);
   }
 
   static get Recurrings (){
     return {
-      'Never': 0,
+      'never': 0,
       'Sunday': 1,
       'Saturday': 2,
       'Friday': 4,
@@ -23,9 +30,9 @@ class HueTime {
       'Wednesday': 16,
       'Tuesday': 32,
       'Monday': 64,
-      'Weekday': 124,
-      'Weekend': 3,
-      'Everyday': 127,
+      'weekday': 124,
+      'weekend': 3,
+      'day': 127,
     };
   }
 
@@ -50,7 +57,7 @@ class HueTime {
         if (match[1]) this.recurringDay = Number(match[1]);
         if (match[2]) this.timerTime = match[2];
         if (match[4]) this.randomizedTime = match[4]; 
-        return;
+        break;
 
       case 'R':
       case 'P':
@@ -63,7 +70,7 @@ class HueTime {
         }
         if (match[3]) this.timerTime = match[3];
         if (match[5]) this.randomizedTime = match[5]; 
-        return;
+        break;
 
       default:
         // usual date time with optional random time
@@ -71,8 +78,40 @@ class HueTime {
         // straight date: var matches = new Date(input).toISOString().slice(0,-5);
         if (match[1] && match[2]) this.dateTime = match[1] + 'T' + match[2]; // [YYYY]-[MM]-[DD]T[hh]:[mm]:[ss]
         if (match[4]) this.randomizedTime = match[4]; // [YYYY]:[MM]:[DD]T[hh]:[mm]:[ss]A[hh]:[mm]:[ss]
-        return;
+        break;
     }
+
+    if (this.randomizedTime) {
+      this.humanRandomTime = new moment(this.randomizedTime, 'hh:mm:ss').format("h:mm A");
+    }
+    if (this.dateTime) {
+      this.m = new moment(this.dateTime);
+      this.humanTime = this.m.format("h:mm A");
+      if (this.humanRandomTime) this.humanTime += ' ~ ' + this.humanRandomTime;
+      this.humanDesc = this.m.format("ddd, MMMM Do YYYY");
+    } 
+    if (this.timerTime) {
+      this.m = new moment(this.timerTime, 'hh:mm:ss');
+      this.humanTime = this.m.format("h:mm A");
+      if (this.humanRandomTime) this.humanTime += ' ~ ' + this.humanRandomTime;
+    }
+    
+    var repeatable = '';
+    if (this.recurringDay) {
+      repeatable = `repeats every ${this.recurringDayName} `;
+    } 
+    if (this.numberOfRecurrences) {
+      repeatable = `repeats ${this.numberOfRecurrences} time`;
+      if (this.numberOfRecurrences > 1) {
+        repeatable += 's ';
+      }
+    } 
+    this.humanDesc += repeatable;
+    this.hueString = this.toString();
+
+    var input = input;
+    let s = `${this.humanTime}; ${this.humanDesc}`;
+
   }
 
   pad(n, width, z) {

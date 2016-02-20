@@ -6,10 +6,10 @@ describe("HueTime", function() {
     
     var r = HueTime.Recurrings;
     expect(r).not.toBeNull();
-    expect(r.Never).toBe(0); 
+    expect(r.never).toBe(0); 
     expect(r.Thursday).toBe(8); 
-    expect(r.Weekday).toBe(124); 
-    expect(r.Everyday).toBe(127); 
+    expect(r.weekday).toBe(124); 
+    expect(r.day).toBe(127); 
   }); 
 
   it("should init to nulls", function() {

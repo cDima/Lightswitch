@@ -148,7 +148,7 @@ var popupScr = [
     ];
 
 var backgroundScr = [
-      './app/scripts/libs/babel-polyfill.min.js',
+      //'./app/scripts/libs/babel-polyfill.min.js',
       './app/scripts/libs/jquery-1.11.1.min.js',
       './app/scripts/libs/extensions.js',
       './app/scripts/ajaxlite.js',

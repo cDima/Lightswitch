@@ -123,7 +123,7 @@ class HueTime {
       }
     } 
     if (this.dateTime) {
-      value += 'at ' + this.dateTime;
+      value += 'at ' + this.dateTime.substring(0, 2);
     }
     if (this.timerTime) {
       value += 'at ' + this.timerTime;

@@ -66,6 +66,8 @@ html, body {
   background: white;
   max-width: 1200px;
   margin: 0 auto;
+ 
+  transition: height 1s linear;
 }
 
 header {

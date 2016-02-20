@@ -73,11 +73,6 @@ $(document).ready(function(){
 
     initGlobals();
 
-
-    // copyright
-    $('footer time').text(new Date().getFullYear());
-
-
     initSlider();
     initSubscribe();
     initSearch();

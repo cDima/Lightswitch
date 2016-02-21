@@ -103,12 +103,14 @@ class HueTime {
       this.m = new moment(this.timerTime, 'hh:mm:ss');
     }
     this.humanTime = this.m.format("h:mm A");
+    this.sortkey = this.m.valueOf();
 
     if (this.randomizedTime) {
       //huetime.m.subtract(moment.duration('00:09:00').asMilliseconds() / 2 )
       var d = moment.duration(this.randomizedTime, 'hh:mm:ss');
       this.humanRandomTime = d.asMinutes() + ' min';
       this.humanTime = this.m.subtract(d.asMilliseconds() / 2).format("h:mm A");
+      this.sortkey = this.m.subtract(d.asMilliseconds() / 2).valueOf();
       this.humanTime += ' ~ ' + this.m.add(d).format("h:mm A");
     }
     

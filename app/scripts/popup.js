@@ -964,6 +964,7 @@ function fillSettings(state) {
             } 
         }
 
+        var scheduleLines = [];
 
         for(i in state.schedules) {
           key = i;
@@ -1011,10 +1012,14 @@ function fillSettings(state) {
           }
 
           var huetime = new HueTime(value.localtime || value.time);
+
+          var sortKey = "z " + huetime.sortkey;
+
           if(value.starttime){
             var starttime = new HueTime(value.starttime);
             huetime.humanTime = starttime.humanTime;
             huetime.humanDate = starttime.humanDate;
+            sortKey = "a " + starttime.sortkey;
           }
           
           huetime.humanTime = huetime.humanTime.replace('AM', '<i>am</i>');
@@ -1029,18 +1034,27 @@ function fillSettings(state) {
                   ${value.status != "disabled" ? "checked='checked'" : ""}">
                 <label for="enable-schedule-${key}"></label>
               </div>
-              <div class="title">${huetime.humanTime} </div>
+              <div class="title">${value.huetime.humanTime} </div>
               <div class="desc">${value.name} <i>${value.description}</i></div>
-              <div class="desc">${huetime.humanDate} <i>${huetime.humanRepeats ? 'repeats ' + huetime.humanRepeats : ''}</i></div>
+              <div class="desc">${value.huetime.humanDate} <i>${value.huetime.humanRepeats ? 'repeats ' + value.huetime.humanRepeats : ''}</i></div>
               <div class="desc"><b>${value.scenename}</b> ${value.action} <i>${value.fade}</i></div>
             </div>`;
 
           btn = $(scheduleItem).attr('id', key);
           btn.click(activateScheduleClick);
-          $('#schedules-list').append(btn);
 
+          scheduleLines.push({key: sortKey, obj: btn});
+          
+          
         }
+        scheduleLines.sort(function(item1, item2) {
+          return item1.key.localeCompare(item2.key);
+        });
 
+        scheduleLines.forEach(function(item) {
+          $('#schedules-list').append(item.obj);
+        });
+        
         
 
         $('#bridge #config-ip').text('IP: ' + state.config.ipaddress + ' (v' +  state.config.apiversion + ')');

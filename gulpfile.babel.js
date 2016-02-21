@@ -115,10 +115,14 @@ gulp.task('styles', () => {
 
 // Concatenate and minify JavaScript.
 
-var popupScr = [
+var libs = [
       './app/scripts/libs/babel-polyfill.min.js',
       './app/scripts/libs/jquery-1.11.1.min.js',
       './app/scripts/libs/bootstrap.min.js',
+      './app/scripts/libs/moment.min.js',
+      './app/scripts/libs/materialize.min.js',
+];
+var popupScr = [
       './app/scripts/libs/bootstrap-slider.min.js',
       './app/scripts/libs/color-thief.min.js',
       './app/scripts/libs/extensions.js',
@@ -142,7 +146,6 @@ var popupScr = [
       './app/scripts/libs/hueCommander.js',
       './app/scripts/libs/voice.js', 
       './app/scripts/libs/hueProxy.js',
-      './app/scripts/libs/materialize.min.js',
       './app/scripts/popup.js',
 
     ];
@@ -201,13 +204,19 @@ gulp.task('scripts', () => [
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       // Other scripts
+    gulp.src(libs)
+    .pipe($.concat('libs.min.20160220.js'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('.tmp/scripts')),
+
+
     gulp.src(popupScr)
     //.pipe($.newer('.tmp/scripts'))
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/scripts'))
-    .pipe($.concat('main.min.2015112701.js'))
+    .pipe($.concat('main.min.20160220.js'))
     
     // Usage: gulp pro --prod // this will uglify.
     .pipe(gulpif(yargs.argv.prod,$.uglify({preserveComments: 'some'})))    

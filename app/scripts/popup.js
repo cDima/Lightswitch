@@ -969,11 +969,13 @@ function fillSettings(state) {
           key = i;
           value = state.schedules[i];  
 
+          // round button
           var btn = $('<button type="button" class="schedule savedscene"></button>').text(value.description + ' (' + value.name + ')').attr('id', key);
           btn.click(activateScheduleClick);
           $('#schedules').append(btn);
 
 
+          // row
           var desc = '';
 
           if (value.name === '') {
@@ -985,15 +987,19 @@ function fillSettings(state) {
             }
           } 
 
+          var huetime = new HueTime(value.localtime || value.starttime);
+          huetime.humanTime.replace('AM', '<i>am</i>');
+          huetime.humanTime.replace('PM', '<i>pm</i>');
+
           var scheduleItem = `<div class="item">
               <i class="play fa fa-play-circle"></i>
               <div class="switch no-drag">
                 <input id="enable-schedule-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
-                  checked="${value.enabled ? "checked" : ""}">
+                  ${value.status != "disabled" ? "checked='checked'" : ""}">
                 <label for="enable-schedule-${key}"></label>
               </div>
-              <div class="title">11:00 <i>am</i></div>
-              <div class="desc">${desc}</div>
+              <div class="title">${huetime.humanTime} <i>am</i></div>
+              <div class="desc">${huetime.humanDate} ${huetime.humanRepeats}</div>
             </div>`;
 
           btn = $(scheduleItem).attr('id', key);

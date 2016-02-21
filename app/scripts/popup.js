@@ -986,20 +986,53 @@ function fillSettings(state) {
               desc += ', ' + value.description;
             }
           } 
+          
+          value.type = value.starttime ? "clock-o" : "calendar";
+          value.type = value.autodelete ? "bomb" : value.type;
+          
+          value.scenename = '';
+          value.action = '';
+          value.fade = '';
 
-          var huetime = new HueTime(value.localtime || value.starttime);
-          huetime.humanTime.replace('AM', '<i>am</i>');
-          huetime.humanTime.replace('PM', '<i>pm</i>');
+          if (value.command.body.scene && state.scenes[value.command.body.scene]) {
+            value.scene = state.scenes[value.command.body.scene];
+            
+            var parts = value.scene.name.split(' ');
+            var last = parts.pop();
+            if (!isNaN(last)) {
+              value.fade = ' in ' + last + ' minutes';
+              last = parts.pop();
+            }
+            if (isNaN(last) && last == 'on' || last == 'off') {
+              value.action = last;
+            }
+            //value.scenename =  value.scene.name.replace(/\s(on|off)\s\d+/g,'');
+            value.scenename = parts.join(' ');
+          }
 
+          var huetime = new HueTime(value.localtime || value.time);
+          if(value.starttime){
+            var starttime = new HueTime(value.starttime);
+            huetime.humanTime = starttime.humanTime;
+            huetime.humanDate = starttime.humanDate;
+          }
+          
+          huetime.humanTime = huetime.humanTime.replace('AM', '<i>am</i>');
+          huetime.humanTime = huetime.humanTime.replace('PM', '<i>pm</i>');
+          huetime.humanTime = huetime.humanTime.replace('min', '<i>min</i>');
+
+          value.huetime = huetime;
           var scheduleItem = `<div class="item">
-              <i class="play fa fa-play-circle"></i>
+              <i class="play fa fa-${value.type}"></i>
               <div class="switch no-drag">
                 <input id="enable-schedule-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
                   ${value.status != "disabled" ? "checked='checked'" : ""}">
                 <label for="enable-schedule-${key}"></label>
               </div>
-              <div class="title">${huetime.humanTime} <i>am</i></div>
-              <div class="desc">${huetime.humanDate} ${huetime.humanRepeats}</div>
+              <div class="title">${huetime.humanTime} </div>
+              <div class="desc">${value.name} <i>${value.description}</i></div>
+              <div class="desc">${huetime.humanDate} <i>${huetime.humanRepeats ? 'repeats ' + huetime.humanRepeats : ''}</i></div>
+              <div class="desc"><b>${value.scenename}</b> ${value.action} <i>${value.fade}</i></div>
             </div>`;
 
           btn = $(scheduleItem).attr('id', key);

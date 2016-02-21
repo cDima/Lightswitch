@@ -198,19 +198,8 @@ var tvosScr = [
       './app/scripts/tvos/ResourceLoader.js',
       './app/scripts/tvos/application.js'
     ];
-
-gulp.task('scripts', () => [
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
-      // Other scripts
-    gulp.src(libs)
-    .pipe($.concat('libs.min.20160220.js'))
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(gulp.dest('.tmp/scripts')),
-
-
-    gulp.src(popupScr)
+gulp.task('scriptsPopup', () => {
+    return gulp.src(popupScr)
     //.pipe($.newer('.tmp/scripts'))
     .pipe($.sourcemaps.init())
     .pipe($.babel())
@@ -225,7 +214,22 @@ gulp.task('scripts', () => [
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/scripts'))
     .pipe(gulp.dest('.tmp/scripts'))
-    .pipe($.size({title: 'scripts'})),
+    .pipe($.size({title: 'scriptsPopup'}))
+});
+
+gulp.task('scripts', () => [
+      // Note: Since we are not using useref in the scripts build pipeline,
+      //       you need to explicitly list your scripts here in the right order
+      //       to be correctly concatenated
+      // Other scripts
+    gulp.src(libs)
+    .pipe($.concat('libs.min.20160220.js'))
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.size({title: 'scripts-libs'})),
+
+    'scriptsPopup',
 
     gulp.src(backgroundScr)
     //.pipe($.newer('.tmp/scripts'))
@@ -238,7 +242,7 @@ gulp.task('scripts', () => [
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('dist/scripts'))
     .pipe(gulp.dest('.tmp/scripts'))
-    .pipe($.size({title: 'scripts'}))
+    .pipe($.size({title: 'scripts-bk'}))
 
     ]
 );
@@ -327,7 +331,7 @@ gulp.task('serve', [
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], [
     //'lint', 
-    'scripts'
+    'scriptsPopup'
     //,'scripts-tvos'
     ]);
   gulp.watch(['app/images/**/*'], reload);

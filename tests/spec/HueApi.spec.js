@@ -8,7 +8,7 @@ describe("HueTime", function() {
     expect(r).not.toBeNull();
     expect(r.Thursday).toBe(8); 
     expect(r.weekday).toBe(124); 
-    expect(r.day).toBe(127); 
+    expect(r['every day']).toBe(127); 
 
   }); 
 

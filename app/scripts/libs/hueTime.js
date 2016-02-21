@@ -36,7 +36,7 @@ class HueTime {
       'Sunday': 1,
       'weekday': 124,
       'weekend': 3,
-      'day': 127,
+      'every day': 127,
       'never': 0,
     };
   }
@@ -95,21 +95,21 @@ class HueTime {
         break;
     }
 
-    if (this.randomizedTime) {
-      this.humanRandomTime = new moment(this.randomizedTime, 'hh:mm:ss').format("h:mm A");
-    }
     if (this.dateTime) {
       this.m = new moment(this.dateTime);
-      this.humanTime = this.m.format("h:mm A");
-      this.humanDate = this.m.format("ddd, MMMM Do YYYY");
+      this.humanDate = this.m.format("MMMM Do YYYY");
     } 
     if (this.timerTime) {
       this.m = new moment(this.timerTime, 'hh:mm:ss');
-      this.humanTime = this.m.format("h:mm A");
     }
+    this.humanTime = this.m.format("h:mm A");
 
-    if (this.humanRandomTime) { 
-      this.humanTime += ' ~ ' + this.humanRandomTime;
+    if (this.randomizedTime) {
+      //huetime.m.subtract(moment.duration('00:09:00').asMilliseconds() / 2 )
+      var d = moment.duration(this.randomizedTime, 'hh:mm:ss');
+      this.humanRandomTime = d.asMinutes() + ' min';
+      this.humanTime = this.m.subtract(d.asMilliseconds() / 2).format("h:mm A");
+      this.humanTime += ' ~ ' + this.m.add(d).format("h:mm A");
     }
     
     this.humanRepeats = this.humanReoccurences(this);
@@ -123,10 +123,10 @@ class HueTime {
   humanReoccurences(hueTime) {
     let rep = '';
     if (hueTime.recurringDay) {
-       rep = `repeats every ${hueTime.recurringDayName(this.recurringDay)} `;
+       rep = `${hueTime.recurringDayName(this.recurringDay)} `;
     } 
     if (hueTime.numberOfRecurrences) {
-      rep = `repeats ${hueTime.numberOfRecurrences} time`;
+      rep = `${hueTime.numberOfRecurrences} time`;
       if (hueTime.numberOfRecurrences > 1) {
         rep += 's ';
       }

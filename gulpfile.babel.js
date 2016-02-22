@@ -331,8 +331,9 @@ gulp.task('serve', [
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], [
     //'lint', 
-    'scriptsPopup'
+    'scriptsPopup',
     //,'scripts-tvos'
+    reload
     ]);
   gulp.watch(['app/images/**/*'], reload);
 });

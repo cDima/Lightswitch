@@ -17,7 +17,7 @@ describe("HueTime", function() {
     expect(new HueTime().recurringDayName(HueTime.Recurrings.Thursday | HueTime.Recurrings.Tuesday)).toBe("Tuesday, Thursday");
     expect(new HueTime().recurringDayName(HueTime.Recurrings.Saturday | HueTime.Recurrings.Sunday)).toBe("weekend");
     expect(new HueTime().recurringDayName(HueTime.Recurrings.weekend)).toBe("weekend");
-    expect(new HueTime().recurringDayName(HueTime.Recurrings.day)).toBe("day");
+    expect(new HueTime().recurringDayName(HueTime.Recurrings.day)).toBe("Never");
   }); 
 
 

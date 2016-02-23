@@ -890,16 +890,18 @@ function fillSettings(state) {
 
 
             if (value.state.reachable) {
+              var b = Math.round(value.state.bri/256*100);
+              if (b == 99) b = 100;
               desc = `hsl: ${Math.round(value.state.hue/65535*359)}°, 
                        ${Math.round(value.state.sat/256*100)}%, 
-                       ${Math.round(value.state.bri/256*100)}%. `;
+                       ${b}%. `;
             } 
 //groups: lights: 0: "1"
 //name: "All"
             var color = `hsla(
                        ${Math.round(value.state.hue*1000/65535*359)/1000}, 
                        ${Math.round(value.state.sat*1000/256*100)/1000}%, 
-                       ${Math.round(value.state.bri*1000/256*100)/1000}%, 1)`;
+                       ${Math.round((value.state.bri)*1000/256*100)/1000 + 1}%, 1)`;
 
             //desc = "";
 

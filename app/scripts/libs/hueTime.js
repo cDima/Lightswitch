@@ -96,11 +96,11 @@ class HueTime {
     }
 
     if (this.dateTime) {
-      this.m = new moment(this.dateTime);
+      this.m = moment.utc(this.dateTime).local();
       this.humanDate = this.m.format("MMMM Do YYYY");
     } 
     if (this.timerTime) {
-      this.m = new moment(this.timerTime, 'hh:mm:ss');
+      this.m = moment.utc(this.timerTime, 'hh:mm:ss').local();
     }
     this.humanTime = this.m.format("h:mm A");
     this.sortkey = this.m.valueOf();

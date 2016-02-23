@@ -990,7 +990,7 @@ function fillSettings(state) {
             }
           } 
           
-          value.type = value.starttime ? "clock-o" : "calendar";
+          value.type = value.starttime ? "bell-o" : "clock";
           value.type = value.autodelete ? "bomb" : value.type;
           
           value.scenename = '';
@@ -1000,7 +1000,7 @@ function fillSettings(state) {
           if (value.command.body.scene && state.scenes[value.command.body.scene]) {
             value.scene = state.scenes[value.command.body.scene];
             
-            var parts = value.scene.name.split(' ');
+            var parts = value.scene.name.replace('1 lights','1 light').split(' ');
             var last = parts.pop();
             if (!isNaN(last)) {
               value.fade = ' in ' + last + ' minutes';
@@ -1014,21 +1014,26 @@ function fillSettings(state) {
           }
 
           var huetime = new HueTime(value.localtime || value.time);
-
+          value.huetime = huetime;
           var sortKey = "z " + huetime.sortkey;
 
           if(value.starttime){
             var starttime = new HueTime(value.starttime);
-            huetime.humanTime = starttime.humanTime;
-            huetime.humanDate = starttime.humanDate;
+            //var ms = moment.duration(huetime.timerTime).asMilliseconds();
+            //huetime = starttime;
+            var mins = moment.duration(huetime.timerTime).asMinutes();
+            if (mins == 1) mins += " min"; else mins += " mins";
+            //huetime.humanTime = moment.utc(ms).format("HH:mm:ss");
+            huetime.humanTime = mins;
             sortKey = "a " + starttime.sortkey;
           }
           
           huetime.humanTime = huetime.humanTime.replace('AM', '<i>am</i>');
           huetime.humanTime = huetime.humanTime.replace('PM', '<i>pm</i>');
-          huetime.humanTime = huetime.humanTime.replace('min', '<i>min</i>');
-
+          huetime.humanTime = huetime.humanTime.replace(' mins', ' <i>mins</i>');
+          huetime.humanTime = huetime.humanTime.replace(' min', ' <i>min</i>');
           value.huetime = huetime;
+          
           var scheduleItem = `<div class="item">
               <i class="play fa fa-${value.type}"></i>
               <div class="switch no-drag">
@@ -1036,7 +1041,7 @@ function fillSettings(state) {
                   ${value.status != "disabled" ? "checked='checked'" : ""}">
                 <label for="enable-schedule-${key}"></label>
               </div>
-              <div class="title">${value.huetime.humanTime} </div>
+              <div class="title ${value.type}" data-time="${value.huetime.m.format()}">${value.huetime.humanTime}</div>
               <div class="desc">${value.name} <i>${value.description}</i></div>
               <div class="desc">${value.huetime.humanDate} <i>${value.huetime.humanRepeats ? 'repeats ' + value.huetime.humanRepeats : ''}</i></div>
               <div class="desc"><b>${value.scenename}</b> ${value.action} <i>${value.fade}</i></div>

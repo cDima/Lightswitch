@@ -1279,15 +1279,13 @@ $(document).ready(function(){
 
         // Update indicator
         if (($index - $prev_index) >= 0) {
-          var r = Math.max(0, $tabs_width - (($index + 1) * $tab_width));
-          $indicator.velocity({"right": r}, { duration: 300, queue: false, easing: 'easeOutQuad'});
-          $indicator.velocity({"left": Math.floor($index * $tab_width)}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
+          $indicator.velocity({"right": $tabs_width - (($index + 1) * $tab_width)}, { duration: 300, queue: false, easing: 'easeOutQuad'});
+          $indicator.velocity({"left": $index * $tab_width}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
 
         }
         else {
-          var r = Math.max(0, $tabs_width - (($index + 1) * $tab_width));
-          $indicator.velocity({"left": Math.floor($index * $tab_width)}, { duration: 300, queue: false, easing: 'easeOutQuad'});
-          $indicator.velocity({"right": r}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
+          $indicator.velocity({"left": $index * $tab_width}, { duration: 300, queue: false, easing: 'easeOutQuad'});
+          $indicator.velocity({"right": $tabs_width - (($index + 1) * $tab_width)}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
         }
 
         // Prevent the anchor's default click action
@@ -3909,10 +3907,6 @@ $(document).ready(function(){
         module.exports = factory( require('jquery') )
 
     // Browser globals.
-    else if(typeof window == 'object')
-         window.Picker = factory( jQuery )
-
-    // Browser globals.
     else this.Picker = factory( jQuery )
 
 }(function( $ ) {
@@ -5032,10 +5026,6 @@ return PickerConstructor
     // Node.js/browserify.
     else if ( typeof exports == 'object' )
         module.exports = factory( require('./picker.js'), require('jquery') )
-
-    // Browser globals.
-    else if(typeof window == 'object')
-         window.Picker = factory( Picker, jQuery )
 
     // Browser globals.
     else factory( Picker, jQuery )

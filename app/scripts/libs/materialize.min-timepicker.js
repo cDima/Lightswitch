@@ -1,5 +1,5 @@
 /*!
- * Materialize vundefined (http://materializecss.com)
+ * Materialize v0.97.5 (http://materializecss.com)
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
@@ -534,14 +534,6 @@ if ($) {
         verticalOffset = originHeight;
       }
 
-      // Check for scrolling positioned container.
-      var scrollOffset = 0;
-      var wrapper = origin.parent();
-      if (!wrapper.is('body') && wrapper[0].scrollHeight > wrapper[0].clientHeight) {
-        scrollOffset = wrapper[0].scrollTop;
-      }
-
-
       if (offsetLeft + activates.innerWidth() > $(window).width()) {
         // Dropdown goes past screen on right, force right alignment
         currAlignment = 'right';
@@ -579,7 +571,7 @@ if ($) {
       // Position dropdown
       activates.css({
         position: 'absolute',
-        top: origin.position().top + verticalOffset + scrollOffset,
+        top: origin.position().top + verticalOffset,
         left: leftPosition
       });
 
@@ -680,8 +672,7 @@ if ($) {
   $(document).ready(function(){
     $('.dropdown-button').dropdown();
   });
-}( jQuery ));
-;(function($) {
+}( jQuery ));;(function($) {
     var _stack = 0,
     _lastID = 0,
     _generateID = function() {
@@ -923,7 +914,7 @@ if ($) {
         var count = 0;
         while (ancestor !== null && !$(ancestor).is(document)) {
           var curr = $(ancestor);
-          if (curr.css('overflow') !== 'visible') {
+          if (curr.css('overflow') === 'hidden') {
             curr.css('overflow', 'visible');
             if (ancestorsChanged === undefined) {
               ancestorsChanged = curr;
@@ -950,10 +941,10 @@ if ($) {
             returnToOriginal();
           });
           // Animate Overlay
-          // Put before in origin image to preserve z-index layering.
-          origin.before(overlay);
-          overlay.velocity({opacity: 1},
-                           {duration: inDuration, queue: false, easing: 'easeOutQuad'} );
+          $('body').append(overlay);
+          overlay.velocity({opacity: 1}, {duration: inDuration, queue: false, easing: 'easeOutQuad'}
+            );
+
 
         // Add and animate caption if it exists
         if (origin.data('caption') !== "") {
@@ -963,6 +954,8 @@ if ($) {
           $photo_caption.css({ "display": "inline" });
           $photo_caption.velocity({opacity: 1}, {duration: inDuration, queue: false, easing: 'easeOutQuad'});
         }
+
+
 
         // Resize Image
         var ratio = 0;
@@ -1028,7 +1021,7 @@ if ($) {
 
       // Return on scroll
       $(window).scroll(function() {
-        if (overlayActive) {
+        if (overlayActive ) {
           returnToOriginal();
         }
       });
@@ -1113,9 +1106,7 @@ if ($) {
               $(this).remove();
 
               // Remove overflow overrides on ancestors
-              if (ancestorsChanged) {
-                ancestorsChanged.css('overflow', '');
-              }
+              ancestorsChanged.css('overflow', '');
             }
           });
 
@@ -1268,7 +1259,7 @@ $(document).ready(function(){
         // Make the tab active.
         $active.addClass('active');
         var $prev_index = $index;
-        $index = $links.filter(':visible').index($(this));
+        $index = $links.index($(this));
         if ($index < 0) {
           $index = 0;
         }
@@ -1279,15 +1270,13 @@ $(document).ready(function(){
 
         // Update indicator
         if (($index - $prev_index) >= 0) {
-          var r = Math.max(0, $tabs_width - (($index + 1) * $tab_width));
-          $indicator.velocity({"right": r}, { duration: 300, queue: false, easing: 'easeOutQuad'});
-          $indicator.velocity({"left": Math.floor($index * $tab_width)}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
+          $indicator.velocity({"right": $tabs_width - (($index + 1) * $tab_width)}, { duration: 300, queue: false, easing: 'easeOutQuad'});
+          $indicator.velocity({"left": $index * $tab_width}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
 
         }
         else {
-          var r = Math.max(0, $tabs_width - (($index + 1) * $tab_width));
-          $indicator.velocity({"left": Math.floor($index * $tab_width)}, { duration: 300, queue: false, easing: 'easeOutQuad'});
-          $indicator.velocity({"right": r}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
+          $indicator.velocity({"left": $index * $tab_width}, { duration: 300, queue: false, easing: 'easeOutQuad'});
+          $indicator.velocity({"right": $tabs_width - (($index + 1) * $tab_width)}, {duration: 300, queue: false, easing: 'easeOutQuad', delay: 90});
         }
 
         // Prevent the anchor's default click action
@@ -2685,20 +2674,6 @@ $(document).ready(function(){
       }
     };
 
-    // Radio and Checkbox focus class
-    var radio_checkbox = 'input[type=radio], input[type=checkbox]';
-    $(document).on('keyup.radio', radio_checkbox, function(e) {
-      // TAB, check if tabbing to radio or checkbox.
-      if (e.which === 9) {
-        $(this).addClass('tabbed');
-        var $this = $(this);
-        $this.one('blur', function(e) {
-          
-          $(this).removeClass('tabbed');
-        });
-        return;
-      }
-    });
 
     // Textarea Auto Resize
     var hiddenDiv = $('.hiddendiv').first();
@@ -3061,7 +3036,7 @@ $(document).ready(function(){
       }
 
       // Make option as selected and scroll to selected position
-      var activateOption = function(collection, newOption) {
+      activateOption = function(collection, newOption) {
         if (newOption) {
           collection.find('li.selected').removeClass('selected');
           var option = $(newOption);
@@ -3908,10 +3883,9 @@ $(document).ready(function(){
     else if ( typeof exports == 'object' )
         module.exports = factory( require('jquery') )
 
-    // Browser globals.
+	// Browser globals.
     else if(typeof window == 'object')
-         window.Picker = factory( jQuery )
-
+    	 window.Picker = factory( jQuery )
     // Browser globals.
     else this.Picker = factory( jQuery )
 
@@ -5034,10 +5008,6 @@ return PickerConstructor
         module.exports = factory( require('./picker.js'), require('jquery') )
 
     // Browser globals.
-    else if(typeof window == 'object')
-         window.Picker = factory( Picker, jQuery )
-
-    // Browser globals.
     else factory( Picker, jQuery )
 
 }(function( Picker, $ ) {
@@ -6113,8 +6083,8 @@ DatePicker.prototype.nodes = function( isOpen ) {
             // Materialize modified
             if (override == "short_months")
                 if (selectedObject != null)
-                return monthsCollection[ selectedObject.month ];
-                else return monthsCollection[ viewsetObject.month ];
+                return _.node( 'div', monthsCollection[ selectedObject.month ] );
+                else return _.node( 'div', monthsCollection[ viewsetObject.month ] );
 
             // If there's a need for a month selector
             return _.node( 'div', monthsCollection[ viewsetObject.month ], settings.klass.month )
@@ -6196,8 +6166,8 @@ DatePicker.prototype.nodes = function( isOpen ) {
         // Materialize modified
         createDayLabel = function() {
                 if (selectedObject != null)
-                    return selectedObject.date
-                else return nowObject.date
+                    return _.node( 'div', selectedObject.date)
+                else return _.node( 'div', nowObject.date)
             }
         createWeekdayLabel = function() {
             var display_day;
@@ -6206,7 +6176,7 @@ DatePicker.prototype.nodes = function( isOpen ) {
                 display_day = selectedObject.day;
             else
                 display_day = nowObject.day;
-            var weekday = settings.weekdaysFull[ display_day ];
+            var weekday = settings.weekdaysFull[ display_day ]
             return weekday
         }
 
@@ -6216,147 +6186,145 @@ return _.node(
         // Date presentation View
         'div',
             _.node(
-                // Div for Year
                 'div',
-                createYearLabel("raw") ,
-                settings.klass.year_display
-            )+
-            _.node(
-                'span',
                 createWeekdayLabel(),
                 "picker__weekday-display"
             )+
             _.node(
+                // Div for short Month
+                'div',
+                createMonthLabel("short_months"),
+                settings.klass.month_display
+            )+
+            _.node(
                 // Div for Day
-                'span',
+                'div',
                 createDayLabel() ,
                 settings.klass.day_display
             )+
             _.node(
-                // Div for short Month
-                'span',
-                createMonthLabel("short_months"),
-                settings.klass.month_display
+                // Div for Year
+                'div',
+                createYearLabel("raw") ,
+                settings.klass.year_display
             ),
         settings.klass.date_display
     )+
     // Calendar container
     _.node('div',
-	    _.node('div',
-		_.node('div',
-		( settings.selectYears ?  createMonthLabel() + createYearLabel() : createMonthLabel() + createYearLabel() ) +
-		createMonthNav() + createMonthNav( 1 ),
-		settings.klass.header
-	    ) + _.node(
-		'table',
-		tableHead +
-		_.node(
-		    'tbody',
-		    _.group({
-		        min: 0,
-		        max: WEEKS_IN_CALENDAR - 1,
-		        i: 1,
-		        node: 'tr',
-		        item: function( rowCounter ) {
+        _.node('div',
+        ( settings.selectYears ?  createMonthLabel() + createYearLabel() : createMonthLabel() + createYearLabel() ) +
+        createMonthNav() + createMonthNav( 1 ),
+        settings.klass.header
+    ) + _.node(
+        'table',
+        tableHead +
+        _.node(
+            'tbody',
+            _.group({
+                min: 0,
+                max: WEEKS_IN_CALENDAR - 1,
+                i: 1,
+                node: 'tr',
+                item: function( rowCounter ) {
 
-		            // If Monday is the first day and the month starts on Sunday, shift the date back a week.
-		            var shiftDateBy = settings.firstDay && calendar.create([ viewsetObject.year, viewsetObject.month, 1 ]).day === 0 ? -7 : 0
+                    // If Monday is the first day and the month starts on Sunday, shift the date back a week.
+                    var shiftDateBy = settings.firstDay && calendar.create([ viewsetObject.year, viewsetObject.month, 1 ]).day === 0 ? -7 : 0
 
-		            return [
-		                _.group({
-		                    min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
-		                    max: function() {
-		                        return this.min + DAYS_IN_WEEK - 1
-		                    },
-		                    i: 1,
-		                    node: 'td',
-		                    item: function( targetDate ) {
+                    return [
+                        _.group({
+                            min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
+                            max: function() {
+                                return this.min + DAYS_IN_WEEK - 1
+                            },
+                            i: 1,
+                            node: 'td',
+                            item: function( targetDate ) {
 
-		                        // Convert the time date from a relative date to a target date.
-		                        targetDate = calendar.create([ viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 ) ])
+                                // Convert the time date from a relative date to a target date.
+                                targetDate = calendar.create([ viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 ) ])
 
-		                        var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
-		                            isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
-		                            isDisabled = disabledCollection && calendar.disabled( targetDate ) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
-		                            formattedDate = _.trigger( calendar.formats.toString, calendar, [ settings.format, targetDate ] )
+                                var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
+                                    isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
+                                    isDisabled = disabledCollection && calendar.disabled( targetDate ) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
+                                    formattedDate = _.trigger( calendar.formats.toString, calendar, [ settings.format, targetDate ] )
 
-		                        return [
-		                            _.node(
-		                                'div',
-		                                targetDate.date,
-		                                (function( klasses ) {
+                                return [
+                                    _.node(
+                                        'div',
+                                        targetDate.date,
+                                        (function( klasses ) {
 
-		                                    // Add the `infocus` or `outfocus` classes based on month in view.
-		                                    klasses.push( viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus )
+                                            // Add the `infocus` or `outfocus` classes based on month in view.
+                                            klasses.push( viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus )
 
-		                                    // Add the `today` class if needed.
-		                                    if ( nowObject.pick == targetDate.pick ) {
-		                                        klasses.push( settings.klass.now )
-		                                    }
+                                            // Add the `today` class if needed.
+                                            if ( nowObject.pick == targetDate.pick ) {
+                                                klasses.push( settings.klass.now )
+                                            }
 
-		                                    // Add the `selected` class if something's selected and the time matches.
-		                                    if ( isSelected ) {
-		                                        klasses.push( settings.klass.selected )
-		                                    }
+                                            // Add the `selected` class if something's selected and the time matches.
+                                            if ( isSelected ) {
+                                                klasses.push( settings.klass.selected )
+                                            }
 
-		                                    // Add the `highlighted` class if something's highlighted and the time matches.
-		                                    if ( isHighlighted ) {
-		                                        klasses.push( settings.klass.highlighted )
-		                                    }
+                                            // Add the `highlighted` class if something's highlighted and the time matches.
+                                            if ( isHighlighted ) {
+                                                klasses.push( settings.klass.highlighted )
+                                            }
 
-		                                    // Add the `disabled` class if something's disabled and the object matches.
-		                                    if ( isDisabled ) {
-		                                        klasses.push( settings.klass.disabled )
-		                                    }
+                                            // Add the `disabled` class if something's disabled and the object matches.
+                                            if ( isDisabled ) {
+                                                klasses.push( settings.klass.disabled )
+                                            }
 
-		                                    return klasses.join( ' ' )
-		                                })([ settings.klass.day ]),
-		                                'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
-		                                    role: 'gridcell',
-		                                    label: formattedDate,
-		                                    selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
-		                                    activedescendant: isHighlighted ? true : null,
-		                                    disabled: isDisabled ? true : null
-		                                })
-		                            ),
-		                            '',
-		                            _.ariaAttr({ role: 'presentation' })
-		                        ] //endreturn
-		                    }
-		                })
-		            ] //endreturn
-		        }
-		    })
-		),
-		settings.klass.table,
-		'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
-		    role: 'grid',
-		    controls: calendar.$node[0].id,
-		    readonly: true
-		})
-	    )
-	    , settings.klass.calendar_container) // end calendar
+                                            return klasses.join( ' ' )
+                                        })([ settings.klass.day ]),
+                                        'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
+                                            role: 'gridcell',
+                                            label: formattedDate,
+                                            selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
+                                            activedescendant: isHighlighted ? true : null,
+                                            disabled: isDisabled ? true : null
+                                        })
+                                    ),
+                                    '',
+                                    _.ariaAttr({ role: 'presentation' })
+                                ] //endreturn
+                            }
+                        })
+                    ] //endreturn
+                }
+            })
+        ),
+        settings.klass.table,
+        'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
+            role: 'grid',
+            controls: calendar.$node[0].id,
+            readonly: true
+        })
+    )
+    , settings.klass.calendar_container) // end calendar
 
-	     +
+     +
 
-	    // * For Firefox forms to submit, make sure to set the buttons’ `type` attributes as “button”.
-	    _.node(
-		'div',
-		_.node( 'button', settings.today, "btn-flat picker__today",
-		    'type=button data-pick=' + nowObject.pick +
-		    ( isOpen && !calendar.disabled(nowObject) ? '' : ' disabled' ) + ' ' +
-		    _.ariaAttr({ controls: calendar.$node[0].id }) ) +
-		_.node( 'button', settings.clear, "btn-flat picker__clear",
-		    'type=button data-clear=1' +
-		    ( isOpen ? '' : ' disabled' ) + ' ' +
-		    _.ariaAttr({ controls: calendar.$node[0].id }) ) +
-		_.node('button', settings.close, "btn-flat picker__close",
-		    'type=button data-close=true ' +
-		    ( isOpen ? '' : ' disabled' ) + ' ' +
-		    _.ariaAttr({ controls: calendar.$node[0].id }) ),
-		settings.klass.footer
-	    ), 'picker__container__wrapper'
-	) //endreturn
+    // * For Firefox forms to submit, make sure to set the buttons’ `type` attributes as “button”.
+    _.node(
+        'div',
+        _.node( 'button', settings.today, "btn-flat picker__today",
+            'type=button data-pick=' + nowObject.pick +
+            ( isOpen && !calendar.disabled(nowObject) ? '' : ' disabled' ) + ' ' +
+            _.ariaAttr({ controls: calendar.$node[0].id }) ) +
+        _.node( 'button', settings.clear, "btn-flat picker__clear",
+            'type=button data-clear=1' +
+            ( isOpen ? '' : ' disabled' ) + ' ' +
+            _.ariaAttr({ controls: calendar.$node[0].id }) ) +
+        _.node('button', settings.close, "btn-flat picker__close",
+            'type=button data-close=true ' +
+            ( isOpen ? '' : ' disabled' ) + ' ' +
+            _.ariaAttr({ controls: calendar.$node[0].id }) ),
+        settings.klass.footer
+    ) //endreturn
 } //DatePicker.prototype.nodes
 
 
@@ -6381,7 +6349,7 @@ DatePicker.defaults = (function( prefix ) {
         monthsFull: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
         monthsShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
         weekdaysFull: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-        weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat' ],
+        weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
 
         // Materialize modified
         weekdaysLetter: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
@@ -6389,7 +6357,7 @@ DatePicker.defaults = (function( prefix ) {
         // Today and clear
         today: 'Today',
         clear: 'Clear',
-        close: 'OK',
+        close: 'Close',
 
         // The format to show on the `input` element
         format: 'd mmmm, yyyy',
@@ -6454,730 +6422,6 @@ Picker.extend( 'pickadate', DatePicker )
 }));
 
 
-
-;/*!
- * ClockPicker v0.0.7 (http://weareoutman.github.io/clockpicker/)
- * Copyright 2014 Wang Shenwei.
- * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
- *
- * Further modified
- * Copyright 2015 Ching Yaw Hao.
- */
-
-;(function(){
-	var $ = window.jQuery,
-			$win = $(window),
-			$doc = $(document);
-
-	// Can I use inline svg ?
-	var svgNS = 'http://www.w3.org/2000/svg',
-		  svgSupported = 'SVGAngle' in window && (function() {
-			  var supported,
-				el = document.createElement('div');
-				el.innerHTML = '<svg/>';
-				supported = (el.firstChild && el.firstChild.namespaceURI) == svgNS;
-				el.innerHTML = '';
-				return supported;
-			})();
-
-	// Can I use transition ?
-	var transitionSupported = (function() {
-		var style = document.createElement('div').style;
-		return 'transition' in style ||
-					 'WebkitTransition' in style ||
-				   'MozTransition' in style ||
-					 'msTransition' in style ||
-					 'OTransition' in style;
-	})();
-
-	// Listen touch events in touch screen device, instead of mouse events in desktop.
-	var touchSupported = 'ontouchstart' in window,
-			mousedownEvent = 'mousedown' + ( touchSupported ? ' touchstart' : ''),
-			mousemoveEvent = 'mousemove.clockpicker' + ( touchSupported ? ' touchmove.clockpicker' : ''),
-			mouseupEvent = 'mouseup.clockpicker' + ( touchSupported ? ' touchend.clockpicker' : '');
-
-	// Vibrate the device if supported
-	var vibrate = navigator.vibrate ? 'vibrate' : navigator.webkitVibrate ? 'webkitVibrate' : null;
-
-	function createSvgElement(name) {
-		return document.createElementNS(svgNS, name);
-	}
-
-	function leadingZero(num) {
-		return (num < 10 ? '0' : '') + num;
-	}
-
-	// Get a unique id
-	var idCounter = 0;
-	function uniqueId(prefix) {
-		var id = ++idCounter + '';
-		return prefix ? prefix + id : id;
-	}
-
-	// Clock size
-	var dialRadius = 135,
-			outerRadius = 110,
-			// innerRadius = 80 on 12 hour clock
-			innerRadius = 80,
-			tickRadius = 20,
-			diameter = dialRadius * 2,
-			duration = transitionSupported ? 350 : 1;
-
-	// Popover template
-	var tpl = [
-		'<div class="clockpicker picker">',
-			'<div class="picker__holder">',
-				'<div class="picker__frame">',
-					'<div class="picker__wrap">',
-						'<div class="picker__box">',
-							'<div class="picker__date-display">',
-								'<div class="clockpicker-display">',
-									'<div class="clockpicker-display-column">',
-										'<span class="clockpicker-span-hours text-primary"></span>',
-										':',
-										'<span class="clockpicker-span-minutes"></span>',
-									'</div>',
-									'<div class="clockpicker-display-column clockpicker-display-am-pm">',
-										'<div class="clockpicker-span-am-pm"></div>',
-									'</div>',
-								'</div>',
-							'</div>',
-							'<div class="picker__container__wrapper">',
-								'<div class="picker__calendar-container">',
-									'<div class="clockpicker-plate">',
-										'<div class="clockpicker-canvas"></div>',
-										'<div class="clockpicker-dial clockpicker-hours"></div>',
-										'<div class="clockpicker-dial clockpicker-minutes clockpicker-dial-out"></div>',
-									'</div>',
-									'<div class="clockpicker-am-pm-block">',
-									'</div>',
-								'</div>',
-								'<div class="picker__footer">',
-								'</div>',
-							'</div>',
-						'</div>',
-					'</div>',
-				'</div>',
-			'</div>',
-		'</div>'
-	].join('');
-
-	// ClockPicker
-	function ClockPicker(element, options) {
-		var popover = $(tpl),
-				plate = popover.find('.clockpicker-plate'),
-				holder = popover.find('.picker__holder'),
-				hoursView = popover.find('.clockpicker-hours'),
-				minutesView = popover.find('.clockpicker-minutes'),
-				amPmBlock = popover.find('.clockpicker-am-pm-block'),
-				isInput = element.prop('tagName') === 'INPUT',
-				input = isInput ? element : element.find('input'),
-				label = $("label[for=" + input.attr("id") + "]"),
-				self = this,
-				timer;
-
-		this.id = uniqueId('cp');
-		this.element = element;
-		this.holder = holder;
-		this.options = options;
-		this.isAppended = false;
-		this.isShown = false;
-		this.currentView = 'hours';
-		this.isInput = isInput;
-		this.input = input;
-		this.label = label;
-		this.popover = popover;
-		this.plate = plate;
-		this.hoursView = hoursView;
-		this.minutesView = minutesView;
-		this.amPmBlock = amPmBlock;
-		this.spanHours = popover.find('.clockpicker-span-hours');
-		this.spanMinutes = popover.find('.clockpicker-span-minutes');
-		this.spanAmPm = popover.find('.clockpicker-span-am-pm');
-		this.footer = popover.find('.picker__footer');
-		this.amOrPm = "PM";
-
-		// Setup for for 12 hour clock if option is selected
-		if (options.twelvehour) {
-			var  amPmButtonsTemplate = [
-				'<div class="clockpicker-am-pm-block">',
-					'<button type="button" class="btn-floating btn-flat clockpicker-button clockpicker-am-button">',
-						'AM',
-					'</button>',
-					'<button type="button" class="btn-floating btn-flat clockpicker-button clockpicker-pm-button">',
-						'PM',
-					'</button>',
-				'</div>'
-			].join('');
-
-			var amPmButtons = $(amPmButtonsTemplate);
-
-			if(!options.ampmclickable) {
-				$('<button type="button" class="btn-floating btn-flat clockpicker-button am-button" tabindex="1">' + "AM" + '</button>').on("click", function() {
-					self.amOrPm = "AM";
-					self.amPmBlock.children('.pm-button').removeClass('active');
-					self.amPmBlock.children('.am-button').addClass('active');
-					self.spanAmPm.empty().append('AM');
-				}).appendTo(this.amPmBlock);
-				$('<button type="button" class="btn-floating btn-flat clockpicker-button pm-button" tabindex="2">' + "PM" + '</button>').on("click", function() {
-					self.amOrPm = 'PM';
-					self.amPmBlock.children('.am-button').removeClass('active');
-					self.amPmBlock.children('.pm-button').addClass('active');
-					self.spanAmPm.empty().append('PM');
-				}).appendTo(this.amPmBlock);
-			}
-			else {
-				this.spanAmPm.empty();
-				$('<div id="click-am">AM</div>').on("click", function() {
-					self.spanAmPm.children('#click-am').addClass("text-primary");
-					self.spanAmPm.children('#click-pm').removeClass("text-primary");
-					self.amOrPm = "AM";
-				}).appendTo(this.spanAmPm);
-				$('<div id="click-pm">PM</div>').on("click", function() {
-					self.spanAmPm.children('#click-pm').addClass("text-primary");
-					self.spanAmPm.children('#click-am').removeClass("text-primary");
-					self.amOrPm = 'PM';
-				}).appendTo(this.spanAmPm);
-			}
-		}
-
-		// Add buttons to footer
-		$('<button type="button" class="btn-flat picker__clear" tabindex="' + (options.twelvehour? '3' : '1') + '">' + options.cleartext + '</button>').click($.proxy(this.clear, this)).appendTo(this.footer);
-		$('<button type="button" class="btn-flat picker__close" tabindex="' + (options.twelvehour? '3' : '1') + '">' + options.canceltext + '</button>').click($.proxy(this.hide, this)).appendTo(this.footer);
-		$('<button type="button" class="btn-flat picker__close" tabindex="' + (options.twelvehour? '3' : '1') + '">' + options.donetext + '</button>').click($.proxy(this.done, this)).appendTo(this.footer);
-		
-		this.spanHours.click($.proxy(this.toggleView, this, 'hours'));
-		this.spanMinutes.click($.proxy(this.toggleView, this, 'minutes'));
-
-		// Show or toggle
-		input.on('focus.clockpicker click.clockpicker', $.proxy(this.show, this));
-
-		// Build ticks
-		var tickTpl = $('<div class="clockpicker-tick"></div>'),
-				i, tick, radian, radius;
-
-		// Hours view
-		if (options.twelvehour) {
-			for (i = 1; i < 13; i += 1) {
-				tick = tickTpl.clone();
-				radian = i / 6 * Math.PI;
-				radius = outerRadius;
-				tick.css('font-size', '140%');
-				tick.css({
-					left: dialRadius + Math.sin(radian) * radius - tickRadius,
-					top: dialRadius - Math.cos(radian) * radius - tickRadius
-				});
-				tick.html(i === 0 ? '00' : i);
-				hoursView.append(tick);
-				tick.on(mousedownEvent, mousedown);
-			}
-		} else {
-			for (i = 0; i < 24; i += 1) {
-				tick = tickTpl.clone();
-				radian = i / 6 * Math.PI;
-				var inner = i > 0 && i < 13;
-				radius = inner ? innerRadius : outerRadius;
-				tick.css({
-					left: dialRadius + Math.sin(radian) * radius - tickRadius,
-					top: dialRadius - Math.cos(radian) * radius - tickRadius
-				});
-				if (inner)
-					tick.css('font-size', '120%');
-				tick.html(i === 0 ? '00' : i);
-				hoursView.append(tick);
-				tick.on(mousedownEvent, mousedown);
-			}
-		}
-
-		// Minutes view
-		for (i = 0; i < 60; i += 5) {
-			tick = tickTpl.clone();
-			radian = i / 30 * Math.PI;
-			tick.css({
-				left: dialRadius + Math.sin(radian) * outerRadius - tickRadius,
-				top: dialRadius - Math.cos(radian) * outerRadius - tickRadius
-			});
-			tick.css('font-size', '140%');
-			tick.html(leadingZero(i));
-			minutesView.append(tick);
-			tick.on(mousedownEvent, mousedown);
-		}
-
-		// Clicking on minutes view space
-		plate.on(mousedownEvent, function(e) {
-			if ($(e.target).closest('.clockpicker-tick').length === 0)
-				mousedown(e, true);
-		});
-
-		// Mousedown or touchstart
-		function mousedown(e, space) {
-			var offset = plate.offset(),
-					isTouch = /^touch/.test(e.type),
-					x0 = offset.left + dialRadius,
-					y0 = offset.top + dialRadius,
-					dx = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
-					dy = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0,
-					z = Math.sqrt(dx * dx + dy * dy),
-					moved = false;
-
-			// When clicking on minutes view space, check the mouse position
-			if (space && (z < outerRadius - tickRadius || z > outerRadius + tickRadius))
-				return;
-			e.preventDefault();
-
-			// Set cursor style of body after 200ms
-			var movingTimer = setTimeout(function(){
-				self.popover.addClass('clockpicker-moving');
-			}, 200);
-
-			// Place the canvas to top
-			if (svgSupported)
-				plate.append(self.canvas);
-
-			// Clock
-			self.setHand(dx, dy, !space, true);
-
-			// Mousemove on document
-			$doc.off(mousemoveEvent).on(mousemoveEvent, function(e){
-				e.preventDefault();
-				var isTouch = /^touch/.test(e.type),
-						x = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
-						y = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0;
-				if (! moved && x === dx && y === dy)
-					// Clicking in chrome on windows will trigger a mousemove event
-					return;
-				moved = true;
-				self.setHand(x, y, false, true);
-			});
-
-			// Mouseup on document
-			$doc.off(mouseupEvent).on(mouseupEvent, function(e) {
-				$doc.off(mouseupEvent);
-				e.preventDefault();
-				var isTouch = /^touch/.test(e.type),
-						x = (isTouch ? e.originalEvent.changedTouches[0] : e).pageX - x0,
-						y = (isTouch ? e.originalEvent.changedTouches[0] : e).pageY - y0;
-				if ((space || moved) && x === dx && y === dy)
-					self.setHand(x, y);
-				if (self.currentView === 'hours')
-					self.toggleView('minutes', duration / 2);
-				else
-					if (options.autoclose) {
-						self.minutesView.addClass('clockpicker-dial-out');
-						setTimeout(function(){
-							self.done();
-						}, duration / 2);
-					}
-				plate.prepend(canvas);
-
-				// Reset cursor style of body
-				clearTimeout(movingTimer);
-				self.popover.removeClass('clockpicker-moving');
-
-				// Unbind mousemove event
-				$doc.off(mousemoveEvent);
-			});
-		}
-
-		if (svgSupported) {
-			// Draw clock hands and others
-			var canvas = popover.find('.clockpicker-canvas'),
-					svg = createSvgElement('svg');
-			svg.setAttribute('class', 'clockpicker-svg');
-			svg.setAttribute('width', diameter);
-			svg.setAttribute('height', diameter);
-			var g = createSvgElement('g');
-			g.setAttribute('transform', 'translate(' + dialRadius + ',' + dialRadius + ')');
-			var bearing = createSvgElement('circle');
-			bearing.setAttribute('class', 'clockpicker-canvas-bearing');
-			bearing.setAttribute('cx', 0);
-			bearing.setAttribute('cy', 0);
-			bearing.setAttribute('r', 2);
-			var hand = createSvgElement('line');
-			hand.setAttribute('x1', 0);
-			hand.setAttribute('y1', 0);
-			var bg = createSvgElement('circle');
-			bg.setAttribute('class', 'clockpicker-canvas-bg');
-			bg.setAttribute('r', tickRadius);
-			var fg = createSvgElement('circle');
-			fg.setAttribute('class', 'clockpicker-canvas-fg');
-			fg.setAttribute('r', 5);
-			g.appendChild(hand);
-			g.appendChild(bg);
-			g.appendChild(fg);
-			g.appendChild(bearing);
-			svg.appendChild(g);
-			canvas.append(svg);
-
-			this.hand = hand;
-			this.bg = bg;
-			this.fg = fg;
-			this.bearing = bearing;
-			this.g = g;
-			this.canvas = canvas;
-		}
-
-		raiseCallback(this.options.init);
-	}
-
-	function raiseCallback(callbackFunction) {
-		if(callbackFunction && typeof callbackFunction === "function")
-			callbackFunction();
-	}
-
-	// Default options
-	ClockPicker.DEFAULTS = {
-		'default': '',         // default time, 'now' or '13:14' e.g.
-		fromnow: 0,            // set default time to * milliseconds from now (using with default = 'now')
-		donetext: 'Ok',      // done button text
-		cleartext: 'Clear',
-		canceltext: 'Cancel',
-		autoclose: false,      // auto close when minute is selected
-		ampmclickable: true,  // set am/pm button on itself
-		darktheme: false,			 // set to dark theme
-		twelvehour: true,      // change to 12 hour AM/PM clock from 24 hour
-		vibrate: true          // vibrate the device when dragging clock hand
-	};
-
-	// Show or hide popover
-	ClockPicker.prototype.toggle = function() {
-		this[this.isShown ? 'hide' : 'show']();
-	};
-
-	// Set popover position
-	ClockPicker.prototype.locate = function() {
-		var element = this.element,
-				popover = this.popover,
-				offset = element.offset(),
-				width = element.outerWidth(),
-				height = element.outerHeight(),
-				align = this.options.align,
-				self = this;
-
-		popover.show();
-	};
-
-	// Show popover
-	ClockPicker.prototype.show = function(e){
-		// Not show again
-		if (this.isShown) {
-			return;
-		}
-		raiseCallback(this.options.beforeShow);
-		$(':input').each(function() {
-			$(this).attr('tabindex', -1);
-		})
-		var self = this;
-		// Initialize
-		this.input.blur();
-		this.popover.addClass('picker--opened');
-		this.input.addClass('picker__input picker__input--active');
-		$(document.body).css('overflow', 'hidden');
-		if (!this.isAppended) {
-			// Append popover to body
-			this.popover.insertAfter(this.input);
-			if(this.options.twelvehour) {
-				this.amOrPm = 'PM';
-				if(!this.options.ampmclickable) {
-					this.amPmBlock.children('.am-button').removeClass('active');
-					this.amPmBlock.children('.pm-button').addClass('active');
-					this.spanAmPm.empty().append('PM');
-				}
-				else {
-					this.spanAmPm.children('#click-pm').addClass("text-primary");
-					this.spanAmPm.children('#click-am').removeClass("text-primary");
-				}
-			}
-			// Reset position when resize
-			$win.on('resize.clockpicker' + this.id, function() {
-				if (self.isShown) {
-					self.locate();
-				}
-			});
-			this.isAppended = true;
-		}
-		// Get the time
-		var value = ((this.input.prop('value') || this.options['default'] || '') + '').split(':');
-		if(this.options.twelvehour && !(typeof value[1] === 'undefined')) {
-			value[1] = value[1].replace("AM", "").replace("PM", "");
-		}
-		if (value[0] === 'now') {
-			var now = new Date(+ new Date() + this.options.fromnow);
-			value = [
-				now.getHours(),
-				now.getMinutes()
-			];
-		}
-		this.hours = + value[0] || 0;
-		this.minutes = + value[1] || 0;
-		this.spanHours.html(leadingZero(this.hours));
-		this.spanMinutes.html(leadingZero(this.minutes));
-		// Toggle to hours view
-		this.toggleView('hours');
-		// Set position
-		this.locate();
-		this.isShown = true;
-		// Hide when clicking or tabbing on any element except the clock and input
-		$doc.on('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id, function(e) {
-			var target = $(e.target);
-			if (target.closest(self.popover.find('.picker__wrap')).length === 0 && target.closest(self.input).length === 0)
-				self.hide();
-		});
-		// Hide when ESC is pressed
-		$doc.on('keyup.clockpicker.' + this.id, function(e){
-			if (e.keyCode === 27)
-				self.hide();
-		});
-		raiseCallback(this.options.afterShow);
-	};
-	// Hide popover
-	ClockPicker.prototype.hide = function() {
-		raiseCallback(this.options.beforeHide);
-		this.input.removeClass('picker__input picker__input--active');
-		this.popover.removeClass('picker--opened');
-		$(document.body).css('overflow', 'visible');
-		this.isShown = false;
-		$(':input').each(function(index) {
-			$(this).attr('tabindex', index + 1);
-		});
-		// Unbinding events on document
-		$doc.off('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id);
-		$doc.off('keyup.clockpicker.' + this.id);
-		this.popover.hide();
-		raiseCallback(this.options.afterHide);
-	};
-	// Toggle to hours or minutes view
-	ClockPicker.prototype.toggleView = function(view, delay) {
-		var raiseAfterHourSelect = false;
-		if (view === 'minutes' && $(this.hoursView).css("visibility") === "visible") {
-			raiseCallback(this.options.beforeHourSelect);
-			raiseAfterHourSelect = true;
-		}
-		var isHours = view === 'hours',
-				nextView = isHours ? this.hoursView : this.minutesView,
-				hideView = isHours ? this.minutesView : this.hoursView;
-		this.currentView = view;
-
-		this.spanHours.toggleClass('text-primary', isHours);
-		this.spanMinutes.toggleClass('text-primary', ! isHours);
-
-		// Let's make transitions
-		hideView.addClass('clockpicker-dial-out');
-		nextView.css('visibility', 'visible').removeClass('clockpicker-dial-out');
-
-		// Reset clock hand
-		this.resetClock(delay);
-
-		// After transitions ended
-		clearTimeout(this.toggleViewTimer);
-		this.toggleViewTimer = setTimeout(function() {
-			hideView.css('visibility', 'hidden');
-		}, duration);
-
-		if (raiseAfterHourSelect)
-			raiseCallback(this.options.afterHourSelect);
-	};
-
-	// Reset clock hand
-	ClockPicker.prototype.resetClock = function(delay) {
-		var view = this.currentView,
-				value = this[view],
-				isHours = view === 'hours',
-				unit = Math.PI / (isHours ? 6 : 30),
-				radian = value * unit,
-				radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius,
-				x = Math.sin(radian) * radius,
-				y = - Math.cos(radian) * radius,
-				self = this;
-
-		if(svgSupported && delay) {
-			self.canvas.addClass('clockpicker-canvas-out');
-			setTimeout(function(){
-				self.canvas.removeClass('clockpicker-canvas-out');
-				self.setHand(x, y);
-			}, delay);
-		} else
-			this.setHand(x, y);
-	};
-
-	// Set clock hand to (x, y)
-	ClockPicker.prototype.setHand = function(x, y, roundBy5, dragging) {
-		var radian = Math.atan2(x, - y),
-				isHours = this.currentView === 'hours',
-				unit = Math.PI / (isHours || roundBy5? 6 : 30),
-				z = Math.sqrt(x * x + y * y),
-				options = this.options,
-				inner = isHours && z < (outerRadius + innerRadius) / 2,
-				radius = inner ? innerRadius : outerRadius,
-				value;
-
-		if (options.twelvehour)
-			radius = outerRadius;
-
-		// Radian should in range [0, 2PI]
-		if (radian < 0)
-			radian = Math.PI * 2 + radian;
-
-		// Get the round value
-		value = Math.round(radian / unit);
-
-		// Get the round radian
-		radian = value * unit;
-
-		// Correct the hours or minutes
-		if(options.twelvehour) {
-			if(isHours) {
-				if(value === 0)
-					value = 12;
-			} else {
-				if(roundBy5)
-					value *= 5;
-				if(value === 60)
-					value = 0;
-			}
-		} else {
-			if(isHours) {
-				if(value === 12)
-					value = 0;
-				value = inner ? (value === 0 ? 12 : value) : value === 0 ? 0 : value + 12;
-			} else {
-				if(roundBy5)
-					value *= 5;
-				if(value === 60)
-					value = 0;
-			}
-		}
-		if (isHours)
-			this.fg.setAttribute('class', 'clockpicker-canvas-fg');
-		else {
-			if(value % 5 == 0)
-				this.fg.setAttribute('class', 'clockpicker-canvas-fg');
-			else
-				this.fg.setAttribute('class', 'clockpicker-canvas-fg active');
-		}
-
-		// Once hours or minutes changed, vibrate the device
-		if (this[this.currentView] !== value)
-			if (vibrate && this.options.vibrate)
-				// Do not vibrate too frequently
-				if (! this.vibrateTimer) {
-					navigator[vibrate](10);
-					this.vibrateTimer = setTimeout($.proxy(function(){
-						this.vibrateTimer = null;
-					}, this), 100);
-				}
-
-		this[this.currentView] = value;
-		this[isHours ? 'spanHours' : 'spanMinutes'].html(leadingZero(value));
-
-		// If svg is not supported, just add an active class to the tick
-		if (! svgSupported) {
-			this[isHours ? 'hoursView' : 'minutesView'].find('.clockpicker-tick').each(function(){
-				var tick = $(this);
-				tick.toggleClass('active', value === + tick.html());
-			});
-			return;
-		}
-
-		// Place clock hand at the top when dragging
-		if (dragging || (! isHours && value % 5)) {
-			this.g.insertBefore(this.hand, this.bearing);
-			this.g.insertBefore(this.bg, this.fg);
-			this.bg.setAttribute('class', 'clockpicker-canvas-bg clockpicker-canvas-bg-trans');
-		} else {
-			// Or place it at the bottom
-			this.g.insertBefore(this.hand, this.bg);
-			this.g.insertBefore(this.fg, this.bg);
-			this.bg.setAttribute('class', 'clockpicker-canvas-bg');
-		}
-
-		// Set clock hand and others' position
-		var cx1 = Math.sin(radian) * (radius - tickRadius),
-			  cy1 = - Math.cos(radian) * (radius - tickRadius),
-		    cx2 = Math.sin(radian) * radius,
-			  cy2 = - Math.cos(radian) * radius;
-		this.hand.setAttribute('x2', cx1);
-		this.hand.setAttribute('y2', cy1);
-		this.bg.setAttribute('cx', cx2);
-		this.bg.setAttribute('cy', cy2);
-		this.fg.setAttribute('cx', cx2);
-		this.fg.setAttribute('cy', cy2);
-	};
-
-	// Hours and minutes are selected
-	ClockPicker.prototype.done = function() {
-		raiseCallback(this.options.beforeDone);
-		this.hide();
-		this.label.addClass('active');
-
-		var last = this.input.prop('value'),
-				value = leadingZero(this.hours) + ':' + leadingZero(this.minutes);
-		if (this.options.twelvehour)
-			value = value + this.amOrPm;
-
-		this.input.prop('value', value);
-		if(value !== last) {
-			this.input.triggerHandler('change');
-			if(!this.isInput)
-				this.element.trigger('change');
-		}
-
-		if(this.options.autoclose)
-			this.input.trigger('blur');
-
-		raiseCallback(this.options.afterDone);
-	};
-
-	// Clear input field
-	ClockPicker.prototype.clear = function() {
-		this.hide();
-		this.label.removeClass('active');
-
-		var last = this.input.prop('value'),
-			value = ''
-
-		this.input.prop('value', value);
-		if (value !== last) {
-			this.input.triggerHandler('change');
-			if (! this.isInput) {
-				this.element.trigger('change');
-			}
-		}
-
-		if (this.options.autoclose) {
-			this.input.trigger('blur');
-		}
-	};
-
-	// Remove clockpicker from input
-	ClockPicker.prototype.remove = function() {
-		this.element.removeData('clockpicker');
-		this.input.off('focus.clockpicker click.clockpicker');
-		if (this.isShown)
-			this.hide();
-		if (this.isAppended) {
-			$win.off('resize.clockpicker' + this.id);
-			this.popover.remove();
-		}
-	};
-
-	// Extends $.fn.clockpicker
-	$.fn.pickatime = function(option){
-		var args = Array.prototype.slice.call(arguments, 1);
-		return this.each(function(){
-			var $this = $(this),
-					data = $this.data('clockpicker');
-			if (!data) {
-				var options = $.extend({}, ClockPicker.DEFAULTS, $this.data(), typeof option == 'object' && option);
-				$this.data('clockpicker', new ClockPicker($this, options));
-			} else {
-				// Manual operatsions. show, hide, remove, e.g.
-				if (typeof data[option] === 'function')
-					data[option].apply(data, args);
-			}
-		});
-	};
-}());
 ;(function ($) {
 
   $.fn.characterCounter = function(){

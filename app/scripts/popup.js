@@ -6,26 +6,26 @@
 'use strict';
 /*jshint multistr: true */
 
-/*globals $:false, 
-          chrome:false, 
-          hueCommander:true, 
-          hue:false, 
-          sceneCommander:false, 
-          Palettes:false, 
-          scenes:false, 
+/*globals $:false,
+          chrome:false,
+          hueCommander:true,
+          hue:false,
+          sceneCommander:false,
+          Palettes:false,
+          scenes:false,
           trackEvent:false,
           trackState,
           colorUtil:false,
           ga:false
           Ambient:false,
 		      config:false,
-          voice: true, 
+          voice: true,
           huevoice: true,
           findActors,
           activatedScene,
           voiceCommander,
           hueProxy
-          
+
 */
 
 /* exported voiceCmdFunc */
@@ -54,7 +54,7 @@ var gravity = {
   y: 0,
   z: 0,
   hue: 0,
-  bri: 0, 
+  bri: 0,
   sat: 255,
   north: 0,
   northhue: false,
@@ -95,6 +95,9 @@ $(document).ready(function(){
     initAmbientEye();
     initCloseMinimize();
 
+    initDateTimePickers();
+
+
     //$('footer a').click(handleSystemLink);
     $('.nativeclick').click(handleSystemLink);
 
@@ -112,9 +115,9 @@ function onDeviceReady() {
 }
 
 
-function handleSystemLink(a) {  
+function handleSystemLink(a) {
   /*jshint validthis:true */
-  
+
   var url =  $(this).attr('href');
   //var url = a.target.href;
   //if (a.target.href === undefined) {
@@ -129,7 +132,7 @@ function handleSystemLink(a) {
 
   if (typeof navigator.app !== 'undefined' && navigator.app.loadUrl != undefined) {
     navigator.app.loadUrl(url, { openExternal:true });
-  } else if (isDevice) { 
+  } else if (isDevice) {
     window.open(url, '_system', 'location=yes');
   } else {
     window.open(url, '_blank', 'location=yes');
@@ -195,7 +198,7 @@ function initGlobals(){
       window.hue = hue(window.jQuery, window.colors);
       sceneCmd = sceneCommander(window.jQuery, window.hue);
       window.hueCommander = hueCommander(window.jQuery, window.hue, colorUtil(), sceneCmd);
-        
+
     } else if (background !== null) {
       window.hue = background.hue;
       sceneCmd = background.sceneCmd;
@@ -230,13 +233,33 @@ function initGlobals(){
 
     setInitialHeight();
 }
- 
+
+function initDateTimePickers() {
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 0 // Creates a dropdown of 15 years to control year
+  });
+
+   $('.timepicker').pickatime({
+    default: 'now', // Set default time
+    fromnow: 60000,       // set default time to * milliseconds from now (using with default = 'now')
+    twelvehour: false, // Use AM/PM or 24-hour format
+    donetext: 'OK', // text for done-button
+    cleartext: 'Clear', // text for clear-button
+    canceltext: 'Cancel', // Text for cancel-button
+    autoclose: true, // automatic close timepicker
+    ampmclickable: true, // make AM PM clickable
+    aftershow: function(){} //Function for after opening timepicker
+
+  });
+}
+
 var hueStatusRequestInterval = null;
 
 function requestStatus(){
   window.hueProxy.cmd('getStatus', onHueStatusUpdate);
   if (!hueStatusRequestInterval) {
-    hueStatusRequestInterval = setInterval(requestStatus, 500); 
+    hueStatusRequestInterval = setInterval(requestStatus, 500);
   }
 }
 
@@ -250,7 +273,7 @@ function initRequestEye(){
   requestAmbientPermissionOnClient(function(granted) {
     if (granted) {
       tryEnableEye();
-    } 
+    }
   });
 }
 
@@ -262,7 +285,7 @@ function setInitialHeight() {
       setHeight(160, 0);
     } else {
       setHeight(150, 0);
-    }  
+    }
 }
 
 function initSlider(){
@@ -299,10 +322,10 @@ function initSubscribe(){
                   errorShake('.subscribe-form');
               } else {
                   // It worked, so hide form and display thank-you message.
-                  $('.subscribe-form').removeClass('error'); 
-                  $('.subscribe-form').addClass('ok'); 
-                  $('.successsubscribe').show(); 
-                  $('.subscribe-form').hide();               
+                  $('.subscribe-form').removeClass('error');
+                  $('.subscribe-form').addClass('ok');
+                  $('.successsubscribe').show();
+                  $('.subscribe-form').hide();
               }
           }
       });
@@ -311,13 +334,13 @@ function initSubscribe(){
 }
 
 function errorShake(id){
-  $(id).addClass('error'); 
+  $(id).addClass('error');
   $(id).addClass('shake');
-  $(id).bind('oanimationend animationend webkitAnimationEnd', function() { 
+  $(id).bind('oanimationend animationend webkitAnimationEnd', function() {
      $(id).removeClass('shake');
   });
 }
- 
+
 /* search */
 function initSearch() {
     $('#colorsearch').keyup(function(e){
@@ -407,7 +430,7 @@ function showPalettes(palettes){
     });
 
     results.append(result);
-  });  
+  });
 }
 
 
@@ -415,7 +438,7 @@ function log(text) {
     console.log(text);
 }
 
-            
+
 
 /* bridge ip */
 function initManualBridge(){
@@ -439,10 +462,10 @@ function tryBridge(){
     // on fail
     $('#manualbridgeip')
       .addClass('shake')
-      .bind('oanimationend animationend webkitAnimationEnd', function() { 
+      .bind('oanimationend animationend webkitAnimationEnd', function() {
        $('#manualbridgeip').removeClass('shake');
     });
-    
+
 
   });
 }
@@ -458,7 +481,7 @@ function tryIP(ip, error){
         error: error,
         timeout: 2000
       });
-  } 
+  }
   catch(err) {
     // do nothing.
   }
@@ -495,12 +518,12 @@ function onStatus(status) {
       return;
     }
     console.log('client: status changed - ' + status.status);
-    
+
     if (status.status === 'BridgeNotFound') {
       onBridgeNotFound();
-      
+
       return;
-    } 
+    }
     if (manualIpInputAnimation !== null) {
       clearInterval(manualIpInputAnimation);
       manualIpInputAnimation = null;
@@ -565,7 +588,7 @@ function onBridgeInit(status) {
 
 function onBridgeDisconnected(status){
   stopHeartbeat();
-        
+
   log('Hiding elements, bridge not found');
   $('#connectStatus').html('<div class="intro-text">' + status.text + '</div>');
   $('#lightswitch').prop('disabled', true);
@@ -592,7 +615,7 @@ function onSuccessfulInit(){
     }
   }
   $('.switch').fadeIn(600, showControls);
-    
+
   //$('body').addClass('on');
   requestSettings();
 
@@ -626,7 +649,7 @@ function setHeight(height, transitionTime) {
 }
 
 function updateActorUI(actorId) {
-  
+
   $('button').removeClass('active');
   $('button[id=' + actorId + ']').addClass('active');
 
@@ -644,7 +667,7 @@ function updateActorControls(actors) {
     }
     //names = names + ', ' + lamp.name;
   });
- 
+
   $('#lightswitch').prop('checked', on);
   enableBrightness(on);
   $('#brightness-control').val(bri);
@@ -711,7 +734,7 @@ function initSceneCreation() {
   });
   //$('#add-schedule').click(function(){
   //});
-  
+
 }
 
 function createActorBtn(key,name){
@@ -735,7 +758,7 @@ function flashLamp(event){
 }
 
 function setActor(key) {
-  hueProxy.cmd('setActor', key, updateActorUI); 
+  hueProxy.cmd('setActor', key, updateActorUI);
 }
 
 function delayedRefresh(){
@@ -750,7 +773,7 @@ function removeGroupClick(){
   var key = this.id;
   hueProxy.cmd('removeGroup', key);
   delayedRefresh();
-  
+
   $(this).hide('slow');
 }
 
@@ -785,9 +808,9 @@ function fillSettings(state) {
     //var state =window.hueProxy.getState();
     // safari ios compatibility issues:
     var i = 0,
-        key = null, 
+        key = null,
         value = null,
-        btn = null, 
+        btn = null,
         selector = null;
 
     if (!state) {
@@ -796,7 +819,7 @@ function fillSettings(state) {
     }
 
     if (state.lights !== null && state.lights !== undefined) {
-        trackState('config', state);        
+        trackState('config', state);
         /*
         trackEvent('settings', 'init', 'version', state.config.swversion);
         trackEvent('settings', 'init', 'ip', state.config.ipaddress);
@@ -812,7 +835,7 @@ function fillSettings(state) {
         $('#groups').empty();
         $('#scenes').empty();
         $('#schedules').empty();
-        
+
         $('#group-remove').empty();
 
         //arr.sort(function (v,v1) { return v.f > v1.f ; })
@@ -843,14 +866,14 @@ function fillSettings(state) {
         for(i in lightsAll) {
             //key = i;
             value = state.lights[lightsAll[i].key];
-          
+
             if (value.state === undefined) {
               continue;
             }
 
-            //log('Lights: ' + key  + ', name: ' + 
-            //  value.name + ', reachable: ' + 
-            //  value.state.reachable + 
+            //log('Lights: ' + key  + ', name: ' +
+            //  value.name + ', reachable: ' +
+            //  value.state.reachable +
             //  ', on: ' + value.state.on);
 
             /* value: "{"state":
@@ -879,7 +902,7 @@ function fillSettings(state) {
             btn.click(actorClick);
             btn.click(flashLamp);
             $('#lamps').append(btn);
-            
+
             selector = createActorBtn(value.key, value.name);
             selector.addClass('lamp-select');
             selector.click(flashLamp);
@@ -892,15 +915,15 @@ function fillSettings(state) {
             if (value.state.reachable) {
               var b = Math.round(value.state.bri/256*100);
               if (b == 99) b = 100;
-              desc = `hsl: ${Math.round(value.state.hue/65535*359)}°, 
-                       ${Math.round(value.state.sat/256*100)}%, 
+              desc = `hsl: ${Math.round(value.state.hue/65535*359)}°,
+                       ${Math.round(value.state.sat/256*100)}%,
                        ${b}%. `;
-            } 
+            }
 //groups: lights: 0: "1"
 //name: "All"
             var color = `hsla(
-                       ${Math.round(value.state.hue*1000/65535*359)/1000}, 
-                       ${Math.round(value.state.sat*1000/256*100)/1000}%, 
+                       ${Math.round(value.state.hue*1000/65535*359)/1000},
+                       ${Math.round(value.state.sat*1000/256*100)/1000}%,
                        ${Math.round((value.state.bri)*1000/256*100)/1000 + 1}%, 1)`;
 
             //desc = "";
@@ -923,7 +946,7 @@ function fillSettings(state) {
         }
 
 
-        
+
         if (typeof(chrome) !== 'undefined'  && chrome.browserAction !== undefined) {
           var path = 'images/lightswitch.logo.on.128.png';
             if (allOn)  {
@@ -952,7 +975,7 @@ function fillSettings(state) {
         for(i in state.scenes) {
           key = i;
           value = state.scenes[i];
-        
+
             //log('Scenes: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
 
             if (value.name.endsWith(' on 0'))
@@ -963,14 +986,14 @@ function fillSettings(state) {
                 btn.click(activateSceneClick);
                 $('#scenes').append(btn);
               }
-            } 
+            }
         }
 
         var scheduleLines = [];
 
         for(i in state.schedules) {
           key = i;
-          value = state.schedules[i];  
+          value = state.schedules[i];
 
           // round button
           var btn = $('<button type="button" class="schedule savedscene"></button>').text(value.description + ' (' + value.name + ')').attr('id', key);
@@ -988,18 +1011,18 @@ function fillSettings(state) {
             if (value.description !== '') {
               desc += ', ' + value.description;
             }
-          } 
-          
+          }
+
           value.type = value.starttime ? "bell-o" : "clock";
           value.type = value.autodelete ? "bomb" : value.type;
-          
+
           value.scenename = '';
           value.action = '';
           value.fade = '';
 
           if (value.command.body.scene && state.scenes[value.command.body.scene]) {
             value.scene = state.scenes[value.command.body.scene];
-            
+
             var parts = value.scene.name.replace('1 lights','1 light').split(' ');
             var last = parts.pop();
             if (!isNaN(last)) {
@@ -1027,15 +1050,15 @@ function fillSettings(state) {
             huetime.humanTime = mins;
             sortKey = "a " + starttime.sortkey;
           }
-          
+
           huetime.humanTime = huetime.humanTime.replace('AM', '<i>am</i>');
           huetime.humanTime = huetime.humanTime.replace('PM', '<i>pm</i>');
           huetime.humanTime = huetime.humanTime.replace(' mins', ' <i>mins</i>');
           huetime.humanTime = huetime.humanTime.replace(' min', ' <i>min</i>');
           value.huetime = huetime;
-          
+
           var scheduleItem = `<div class="item">
-              <i class="play fa fa-${value.type}"></i>
+              <i class="fa fa-${value.type}"></i>
               <div class="switch no-drag">
                 <input id="enable-schedule-${key}" class="cmn-toggle cmn-toggle-round" type="checkbox"
                   ${value.status != "disabled" ? "checked='checked'" : ""}">
@@ -1051,8 +1074,8 @@ function fillSettings(state) {
           btn.click(activateScheduleClick);
 
           scheduleLines.push({key: sortKey, obj: btn});
-          
-          
+
+
         }
         scheduleLines.sort(function(item1, item2) {
           return item1.key.localeCompare(item2.key);
@@ -1061,8 +1084,8 @@ function fillSettings(state) {
         scheduleLines.forEach(function(item) {
           $('#schedules-list').append(item.obj);
         });
-        
-        
+
+
 
         $('#bridge #config-ip').text('IP: ' + state.config.ipaddress + ' (v' +  state.config.apiversion + ')');
         $('#bridge #config-swversion').text('Version: ' + state.config.swversion);
@@ -1076,7 +1099,7 @@ function fillSettings(state) {
             ', zigbeechannel:' + state.config.zigbeechannel);
 
         if (state.actorId == null) {
-          hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI); 
+          hueProxy.cmd('setActor', state.actorId || 'group-0', updateActorUI);
         } else {
           updateActorUI(state.actorId);
         }
@@ -1179,9 +1202,9 @@ function initPalettes() {
         var e = $('<div class="scene-name"></div>');
         e.text(sceneName);
 
-        sceneElement.append(colorsElement);    
+        sceneElement.append(colorsElement);
         sceneElement.append(e);
-      } 
+      }
     });
 
     $('.scene').click(function(element){
@@ -1224,7 +1247,7 @@ function round(n){
   var num = n.toFixed(2);
   if (n >= 0) {
     num = '+' + num;
-  } 
+  }
   return num;
 }
 
@@ -1239,7 +1262,7 @@ function initGravity() {
       if (!active || gravity.timer !== null) {
         clearInterval(gravity.timer);
         gravity.timer = null;
-      } else {    
+      } else {
         //gravity.timer = setInterval(gravityUpdate, 300);
         gravity.timer = setTimeout(gravityUpdate, 300);
       }
@@ -1256,7 +1279,7 @@ function initGravity() {
         $('#orien').text('0');
       }
       log('orientation: ' + window.orientation);
-    }); 
+    });
 }
 
 function enableGravity(on) {
@@ -1284,16 +1307,16 @@ function onDeviceOrientation(e) {
     //if (n < 0) {
     //  n += 360;
     //}
-    gravity.north = e.webkitCompassHeading; 
+    gravity.north = e.webkitCompassHeading;
   } else {
     gravity.north = e.alpha || 0;
   }*/
-  
+
   $('#north').text(gravity.north);
   gravity.a = e.alpha;
   gravity.b = e.beta;
   gravity.g = e.gamma;
-  
+
 }
 
 function onDeviceMotion (event){
@@ -1347,12 +1370,12 @@ function gravityUpdate(){
     if (!gravity.northhue){
       gravity.sat = Math.round((yCoef / 10) * 255);
       gravity.hue += Math.round((xCoef / 10) * 65535 * 0.05);
-      gravity.bri = 255; // max 
+      gravity.bri = 255; // max
     } else {
       gravity.sat = Math.round((yCoef / 10) * 255);
       gravity.hue = Math.round((gravity.north / 360) * 65535);
       gravity.bri = 255;//Math.round((xCoef / 10) * 255);
-    }  
+    }
     while (gravity.hue < 0) {
       gravity.hue += 65535;
     }
@@ -1408,13 +1431,13 @@ function initPickers() {
 }
 
 var currentHex = null;
-function throttleCmd(e){ 
+function throttleCmd(e){
     currentHex = getColor(e);
     if (delayedSend !== null) {
       clearTimeout(delayedSend);
     }
     if (hideCircleTimer !== null) {
-      clearTimeout(hideCircleTimer); 
+      clearTimeout(hideCircleTimer);
     }
     delayedSend = setTimeout(onDelaySend, 500);
 }
@@ -1426,9 +1449,9 @@ function onDelaySend(){
 }
 
 // hide circle delayed
-function hideCircleDelayed() {  
+function hideCircleDelayed() {
   if (hideCircleTimer !== null) {
-    clearTimeout(hideCircleTimer); 
+    clearTimeout(hideCircleTimer);
   }
   hideCircleTimer = setTimeout(hideCircle, 1000);
 }
@@ -1464,8 +1487,8 @@ function getColor(e){
     // get coordinates of current position
     var canvasOffset = $(e.target).offset();
 
-    if (e.pageX === undefined) { 
-      e = e.originalEvent; 
+    if (e.pageX === undefined) {
+      e = e.originalEvent;
     }
 
     var touches = e.changedTouches;
@@ -1473,8 +1496,8 @@ function getColor(e){
       touches = e.targetTouches;
     }
 
-    if (e.pageX === undefined) { 
-      e = e.originalEvent; 
+    if (e.pageX === undefined) {
+      e = e.originalEvent;
     }
     log('touch event e.pageX:' + e.pageX);
     log('touch event touches:' + touches);
@@ -1492,13 +1515,13 @@ function getColor(e){
     var canvasX = Math.floor(x );//- canvasOffset.left);
     var canvasY = Math.floor(y );//- canvasOffset.top);
     var pixel = null;
-    
+
     var ctx = document.getElementById(e.target.id).getContext('2d');
     var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
     pixel = imageData.data;
 
     // show picker circle
-    
+
     // hide on white
     if (pixel[0] === 0 && pixel[1] === 0 && pixel[2] === 0) {
       //circle.fadeOut();
@@ -1509,8 +1532,8 @@ function getColor(e){
     //$('.preview').css('backgroundColor', pixelColor);
 
     var left = x - 10 + e.target.offsetLeft;
-    circle.css({ 
-          backgroundColor: pixelColor, 
+    circle.css({
+          backgroundColor: pixelColor,
           //top: e.pageY - 50,
           //left: e.pageX -10
           top: y - 50 + e.target.offsetTop,
@@ -1534,10 +1557,10 @@ function getColor(e){
 
 function initAmbientEye() {
     $('.tabs.main-menu').on('click', function(e) {
-      
+
       circle.hide();
       log('in tab: ' + e.target.hash);
-      
+
       trackEvent('click', 'tab', e.target.hash);
 
     	if (e.target.hash === '#eye')
@@ -1593,7 +1616,7 @@ function toggleEyeMode(e) {
 }
 
 function tryEnableEye(){
-  // check permissions for access to <all_tabs> 
+  // check permissions for access to <all_tabs>
   if (amExtension()) {
     log('loading as chrome extention popup');
     hasAllUrlAccess(function(granted) {
@@ -1725,7 +1748,7 @@ function toggleVoice() {
   }
   return false;
 }
-    
+
 function voiceCmdFunc(text, match, action, actor) {
   try {
     $('#voice-feedback').html('');
@@ -1739,7 +1762,7 @@ function voiceCmdFunc(text, match, action, actor) {
       } else {
         huevoice.speak('Cannot find the ' + actor + ' lights');
         return;
-      } 
+      }
     }
     // canExecute(action)
     if ($.inArray(action, ['on','off','dim','dim down','up','brighten','lighten','down','light up']) >= 0 || action.match('^scene:')) {

@@ -237,13 +237,13 @@ function initGlobals(){
 function initDateTimePickers() {
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 0 // Creates a dropdown of 15 years to control year
+    selectYears: 2 // Creates a dropdown of 2 years to control year
   });
 
    $('.timepicker').pickatime({
     default: 'now', // Set default time
-    fromnow: 60000,       // set default time to * milliseconds from now (using with default = 'now')
-    twelvehour: false, // Use AM/PM or 24-hour format
+    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+    twelvehour: true, // Use AM/PM or 24-hour format
     donetext: 'OK', // text for done-button
     cleartext: 'Clear', // text for clear-button
     canceltext: 'Cancel', // Text for cancel-button

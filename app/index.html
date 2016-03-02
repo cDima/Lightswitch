@@ -429,28 +429,47 @@
                                         <input type="text" name="addschedule" id="addschedule" class="input s5" required="">
                                         <label for="addschedule">New schedule name...</label>
                                   </div>
-                                  <button  name="Create schedule" type="submit"  id="add-schedule-submit" value="Add" class="submit col s1 input-field">
-                                      <i class="fa fa-plus-circle"></i>
-                                  </button>
+                                </div>
 
+                                <div class="click-to-toggle" style="">
+                                   <div class="switch">
+                                    <label>
+                                      Exact Date
+                                      <input type="checkbox"  id="schedule-repeats" checked >
+                                      <span class="lever"></span>
+                                      Repeats
+                                    </label>
+                                  </div>
+                                  <div class="days-picker" id="schedule-days">
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">M</a>
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">T</a>
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">W</a>
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">T</a>
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">F</a>
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">S</a>
+                                    <a class="btn-day btn-floating btn-small waves-effect waves-light center-align">S</a>
+                                  </div>
+                                  <div class="materialform row" id="schedule-exact-date">
+                                      <div class="input-field col s12">
+                                        <input id="scheduledate" type="text" class="datepicker" />
+                                        <label for="scheduledate" class="active">Date</label>
+                                      </div>
+                                  </div>
                                 </div>
 
                                 <div class="materialform row">
-                                  <div class="input-field col s11">
-                                    <label for="addscheduletime" class="active">Date time</label>
-                                    <input type="datetime" id="addscheduletime" class="datepicker" />
-                                  </div>
-
-                                  <div class="col s11">
-                                    <label for="birthdate" class="active">birthdate</label>
-                                    <input id="birthdate" type="text" class="datepicker" />
-                                    <label for="lunchtime" class="active">Lunchtime</label>
-                                    <input id="lunchtime" type="text" class="timepicker" />
-                                  </div>
-
-                                </div>
+                                    <div class="input-field col s12">
+                                      <label for="scheduletime" class="active">Time</label>
+                                      <input id="scheduletime" type="text" class="timepicker" />
+                                    </div>
                                 </div>
 
+
+
+                                <button  name="Create schedule" type="submit" id="add-schedule-submit" value="Save" class="btn s3 input-field">
+                                    <i class="fa fa-plus-circle"></i> Save
+                                </button>
+                                <br />
                               </div>
                               <!--<div id="schedules"></div>-->
 

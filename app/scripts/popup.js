@@ -252,6 +252,24 @@ function initDateTimePickers() {
     aftershow: function(){} //Function for after opening timepicker
 
   });
+
+  $("#schedule-repeats").click(toggleRepeatable);
+  toggleRepeatable();
+
+  $('.btn-day').click(function(){
+    $(this).toggleClass('btn-flat');
+  });
+}
+
+function toggleRepeatable() {
+  var repeatable = $('#schedule-repeats').is(':checked');
+  if (repeatable) {
+    $('#schedule-days').slideDown('slow');
+    $('#schedule-exact-date').slideUp('slow');
+  } else {
+    $('#schedule-days').slideUp('slow');
+    $('#schedule-exact-date').slideDown('slow');
+  }
 }
 
 var hueStatusRequestInterval = null;

@@ -800,8 +800,19 @@ a.hightlight {
     border-bottom-left-radius: 0;
 }
 
-
-
+.days-picker {
+  padding: 10px 0;
+  margin: 10px -11px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.btn-small {
+    line-height: 30px;
+}
+.btn-floating.btn-small {
+    width: 30px;
+    height: 30px;
+}
 
 .input {
   width: 69%;
@@ -1338,3 +1349,4 @@ body.voice #voice-feedback {
   src: url("../fonts/roboto/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/roboto/Roboto-Bold.woff") format("woff"), url("../fonts/roboto/Roboto-Bold.ttf") format("truetype");
   font-weight: 700;
 }
+

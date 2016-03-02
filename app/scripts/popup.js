@@ -259,6 +259,9 @@ function initDateTimePickers() {
   $('.btn-day').click(function(){
     $(this).toggleClass('btn-flat');
   });
+
+  $('select').material_select();
+
 }
 
 function toggleRepeatable() {

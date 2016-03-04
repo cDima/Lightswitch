@@ -763,10 +763,19 @@ function createActorBtn(key,name){
   return btn;
 }
 
+function actorSelectChanged(event){
+  var key = event.target.selectedOptions[0].value;
+  setActor(key);
+  $("#config-actor").text($(event.target.selectedOptions[0]).html());
+  return false;
+}
+
 function actorClick(event){
   var key = event.target.id;
   $('button').removeClass('active');
   $('button[id=' + key + ']').addClass('active');
+  $('select.actor-select').val(key);
+  $('select.actor-select').material_select();
   setActor(key);
   $("#config-actor").text($(event.target).html());
   return false;
@@ -856,6 +865,7 @@ function fillSettings(state) {
         $('#groups').empty();
         $('#scenes').empty();
         $('#schedules').empty();
+        $('select.actor-select').empty();
 
         $('#group-remove').empty();
 
@@ -924,6 +934,8 @@ function fillSettings(state) {
             btn.click(flashLamp);
             $('#lamps').append(btn);
 
+            addActorSelect(value.key, value.name);
+
             selector = createActorBtn(value.key, value.name);
             selector.addClass('lamp-select');
             selector.click(flashLamp);
@@ -986,12 +998,14 @@ function fillSettings(state) {
             chrome.browserAction.setIcon({path:path});
         }
 
+
         for(i in state.groups) {
           key = i;
           value = state.groups[i];
           //log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
           displayGroup(key, value.name, key !== '0');
         }
+
 
         for(i in state.scenes) {
           key = i;
@@ -1106,6 +1120,8 @@ function fillSettings(state) {
           $('#schedules-list').append(item.obj);
         });
 
+        $('select.actor-select').change(actorSelectChanged);
+        $('select.actor-select').material_select();
 
 
         $('#bridge #config-ip').text('IP: ' + state.config.ipaddress + ' (v' +  state.config.apiversion + ')');
@@ -1139,6 +1155,13 @@ function displayGroup(key, name, removable) {
     selector.append($('<li class="fa fa-remove"></li>'));
     $('#group-remove').append(selector);
   }
+
+  addActorSelect(key, name);
+}
+
+function addActorSelect(key, name) {
+  var selectable = $(`<option value="${'group-' + key}" data-icon="" class="left circle">${name}</option>`);
+  $('select.actor-select').append(selectable);
 }
 
 if (typeof String.prototype.endsWith !== 'function') {

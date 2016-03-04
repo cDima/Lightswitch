@@ -78,10 +78,12 @@
 
 
 <body id="page-top" class="background" data-spy="scroll" data-target=".navbar-fixed-top">
+  <div class="top-bar"></div>
   <div class="background-frame">
     <div id="wrapper">
         <!-- Intro Header -->
         <header class="intro draggable">
+          <div class="background-image"></div>
           <div class="minimize-icon only-app no-drag">
             <a href="#minimize" id="minimize-app" alt='minimize'>
               <i class="fa fa-minus"></i>
@@ -109,6 +111,7 @@
           <input id="lightswitch1" class="cmn-toggle cmn-toggle-round" type="checkbox">
           <label class="label" for="lightswitch1"></label>
         </div>-->
+
 
             <div class="intro-body">
                 <div class="container nopadding">
@@ -212,9 +215,21 @@
                       <div role="tabpanel" class="tab-pane fade in active" id="home">
                         <div class="card">
                           <div class="card-content">
-                            <span class="card-title">Brightness</span>
+                            <span class="card-title">Quick access</span>
                             <!--<a class="link-btn command" href="#darken" title="Darken">-</a>
                             <a class="link-btn command" href="#brighten" title="Brighten">+</a>-->
+
+                            <div class="row">
+                              <div class="input-field col s12">
+                                <select class="actor-select" id="actor-select">
+                                  <option value="" disabled selected>Choose group</option>
+                                  <!--<option value="" data-icon="images/sample-1.jpg" class="left circle">example 1</option>-->
+                                </select>
+                                <label>Selected lights:</label>
+                              </div>
+                            </div>
+
+
                             <div class="row">
                               <div class="col s12">
                                 Controlling: <span id="config-actor">All</span>

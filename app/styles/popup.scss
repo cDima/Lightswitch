@@ -57,7 +57,37 @@ html, body {
     padding: 50px;
     background-color: #444;
     min-height: 100%;
-}
+}/*
+.background-frame {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+    background-color: #fc7279;
+    background-image: -webkit-linear-gradient(bottom left, #fc7279 10%, #ff7b9c 65%, #ffc019 125%);
+    background-image: linear-gradient(to top right,#fc7279 10%, #ff7b9c 65%, #ffc019 125%);
+    min-height: 100vh;
+}*/
+
 
 #wrapper  {
   position: relative;
@@ -73,8 +103,27 @@ html, body {
 header {
     /*background: url(../images/bk/bk1.png);*/
     background-position-y: -206px;
+    overflow: hidden;
+
+    position: relative;
 }
 
+/*
+.background-image {
+    background-image: url(https://scontent-lga3-1.cdninstagram.com/t51.2885-15/e35/12750353_926115627485127_69997971_n.jpg?ig_cache_key=MTE5NzkyNDkzMzMwMTc1NDA0OQ%3D%3D.2);
+    background-position-y: -30%;
+    background-size: cover;
+    filter: blur(10px);
+
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background-repeat: repeat;
+    margin: -20px;
+    overflow: hidden;
+    overflow: hidden;
+    top:0;
+}*/
 
 /*@media only screen and (max-width: 640px) {
 
@@ -86,10 +135,21 @@ header {
   padding: 25px 0;
 }
 */
- /* CSS that's applied when the viewing area's width is 450px or less */
+ /*
 
-
-
+.top-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(82,160,234,1);
+    background: -moz-linear-gradient(left, rgba(82,160,234,1) 0%, rgba(53,186,147,1) 28%, rgba(128,109,175,1) 76%, rgba(226,118,114,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(82,160,234,1)), color-stop(28%, rgba(53,186,147,1)), color-stop(76%, rgba(128,109,175,1)), color-stop(100%, rgba(226,118,114,1)));
+    background: -webkit-linear-gradient(left, rgba(82,160,234,1) 0%, rgba(53,186,147,1) 28%, rgba(128,109,175,1) 76%, rgba(226,118,114,1) 100%);
+    background: -o-linear-gradient(left, rgba(82,160,234,1) 0%, rgba(53,186,147,1) 28%, rgba(128,109,175,1) 76%, rgba(226,118,114,1) 100%);
+    background: -ms-linear-gradient(left, rgba(82,160,234,1) 0%, rgba(53,186,147,1) 28%, rgba(128,109,175,1) 76%, rgba(226,118,114,1) 100%);
+    background: linear-gradient(to right, rgba(82,160,234,1) 0%, rgba(53,186,147,1) 28%, rgba(128,109,175,1) 76%, rgba(226,118,114,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52a0ea', endColorstr='#e27672', GradientType=1 );
+}
+ */
 .tabs.main-menu {
   width: 320px;
   border-bottom: 1px solid #ddd;
@@ -98,6 +158,8 @@ header {
 .tabs.main-menu .tab a {
   color: #666;
   font-size: 0.8em;
+  /*color: #FDFDFD;
+  text-shadow: 0px 2px 7px #000;*/
 }
 
 .main-menu .waves-effect .waves-ripple {
@@ -105,7 +167,7 @@ header {
 }
 
 .tabs .tab:hover {
-  background-color: #F9F9F9;
+  /*background-color: #F9F9F9;*/
 }
 
 .tabs .tab a.active {
@@ -230,6 +292,7 @@ a:focus {outline:0;}
   padding-top: 30px;
   width: 320px;
   margin: 0 auto;
+  position: relative;
 }
 body.win .intro-body {
   padding-top: 0px;
@@ -361,7 +424,6 @@ input.store-button:hover {
 .switch.main {
   margin: 0 auto;
   width: 45px;
-  overflow: hidden;
 }
 .switch {
     animation: fadein 2s;
@@ -1095,6 +1157,7 @@ h6 a, h6 a:hover  {
 .large-list .item {
   padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .large-list .item .title {

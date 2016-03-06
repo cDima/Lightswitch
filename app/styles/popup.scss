@@ -56,6 +56,7 @@ html, body {
 .background-frame {
     padding: 50px;
     background-color: #444;
+    background-color: #E6E6E6;
     min-height: 100%;
 }/*
 .background-frame {
@@ -98,6 +99,11 @@ html, body {
   margin: 0 auto;
 
   transition: height 1s linear;
+
+  box-shadow: 0px 16px 38px 0px #000;
+  box-shadow: 0px 6px 38px 0px rgba(0, 0, 0, 0.14);
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 header {
@@ -108,22 +114,23 @@ header {
     position: relative;
 }
 
-/*
-.background-image {
-    background-image: url(https://scontent-lga3-1.cdninstagram.com/t51.2885-15/e35/12750353_926115627485127_69997971_n.jpg?ig_cache_key=MTE5NzkyNDkzMzMwMTc1NDA0OQ%3D%3D.2);
-    background-position-y: -30%;
-    background-size: cover;
-    filter: blur(10px);
 
+.background-image {
+    /* background-image: url(https://scontent-lga3-1.cdninstagram.com/t51.2885-15/e35/12750353_926115627485127_69997971_n.jpg?ig_cache_key=MTE5NzkyNDkzMzMwMTc1NDA0OQ%3D%3D.2); */
+    background-position-y: 100%;
+    background-size: cover;
+    -webkit-filter: blur(6px);
+    filter: blur(10px);
     position: absolute;
     width: 120%;
     height: 120%;
     background-repeat: repeat;
-    margin: -20px;
+    left: -10%;
     overflow: hidden;
     overflow: hidden;
-    top:0;
-}*/
+    top: -10%;
+    /*background-image: url(https://images.unsplash.com/photo-1455245737663-3edc3b61dd1a?crop=entropy&fit=crop&fm=jpg&h=1300&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2050);*/
+}
 
 /*@media only screen and (max-width: 640px) {
 
@@ -224,6 +231,9 @@ header {
   .background-frame {
     padding: 0;
     height: initial;
+  }
+  #wrapper {
+    border-radius: 0;
   }
   .tabs .tab {
      min-width: initial;
@@ -984,8 +994,8 @@ a.hightlight {
   width:100%;
 }
 .materialform {
-  width: 100%;
-  position: relative;
+  /*width: 100%;
+  position: relative;*/
   margin-bottom: 0px;
 }
 .manualbridge {
@@ -1214,8 +1224,45 @@ h6 a, h6 a:hover  {
   margin-bottom: 5px;
   margin-right: 6px;
 }
-.hue-LCT001 {
+
+/* http://www.developers.meethue.com/documentation/supported-lights
+
+Color Light Module  0x0210 (Extended Color Light) LLM001  B Yes
+Color Temperature Module  0x0220 (Color Temperature Light)  LLM010, LLM011, LLM012  2200K-6500K Yes
+*/
+i.hueicon,
+i.hueicon.hue-LCT001,
+i.hueicon.hue-LCT007,
+i.hueicon.hue-LWB004,
+i.hueicon.hue-LWB006,
+i.hueicon.hue-LWB007
+ { /* Hue bulb A19 */
   background: url(../images/svg/white_and_color_e27.svg);
+}
+i.hueicon.hue-LCT002 { /*Hue Spot BR30*/
+  background: url(../images/svg/br30.svg);
+}
+i.hueicon.hue-LCT003 { /* Hue Spot GU10 */
+  background: url(../images/svg/gu10.svg);
+}
+i.hueicon.hue-LST001,
+i.hueicon.hue-LST002 { /*Hue LightStrips */
+  background: url(../images/svg/lightstrip.svg);
+}
+i.hueicon.hue-LLC010,
+i.hueicon.hue-LLC006 {
+  background: url(../images/svg/iris.svg);
+}
+i.hueicon.hue-LLC011,
+i.hueicon.hue-LLC012,
+i.hueicon.hue-LLC007 {
+  background: url(../images/svg/bloom.svg);
+}
+i.hueicon.hue-LLC013 {
+  background: url(../images/svg/storylight.svg);
+}
+i.hueicon.hue-LLC020 {
+  background: url(../images/svg/go.svg);
 }
 
 #create-group #group-name {
@@ -1319,12 +1366,13 @@ h6 a, h6 a:hover  {
 }
 
 .top-icon,
-.portal-control,
-.voice-control {
+.portal-control {
   float: left;
   padding: 10px 15px;
   position: absolute;
 }
+
+/*.voice-control,*/
 .voice-control-large {
   clear: both;
   font-size: 70px;

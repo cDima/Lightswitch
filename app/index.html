@@ -99,12 +99,6 @@
               <i class="fa fa-cloud"></i>
             </a>
           </div>-->
-          <div class="voice-control no-drag">
-            <a href="#voice" id="voice-mic" alt='voice'>
-              <i class="fa fa-microphone"></i>
-            </a>
-            <span id="voice-feedback"></span>
-          </div>
 
         <!--<div>
           <h3> Html</h3>
@@ -121,10 +115,6 @@
                             <h1 class="brand-heading logo">
                                 Lightswitch
                             </h1>
-                            <div class="main switch no-drag" id="toggle-lights">
-                              <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
-                              <label for="lightswitch"></label>
-                            </div>
                             <p id="connectStatus"></p>
                             <div class="clear"></div>
                         </div>
@@ -231,8 +221,8 @@
 
 
                             <div class="row">
-                              <div class="col s12">
-                                Controlling: <span id="config-actor">All</span>
+                              <div class="col s9">
+                                <!--Controlling: <span id="config-actor">All</span>-->
                                 <input id="brightness-control"
                                 data-slider-id='ex1Slider'
                                 type="text"
@@ -242,7 +232,25 @@
                                  data-slider-value="254"
                                  data-slider-tooltip="hide" />
                               </div>
+                              <div class="col s2 switch no-drag" id="toggle-lights">
+                                <input id="lightswitch" class="cmn-toggle cmn-toggle-round" disabled="disabled" type="checkbox">
+                                <label for="lightswitch"></label>
+                              </div>
                             </div>
+                          </div>
+                        </div>
+
+                        <div class="card voice-control">
+                          <div class="card-content">
+                            <span class="card-title">Voice control</span>
+
+                            <div class="voice-control-large">
+                              <a href="#voice" id="voice-mic" alt='voice'>
+                                <i class="fa fa-microphone"></i>
+                              </a>
+                            </div>
+                            <div id="voice-feedback"></div>
+
                           </div>
                         </div>
 
@@ -473,17 +481,17 @@
                                 </div>
 
                                 <div class="materialform row">
-                                    <div class="input-field col s12">
+                                    <div class="input-field col s7">
                                       <label for="scheduletime" class="active">Time</label>
                                       <input id="scheduletime" type="text" class="timepicker" />
                                     </div>
+                                    <div class="input-field col s5">
+                                      <input id="schedule-randomtime" type="number">
+                                      <label for="schedule-randomtime">Randomize</label>
+                                  </div>
                                 </div>
 
                                 <div class="row">
-                                  <div class="input-field col s12">
-                                    <input id="schedule-randomtime" type="number">
-                                    <label for="schedule-randomtime">Randomize within minutes</label>
-                                  </div>
                                   <div class="input-field col s12">
                                     <select>
                                       <option value="" disabled selected>Choose your option</option>

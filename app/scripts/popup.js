@@ -673,6 +673,8 @@ function updateActorUI(actorId) {
 
   $('button').removeClass('active');
   $('button[id=' + actorId + ']').addClass('active');
+  $('select.actor-select option[value="' + actorId + '"]').attr("selected", "selected");
+  $('select.actor-select').material_select();
 
   hueProxy.cmd('getActorStates', updateActorControls);
 }
@@ -893,6 +895,18 @@ function fillSettings(state) {
         }
         var lightsAll = lightsReachable.concat(lightsUnreachable);
 
+
+        addActorSelectCaption(`<option value="" disabled>Groups:</option>`);
+
+        for(i in state.groups) {
+          key = i;
+          value = state.groups[i];
+          //log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
+          displayGroup(key, value.name, key !== '0');
+        }
+
+        addActorSelectCaption(`<option value="" disabled>Lights:</option>`);
+
         //$.each(state.lights, function(key, value) {
         for(i in lightsAll) {
             //key = i;
@@ -996,14 +1010,6 @@ function fillSettings(state) {
                 }
             }
             chrome.browserAction.setIcon({path:path});
-        }
-
-
-        for(i in state.groups) {
-          key = i;
-          value = state.groups[i];
-          //log('Groups: ' + key  + ', name: ' + value.name + ', # lights: ' + value.lights.length);
-          displayGroup(key, value.name, key !== '0');
         }
 
 
@@ -1156,11 +1162,16 @@ function displayGroup(key, name, removable) {
     $('#group-remove').append(selector);
   }
 
-  addActorSelect(key, name);
+  //addActorSelect(key, name);
+  var selectable = $(`<option value="${'group-' + key}" data-icon="" class="left circle">${name}</option>`);
+  $('select.actor-select').append(selectable);
 }
 
+function addActorSelectCaption(html) {
+  $('select.actor-select').append($(html));
+}
 function addActorSelect(key, name) {
-  var selectable = $(`<option value="${'group-' + key}" data-icon="" class="left circle">${name}</option>`);
+  var selectable = $(`<option value="${key}" data-icon="" class="left circle">${name}</option>`);
   $('select.actor-select').append(selectable);
 }
 

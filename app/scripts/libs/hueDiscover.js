@@ -13,8 +13,8 @@ class MeetHueLookup {
     }
     discover() {
         return new Promise((resolveCallback, reject) => {
-            console.log('Requesting meethue.com/api/nupnp.');
-            var nupnp = 'https://www.meethue.com/api/nupnp';
+            console.log('Requesting https://discovery.meethue.com.');
+            var nupnp = 'https://discovery.meethue.com';
             this.AjaxLite.ajax({
                 url: nupnp,
                 dataType: 'json',
@@ -142,6 +142,7 @@ class HueBridge {
         } // what now?
     }
     onGotLightState (data, successCallback) {
+        debugger;
         if (data.hasOwnProperty('1') && 
             data['1'].hasOwnProperty('manufacturername')) {
             // indeed a light response.

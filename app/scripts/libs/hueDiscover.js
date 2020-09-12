@@ -142,12 +142,12 @@ class HueBridge {
         } // what now?
     }
     onGotLightState (data, successCallback) {
-        debugger;
-        if (data.hasOwnProperty('1') && 
-            data['1'].hasOwnProperty('manufacturername')) {
-            // indeed a light response.
-            data = {'lights' : data};
-        } 
+        for(i = 1; i < 100; i++) {
+            if (data.hasOwnProperty(i.toString()) && data[i.toString()].hasOwnProperty('manufacturername')) {
+                // indeed a light response.
+                data = {'lights' : data};
+            } 
+        }
         this.onGotBridgeState(data, successCallback);
     }
     onGotBridgeState (data, successCallback) {
